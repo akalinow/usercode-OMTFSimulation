@@ -16,19 +16,25 @@
 
 ///////////////////////////////////////
 ///////////////////////////////////////
-OMTFinputMaker::OMTFinputMaker(const edm::EventSetup& es){ 
+OMTFinputMaker::OMTFinputMaker(){ 
 
-  myPhiConverter = new MtfCoordinateConverter(es);
-  myPhiConverter->setReferencePhi(0);
   myInput = new OMTFinput();
+
+}
+///////////////////////////////////////
+///////////////////////////////////////
+void OMTFinputMaker::initialize(const edm::EventSetup& es){
+
+ myPhiConverter = new MtfCoordinateConverter(es);
+  myPhiConverter->setReferencePhi(0);
 
 }
 ///////////////////////////////////////
 ///////////////////////////////////////
 OMTFinputMaker::~OMTFinputMaker(){ 
 
-  delete myInput;
-  delete myPhiConverter;
+  if(myInput) delete myInput;
+  if(myPhiConverter) delete myPhiConverter;
 
 }
 ///////////////////////////////////////

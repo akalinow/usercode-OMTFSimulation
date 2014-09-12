@@ -6,7 +6,7 @@
 #include "interface/OMTFResult.h"
 #include "interface/OMTFProcessor.h"
 
-#include "interface/L1Obj.h"
+#include "UserCode/L1RpcTriggerAnalysis/interface/L1Obj.h"
 
 class OMTFSorter{
 

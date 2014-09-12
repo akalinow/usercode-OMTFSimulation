@@ -8,6 +8,7 @@
 
 class OMTFProcessor;
 class OMTFConfiguration;
+class OMTFinputMaker;
 class AnaEff;
 
 namespace edm { 
@@ -16,6 +17,8 @@ namespace edm {
 }
 
 class OMTFROOTReader: public edm::EDAnalyzer {
+
+public:
 
   OMTFROOTReader(const edm::ParameterSet & cfg);
   virtual ~OMTFROOTReader();
@@ -30,6 +33,7 @@ private:
   edm::ParameterSet theConfig;
 
   OMTFConfiguration *myOMTFConfig;
+  OMTFinputMaker *myInputMaker;
   OMTFProcessor *myOMTF;
   AnaEff        *myAnaEff;
 

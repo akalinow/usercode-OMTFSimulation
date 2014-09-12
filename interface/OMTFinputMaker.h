@@ -14,12 +14,16 @@ namespace edm{
 
 class OMTFinputMaker{
 
+ public:
+
   typedef std::pair<uint32_t, uint32_t> DigiSpec;
   typedef std::vector< DigiSpec > VDigiSpec;
 
-  OMTFinputMaker(const edm::EventSetup& es);
+  OMTFinputMaker();
 
   ~OMTFinputMaker();
+
+  void initialize(const edm::EventSetup& es);
 
   const OMTFinput * getEvent(const VDigiSpec & vDigi);
 

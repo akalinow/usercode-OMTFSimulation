@@ -25,7 +25,7 @@ OMTFProcessor::OMTFProcessor(const edm::ParameterSet & theConfig){
 ///////////////////////////////////////////////
 OMTFProcessor::~OMTFProcessor(){
 
-  for(auto it: theGPs) delete it.second;
+   for(auto it: theGPs) delete it.second;
 
 }
 ///////////////////////////////////////////////
@@ -44,7 +44,7 @@ bool OMTFProcessor::configure(XMLConfigReader *aReader){
 bool OMTFProcessor::addGP(GoldenPattern *aGP){
 
   if(theGPs.find(aGP->key())!=theGPs.end()) return false;
-  else theGPs[aGP->key()] = aGP;
+  else theGPs[aGP->key()] = new GoldenPattern(*aGP);
 
   myResults[aGP->key()] = OMTFResult(); 
 

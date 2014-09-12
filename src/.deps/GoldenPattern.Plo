@@ -1,0 +1,8 @@
+GoldenPattern.lo: GoldenPattern.cc ../interface/GoldenPattern.h \
+ ../interface/OMTFinput.h ../interface/OMTFConfiguration.h
+
+../interface/GoldenPattern.h:
+
+../interface/OMTFinput.h:
+
+../interface/OMTFConfiguration.h:

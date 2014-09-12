@@ -1,0 +1,6 @@
+OMTFConfiguration.lo: OMTFConfiguration.cc \
+ ../interface/OMTFConfiguration.h ../interface/XMLConfigReader.h
+
+../interface/OMTFConfiguration.h:
+
+../interface/XMLConfigReader.h:

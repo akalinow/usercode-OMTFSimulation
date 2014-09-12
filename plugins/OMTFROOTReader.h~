@@ -1,0 +1,14 @@
+#ifndef OMTF_OMTFROOTReader_H
+#define OMTF_OMTFROOTReader_H
+
+#include "FWCore/Framework/interface/EDAnalyzer.h"
+#include "FWCore/ParameterSet/interface/ParameterSet.h"
+
+
+class OMTFROOTReader{
+
+
+
+}
+
+#endif

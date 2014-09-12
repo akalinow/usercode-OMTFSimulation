@@ -1,0 +1,8 @@
+OMTFinput.lo: OMTFinput.cc ../interface/OMTFinput.h \
+ ../interface/OMTFConfiguration.h ../interface/XMLConfigReader.h
+
+../interface/OMTFinput.h:
+
+../interface/OMTFConfiguration.h:
+
+../interface/XMLConfigReader.h:

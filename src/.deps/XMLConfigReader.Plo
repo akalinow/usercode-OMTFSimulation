@@ -1,0 +1,11 @@
+XMLConfigReader.lo: XMLConfigReader.cc ../interface/XMLConfigReader.h \
+ ../interface/GoldenPattern.h ../interface/OMTFinput.h \
+ ../interface/OMTFConfiguration.h
+
+../interface/XMLConfigReader.h:
+
+../interface/GoldenPattern.h:
+
+../interface/OMTFinput.h:
+
+../interface/OMTFConfiguration.h:

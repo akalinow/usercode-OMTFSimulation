@@ -1,0 +1,13 @@
+XMLConfigWriter.lo: XMLConfigWriter.cc ../interface/XMLConfigWriter.h \
+ ../interface/GoldenPattern.h ../interface/OMTFinput.h \
+ ../interface/OMTFConfiguration.h ../interface/OMTFResult.h
+
+../interface/XMLConfigWriter.h:
+
+../interface/GoldenPattern.h:
+
+../interface/OMTFinput.h:
+
+../interface/OMTFConfiguration.h:
+
+../interface/OMTFResult.h:

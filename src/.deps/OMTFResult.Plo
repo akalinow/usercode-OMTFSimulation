@@ -1,0 +1,6 @@
+OMTFResult.lo: OMTFResult.cc ../interface/OMTFResult.h \
+ ../interface/OMTFConfiguration.h
+
+../interface/OMTFResult.h:
+
+../interface/OMTFConfiguration.h:

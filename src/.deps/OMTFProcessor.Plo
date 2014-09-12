@@ -1,0 +1,16 @@
+OMTFProcessor.lo: OMTFProcessor.cc ../interface/OMTFProcessor.h \
+ ../interface/GoldenPattern.h ../interface/OMTFinput.h \
+ ../interface/OMTFResult.h ../interface/OMTFConfiguration.h \
+ ../interface/XMLConfigReader.h
+
+../interface/OMTFProcessor.h:
+
+../interface/GoldenPattern.h:
+
+../interface/OMTFinput.h:
+
+../interface/OMTFResult.h:
+
+../interface/OMTFConfiguration.h:
+
+../interface/XMLConfigReader.h:

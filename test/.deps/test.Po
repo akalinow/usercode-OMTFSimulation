@@ -1,0 +1,58 @@
+test.o: test.cc ../interface/XMLConfigReader.h \
+ ../interface/XMLConfigWriter.h ../interface/OMTFConfiguration.h \
+ ../interface/OMTFProcessor.h ../interface/GoldenPattern.h \
+ ../interface/OMTFinput.h ../interface/OMTFResult.h \
+ ../interface/OMTFSorter.h ../interface/L1Obj.h \
+ /usr/include/root/TObject.h /usr/include/root/Rtypes.h \
+ /usr/include/root/RConfig.h /usr/include/root/RVersion.h \
+ /usr/include/root/DllImport.h /usr/include/root/Rtypeinfo.h \
+ /usr/include/root/snprintf.h /usr/include/root/strlcpy.h \
+ /usr/include/root/TGenericClassInfo.h /usr/include/root/TSchemaHelper.h \
+ /usr/include/root/TStorage.h /usr/include/root/TVersionCheck.h \
+ /usr/include/root/Riosfwd.h /usr/include/root/TBuffer.h
+
+../interface/XMLConfigReader.h:
+
+../interface/XMLConfigWriter.h:
+
+../interface/OMTFConfiguration.h:
+
+../interface/OMTFProcessor.h:
+
+../interface/GoldenPattern.h:
+
+../interface/OMTFinput.h:
+
+../interface/OMTFResult.h:
+
+../interface/OMTFSorter.h:
+
+../interface/L1Obj.h:
+
+/usr/include/root/TObject.h:
+
+/usr/include/root/Rtypes.h:
+
+/usr/include/root/RConfig.h:
+
+/usr/include/root/RVersion.h:
+
+/usr/include/root/DllImport.h:
+
+/usr/include/root/Rtypeinfo.h:
+
+/usr/include/root/snprintf.h:
+
+/usr/include/root/strlcpy.h:
+
+/usr/include/root/TGenericClassInfo.h:
+
+/usr/include/root/TSchemaHelper.h:
+
+/usr/include/root/TStorage.h:
+
+/usr/include/root/TVersionCheck.h:
+
+/usr/include/root/Riosfwd.h:
+
+/usr/include/root/TBuffer.h:

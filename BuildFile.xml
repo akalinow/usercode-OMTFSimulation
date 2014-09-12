@@ -1,0 +1,21 @@
+<use   name="FWCore/Framework"/>
+<use   name="DataFormats/L1Trigger"/>
+<use   name="DataFormats/RPCDigi"/>
+<use   name="DataFormats/CSCDigi"/>
+<use   name="Geometry/RPCGeometry"/>
+<use   name="Geometry/CommonDetUnit"/>
+<use   name="Geometry/Records"/>
+<use   name="FWCore/PluginManager"/>
+<use   name="root"/>  
+<use   name="xerces-c"/>
+<use   name="UserCode/L1RpcTriggerAnalysis"/>
+
+<Flags CXXFLAGS="-I/scratch_local/akalinow/CMS/OverlapTrackFinder/Dev4/CMSSW_7_0_1/src/UserCode/OMTFSimulation/"/>
+
+<export>
+  <lib   name="UserCodeOMTFSimulation"/>
+  <use   name="root"/>  
+  <use   name="xerces-c"/>
+</export>
+
+

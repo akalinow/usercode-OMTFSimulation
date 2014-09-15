@@ -18,7 +18,16 @@ process.omtfAnalysis = cms.EDAnalyzer("OMTFROOTReader",
   treeFileNames = cms.vstring(inputFiles),
   omtf = cms.PSet(
     configXMLFile = cms.string(path+"hwToLogicLayer.xml"),
-    patternsXMLFile =   cms.string(path+"Patterns_chMinus.xml")
+    patternsXMLFiles = cms.vstring(path+"Patterns_chPlus.xml",path+"Patterns_chMinus.xml")
+ ),
+ filterByAnaSiMuDistribution = cms.bool(True),
+ anaSiMuDistribution = cms.PSet(
+   ptMin = cms.double(2.),
+   ptMax = cms.double(1210.),
+   absEtaMinRef = cms.double(0.83),
+   absEtaMaxRef  = cms.double(1.24),
+   phiMinRef = cms.double(-3.2),
+   phiMaxRef = cms.double(3.2),
  ),
   anaEff      = cms.PSet( maxDR= cms.double(9999.)),
 )

@@ -14,8 +14,9 @@ unsigned int OMTFConfiguration::nPhiBits;
 
 std::map<int,int> OMTFConfiguration::hwToLogicLayer;
 std::map<int,int> OMTFConfiguration::logicToHwLayer;
+std::map<int,int> OMTFConfiguration::logicToLogic;
 std::vector<int> OMTFConfiguration::refToLogicNumber;
-std::set<int> OMTFConfiguration::bengingLayers;
+std::set<int> OMTFConfiguration::bendingLayers;
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
 OMTFConfiguration::OMTFConfiguration(const edm::ParameterSet & theConfig){

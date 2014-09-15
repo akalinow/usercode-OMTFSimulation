@@ -1,7 +1,7 @@
 #ifndef OMTF_OMTFSorter_H
 #define OMTF_OMTFSorter_H
 
-#include <array>
+#include <tuple>
 
 #include "interface/OMTFResult.h"
 #include "interface/OMTFProcessor.h"
@@ -16,7 +16,7 @@ class OMTFSorter{
 
  private:
 
-   std::array<unsigned int,3> sortSingleResult(const OMTFResult & aResult);
+  std::tuple<unsigned int,unsigned int, int> sortSingleResult(const OMTFResult & aResult);
 
 };
 

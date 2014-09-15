@@ -38,10 +38,14 @@ void OMTFResult::clear(){
 void OMTFResult::finalise(){
 
   for(unsigned int iLogicLayer=0;iLogicLayer<results.size();++iLogicLayer){
+    unsigned int connectedLayer = OMTFConfiguration::logicToLogic[iLogicLayer];
     for(unsigned int iRefLayer=0;iRefLayer<results[iLogicLayer].size();++iRefLayer){
-      results1D[iRefLayer]+=results[iLogicLayer][iRefLayer];
-      hits1D[iRefLayer]+=(results[iLogicLayer][iRefLayer]>0);
-    }
+      ///If connected layer (POS or BEND) has not been fired, ignore this layer also
+      unsigned int val = results[connectedLayer][iRefLayer]>0 ? results[iLogicLayer][iRefLayer]: 0;
+      results1D[iRefLayer]+=val;
+      ///Do not count bending layers in hit count
+      if(!OMTFConfiguration::bendingLayers.count(iLogicLayer)) hits1D[iRefLayer]+=(val>0);
+    }      
   }
 }
 ////////////////////////////////////////////

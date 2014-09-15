@@ -32,7 +32,8 @@ class OMTFConfiguration{
     
   static std::map<int,int> hwToLogicLayer;
   static std::map<int,int> logicToHwLayer;
-  static std::set<int> bengingLayers;
+  static std::map<int,int> logicToLogic;
+  static std::set<int> bendingLayers;
   static std::vector<int> refToLogicNumber;
 
 };

@@ -28,7 +28,7 @@ class OMTFProcessor{
 
   ///Process input datafrom asingle event
   ///Input data i reprecented by hits in logic layers
-  OMTFProcessor::resultsMap processInput(OMTFinput & aInput);
+  OMTFProcessor::resultsMap processInput(const OMTFinput & aInput);
 
   ///Return map of GoldenPatterns
   const std::map<Key,GoldenPattern*> & getPatterns() const;

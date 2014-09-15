@@ -13,13 +13,14 @@
 ///////////////////////////////////////////////
 OMTFProcessor::OMTFProcessor(const edm::ParameterSet & theConfig){
 
-  if ( !theConfig.exists("patternsXMLFile") ) return;
-  std::string fName = theConfig.getParameter<std::string>("patternsXMLFile");
+  if ( !theConfig.exists("patternsXMLFiles") ) return;
+  std::vector<std::string> fileNames = theConfig.getParameter<std::vector<std::string> >("patternsXMLFiles");
 
   XMLConfigReader myReader;
-  myReader.setPatternsFile(fName);
-  configure(&myReader);
-
+  for(auto it: fileNames){
+   myReader.setPatternsFile(it);
+   configure(&myReader);
+  }
 }
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
@@ -59,7 +60,7 @@ const std::map<Key,GoldenPattern*> & OMTFProcessor::getPatterns() const{
 }
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
-OMTFProcessor::resultsMap OMTFProcessor::processInput(OMTFinput & aInput){
+OMTFProcessor::resultsMap OMTFProcessor::processInput(const OMTFinput & aInput){
 
   for(auto & itKey: myResults) itKey.second.clear();
 
@@ -72,7 +73,7 @@ OMTFProcessor::resultsMap OMTFProcessor::processInput(OMTFinput & aInput){
       for(auto itRefHit: refLayerHits){	
 	for(auto itGP: theGPs){	  
 	  int phiRef = itRefHit;
-	  if(OMTFConfiguration::bengingLayers.count(iLayer)) phiRef = 0;
+	  if(OMTFConfiguration::bendingLayers.count(iLayer)) phiRef = 0;
 
 	  GoldenPattern::layerResult aLayerResult = itGP.second->process1Layer1RefLayer(iRefLayer,iLayer,
 											phiRef,

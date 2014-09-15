@@ -225,9 +225,11 @@ void XMLConfigReader::readConfig(OMTFConfiguration *aConfig){
     unsigned int hwNumer = std::atoi(_toString(aLayerElement->getAttribute(_toDOMS("hwNumber"))).c_str());
     unsigned int logicNumber = std::atoi(_toString(aLayerElement->getAttribute(_toDOMS("logicNumber"))).c_str());
     unsigned int isBendingLayer = std::atoi(_toString(aLayerElement->getAttribute(_toDOMS("bendingLayer"))).c_str());
+    unsigned int iConnectedLayer = std::atoi(_toString(aLayerElement->getAttribute(_toDOMS("connectedToLayer"))).c_str());
     aConfig->hwToLogicLayer[hwNumer] = logicNumber;
     aConfig->logicToHwLayer[logicNumber] = hwNumer;    
-    if(isBendingLayer)     aConfig->bengingLayers.insert(logicNumber);    
+    aConfig->logicToLogic[logicNumber] = iConnectedLayer;    
+    if(isBendingLayer)     aConfig->bendingLayers.insert(logicNumber);    
     if(nLogicLayers<logicNumber) nLogicLayers = logicNumber;
   }
   ++nLogicLayers;//logic number in XML starts from 0.

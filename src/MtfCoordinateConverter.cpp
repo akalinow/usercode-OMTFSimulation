@@ -182,6 +182,8 @@ float MtfCoordinateConverter::convertCsc(uint32_t detUnitId, uint16_t halfstrip,
 
 float MtfCoordinateConverter::convertDt(uint32_t detUnitId, int16_t phi) {
     DTChamberId baseid(detUnitId);
+    
+    //DT_PHI_BINS - number bins per radian
 
     int16_t sectorOffset = M_PI/6. * (baseid.sector()) * DT_PHI_BINS;
     //std::cout<<__FUNCTION__<<":"<<__LINE__<<" DT  "<<" "<<std::dec<<baseid<<" sectorOffset "<<sectorOffset<<std::endl;

@@ -5,7 +5,7 @@
 
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
-std::array<unsigned int,3> OMTFSorter::sortSingleResult(const OMTFResult & aResult){
+std::tuple<unsigned int,unsigned int, int> OMTFSorter::sortSingleResult(const OMTFResult & aResult){
 
   OMTFResult::vector1D pdfValsVec = aResult.getSummaryVals();
   OMTFResult::vector1D nHitsVec = aResult.getSummaryHits();
@@ -15,12 +15,12 @@ std::array<unsigned int,3> OMTFSorter::sortSingleResult(const OMTFResult & aResu
 
   unsigned int nHitsMax = 0;
   unsigned int pdfValMax = 0;
-  unsigned int refPhi = 1024;
+  int refPhi = 1024;
 
-  std::array<unsigned int,3> sortedResult;
-  sortedResult[0] = nHitsMax;
-  sortedResult[1] = pdfValMax;
-  sortedResult[2] = refPhi;
+  std::tuple<unsigned int,unsigned int, int>  sortedResult;
+  std::get<0>(sortedResult) = nHitsMax;
+  std::get<1>(sortedResult) = pdfValMax;
+  std::get<2>(sortedResult) = refPhi;
 
   ///Find a result with biggest number of hits
   for(auto itHits: nHitsVec){
@@ -38,9 +38,9 @@ std::array<unsigned int,3> OMTFSorter::sortSingleResult(const OMTFResult & aResu
     }
   }
 
-  sortedResult[0] = nHitsMax;
-  sortedResult[1] = pdfValMax;
-  sortedResult[2] = refPhi;
+  std::get<0>(sortedResult) = nHitsMax;
+  std::get<1>(sortedResult) = pdfValMax;
+  std::get<2>(sortedResult) = refPhi;
   return sortedResult;
 }
 ///////////////////////////////////////////////////////
@@ -49,19 +49,19 @@ L1Obj OMTFSorter::sortResults(const OMTFProcessor::resultsMap & aResultsMap){
 
   unsigned int pdfValMax = 0;
   unsigned int nHitsMax = 0;
-  unsigned int refPhi = 1024;
+  int refPhi = 9999;
   Key bestKey;
   for(auto itKey: aResultsMap){   
-    std::array<unsigned int,3> val = sortSingleResult(itKey.second);
-    if(val[0]>nHitsMax){
-      nHitsMax = val[0];
-      pdfValMax = val[1];
-      refPhi = val[2];
+    std::tuple<unsigned int,unsigned int, int> val = sortSingleResult(itKey.second);
+    if( std::get<0>(val)>nHitsMax){
+      nHitsMax = std::get<0>(val);
+      pdfValMax = std::get<1>(val);
+      refPhi = std::get<2>(val);
       bestKey = itKey.first;
     }
-    else if(val[0]==nHitsMax && val[1]>pdfValMax){
-      pdfValMax = val[1];
-      refPhi = val[2];
+    else if(std::get<0>(val)==nHitsMax &&  std::get<1>(val)>pdfValMax){
+      pdfValMax = std::get<1>(val);
+      refPhi = std::get<2>(val);
       bestKey = itKey.first;
     }
   }  

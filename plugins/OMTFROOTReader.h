@@ -9,7 +9,10 @@
 class OMTFProcessor;
 class OMTFConfiguration;
 class OMTFinputMaker;
+class OMTFSorter;
+
 class AnaEff;
+class AnaSiMuDistribution;
 
 namespace edm { 
   class Event; 
@@ -32,10 +35,15 @@ private:
   TObjArray myHistos;
   edm::ParameterSet theConfig;
 
+  ///OMTF objects
   OMTFConfiguration *myOMTFConfig;
   OMTFinputMaker *myInputMaker;
+  OMTFSorter *mySorter;
   OMTFProcessor *myOMTF;
+
+  ///Analysis objects
   AnaEff        *myAnaEff;
+  AnaSiMuDistribution *myAnaSiMu;
 
 
 }; 

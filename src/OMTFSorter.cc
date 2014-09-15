@@ -53,6 +53,8 @@ L1Obj OMTFSorter::sortResults(const OMTFProcessor::resultsMap & aResultsMap){
   Key bestKey;
   for(auto itKey: aResultsMap){   
     std::tuple<unsigned int,unsigned int, int> val = sortSingleResult(itKey.second);
+    ///Accept only candidates with >2 hits
+    if(std::get<0>(val)<3) continue;
     if( std::get<0>(val)>nHitsMax){
       nHitsMax = std::get<0>(val);
       pdfValMax = std::get<1>(val);

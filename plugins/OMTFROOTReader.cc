@@ -100,8 +100,8 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
   // number of events
   Int_t nentries= (Int_t) chain.GetEntries();
   ///Test settings
-  nentries = 21;
-  //nentries = 5E4;
+  //nentries = 21;
+  nentries = 5E4;
   /////////////////
   std::cout <<" ENTRIES: " << nentries << std::endl;
  
@@ -112,8 +112,8 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
 
     chain.GetEntry(ev);
 
-    //if ( (lastRun != (*event).run) || (ev%(nentries/20)==0)) { 
-    if ( (lastRun != (*event).run) || true) { 
+    if ( (lastRun != (*event).run) || (ev%(nentries/10)==0)) { 
+    //if ( (lastRun != (*event).run) || true) { 
       lastRun = (*event).run; 
       std::cout <<"RUN:"    << std::setw(7) << (*event).run
                 <<" event:" << std::setw(8) << ev
@@ -125,7 +125,11 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
 	!myAnaSiMu->filter(event, simu, hitSpec, hitSpecProp) && 
 	theConfig.getParameter<bool>("filterByAnaSiMuDistribution") ) continue;
 
-
+    const OMTFinput *myInput = myInputMaker->getEvent(*digSpec);
+    const OMTFProcessor::resultsMap & myResults = myOMTF->processInput(*myInput);
+    L1Obj myOTFCandidate = mySorter->sortResults(myResults);
+    ///Print input and output
+    /*
     for (auto it: *digSpec){
       DetId detId(it.first);
       switch (detId.subdetId()) {
@@ -136,10 +140,6 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
     }
     std::cout << std::endl;
 
-    const OMTFinput *myInput = myInputMaker->getEvent(*digSpec);
-    const OMTFProcessor::resultsMap & myResults = myOMTF->processInput(*myInput);
-    L1Obj myOTFCandidate = mySorter->sortResults(myResults);
-    ///Print input and output
     myInput->print(std::cout);
     for(auto & itGP: myResults){
       std::cout<<itGP.first<<std::endl;
@@ -148,7 +148,7 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
     }
     std::cout<<myOTFCandidate<<std::endl;
     //////////////////////////////////
-
+    */
    L1ObjColl myL1ObjColl = *l1ObjColl;
    myL1ObjColl.push_back(myOTFCandidate, false, 0.); 
    if (myAnaEff) myAnaEff->run(simu, &myL1ObjColl, hitSpecProp);

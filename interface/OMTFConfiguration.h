@@ -29,6 +29,7 @@ class OMTFConfiguration{
   static unsigned int nPhiBits;
   static unsigned int nPdfAddrBits;
   static unsigned int nPdfValBits;
+  static unsigned int nPhiBins;
     
   static std::map<int,int> hwToLogicLayer;
   static std::map<int,int> logicToHwLayer;

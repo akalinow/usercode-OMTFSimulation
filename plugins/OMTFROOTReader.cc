@@ -101,19 +101,19 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
   Int_t nentries= (Int_t) chain.GetEntries();
   ///Test settings
   //nentries = 21;
-  nentries = 5E4;
+  nentries = 5E2;
   /////////////////
   std::cout <<" ENTRIES: " << nentries << std::endl;
  
   // main loop
   unsigned int lastRun = 0;
   for (int ev=0; ev<nentries; ev+=1) {
-    //for (int ev=3; ev<4; ev+=1) {
+  //for (int ev=5; ev<6; ev+=1) {
 
     chain.GetEntry(ev);
 
-    if ( (lastRun != (*event).run) || (ev%(nentries/10)==0)) { 
-    //if ( (lastRun != (*event).run) || true) { 
+    //if ( (lastRun != (*event).run) || (ev%(nentries/10)==0)) { 
+    if ( (lastRun != (*event).run) || true) { 
       lastRun = (*event).run; 
       std::cout <<"RUN:"    << std::setw(7) << (*event).run
                 <<" event:" << std::setw(8) << ev
@@ -125,33 +125,27 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
 	!myAnaSiMu->filter(event, simu, hitSpec, hitSpecProp) && 
 	theConfig.getParameter<bool>("filterByAnaSiMuDistribution") ) continue;
 
-    const OMTFinput *myInput = myInputMaker->getEvent(*digSpec);
-    const OMTFProcessor::resultsMap & myResults = myOMTF->processInput(*myInput);
-    L1Obj myOTFCandidate = mySorter->sortResults(myResults);
-    ///Print input and output
-    /*
-    for (auto it: *digSpec){
-      DetId detId(it.first);
-      switch (detId.subdetId()) {
-      case MuonSubdetId::RPC: { std::cout << std::endl <<RPCDetId(it.first)<<" "<<RPCDigiSpec(it.first, it.second);  break; }
-      case MuonSubdetId::DT:  { std::cout << std::endl <<DTChamberId(it.first)<<" "<<DTphDigiSpec(it.first, it.second); break; }
-      case MuonSubdetId::CSC: { std::cout << std::endl <<CSCDetId(it.first)<<" "<<CSCDigiSpec(it.first, it.second);  break; }
-      };
+    for(unsigned int iProcessor=0;iProcessor<6;++iProcessor){
+      //const OMTFinput *myInput = myInputMaker->getEvent(*digSpec);
+      const OMTFinput *myInput = myInputMaker->buildInputForProcessor(*digSpec,iProcessor);
+      const OMTFProcessor::resultsMap & myResults = myOMTF->processInput(*myInput);
+      L1Obj myOTFCandidate = mySorter->sortResults(myResults);
+      /*
+      ///Print input and output      
+      myInput->print(std::cout);
+      for(auto & itGP: myResults){
+	std::cout<<itGP.first<<std::endl;
+	itGP.second.print(std::cout);
+	std::cout<<std::endl;
+      } 
+      */     
+      //std::cout<<"Processor: "<<iProcessor<<" "<<myOTFCandidate<<std::endl;
+      if(myOTFCandidate.pt) std::cout<<myOTFCandidate<<std::endl;
+      //////////////////////////////////
+      L1ObjColl myL1ObjColl = *l1ObjColl;
+      myL1ObjColl.push_back(myOTFCandidate, false, 0.); 
+      if (myAnaEff) myAnaEff->run(simu, &myL1ObjColl, hitSpecProp);
     }
-    std::cout << std::endl;
-
-    myInput->print(std::cout);
-    for(auto & itGP: myResults){
-      std::cout<<itGP.first<<std::endl;
-      itGP.second.print(std::cout);
-      std::cout<<std::endl;
-    }
-    std::cout<<myOTFCandidate<<std::endl;
-    //////////////////////////////////
-    */
-   L1ObjColl myL1ObjColl = *l1ObjColl;
-   myL1ObjColl.push_back(myOTFCandidate, false, 0.); 
-   if (myAnaEff) myAnaEff->run(simu, &myL1ObjColl, hitSpecProp);
   }
 }
 /////////////////////////////////////////////////////////////

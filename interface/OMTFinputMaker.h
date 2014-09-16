@@ -4,7 +4,7 @@
 #include <vector>
 #include <stdint.h>
 
-class EventObj;
+//class EventObj;
 class MtfCoordinateConverter;
 class OMTFinput;
 
@@ -27,9 +27,12 @@ class OMTFinputMaker{
 
   const OMTFinput * getEvent(const VDigiSpec & vDigi);
 
+  const OMTFinput * buildInputForProcessor(const VDigiSpec & vDigi, unsigned int iProcessor);
+
  private:
 
-  bool acceptDigi(const DigiSpec & aDigi);
+  bool acceptDigi(const DigiSpec & aDigi,
+		  unsigned int iProcessor=0);
 
   MtfCoordinateConverter *myPhiConverter;
   OMTFinput *myInput;

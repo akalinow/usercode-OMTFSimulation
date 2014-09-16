@@ -19,12 +19,12 @@ GoldenPattern::layerResult GoldenPattern::process1Layer1RefLayer(unsigned int iR
   ///Select hit closest to the mean of probability 
   ///distribution in given layer
   for(auto itHit: layerHits){
-    if(itHit-phiMean-phiRefHit<phiDist) phiDist = itHit-phiMean-phiRefHit;
+    if(abs(itHit-phiMean-phiRefHit)<phiDist) phiDist = itHit-phiMean-phiRefHit;
   }
   ///Shift phidist, so 0 it at the middle of the range
   phiDist+=exp2(OMTFConfiguration::nPdfAddrBits-1);
 
-  ///Check if phiDist is withid pdf range
+  ///Check if phiDist is within pdf range
   ///in -64 +63 U2 code
   ///Find more elegant way to check this.
   if(phiDist<0 ||

@@ -67,6 +67,8 @@ std::vector<GoldenPattern*> XMLConfigReader::readPatterns(){
     aGPElement = static_cast<DOMElement *>(aNode); 
     aGPs.push_back(buildGP(aGPElement));    
   }
+  delete doc;
+
   return aGPs;
 }
 //////////////////////////////////////////////////
@@ -182,6 +184,7 @@ std::vector<std::vector<int> > XMLConfigReader::readEvent(unsigned int iEvent){
     }
     input2D[aLogicLayer] = input1D;
   }
+  delete doc;
   return input2D;
 }
 //////////////////////////////////////////////////
@@ -209,10 +212,12 @@ void XMLConfigReader::readConfig(OMTFConfiguration *aConfig){
   unsigned int nPdfValBits =  std::atoi(_toString(aElement->getAttribute(_toDOMS("nPdfValBits"))).c_str()); 
   unsigned int nHitsPerLayer =  std::atoi(_toString(aElement->getAttribute(_toDOMS("nHitsPerLayer"))).c_str()); 
   unsigned int nPhiBits =  std::atoi(_toString(aElement->getAttribute(_toDOMS("nPhiBits"))).c_str()); 
+  unsigned int nPhiBins =  std::atoi(_toString(aElement->getAttribute(_toDOMS("nPhiBins"))).c_str()); 
   OMTFConfiguration::nPdfAddrBits = nPdfAddrBits;
   OMTFConfiguration::nPdfValBits = nPdfValBits;
   OMTFConfiguration::nHitsPerLayer = nHitsPerLayer;
   OMTFConfiguration::nPhiBits = nPhiBits;
+  OMTFConfiguration::nPhiBins = nPhiBins;
 
   ///hw <-> logic numbering map
   unsigned int nLogicLayers = 0;
@@ -251,6 +256,8 @@ void XMLConfigReader::readConfig(OMTFConfiguration *aConfig){
   }
   ++nRefLayers;//ref number in XML starts from 0.
   OMTFConfiguration::nRefLayers = nRefLayers;
+
+  delete doc;
 }
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////

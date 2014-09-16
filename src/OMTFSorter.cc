@@ -72,7 +72,8 @@ L1Obj OMTFSorter::sortResults(const OMTFProcessor::resultsMap & aResultsMap){
   L1Obj candidate;
   candidate.pt = bestKey.thePtCode;
   candidate.eta = bestKey.theEtaCode;
-  candidate.phi = refPhi;
+  refPhi+=0;
+  candidate.phi = 0;//refPhi;
   candidate.charge = bestKey.theCharge;
   candidate.q   = nHitsMax;
   candidate.disc = pdfValMax;

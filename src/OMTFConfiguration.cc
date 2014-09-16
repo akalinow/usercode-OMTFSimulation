@@ -11,6 +11,7 @@ unsigned int OMTFConfiguration::nRefLayers;
 unsigned int OMTFConfiguration::nPdfAddrBits;
 unsigned int OMTFConfiguration::nPdfValBits;
 unsigned int OMTFConfiguration::nPhiBits;
+unsigned int OMTFConfiguration::nPhiBins;
 
 std::map<int,int> OMTFConfiguration::hwToLogicLayer;
 std::map<int,int> OMTFConfiguration::logicToHwLayer;

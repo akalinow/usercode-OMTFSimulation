@@ -1,22 +1,22 @@
 <OMTF>
 
-<GlobalData minPdfVal="0.001" nPdfAddrBits="7" nPdfValBits="6" nHitsPerLayer="6" nPhiBits="10"/>
+<GlobalData minPdfVal="0.001" nPdfAddrBits="7" nPdfValBits="6" nHitsPerLayer="6" nPhiBits="10" nPhiBins="4096"/>
 
-<LayerMap hwNumber = "101" logicNumber = "0"  bendingLayer = "0" connectedToLayer="0"/>
+<LayerMap hwNumber = "101" logicNumber = "0"  bendingLayer = "0" connectedToLayer="1"/>
 <LayerMap hwNumber = "1101" logicNumber = "1" bendingLayer = "1" connectedToLayer="0"/>
-<LayerMap hwNumber = "102" logicNumber = "2" bendingLayer = "0" connectedToLayer="2"/>
+<LayerMap hwNumber = "102" logicNumber = "2" bendingLayer = "0" connectedToLayer="3"/>
 <LayerMap hwNumber = "1102" logicNumber = "3" bendingLayer = "1" connectedToLayer="2"/>
-<LayerMap hwNumber = "103" logicNumber = "4" bendingLayer = "0" connectedToLayer="4"/>
+<LayerMap hwNumber = "103" logicNumber = "4" bendingLayer = "0" connectedToLayer="5"/>
 <LayerMap hwNumber = "1103" logicNumber = "5" bendingLayer = "1" connectedToLayer="4"/>
-<LayerMap hwNumber = "104" logicNumber = "6" bendingLayer = "0" connectedToLayer="6"/>
+<LayerMap hwNumber = "104" logicNumber = "6" bendingLayer = "0" connectedToLayer="7"/>
 <LayerMap hwNumber = "1104" logicNumber = "7" bendingLayer = "1" connectedToLayer="6"/>
-<LayerMap hwNumber = "201" logicNumber = "8" bendingLayer = "0" connectedToLayer="8"/>
+<LayerMap hwNumber = "201" logicNumber = "8" bendingLayer = "0" connectedToLayer="9"/>
 <LayerMap hwNumber = "1201" logicNumber = "9" bendingLayer = "1" connectedToLayer="8"/>
-<LayerMap hwNumber = "202" logicNumber = "10" bendingLayer = "0" connectedToLayer="10"/>
+<LayerMap hwNumber = "202" logicNumber = "10" bendingLayer = "0" connectedToLayer="11"/>
 <LayerMap hwNumber = "1202" logicNumber = "11" bendingLayer = "1" connectedToLayer="10"/>
-<LayerMap hwNumber = "203" logicNumber = "12" bendingLayer = "0" connectedToLayer="12"/>
+<LayerMap hwNumber = "203" logicNumber = "12" bendingLayer = "0" connectedToLayer="13"/>
 <LayerMap hwNumber = "1203" logicNumber = "13" bendingLayer = "1" connectedToLayer="12"/>
-<LayerMap hwNumber = "204" logicNumber = "14" bendingLayer = "0" connectedToLayer="14"/>
+<LayerMap hwNumber = "204" logicNumber = "14" bendingLayer = "0" connectedToLayer="15"/>
 <LayerMap hwNumber = "1204" logicNumber = "15" bendingLayer = "1" connectedToLayer="14"/>
 <LayerMap hwNumber = "301" logicNumber = "16" bendingLayer = "0" connectedToLayer="16"/>
 <LayerMap hwNumber = "302" logicNumber = "17" bendingLayer = "0" connectedToLayer="17"/>

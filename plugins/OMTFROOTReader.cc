@@ -125,9 +125,9 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
 	!myAnaSiMu->filter(event, simu, hitSpec, hitSpecProp) && 
 	theConfig.getParameter<bool>("filterByAnaSiMuDistribution") ) continue;
 
-    for(unsigned int iProcessor=0;iProcessor<6;++iProcessor){
-      //const OMTFinput *myInput = myInputMaker->getEvent(*digSpec);
-      const OMTFinput *myInput = myInputMaker->buildInputForProcessor(*digSpec,iProcessor);
+    for(unsigned int iProcessor=0;iProcessor<1;++iProcessor){
+      const OMTFinput *myInput = myInputMaker->getEvent(*digSpec);
+      //const OMTFinput *myInput = myInputMaker->buildInputForProcessor(*digSpec,iProcessor);
       const OMTFProcessor::resultsMap & myResults = myOMTF->processInput(*myInput);
       L1Obj myOTFCandidate = mySorter->sortResults(myResults);
       /*
@@ -140,7 +140,8 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
       } 
       */     
       //std::cout<<"Processor: "<<iProcessor<<" "<<myOTFCandidate<<std::endl;
-      if(myOTFCandidate.pt) std::cout<<myOTFCandidate<<std::endl;
+      //if(myOTFCandidate.pt) 
+      std::cout<<myOTFCandidate<<std::endl;
       //////////////////////////////////
       L1ObjColl myL1ObjColl = *l1ObjColl;
       myL1ObjColl.push_back(myOTFCandidate, false, 0.); 

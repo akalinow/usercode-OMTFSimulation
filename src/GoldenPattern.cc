@@ -33,6 +33,7 @@ GoldenPattern::layerResult GoldenPattern::process1Layer1RefLayer(unsigned int iR
   }
 
   int pdfVal = pdfAllRef[iLayer][iRefLayer][phiDist];
+  if(iRefLayer>14) pdfVal=0;//Skip RPC layers
   return GoldenPattern::layerResult(pdfVal,pdfVal>0);
 }
 ////////////////////////////////////////////////////

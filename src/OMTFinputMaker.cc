@@ -42,13 +42,13 @@ OMTFinputMaker::~OMTFinputMaker(){
 ///////////////////////////////////////
 bool  OMTFinputMaker::acceptDigi(const DigiSpec & aDigi,
 				 unsigned int iProcessor){
-  
+  /*
   int barrelChamberMin = iProcessor;
   int barrelChamberMax = iProcessor*2 + 2;
   
   int endcapChamberMin = iProcessor;
   int endcapChamberMax = iProcessor*7 + 7;
-  
+  */
 
   ///Clean up digis. Remove unconnected detectors
   uint32_t rawId = aDigi.first;   
@@ -58,12 +58,12 @@ bool  OMTFinputMaker::acceptDigi(const DigiSpec & aDigi,
   switch (detId.subdetId()) {
   case MuonSubdetId::RPC: {
     RPCDetId aId(rawId);    
-    
+    /*
     if(aId.region()==0 && (aId.sector()<barrelChamberMin || aId.sector()>barrelChamberMax)) return false;    
     if(aId.region()!=0 && 
        ((aId.sector()-1)*6+aId.subsector()<endcapChamberMin || 
 	(aId.sector()-1)*6+aId.subsector()>endcapChamberMax)) return false;
-    
+    */
     if(aId.region()<0 ||
        (aId.region()==0 && aId.ring()<2) ||
        (aId.region()==0 && aId.station()==4)
@@ -73,14 +73,14 @@ bool  OMTFinputMaker::acceptDigi(const DigiSpec & aDigi,
   case MuonSubdetId::DT: {
     DTphDigiSpec digi(rawId, aDigi.second);
     DTChamberId dt(rawId);
-    if(dt.sector()<barrelChamberMin || dt.sector()>barrelChamberMax) return false;
+    //if(dt.sector()<barrelChamberMin || dt.sector()>barrelChamberMax) return false;
     ///Select DT digis with hits in inner and outer layers 
     if (digi.bxNum() != 0 || digi.bxCnt() != 0 || digi.ts2() != 0 ||  digi.code()<4) return false;	
     break;
   }
   case MuonSubdetId::CSC: {
     CSCDetId csc(rawId);
-    if(csc.chamber()<endcapChamberMin || csc.chamber()>endcapChamberMax) return false;
+    //if(csc.chamber()<endcapChamberMin || csc.chamber()>endcapChamberMax) return false;
     //if(csc.station()==1 && csc.ring()==4) return false; //Skip ME1/a due to use of ganged strips, causing problems in phi calculation
     ///////////////////
     break;

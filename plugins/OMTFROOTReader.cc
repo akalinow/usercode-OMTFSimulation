@@ -8,6 +8,7 @@
 #include "UserCode/OMTFSimulation/interface/OMTFinput.h"
 #include "UserCode/OMTFSimulation/interface/OMTFSorter.h"
 #include "UserCode/OMTFSimulation/interface/OMTFConfiguration.h"
+#include "UserCode/OMTFSimulation/interface/XMLConfigWriter.h"
 
 #include "UserCode/L1RpcTriggerAnalysis/interface/AnaEff.h"
 #include "UserCode/L1RpcTriggerAnalysis/interface/AnaSiMuDistribution.h"
@@ -30,6 +31,7 @@
 
 
 #include "TChain.h"
+#include "TVector2.h"
 
 /////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////
@@ -44,6 +46,10 @@ OMTFROOTReader::OMTFROOTReader(const edm::ParameterSet & cfg){
   }
   myInputMaker = new OMTFinputMaker();
   mySorter = new OMTFSorter();
+
+  myWriter = new XMLConfigWriter();
+  std::string fName = "OMTF_Events";
+  myWriter->initialiseXMLDocument(fName);
 
   theConfig = cfg;
 }
@@ -100,11 +106,14 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
   // number of events
   Int_t nentries= (Int_t) chain.GetEntries();
   ///Test settings
-  //nentries = 21;
-  nentries = 5E2;
+  //nentries = 20;
+  nentries = 5E4;
   /////////////////
   std::cout <<" ENTRIES: " << nentries << std::endl;
  
+  std::vector<int> minRefPhi1D(6,OMTFConfiguration::nPhiBins);
+  std::vector<std::vector<int> > minRefPhi2D(8,minRefPhi1D);
+
   // main loop
   unsigned int lastRun = 0;
   for (int ev=0; ev<nentries; ev+=1) {
@@ -112,8 +121,8 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
 
     chain.GetEntry(ev);
 
-    //if ( (lastRun != (*event).run) || (ev%(nentries/10)==0)) { 
-    if ( (lastRun != (*event).run) || true) { 
+    if ( (lastRun != (*event).run) || (ev%(nentries/10)==0)) { 
+    //if ( (lastRun != (*event).run) || true) { 
       lastRun = (*event).run; 
       std::cout <<"RUN:"    << std::setw(7) << (*event).run
                 <<" event:" << std::setw(8) << ev
@@ -125,33 +134,79 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
 	!myAnaSiMu->filter(event, simu, hitSpec, hitSpecProp) && 
 	theConfig.getParameter<bool>("filterByAnaSiMuDistribution") ) continue;
 
-    for(unsigned int iProcessor=0;iProcessor<1;++iProcessor){
-      const OMTFinput *myInput = myInputMaker->getEvent(*digSpec);
-      //const OMTFinput *myInput = myInputMaker->buildInputForProcessor(*digSpec,iProcessor);
+    for(unsigned int iProcessor=0;iProcessor<6;++iProcessor){
+      //const OMTFinput *myInput = myInputMaker->getEvent(*digSpec);
+      const OMTFinput *myInput = myInputMaker->buildInputForProcessor(*digSpec,iProcessor);
+      /////////    
+      for(unsigned int iRefLayer=0;iRefLayer<OMTFConfiguration::nRefLayers;++iRefLayer){
+	const OMTFinput::vector1D & refLayerHits = myInput->getLayerData(OMTFConfiguration::refToLogicNumber[iRefLayer]);	
+	if(!refLayerHits.size()) continue;
+	for(auto itRefHit: refLayerHits){	
+	  int phiRef = itRefHit;
+	  if(phiRef>=(int)OMTFConfiguration::nPhiBins) continue;
+	  ///FIXME: this stupid arithemetics on phi. 
+	  if( (iProcessor<2 || iProcessor>3) && phiRef<minRefPhi2D[iRefLayer][iProcessor]) minRefPhi2D[iRefLayer][iProcessor] = phiRef;
+	  else if(phiRef>0 && phiRef<minRefPhi2D[iRefLayer][iProcessor]) minRefPhi2D[iRefLayer][iProcessor] = phiRef;
+	}
+      }
+      /////////
+      continue;
+      /////////
+
+
       const OMTFProcessor::resultsMap & myResults = myOMTF->processInput(*myInput);
       L1Obj myOTFCandidate = mySorter->sortResults(myResults);
+      //std::cout<<"iProcessor: "<<iProcessor<<std::endl;     
+      if(ev<-10){
+	if(iProcessor==0){
+	  for (auto it:*digSpec){
+	    DetId detId(it.first);
+	    switch (detId.subdetId()) {
+	    case MuonSubdetId::RPC: { std::cout << std::endl <<RPCDetId(it.first)<<" "<<RPCDigiSpec(it.first, it.second);  break; }
+	    case MuonSubdetId::DT:  { std::cout << std::endl <<DTChamberId(it.first)<<" "<<DTphDigiSpec(it.first, it.second); break; }
+	    case MuonSubdetId::CSC: { std::cout << std::endl <<CSCDetId(it.first)<<" "<<CSCDigiSpec(it.first, it.second);  break; }
+	    };
+	    std::cout<<std::endl;
+	  }
+	}
+	///Print input and output      
+	myInput->print(std::cout);
+      }
       /*
-      ///Print input and output      
-      myInput->print(std::cout);
       for(auto & itGP: myResults){
 	std::cout<<itGP.first<<std::endl;
 	itGP.second.print(std::cout);
 	std::cout<<std::endl;
-      } 
-      */     
-      //std::cout<<"Processor: "<<iProcessor<<" "<<myOTFCandidate<<std::endl;
-      //if(myOTFCandidate.pt) 
-      std::cout<<myOTFCandidate<<std::endl;
+	} */          
+      //if(myOTFCandidate.pt) std::cout<<myOTFCandidate<<std::endl;
       //////////////////////////////////
       L1ObjColl myL1ObjColl = *l1ObjColl;
       myL1ObjColl.push_back(myOTFCandidate, false, 0.); 
       if (myAnaEff) myAnaEff->run(simu, &myL1ObjColl, hitSpecProp);
     }
+    ///Write to XML
+    //xercesc::DOMElement *aTopElement = myWriter->writeEventHeader(ev);
+    //myWriter->writeEventData(aTopElement,*myInput);
+    //for(auto itKey: myResults) myWriter->writeResultsData(aTopElement, itKey.first,itKey.second);    
   }
+
+  /////////////////
+  for(unsigned int iRefLayer=0;iRefLayer<OMTFConfiguration::nRefLayers;++iRefLayer){
+    for(unsigned int iProcessor=0;iProcessor<6;++iProcessor){
+      std::cout<<"          "<<minRefPhi2D[iRefLayer][iProcessor]<<"\t";
+    }
+    std::cout<<std::endl;
+  }
+  std::cout<<std::endl;
+  /////////////////
+
 }
 /////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////
 void OMTFROOTReader::endJob(){
+
+  std::string fName = "TestEvents.xml";
+  //myWriter->finaliseXMLDocument(fName);
 
 }
 /////////////////////////////////////////////////////////////

@@ -42,12 +42,22 @@ OMTFinputMaker::~OMTFinputMaker(){
 ///////////////////////////////////////
 bool  OMTFinputMaker::acceptDigi(const DigiSpec & aDigi,
 				 unsigned int iProcessor){
-  /*
-  int barrelChamberMin = iProcessor;
-  int barrelChamberMax = iProcessor*2 + 2;
   
-  int endcapChamberMin = iProcessor;
-  int endcapChamberMax = iProcessor*7 + 7;
+  int barrelChamberMin = iProcessor*2 + 1;
+  int barrelChamberMax = iProcessor*2 + 2 +1;
+
+  int endcapChamberMin = iProcessor*6 + 1;
+  int endcapChamberMax = iProcessor*6 + 6 +1;
+
+  //FIXME: wraparoung for last processor
+
+  /*
+  std::cout<<"iProcessor: "<<iProcessor
+           <<" barrelChamberMin: "<<barrelChamberMin
+	   <<" barrelChamberMax: "<<barrelChamberMax
+	   <<" endcapChamberMin: "<<endcapChamberMin
+	   <<" endcapChamberMax: "<<endcapChamberMax
+	   <<std::endl;
   */
 
   ///Clean up digis. Remove unconnected detectors
@@ -57,13 +67,11 @@ bool  OMTFinputMaker::acceptDigi(const DigiSpec & aDigi,
     std::cout << "PROBLEM: hit in unknown Det, detID: "<<detId.det()<<std::endl;
   switch (detId.subdetId()) {
   case MuonSubdetId::RPC: {
-    RPCDetId aId(rawId);    
-    /*
-    if(aId.region()==0 && (aId.sector()<barrelChamberMin || aId.sector()>barrelChamberMax)) return false;    
-    if(aId.region()!=0 && 
-       ((aId.sector()-1)*6+aId.subsector()<endcapChamberMin || 
-	(aId.sector()-1)*6+aId.subsector()>endcapChamberMax)) return false;
-    */
+    RPCDetId aId(rawId);        
+      if(aId.region()==0 && (aId.sector()<barrelChamberMin || aId.sector()>barrelChamberMax)) return false;    
+      if(aId.region()!=0 && 
+	 ((aId.sector()-1)*6+aId.subsector()<endcapChamberMin || 
+	  (aId.sector()-1)*6+aId.subsector()>endcapChamberMax)) return false;    
     if(aId.region()<0 ||
        (aId.region()==0 && aId.ring()<2) ||
        (aId.region()==0 && aId.station()==4)
@@ -73,20 +81,57 @@ bool  OMTFinputMaker::acceptDigi(const DigiSpec & aDigi,
   case MuonSubdetId::DT: {
     DTphDigiSpec digi(rawId, aDigi.second);
     DTChamberId dt(rawId);
-    //if(dt.sector()<barrelChamberMin || dt.sector()>barrelChamberMax) return false;
+    ///DT sector counts from 0. Other subsystems count from 1
+    if(dt.sector()+1<barrelChamberMin || dt.sector()+1>barrelChamberMax) return false;
     ///Select DT digis with hits in inner and outer layers 
     if (digi.bxNum() != 0 || digi.bxCnt() != 0 || digi.ts2() != 0 ||  digi.code()<4) return false;	
     break;
   }
   case MuonSubdetId::CSC: {
     CSCDetId csc(rawId);
-    //if(csc.chamber()<endcapChamberMin || csc.chamber()>endcapChamberMax) return false;
+    if(csc.chamber()<endcapChamberMin || csc.chamber()>endcapChamberMax) return false;
     //if(csc.station()==1 && csc.ring()==4) return false; //Skip ME1/a due to use of ganged strips, causing problems in phi calculation
     ///////////////////
     break;
   }
   }
   return true;
+}
+///////////////////////////////////////
+///////////////////////////////////////
+unsigned int OMTFinputMaker::getInputNumber(unsigned int rawId, 
+					    unsigned int iProcessor){
+
+  unsigned int iInput = 99;
+
+  int barrelChamberMin = iProcessor*2 + 1;
+  int endcapChamberMin = iProcessor*6 + 1;
+
+  DetId detId(rawId);
+  if (detId.det() != DetId::Muon) 
+    std::cout << "PROBLEM: hit in unknown Det, detID: "<<detId.det()<<std::endl;
+  switch (detId.subdetId()) {
+  case MuonSubdetId::RPC: {
+    RPCDetId rpc(rawId);        
+    if(rpc.region()==0) iInput = (rpc.sector()- barrelChamberMin)*2;
+    if(rpc.region()!=0) iInput = ((rpc.sector()-1)*6+rpc.subsector()-endcapChamberMin)*2;
+    //std::cout<<rpc<<" iInput: "<<iInput<<std::endl;
+    break;
+  }
+  case MuonSubdetId::DT: {
+    DTChamberId dt(rawId);
+    iInput = (dt.sector()+1-barrelChamberMin)*2;
+    //std::cout<<dt<<" iInput: "<<iInput<<std::endl;
+    break;
+  }
+  case MuonSubdetId::CSC: {
+    CSCDetId csc(rawId);
+    iInput = (csc.chamber()-endcapChamberMin)*2;
+    //std::cout<<csc<<" iInput: "<<iInput<<std::endl;
+    break;
+  }
+  }
+  return iInput;
 }
 ///////////////////////////////////////
 ///////////////////////////////////////
@@ -102,29 +147,23 @@ const OMTFinput * OMTFinputMaker::getEvent(const VDigiSpec & vDigi){
     unsigned int hwNumber = MtfCoordinateConverter::getLayerNumber(rawId);
     unsigned int iLayer = OMTFConfiguration::hwToLogicLayer[hwNumber];
     unsigned int nGlobalPhi = OMTFConfiguration::nPhiBins;
+    unsigned int iInput = 0;
+    myInput->addLayerHit(iLayer,iInput,myPhiConverter->convert(digiIt,nGlobalPhi));
 
     DetId detId(rawId);
     if (detId.det() != DetId::Muon) 
       std::cout << "PROBLEM: hit in unknown Det, detID: "<<detId.det()<<std::endl;
     switch (detId.subdetId()) {
-    case MuonSubdetId::RPC: {
-      RPCDigiSpec digi(rawId,digiIt.second);
-      myInput->addLayerHit(iLayer,myPhiConverter->convert(digiIt,nGlobalPhi));
-      break;
-      }	
       case MuonSubdetId::DT: {
         DTphDigiSpec digi(rawId,digiIt.second);
-	myInput->addLayerHit(iLayer,myPhiConverter->convert(digiIt,nGlobalPhi));
-	myInput->addLayerHit(iLayer+1,digi.phiB());
+	myInput->addLayerHit(iLayer+1,iInput,digi.phiB());
         break;
       }
       case MuonSubdetId::CSC: {
         CSCDigiSpec digi(rawId,digiIt.second);
-	myInput->addLayerHit(iLayer,myPhiConverter->convert(digiIt,nGlobalPhi));
-	myInput->addLayerHit(iLayer+1,digi.pattern());
+	myInput->addLayerHit(iLayer+1,iInput,digi.pattern());
         break;
       }
-      default: {std::cout <<" Unexpeced subdet case, id ="<<digiIt.first <<std::endl; return 0;}
     };
   }
   return myInput;
@@ -146,31 +185,11 @@ const OMTFinput * OMTFinputMaker::buildInputForProcessor(const VDigiSpec & vDigi
   }
   */
 
-  myInput->clear();								      
-  ///Single OMTFProcessor covers 60 deg + 10 overlap
-  ///with 4096 bins for 2Pi this is 682 bins + 113 overlap
-  unsigned int nBinsPer2Pi = OMTFConfiguration::nPhiBins;
-  unsigned int nBinsPerProcessor = 682; //=60 deg
-  unsigned int nBinsPerOverlap = 113/2; //=5 deg, half of overlap on each side
-  int iPhi = (iProcessor+0.5)*nBinsPerProcessor;
-  ///Phi range for reference hits
-  //int iMinRefPhi = iProcessor*nBinsPerProcessor;
-  //int iMaxRefPhi = (iProcessor+1)*nBinsPerProcessor;
-  ///Phi range for input
-  int iMinInputPhi = iProcessor*nBinsPerProcessor-nBinsPerOverlap;
-  int iMaxInputPhi = (iProcessor+1)*nBinsPerProcessor+nBinsPerOverlap;
-  if(iMinInputPhi<0) iMinInputPhi+=nBinsPer2Pi;
-  if(iMinInputPhi>=(int)nBinsPer2Pi) iMinInputPhi-=nBinsPer2Pi;
-  ///
-  if(iPhi>nBinsPer2Pi/2.0) iPhi-=nBinsPer2Pi;
-  if(iMinInputPhi>nBinsPer2Pi/2.0) iMinInputPhi-=nBinsPer2Pi;
-  if(iMaxInputPhi>nBinsPer2Pi/2.0) iMaxInputPhi-=nBinsPer2Pi;
-  ///
+  myInput->clear();	
   
-  OMTFinput *myInput = new OMTFinput();
-
   ///Prepare inpout for individual processors.
   for (auto digiIt:vDigi) { 
+    ///Check it the data fits into given processor input range
     if(!acceptDigi(digiIt, iProcessor)) continue;
 
     uint32_t rawId = digiIt.first;   
@@ -178,22 +197,23 @@ const OMTFinput * OMTFinputMaker::buildInputForProcessor(const VDigiSpec & vDigi
     unsigned int iLayer = OMTFConfiguration::hwToLogicLayer[hwNumber];
     unsigned int nGlobalPhi = OMTFConfiguration::nPhiBins;
     int iPhi = myPhiConverter->convert(digiIt,nGlobalPhi);
-    if(iPhi<iMinInputPhi || iPhi>iMaxInputPhi) continue;
-
-    myInput->addLayerHit(iLayer,iPhi);
-
+    unsigned int iInput= getInputNumber(rawId, iProcessor);
+    myInput->addLayerHit(iLayer,iInput,iPhi);
     DetId detId(rawId);
     if (detId.det() != DetId::Muon) 
       std::cout << "PROBLEM: hit in unknown Det, detID: "<<detId.det()<<std::endl;
     switch (detId.subdetId()) {
-      case MuonSubdetId::DT: {
-        DTphDigiSpec digi(rawId,digiIt.second);
-	myInput->addLayerHit(iLayer+1,digi.phiB());
-        break;
-      }
-      case MuonSubdetId::CSC: {
+    case MuonSubdetId::DT: {
+      DTphDigiSpec digi(rawId,digiIt.second);
+      myInput->addLayerHit(iLayer+1,iInput,digi.phiB());
+      /////////
+      //std::cout<<digi<<" iPhi: "<<iPhi<<std::endl;
+      /////////      
+      break;
+    }
+    case MuonSubdetId::CSC: {
         CSCDigiSpec digi(rawId,digiIt.second);
-	myInput->addLayerHit(iLayer+1,digi.pattern());
+	myInput->addLayerHit(iLayer+1,iInput,digi.pattern());
         break;
       }
     };

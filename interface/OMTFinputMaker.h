@@ -31,8 +31,16 @@ class OMTFinputMaker{
 
  private:
 
+  ///Check if digis are within a give processor input.
+  ///Simply checks sectors range. 
   bool acceptDigi(const DigiSpec & aDigi,
 		  unsigned int iProcessor=0);
+
+  ///Give input number for givedn processor, using
+  ///the chamber sector number. 
+  ///Result is modulo allowed number of hits per chamber
+  unsigned int getInputNumber(unsigned int rawId, 
+			      unsigned int iProcessor);
 
   MtfCoordinateConverter *myPhiConverter;
   OMTFinput *myInput;

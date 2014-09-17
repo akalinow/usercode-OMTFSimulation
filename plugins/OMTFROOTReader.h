@@ -13,6 +13,7 @@ class OMTFSorter;
 
 class AnaEff;
 class AnaSiMuDistribution;
+class XMLConfigWriter;
 
 namespace edm { 
   class Event; 
@@ -34,6 +35,9 @@ private:
 
   TObjArray myHistos;
   edm::ParameterSet theConfig;
+
+  ////
+  XMLConfigWriter *myWriter; 
 
   ///OMTF objects
   OMTFConfiguration *myOMTFConfig;

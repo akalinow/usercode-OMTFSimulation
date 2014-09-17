@@ -128,14 +128,16 @@ void XMLConfigWriter::writeEventData(xercesc::DOMElement *aTopElement,
     int iHit = 0;
     for(auto hitIt:layerData){
       aHit = theDoc->createElement(_toDOMS("Hit"));
-	stringStr.str("");
-	stringStr<<iHit;
-	aHit->setAttribute(_toDOMS("iHit"), _toDOMS(stringStr.str()));
-	stringStr.str("");
-	stringStr<<hitIt;
-	aHit->setAttribute(_toDOMS("iPhi"), _toDOMS(stringStr.str()));
-	aLayer->appendChild(aHit);
-	++iHit;
+      stringStr.str("");
+      stringStr<<iHit;
+      aHit->setAttribute(_toDOMS("iHit"), _toDOMS(stringStr.str()));
+      stringStr.str("");
+      stringStr<<hitIt;
+      aHit->setAttribute(_toDOMS("iPhi"), _toDOMS(stringStr.str()));
+      ++iHit;
+      if(hitIt>=(int)OMTFConfiguration::nPhiBins) continue;
+      aLayer->appendChild(aHit);
+
     }
     if(aLayer->getChildNodes()->getLength()) aTopElement->appendChild(aLayer);   
   }
@@ -185,7 +187,7 @@ void XMLConfigWriter::writeResultsData(xercesc::DOMElement *aTopElement,
     }
     if(aRefLayer->getChildNodes()->getLength()) aGP->appendChild(aRefLayer);
   }
-  aTopElement->appendChild(aGP);   
+  if(aGP->getChildNodes()->getLength()) aTopElement->appendChild(aGP);   
 }
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////

@@ -16,8 +16,10 @@ class OMTFinput{
   OMTFinput();
 
   ///Add hit to given layer.
-  ///Only up to 6 hit are accepted per layer.
-  bool addLayerHit(unsigned int iLayer,int iPhi);
+  ///iInput marks input number (max 14 per layer)
+  bool addLayerHit(unsigned int iLayer,
+		   unsigned int iInput,
+		   int iPhi);
 
   ///Reset vectors with data.
   void clear();

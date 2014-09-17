@@ -73,6 +73,7 @@ OMTFProcessor::resultsMap OMTFProcessor::processInput(const OMTFinput & aInput){
       for(auto itRefHit: refLayerHits){	
 	for(auto itGP: theGPs){	  
 	  int phiRef = itRefHit;
+	  if(phiRef>=(int)OMTFConfiguration::nPhiBins) continue;
 	  if(OMTFConfiguration::bendingLayers.count(iLayer)) phiRef = 0;
 
 	  GoldenPattern::layerResult aLayerResult = itGP.second->process1Layer1RefLayer(iRefLayer,iLayer,

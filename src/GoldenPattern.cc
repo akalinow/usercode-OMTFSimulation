@@ -19,6 +19,7 @@ GoldenPattern::layerResult GoldenPattern::process1Layer1RefLayer(unsigned int iR
   ///Select hit closest to the mean of probability 
   ///distribution in given layer
   for(auto itHit: layerHits){
+    //if(itHit>=(int)OMTFConfiguration::nPhiBins) continue;
     if(abs(itHit-phiMean-phiRefHit)<phiDist) phiDist = itHit-phiMean-phiRefHit;
   }
   ///Shift phidist, so 0 it at the middle of the range

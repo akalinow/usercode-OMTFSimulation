@@ -19,11 +19,16 @@ const OMTFinput::vector1D & OMTFinput::getLayerData(unsigned int iLayer) const{
 ///////////////////////////////////////////////////
 ///////////////////////////////////////////////////
 bool OMTFinput::addLayerHit(unsigned int iLayer,
-		 int iPhi){
+			    unsigned int iInput,
+			    int iPhi){
 
   assert(iLayer<OMTFConfiguration::nLayers);
-  if(measurements[iLayer].size()<6) measurements[iLayer].push_back(iPhi);
-  else return false;
+  assert(iInput<14);
+
+  if(measurements[iLayer][iInput]!=(int)OMTFConfiguration::nPhiBins) ++iInput;
+  
+  if(iInput>13) return false;
+  measurements[iLayer][iInput] = iPhi;
 
   return true;				      
 }
@@ -39,7 +44,7 @@ void OMTFinput::readData(XMLConfigReader *aReader,
 ///////////////////////////////////////////////////
 void OMTFinput::clear(){
 
-  vector1D aLayer1D;
+  vector1D aLayer1D(14,OMTFConfiguration::nPhiBins);
   measurements.assign(OMTFConfiguration::nLayers,aLayer1D);
 
 }

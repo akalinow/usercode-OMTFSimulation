@@ -44,10 +44,10 @@ bool  OMTFinputMaker::acceptDigi(const DigiSpec & aDigi,
 				 unsigned int iProcessor){
   
   int barrelChamberMin = iProcessor*2 + 1;
-  int barrelChamberMax = iProcessor*2 + 2 +1;
+  int barrelChamberMax = (iProcessor*2 + 2 +1);
 
   int endcapChamberMin = iProcessor*6 + 1;
-  int endcapChamberMax = iProcessor*6 + 6 +1;
+  int endcapChamberMax = (iProcessor*6 + 6 +1);
 
   //FIXME: wraparoung for last processor
 
@@ -67,21 +67,24 @@ bool  OMTFinputMaker::acceptDigi(const DigiSpec & aDigi,
     std::cout << "PROBLEM: hit in unknown Det, detID: "<<detId.det()<<std::endl;
   switch (detId.subdetId()) {
   case MuonSubdetId::RPC: {
-    RPCDetId aId(rawId);        
+    RPCDetId aId(rawId);
+    if(aId.region()==0 && barrelChamberMax==13 && aId.sector()==1) return true;
       if(aId.region()==0 && (aId.sector()<barrelChamberMin || aId.sector()>barrelChamberMax)) return false;    
       if(aId.region()!=0 && 
 	 ((aId.sector()-1)*6+aId.subsector()<endcapChamberMin || 
-	  (aId.sector()-1)*6+aId.subsector()>endcapChamberMax)) return false;    
-    if(aId.region()<0 ||
-       (aId.region()==0 && aId.ring()<2) ||
-       (aId.region()==0 && aId.station()==4)
-       ) return false;
+	  (aId.sector()-1)*6+aId.subsector()>endcapChamberMax)) return false;  
+      if(aId.region()<0 && barrelChamberMax==37 && (aId.sector()-1)*6+aId.subsector()==1) return true;  
+      if(aId.region()<0 ||
+	 (aId.region()==0 && aId.ring()<2) ||
+	 (aId.region()==0 && aId.station()==4)
+	 ) return false;
   }
     break;
   case MuonSubdetId::DT: {
     DTphDigiSpec digi(rawId, aDigi.second);
     DTChamberId dt(rawId);
     ///DT sector counts from 0. Other subsystems count from 1
+    if(barrelChamberMax==13 && dt.sector()+1==1) return true;
     if(dt.sector()+1<barrelChamberMin || dt.sector()+1>barrelChamberMax) return false;
     ///Select DT digis with hits in inner and outer layers 
     if (digi.bxNum() != 0 || digi.bxCnt() != 0 || digi.ts2() != 0 ||  digi.code()<4) return false;	
@@ -89,6 +92,7 @@ bool  OMTFinputMaker::acceptDigi(const DigiSpec & aDigi,
   }
   case MuonSubdetId::CSC: {
     CSCDetId csc(rawId);
+    if(endcapChamberMax==37 && csc.chamber()==1) return true;
     if(csc.chamber()<endcapChamberMin || csc.chamber()>endcapChamberMax) return false;
     //if(csc.station()==1 && csc.ring()==4) return false; //Skip ME1/a due to use of ganged strips, causing problems in phi calculation
     ///////////////////
@@ -115,19 +119,23 @@ unsigned int OMTFinputMaker::getInputNumber(unsigned int rawId,
     RPCDetId rpc(rawId);        
     if(rpc.region()==0) iInput = (rpc.sector()- barrelChamberMin)*2;
     if(rpc.region()!=0) iInput = ((rpc.sector()-1)*6+rpc.subsector()-endcapChamberMin)*2;
-    //std::cout<<rpc<<" iInput: "<<iInput<<std::endl;
+    if(iProcessor==5 && rpc.region()==0 && rpc.sector()==1) iInput = 12;
+    if(iProcessor==5 && rpc.region()!=0 && (rpc.sector()-1)*6+rpc.subsector()==1) iInput = 12;
+    //std::cout<<rpc<<" iInput: "<<iInput<<" iProcessor: "<<iProcessor<<std::endl;
     break;
   }
   case MuonSubdetId::DT: {
     DTChamberId dt(rawId);
     iInput = (dt.sector()+1-barrelChamberMin)*2;
-    //std::cout<<dt<<" iInput: "<<iInput<<std::endl;
+    if(iProcessor==5 && dt.sector()+1==1) iInput = 12;
+    //std::cout<<dt<<" iInput: "<<iInput<<" iProcessor: "<<iProcessor<<std::endl;
     break;
   }
   case MuonSubdetId::CSC: {
     CSCDetId csc(rawId);
     iInput = (csc.chamber()-endcapChamberMin)*2;
-    //std::cout<<csc<<" iInput: "<<iInput<<std::endl;
+    if(iProcessor==5 && csc.chamber()==1) iInput = 12;
+    //std::cout<<csc<<" iInput: "<<iInput<<" iProcessor: "<<iProcessor<<std::endl;
     break;
   }
   }
@@ -222,3 +230,5 @@ const OMTFinput * OMTFinputMaker::buildInputForProcessor(const VDigiSpec & vDigi
 }
 ////////////////////////////////////////////
 ////////////////////////////////////////////
+
+

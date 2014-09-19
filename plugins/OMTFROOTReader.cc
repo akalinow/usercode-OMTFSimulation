@@ -106,8 +106,8 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
   // number of events
   Int_t nentries= (Int_t) chain.GetEntries();
   ///Test settings
-  //nentries = 20;
-  nentries = 5E4;
+  //nentries = 20000;
+  nentries = 5E5;
   /////////////////
   std::cout <<" ENTRIES: " << nentries << std::endl;
  
@@ -136,8 +136,11 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
 
     for(unsigned int iProcessor=0;iProcessor<6;++iProcessor){
       //const OMTFinput *myInput = myInputMaker->getEvent(*digSpec);
-      const OMTFinput *myInput = myInputMaker->buildInputForProcessor(*digSpec,iProcessor);
-      /////////    
+	const OMTFinput *myInput = myInputMaker->buildInputForProcessor(*digSpec,iProcessor);
+      ////Find starting iPhi for each processor and each referecne layer    
+      ///FIXME: for processor 5 algoritm catches the last chamber (sector 1),
+      ///instead of first one (sector 11 in barrel). Hack put int place 
+      ///to skip sector1 (phiRef<-700)
       for(unsigned int iRefLayer=0;iRefLayer<OMTFConfiguration::nRefLayers;++iRefLayer){
 	const OMTFinput::vector1D & refLayerHits = myInput->getLayerData(OMTFConfiguration::refToLogicNumber[iRefLayer]);	
 	if(!refLayerHits.size()) continue;
@@ -149,12 +152,11 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
 	  else if(phiRef>0 && phiRef<minRefPhi2D[iRefLayer][iProcessor]) minRefPhi2D[iRefLayer][iProcessor] = phiRef;
 	}
       }
-      /////////
-      continue;
+      //continue;
       /////////
 
 
-      const OMTFProcessor::resultsMap & myResults = myOMTF->processInput(*myInput);
+      const OMTFProcessor::resultsMap & myResults = myOMTF->processInput(iProcessor,*myInput);
       L1Obj myOTFCandidate = mySorter->sortResults(myResults);
       //std::cout<<"iProcessor: "<<iProcessor<<std::endl;     
       if(ev<-10){
@@ -178,7 +180,7 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
 	itGP.second.print(std::cout);
 	std::cout<<std::endl;
 	} */          
-      //if(myOTFCandidate.pt) std::cout<<myOTFCandidate<<std::endl;
+      //if(myOTFCandidate.pt) std::cout<<"iProcessor: "<<iProcessor<<" "<<myOTFCandidate<<std::endl;
       //////////////////////////////////
       L1ObjColl myL1ObjColl = *l1ObjColl;
       myL1ObjColl.push_back(myOTFCandidate, false, 0.); 
@@ -197,17 +199,64 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
     }
     std::cout<<std::endl;
   }
-  std::cout<<std::endl;
+  std::cout<<std::endl; 
   /////////////////
-
+  analyseConnections();
 }
 /////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////
 void OMTFROOTReader::endJob(){
 
-  std::string fName = "TestEvents.xml";
+  //std::string fName = "TestEvents.xml";
   //myWriter->finaliseXMLDocument(fName);
 
+  
+  std::string fName = "Connections.xml";  
+  myWriter->writeConnectionsData(OMTFConfiguration::measurements4D);
+  myWriter->finaliseXMLDocument(fName);
+}
+/////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////
+void OMTFROOTReader::analyseConnections(){
+
+  for(unsigned int iProcessor=0;iProcessor<6;++iProcessor){
+    std::cout<<"iProcessor: "<<iProcessor<<std::endl;
+    for(unsigned int iCone=0;iCone<6;++iCone){
+      std::cout<<" iCone: "<<iCone<<" max Inputs: ";
+      for(unsigned int iLogicLayer=0;iLogicLayer<OMTFConfiguration::nLayers;++iLogicLayer){
+      const OMTFConfiguration::vector1D & myCounts = OMTFConfiguration::measurements4D[iProcessor][iCone][iLogicLayer];
+      unsigned int maxInput = findMaxInput(myCounts);
+      std::cout<<" "<<maxInput;
+      }
+      std::cout<<std::endl;
+    }
+  }
+
+ ///Print counts in indivdual inputs for single processor and logic cone
+  unsigned int iProcessor = 5;
+  unsigned int iCone = 5;
+
+  for(unsigned int iLogicLayer=0;iLogicLayer<OMTFConfiguration::nLayers;++iLogicLayer){
+    std::cout<<"Logic layer: "<<iLogicLayer<<" Hits: ";
+    for(unsigned int iHit=0;iHit<14;++iHit){
+      std::cout<<OMTFConfiguration::measurements4D[iProcessor][iCone][iLogicLayer][iHit]<<"\t";
+    }
+    std::cout<<std::endl;
+  }
+}
+/////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////
+unsigned int OMTFROOTReader::findMaxInput(const OMTFConfiguration::vector1D & myCounts){
+
+  unsigned int max = 0;
+  unsigned int maxInput = 0;
+  for(unsigned int iInput=0;iInput<14;++iInput){
+    if(myCounts[iInput]>(int)max){
+      max = myCounts[iInput];
+      maxInput = iInput;
+    }
+  }
+  return maxInput;
 }
 /////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////

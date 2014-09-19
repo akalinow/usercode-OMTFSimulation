@@ -4,6 +4,8 @@
 #include "FWCore/Framework/interface/EDAnalyzer.h"
 #include "FWCore/ParameterSet/interface/ParameterSet.h"
 
+#include "UserCode/OMTFSimulation/interface/OMTFConfiguration.h"
+
 #include "TObjArray.h"
 
 class OMTFProcessor;
@@ -32,6 +34,9 @@ public:
   virtual void endJob();
 
 private:
+
+  void analyseConnections();
+  unsigned int findMaxInput(const OMTFConfiguration::vector1D & myCounts);
 
   TObjArray myHistos;
   edm::ParameterSet theConfig;

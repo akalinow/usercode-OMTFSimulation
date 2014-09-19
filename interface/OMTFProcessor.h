@@ -28,7 +28,8 @@ class OMTFProcessor{
 
   ///Process input datafrom asingle event
   ///Input data i reprecented by hits in logic layers
-  OMTFProcessor::resultsMap processInput(const OMTFinput & aInput);
+  OMTFProcessor::resultsMap processInput(unsigned int iProcessor,
+					 const OMTFinput & aInput);
 
   ///Return map of GoldenPatterns
   const std::map<Key,GoldenPattern*> & getPatterns() const;
@@ -39,12 +40,33 @@ class OMTFProcessor{
   ///If GP key already exists in map, a new entry is ignored
   bool addGP(GoldenPattern *aGP);
 
+  ///Find number of logic cone within a given processor.
+  ///Number is calculated assuming 10 deg wide logic cones
+  unsigned int getConeNumber(unsigned int iProcessor,
+			     unsigned int iRefLayer,
+			     int iPhi);
+
+  ///Check if given referecne hit is
+  ///in phi range for some logic cone.
+  ///Care is needed arounf +Pi and +2Pi points
+  bool isInConeRange(int iPhiStart,
+		     unsigned int coneSize,
+		     int iPhi);
+
+  ///Fill map of used inputs.
+  ///FIXME: using hack from OMTFConfiguration
+  void fillInputRange(unsigned int iProcessor,
+		      unsigned int iCone,
+		      const OMTFinput & aInput);
+
   ///Map holding Golden Patterns
   std::map<Key,GoldenPattern*> theGPs;
 
   ///Map holding results on current event data
   ///for each GP
   OMTFProcessor::resultsMap myResults;
+
+
 
 };
 

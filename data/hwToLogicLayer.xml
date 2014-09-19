@@ -37,6 +37,72 @@
 <RefLayerMap refLayer="6" logicNumber ="17"/>
 <RefLayerMap refLayer="7" logicNumber ="20"/>
 
+<Processor iProcessor = "0">
+<RefLayer iRefLayer = "0" iPhi="-93"/>
+<RefLayer iRefLayer = "1" iPhi="-180"/>
+<RefLayer iRefLayer = "2" iPhi="-129"/>
+<RefLayer iRefLayer = "3" iPhi="-59"/>
+<RefLayer iRefLayer = "4" iPhi="-61"/>
+<RefLayer iRefLayer = "5" iPhi="-101"/>
+<RefLayer iRefLayer = "6" iPhi="-100"/>
+<RefLayer iRefLayer = "7" iPhi="-138"/>
+</Processor>
+
+<Processor iProcessor = "1">
+<RefLayer iRefLayer = "0" iPhi="589"/>
+<RefLayer iRefLayer = "1" iPhi="504"/>
+<RefLayer iRefLayer = "2" iPhi="552"/>
+<RefLayer iRefLayer = "3" iPhi="624"/>
+<RefLayer iRefLayer = "4" iPhi="622"/>
+<RefLayer iRefLayer = "5" iPhi="582"/>
+<RefLayer iRefLayer = "6" iPhi="583"/>
+<RefLayer iRefLayer = "7" iPhi="545"/>
+</Processor>
+
+<Processor iProcessor = "2">
+<RefLayer iRefLayer = "0" iPhi="1272"/>
+<RefLayer iRefLayer = "1" iPhi="1186"/>
+<RefLayer iRefLayer = "2" iPhi="1232"/>
+<RefLayer iRefLayer = "3" iPhi="1309"/>
+<RefLayer iRefLayer = "4" iPhi="1305"/>
+<RefLayer iRefLayer = "5" iPhi="1264"/>
+<RefLayer iRefLayer = "6" iPhi="1266"/>
+<RefLayer iRefLayer = "7" iPhi="1227"/>
+</Processor>
+
+<Processor iProcessor = "3">
+<RefLayer iRefLayer = "0" iPhi="1955"/>
+<RefLayer iRefLayer = "1" iPhi="1869"/>
+<RefLayer iRefLayer = "2" iPhi="1915"/>
+<RefLayer iRefLayer = "3" iPhi="1991"/>
+<RefLayer iRefLayer = "4" iPhi="1988"/>
+<RefLayer iRefLayer = "5" iPhi="1947"/>
+<RefLayer iRefLayer = "6" iPhi="1948"/>
+<RefLayer iRefLayer = "7" iPhi="1910"/>
+</Processor>
+
+<Processor iProcessor = "4">
+<RefLayer iRefLayer = "0" iPhi="-1459"/>
+<RefLayer iRefLayer = "1" iPhi="-1545"/>
+<RefLayer iRefLayer = "2" iPhi="-1497"/>
+<RefLayer iRefLayer = "3" iPhi="-1424"/>
+<RefLayer iRefLayer = "4" iPhi="-1426"/>
+<RefLayer iRefLayer = "5" iPhi="-1466"/>
+<RefLayer iRefLayer = "6" iPhi="-1465"/>
+<RefLayer iRefLayer = "7" iPhi="-1503"/>
+</Processor>
+
+<Processor iProcessor = "5">
+<RefLayer iRefLayer = "0" iPhi="-776"/>
+<RefLayer iRefLayer = "1" iPhi="-862"/>
+<RefLayer iRefLayer = "2" iPhi="-816"/>
+<RefLayer iRefLayer = "3" iPhi="-741"/>
+<RefLayer iRefLayer = "4" iPhi="-742"/>
+<RefLayer iRefLayer = "5" iPhi="-784"/>
+<RefLayer iRefLayer = "6" iPhi="-782"/>
+<RefLayer iRefLayer = "7" iPhi="-821"/>
+</Processor>
+
 </OMTF>
 
 

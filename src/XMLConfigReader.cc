@@ -257,6 +257,29 @@ void XMLConfigReader::readConfig(OMTFConfiguration *aConfig){
   ++nRefLayers;//ref number in XML starts from 0.
   OMTFConfiguration::nRefLayers = nRefLayers;
 
+  ///processors initial phisfor each reference layer
+  std::vector<int> vector1D(OMTFConfiguration::nRefLayers,OMTFConfiguration::nPhiBins);
+  OMTFConfiguration::processorPhiVsRefLayer.assign(6,vector1D);
+
+  nElem = aOMTFElement->getElementsByTagName(_toDOMS("Processor"))->getLength();
+  assert(nElem==6);
+  DOMElement* aProcessorElement = 0;
+  for(uint i=0;i<nElem;++i){
+    aNode = aOMTFElement->getElementsByTagName(_toDOMS("Processor"))->item(i);
+    aProcessorElement = static_cast<DOMElement *>(aNode); 
+    unsigned int iProcessor = std::atoi(_toString(aProcessorElement->getAttribute(_toDOMS("iProcessor"))).c_str());
+    unsigned int nElem1 = aProcessorElement->getElementsByTagName(_toDOMS("RefLayer"))->getLength();
+    assert(nElem1==OMTFConfiguration::nRefLayers);
+    DOMElement* aRefLayerElement = 0;
+    for(uint ii=0;ii<nElem1;++ii){
+      aNode = aProcessorElement->getElementsByTagName(_toDOMS("RefLayer"))->item(ii);
+      aRefLayerElement = static_cast<DOMElement *>(aNode); 
+      unsigned int iRefLayer = std::atoi(_toString(aRefLayerElement->getAttribute(_toDOMS("iRefLayer"))).c_str());
+      int iPhi = std::atoi(_toString(aRefLayerElement->getAttribute(_toDOMS("iPhi"))).c_str());
+      OMTFConfiguration::processorPhiVsRefLayer[iProcessor][iRefLayer] = iPhi;
+    }
+  }
+
   delete doc;
 }
 //////////////////////////////////////////////////

@@ -6,6 +6,8 @@
 
 #include "xercesc/util/XercesDefs.hpp"
 
+#include "interface/OMTFConfiguration.h"
+
 class GoldenPattern;
 class OMTFConfiguration;
 class OMTFinput;
@@ -39,6 +41,10 @@ class XMLConfigWriter{
 			const OMTFResult & aResult);
 
   void writeGPData(const GoldenPattern & aGP);
+
+  void writeConnectionsData(const std::vector<std::vector <OMTFConfiguration::vector2D> > & measurements4D);
+
+  unsigned int findMaxInput(const OMTFConfiguration::vector1D & myCounts);
 
  private:
 

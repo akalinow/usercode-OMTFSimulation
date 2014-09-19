@@ -254,3 +254,52 @@ void XMLConfigWriter::writeGPData(const GoldenPattern & aGP){
 }
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////
+void  XMLConfigWriter::writeConnectionsData(const std::vector<std::vector <OMTFConfiguration::vector2D> > & measurements4D){
+
+ std::ostringstream stringStr;
+
+  for(unsigned int iProcessor=0;iProcessor<6;++iProcessor){
+    xercesc::DOMElement* aProcessorElement = theDoc->createElement(_toDOMS("Processor"));
+    stringStr.str("");
+    stringStr<<iProcessor;
+    aProcessorElement->setAttribute(_toDOMS("iProcessor"), _toDOMS(stringStr.str()));
+    for(unsigned int iCone=0;iCone<6;++iCone){
+      xercesc::DOMElement* aConeElement = theDoc->createElement(_toDOMS("LogicCone"));
+      stringStr.str("");
+      stringStr<<iCone;
+      aConeElement->setAttribute(_toDOMS("iCone"), _toDOMS(stringStr.str()));
+      for(unsigned int iLogicLayer=0;iLogicLayer<OMTFConfiguration::nLayers;++iLogicLayer){
+	xercesc::DOMElement* aLayerElement = theDoc->createElement(_toDOMS("Loyer"));
+	stringStr.str("");
+	stringStr<<iLogicLayer;
+	aLayerElement->setAttribute(_toDOMS("iLayer"), _toDOMS(stringStr.str()));
+	const OMTFConfiguration::vector1D & myCounts = OMTFConfiguration::measurements4D[iProcessor][iCone][iLogicLayer];
+	unsigned int maxInput = findMaxInput(myCounts);
+	stringStr.str("");
+	stringStr<<maxInput-2;
+	aLayerElement->setAttribute(_toDOMS("iFirstInput"), _toDOMS(stringStr.str()));
+	stringStr.str("");
+	stringStr<<maxInput+2;
+	aLayerElement->setAttribute(_toDOMS("nInputs"), _toDOMS(stringStr.str()));
+	aConeElement->appendChild(aLayerElement);
+      }
+      aProcessorElement->appendChild(aConeElement);
+    }
+  }
+}
+//////////////////////////////////////////////////
+//////////////////////////////////////////////////
+unsigned int XMLConfigWriter::findMaxInput(const OMTFConfiguration::vector1D & myCounts){
+
+  unsigned int max = 0;
+  unsigned int maxInput = 0;
+  for(unsigned int iInput=0;iInput<14;++iInput){
+    if(myCounts[iInput]>(int)max){
+      max = myCounts[iInput];
+      maxInput = iInput;
+    }
+  }
+  return maxInput;
+}
+/////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////

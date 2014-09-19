@@ -37,6 +37,17 @@ class OMTFConfiguration{
   static std::set<int> bendingLayers;
   static std::vector<int> refToLogicNumber;
 
+  ///Starting iPhi for each processor and each referecne layer    
+  ///First index: processor number
+  ///Second index: referecne layer number
+  static std::vector<std::vector<int> > processorPhiVsRefLayer;
+
+  ///Temporary hack to pass data from deep in class
+  typedef std::vector<int> vector1D;
+  typedef std::vector<vector1D > vector2D;
+
+  static std::vector<std::vector <vector2D> >measurements4D;
+
 };
 
 

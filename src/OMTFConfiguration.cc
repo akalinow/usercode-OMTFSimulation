@@ -18,6 +18,9 @@ std::map<int,int> OMTFConfiguration::logicToHwLayer;
 std::map<int,int> OMTFConfiguration::logicToLogic;
 std::vector<int> OMTFConfiguration::refToLogicNumber;
 std::set<int> OMTFConfiguration::bendingLayers;
+std::vector<std::vector<int> > OMTFConfiguration::processorPhiVsRefLayer;
+
+std::vector<std::vector <OMTFConfiguration::vector2D> > OMTFConfiguration::measurements4D;
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
 OMTFConfiguration::OMTFConfiguration(const edm::ParameterSet & theConfig){
@@ -29,6 +32,14 @@ OMTFConfiguration::OMTFConfiguration(const edm::ParameterSet & theConfig){
   myReader.setConfigFile(fName);
   configure(&myReader);
   print(std::cout);
+
+  std::vector<int> aLayer1D(14,0);
+  OMTFConfiguration::vector2D aLayer2D;
+  aLayer2D.assign(OMTFConfiguration::nLayers,aLayer1D);
+  std::vector<OMTFConfiguration::vector2D>aLayer3D;
+  aLayer3D.assign(6,aLayer2D);
+  measurements4D.assign(6,aLayer3D);
+
 
 }
 ///////////////////////////////////////////////
@@ -49,6 +60,14 @@ std::ostream & OMTFConfiguration::print(std::ostream & out){
      <<" nPdfValBits: "<<nPdfValBits
      <<std::endl;
 
+  for(unsigned int iProcessor = 0;iProcessor<6; ++iProcessor){
+    std::cout<<"Processor: "<<iProcessor;
+    for(unsigned int iRefLayer=0;iRefLayer<nRefLayers;++iRefLayer){
+      std::cout<<" "<<processorPhiVsRefLayer[iProcessor][iRefLayer];
+    }
+    std::cout<<std::endl;
+  }
+  
   return out;
 
 }

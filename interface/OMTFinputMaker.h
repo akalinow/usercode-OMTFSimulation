@@ -41,7 +41,7 @@ class OMTFinputMaker{
   ///Result is modulo allowed number of hits per chamber
   unsigned int getInputNumber(unsigned int rawId, 
 			      unsigned int iProcessor);
-
+  
   MtfCoordinateConverter *myPhiConverter;
   OMTFinput *myInput;
   

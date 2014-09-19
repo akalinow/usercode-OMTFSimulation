@@ -76,13 +76,15 @@ OMTFProcessor::resultsMap OMTFProcessor::processInput(unsigned int iProcessor,
 	  unsigned int iCone = getConeNumber(iProcessor,iRefLayer,phiRef);
 	  if(iCone>5) continue;
 	  fillInputRange(iProcessor,iCone,aInput);
-	  //std::cout<<"iCone: "<<iCone<<std::endl;
+	  //continue;//////////////////////////////////////////////////////////////////
 	  if(phiRef>=(int)OMTFConfiguration::nPhiBins) continue;
 	  if(OMTFConfiguration::bendingLayers.count(iLayer)) phiRef = 0;
-	  for(auto itGP: theGPs){	  
+	  const OMTFinput::vector1D restricedLayerHits = restrictInput(iProcessor, iCone, iLayer,layerHits);
+	  for(auto itGP: theGPs){
 	    GoldenPattern::layerResult aLayerResult = itGP.second->process1Layer1RefLayer(iRefLayer,iLayer,
 											  phiRef,
-											  layerHits);
+											  restricedLayerHits);
+	    //restricedLayerHits);
 	    myResults[itGP.second->key()].addResult(iRefLayer,iLayer,aLayerResult.first,phiRef);	 
 	  }
       }      
@@ -112,8 +114,8 @@ bool OMTFProcessor::isInConeRange(int iPhiStart,
 				unsigned int coneSize,
 				int iPhi){
 
-  if(iPhi<0) iPhi+=OMTFConfiguration::nPhiBins/2;
-  if(iPhiStart<0) iPhiStart+=OMTFConfiguration::nPhiBins/2;
+  if(iPhi<0) iPhi+=OMTFConfiguration::nPhiBins;
+  if(iPhiStart<0) iPhiStart+=OMTFConfiguration::nPhiBins;
 
   if(iPhiStart+(int)coneSize<(int)OMTFConfiguration::nPhiBins){
     return iPhiStart<=iPhi && iPhiStart+(int)coneSize>iPhi;
@@ -132,13 +134,14 @@ unsigned int OMTFProcessor::getConeNumber(unsigned int iProcessor,
 					  unsigned int iRefLayer,
 					  int iPhi){
 
-  unsigned int logicConeSize = 10/360.0*OMTFConfiguration::nPhiBins;
+  if(iPhi>=(int)OMTFConfiguration::nPhiBins) return 99;
 
+  unsigned int logicConeSize = 10/360.0*OMTFConfiguration::nPhiBins;
+  
 
   unsigned int iCone = 0;
   int iPhiStart = OMTFConfiguration::processorPhiVsRefLayer[iProcessor][iRefLayer];
   
-
   ///FIX ME 2Pi wrapping  
   while(!isInConeRange(iPhiStart,logicConeSize,iPhi) && iCone<6){
     ++iCone;
@@ -150,4 +153,19 @@ unsigned int OMTFProcessor::getConeNumber(unsigned int iProcessor,
 }
 ////////////////////////////////////////////
 ////////////////////////////////////////////
+OMTFinput::vector1D OMTFProcessor::restrictInput(unsigned int iProcessor,
+						 unsigned int iCone,
+						 unsigned int iLayer,
+						 const OMTFinput::vector1D & layerHits){
 
+  OMTFinput::vector1D myHits = layerHits;
+  unsigned int iStart = OMTFConfiguration::connections[iProcessor][iCone][iLayer].first;
+  unsigned int iEnd = iStart + OMTFConfiguration::connections[iProcessor][iCone][iLayer].second -1;
+
+  for(unsigned int iHit=0;iHit<14;++iHit){
+    if(iHit<iStart || iHit>iEnd) myHits[iHit] = OMTFConfiguration::nPhiBins;    
+  }
+  return myHits;
+}
+////////////////////////////////////////////
+////////////////////////////////////////////

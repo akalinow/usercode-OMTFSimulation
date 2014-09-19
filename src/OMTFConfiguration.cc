@@ -19,8 +19,9 @@ std::map<int,int> OMTFConfiguration::logicToLogic;
 std::vector<int> OMTFConfiguration::refToLogicNumber;
 std::set<int> OMTFConfiguration::bendingLayers;
 std::vector<std::vector<int> > OMTFConfiguration::processorPhiVsRefLayer;
+OMTFConfiguration::vector3D_A OMTFConfiguration::connections;
 
-std::vector<std::vector <OMTFConfiguration::vector2D> > OMTFConfiguration::measurements4D;
+OMTFConfiguration::vector4D OMTFConfiguration::measurements4D;
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
 OMTFConfiguration::OMTFConfiguration(const edm::ParameterSet & theConfig){
@@ -33,11 +34,18 @@ OMTFConfiguration::OMTFConfiguration(const edm::ParameterSet & theConfig){
   configure(&myReader);
   print(std::cout);
 
+  ///Vector of all inpouts (14)
   std::vector<int> aLayer1D(14,0);
+
+  ///Vector of all layers 
   OMTFConfiguration::vector2D aLayer2D;
   aLayer2D.assign(OMTFConfiguration::nLayers,aLayer1D);
-  std::vector<OMTFConfiguration::vector2D>aLayer3D;
+
+  ///Vector of all logic cones
+  OMTFConfiguration::vector3D aLayer3D;
   aLayer3D.assign(6,aLayer2D);
+
+  ///Vector of all processors
   measurements4D.assign(6,aLayer3D);
 
 

@@ -257,9 +257,18 @@ void XMLConfigReader::readConfig(OMTFConfiguration *aConfig){
   ++nRefLayers;//ref number in XML starts from 0.
   OMTFConfiguration::nRefLayers = nRefLayers;
 
-  ///processors initial phisfor each reference layer
+  ///processors initial phi for each reference layer
   std::vector<int> vector1D(OMTFConfiguration::nRefLayers,OMTFConfiguration::nPhiBins);
   OMTFConfiguration::processorPhiVsRefLayer.assign(6,vector1D);
+
+  ///connections tables for each processor each logic cone
+  ///Vector of all layers 
+  OMTFConfiguration::vector1D_A aLayer1D(OMTFConfiguration::nLayers);
+  ///Vector of all logic cones
+  OMTFConfiguration::vector2D_A aLayer2D;
+  aLayer2D.assign(6,aLayer1D);
+  ///Vector of all processors
+  OMTFConfiguration::connections.assign(6,aLayer2D);
 
   nElem = aOMTFElement->getElementsByTagName(_toDOMS("Processor"))->getLength();
   assert(nElem==6);
@@ -278,7 +287,27 @@ void XMLConfigReader::readConfig(OMTFConfiguration *aConfig){
       int iPhi = std::atoi(_toString(aRefLayerElement->getAttribute(_toDOMS("iPhi"))).c_str());
       OMTFConfiguration::processorPhiVsRefLayer[iProcessor][iRefLayer] = iPhi;
     }
+    unsigned int nElem2 = aProcessorElement->getElementsByTagName(_toDOMS("LogicCone"))->getLength();
+    assert(nElem2==6); //FIXME: hardcoded
+    DOMElement* aConeElement = 0;
+    for(uint ii=0;ii<nElem2;++ii){
+      aNode = aProcessorElement->getElementsByTagName(_toDOMS("LogicCone"))->item(ii);
+      aConeElement = static_cast<DOMElement *>(aNode); 
+      unsigned int iCone = std::atoi(_toString(aConeElement->getAttribute(_toDOMS("iCone"))).c_str());
+      unsigned int nElem3 = aConeElement->getElementsByTagName(_toDOMS("Layer"))->getLength();
+      assert(nElem3==OMTFConfiguration::nLayers); 
+      DOMElement* aLayerElement = 0;
+      for(uint iii=0;iii<nElem3;++iii){
+	aNode = aConeElement->getElementsByTagName(_toDOMS("Layer"))->item(ii);
+	aLayerElement = static_cast<DOMElement *>(aNode); 
+	unsigned int iLayer = std::atoi(_toString(aLayerElement->getAttribute(_toDOMS("iLayer"))).c_str());
+	unsigned int iFirstInput = std::atoi(_toString(aLayerElement->getAttribute(_toDOMS("iFirstInput"))).c_str());
+	unsigned int nInputs = std::atoi(_toString(aLayerElement->getAttribute(_toDOMS("nInputs"))).c_str());
+	OMTFConfiguration::connections[iProcessor][iCone][iLayer] = std::pair<unsigned int, unsigned int>(iFirstInput,nInputs);
+      }
+    }   
   }
+
 
   delete doc;
 }

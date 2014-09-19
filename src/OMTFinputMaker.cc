@@ -119,15 +119,15 @@ unsigned int OMTFinputMaker::getInputNumber(unsigned int rawId,
     RPCDetId rpc(rawId);        
     if(rpc.region()==0) iInput = (rpc.sector()- barrelChamberMin)*2;
     if(rpc.region()!=0) iInput = ((rpc.sector()-1)*6+rpc.subsector()-endcapChamberMin)*2;
-    if(iProcessor==5 && rpc.region()==0 && rpc.sector()==1) iInput = 12;
+    if(iProcessor==5 && rpc.region()==0 && rpc.sector()==1) iInput = 4;
     if(iProcessor==5 && rpc.region()!=0 && (rpc.sector()-1)*6+rpc.subsector()==1) iInput = 12;
-    //std::cout<<rpc<<" iInput: "<<iInput<<" iProcessor: "<<iProcessor<<std::endl;
+    //std::cout<<rpc<<" iInput: "<<iInput<<" iProcessor: "<<iProcessor<<std::endl;    
     break;
   }
   case MuonSubdetId::DT: {
     DTChamberId dt(rawId);
     iInput = (dt.sector()+1-barrelChamberMin)*2;
-    if(iProcessor==5 && dt.sector()+1==1) iInput = 12;
+    if(iProcessor==5 && dt.sector()+1==1) iInput = 4;
     //std::cout<<dt<<" iInput: "<<iInput<<" iProcessor: "<<iProcessor<<std::endl;
     break;
   }

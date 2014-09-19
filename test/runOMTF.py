@@ -5,7 +5,11 @@ import sys
 
 #inputFiles =  cms.vstring("/home/akalinow/scratch/CMS/OverlapTrackFinder/Crab/SingleMuFullEtaTestSample/Tree/v1/data//l1RpcTree_p19_p_v1_FullEta_1_1_mqa.root")
 #inputFiles =  cms.vstring("/home/akalinow/scratch/CMS/OverlapTrackFinder/Crab/SingleMuFullEtaTestSample/Tree/v1/data//l1RpcTree_p10_p_v1_FullEta_1_1_Ylg.root")
-inputFiles =  cms.vstring("/home/akalinow/scratch/CMS/OverlapTrackFinder/Crab/SingleMuFullEtaTestSample/Tree/v1/data//l1RpcTree_p6_p_v1_FullEta_1_1_hdg.root")
+
+inputFiles =  cms.vstring("/home/akalinow/scratch/CMS/OverlapTrackFinder/Crab/SingleMuFullEtaTestSample/Tree/v1/data//l1RpcTree_p6_p_v1_FullEta_1_1_hdg.root",
+                          #"/home/akalinow/scratch/CMS/OverlapTrackFinder/Crab/SingleMuFullEtaTestSample/Tree/v1/data//l1RpcTree_p6_m_v1_FullEta_1_1_YpO.root"
+                         )
+
 
 process.source = cms.Source("EmptySource")
 process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(1))

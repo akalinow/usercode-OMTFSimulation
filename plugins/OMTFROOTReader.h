@@ -36,7 +36,6 @@ public:
 private:
 
   void analyseConnections();
-  unsigned int findMaxInput(const OMTFConfiguration::vector1D & myCounts);
 
   TObjArray myHistos;
   edm::ParameterSet theConfig;

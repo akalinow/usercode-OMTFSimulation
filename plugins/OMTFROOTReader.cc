@@ -106,8 +106,8 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
   // number of events
   Int_t nentries= (Int_t) chain.GetEntries();
   ///Test settings
-  //nentries = 20000;
-  nentries = 5E5;
+  //nentries = 50;
+  nentries = 5E3;
   /////////////////
   std::cout <<" ENTRIES: " << nentries << std::endl;
  
@@ -117,12 +117,14 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
   // main loop
   unsigned int lastRun = 0;
   for (int ev=0; ev<nentries; ev+=1) {
-  //for (int ev=5; ev<6; ev+=1) {
+  //for (int ev=33; ev<34; ev+=1) {
 
     chain.GetEntry(ev);
+    L1ObjColl myL1ObjColl = *l1ObjColl;
 
-    if ( (lastRun != (*event).run) || (ev%(nentries/10)==0)) { 
-    //if ( (lastRun != (*event).run) || true) { 
+    if ( (lastRun != (*event).run) || 
+	 (nentries>1000 && ev%(nentries/10)==0) || 
+	 nentries<1000) { 
       lastRun = (*event).run; 
       std::cout <<"RUN:"    << std::setw(7) << (*event).run
                 <<" event:" << std::setw(8) << ev
@@ -135,12 +137,8 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
 	theConfig.getParameter<bool>("filterByAnaSiMuDistribution") ) continue;
 
     for(unsigned int iProcessor=0;iProcessor<6;++iProcessor){
-      //const OMTFinput *myInput = myInputMaker->getEvent(*digSpec);
 	const OMTFinput *myInput = myInputMaker->buildInputForProcessor(*digSpec,iProcessor);
       ////Find starting iPhi for each processor and each referecne layer    
-      ///FIXME: for processor 5 algoritm catches the last chamber (sector 1),
-      ///instead of first one (sector 11 in barrel). Hack put int place 
-      ///to skip sector1 (phiRef<-700)
       for(unsigned int iRefLayer=0;iRefLayer<OMTFConfiguration::nRefLayers;++iRefLayer){
 	const OMTFinput::vector1D & refLayerHits = myInput->getLayerData(OMTFConfiguration::refToLogicNumber[iRefLayer]);	
 	if(!refLayerHits.size()) continue;
@@ -152,15 +150,12 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
 	  else if(phiRef>0 && phiRef<minRefPhi2D[iRefLayer][iProcessor]) minRefPhi2D[iRefLayer][iProcessor] = phiRef;
 	}
       }
-      //continue;
       /////////
-
-
       const OMTFProcessor::resultsMap & myResults = myOMTF->processInput(iProcessor,*myInput);
       L1Obj myOTFCandidate = mySorter->sortResults(myResults);
       //std::cout<<"iProcessor: "<<iProcessor<<std::endl;     
-      if(ev<-10){
-	if(iProcessor==0){
+      if(ev==-33){
+	if(iProcessor==3){
 	  for (auto it:*digSpec){
 	    DetId detId(it.first);
 	    switch (detId.subdetId()) {
@@ -182,8 +177,7 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
 	} */          
       //if(myOTFCandidate.pt) std::cout<<"iProcessor: "<<iProcessor<<" "<<myOTFCandidate<<std::endl;
       //////////////////////////////////
-      L1ObjColl myL1ObjColl = *l1ObjColl;
-      myL1ObjColl.push_back(myOTFCandidate, false, 0.); 
+      if(myOTFCandidate.pt) myL1ObjColl.push_back(myOTFCandidate, false, 0.); 
       if (myAnaEff) myAnaEff->run(simu, &myL1ObjColl, hitSpecProp);
     }
     ///Write to XML
@@ -219,19 +213,6 @@ void OMTFROOTReader::endJob(){
 /////////////////////////////////////////////////////////////
 void OMTFROOTReader::analyseConnections(){
 
-  for(unsigned int iProcessor=0;iProcessor<6;++iProcessor){
-    std::cout<<"iProcessor: "<<iProcessor<<std::endl;
-    for(unsigned int iCone=0;iCone<6;++iCone){
-      std::cout<<" iCone: "<<iCone<<" max Inputs: ";
-      for(unsigned int iLogicLayer=0;iLogicLayer<OMTFConfiguration::nLayers;++iLogicLayer){
-      const OMTFConfiguration::vector1D & myCounts = OMTFConfiguration::measurements4D[iProcessor][iCone][iLogicLayer];
-      unsigned int maxInput = findMaxInput(myCounts);
-      std::cout<<" "<<maxInput;
-      }
-      std::cout<<std::endl;
-    }
-  }
-
  ///Print counts in indivdual inputs for single processor and logic cone
   unsigned int iProcessor = 5;
   unsigned int iCone = 5;
@@ -243,20 +224,6 @@ void OMTFROOTReader::analyseConnections(){
     }
     std::cout<<std::endl;
   }
-}
-/////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////
-unsigned int OMTFROOTReader::findMaxInput(const OMTFConfiguration::vector1D & myCounts){
-
-  unsigned int max = 0;
-  unsigned int maxInput = 0;
-  for(unsigned int iInput=0;iInput<14;++iInput){
-    if(myCounts[iInput]>(int)max){
-      max = myCounts[iInput];
-      maxInput = iInput;
-    }
-  }
-  return maxInput;
 }
 /////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////

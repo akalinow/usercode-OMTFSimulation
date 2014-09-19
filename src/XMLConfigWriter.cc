@@ -263,28 +263,43 @@ void  XMLConfigWriter::writeConnectionsData(const std::vector<std::vector <OMTFC
     stringStr.str("");
     stringStr<<iProcessor;
     aProcessorElement->setAttribute(_toDOMS("iProcessor"), _toDOMS(stringStr.str()));
+    for(unsigned int iRefLayer=0;iRefLayer<OMTFConfiguration::nRefLayers;++iRefLayer){	
+	xercesc::DOMElement* aRefLayerElement = theDoc->createElement(_toDOMS("RefLayer"));
+	stringStr.str("");
+	stringStr<<iRefLayer;
+	aRefLayerElement->setAttribute(_toDOMS("iRefLayer"), _toDOMS(stringStr.str()));	
+	stringStr.str("");
+	stringStr<<OMTFConfiguration::processorPhiVsRefLayer[iProcessor][iRefLayer];
+	aRefLayerElement->setAttribute(_toDOMS("iPhi"), _toDOMS(stringStr.str()));	
+	aProcessorElement->appendChild(aRefLayerElement);
+      }
     for(unsigned int iCone=0;iCone<6;++iCone){
       xercesc::DOMElement* aConeElement = theDoc->createElement(_toDOMS("LogicCone"));
       stringStr.str("");
       stringStr<<iCone;
-      aConeElement->setAttribute(_toDOMS("iCone"), _toDOMS(stringStr.str()));
+      aConeElement->setAttribute(_toDOMS("iCone"), _toDOMS(stringStr.str()));   
       for(unsigned int iLogicLayer=0;iLogicLayer<OMTFConfiguration::nLayers;++iLogicLayer){
-	xercesc::DOMElement* aLayerElement = theDoc->createElement(_toDOMS("Loyer"));
+	xercesc::DOMElement* aLayerElement = theDoc->createElement(_toDOMS("Layer"));
 	stringStr.str("");
 	stringStr<<iLogicLayer;
 	aLayerElement->setAttribute(_toDOMS("iLayer"), _toDOMS(stringStr.str()));
 	const OMTFConfiguration::vector1D & myCounts = OMTFConfiguration::measurements4D[iProcessor][iCone][iLogicLayer];
 	unsigned int maxInput = findMaxInput(myCounts);
+	unsigned int begin = 0, end = 0;
+	if((int)maxInput-2>=0) begin = maxInput-2;
+	else begin = maxInput;
+	end = maxInput+3;
 	stringStr.str("");
-	stringStr<<maxInput-2;
+	stringStr<<begin;
 	aLayerElement->setAttribute(_toDOMS("iFirstInput"), _toDOMS(stringStr.str()));
 	stringStr.str("");
-	stringStr<<maxInput+2;
+	stringStr<<end-begin+1;
 	aLayerElement->setAttribute(_toDOMS("nInputs"), _toDOMS(stringStr.str()));
 	aConeElement->appendChild(aLayerElement);
       }
       aProcessorElement->appendChild(aConeElement);
     }
+    theTopElement->appendChild(aProcessorElement);
   }
 }
 //////////////////////////////////////////////////

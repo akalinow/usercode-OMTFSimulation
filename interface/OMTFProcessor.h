@@ -59,6 +59,13 @@ class OMTFProcessor{
 		      unsigned int iCone,
 		      const OMTFinput & aInput);
 
+  ///Remove hits whis are outside input range
+  ///for given processor and cone
+  OMTFinput::vector1D restrictInput(unsigned int iProcessor,
+				    unsigned int iCone,
+				    unsigned int iLayer,
+				    const OMTFinput::vector1D & layerHits);
+
   ///Map holding Golden Patterns
   std::map<Key,GoldenPattern*> theGPs;
 

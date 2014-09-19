@@ -37,71 +37,1043 @@
 <RefLayerMap refLayer="6" logicNumber ="17"/>
 <RefLayerMap refLayer="7" logicNumber ="20"/>
 
-<Processor iProcessor = "0">
-<RefLayer iRefLayer = "0" iPhi="-93"/>
-<RefLayer iRefLayer = "1" iPhi="-180"/>
-<RefLayer iRefLayer = "2" iPhi="-129"/>
-<RefLayer iRefLayer = "3" iPhi="-59"/>
-<RefLayer iRefLayer = "4" iPhi="-61"/>
-<RefLayer iRefLayer = "5" iPhi="-101"/>
-<RefLayer iRefLayer = "6" iPhi="-100"/>
-<RefLayer iRefLayer = "7" iPhi="-138"/>
-</Processor>
+   <Processor iProcessor="0">
+    <RefLayer iPhi="-90" iRefLayer="0"/>
+    <RefLayer iPhi="-178" iRefLayer="1"/>
+    <RefLayer iPhi="-130" iRefLayer="2"/>
+    <RefLayer iPhi="-59" iRefLayer="3"/>
+    <RefLayer iPhi="-60" iRefLayer="4"/>
+    <RefLayer iPhi="-101" iRefLayer="5"/>
+    <RefLayer iPhi="-100" iRefLayer="6"/>
+    <RefLayer iPhi="-138" iRefLayer="7"/>
+    <LogicCone iCone="0">
+      <Layer iFirstInput="0" iLayer="0" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="1" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="2" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="3" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="4" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="5" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="6" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="7" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="8" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="9" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="10" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="11" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="12" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="13" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="14" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="15" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="16" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="17" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="18" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="19" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="20" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="21" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="22" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="23" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="24" nInputs="4"/>
+    </LogicCone>
+    <LogicCone iCone="1">
+      <Layer iFirstInput="0" iLayer="0" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="1" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="2" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="3" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="4" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="5" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="6" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="7" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="8" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="9" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="10" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="11" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="12" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="13" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="14" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="15" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="16" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="17" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="18" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="19" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="20" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="21" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="22" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="23" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="24" nInputs="6"/>
+    </LogicCone>
+    <LogicCone iCone="2">
+      <Layer iFirstInput="0" iLayer="0" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="1" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="2" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="3" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="4" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="5" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="6" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="7" nInputs="4"/>
+      <Layer iFirstInput="2" iLayer="8" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="9" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="10" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="11" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="12" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="13" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="14" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="15" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="16" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="17" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="18" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="19" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="20" nInputs="4"/>
+      <Layer iFirstInput="2" iLayer="21" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="22" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="23" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="24" nInputs="6"/>
+    </LogicCone>
+    <LogicCone iCone="3">
+      <Layer iFirstInput="0" iLayer="0" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="1" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="2" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="3" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="4" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="5" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="6" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="7" nInputs="4"/>
+      <Layer iFirstInput="4" iLayer="8" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="9" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="10" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="11" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="12" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="13" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="14" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="15" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="16" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="17" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="18" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="19" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="20" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="21" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="22" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="23" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="24" nInputs="6"/>
+    </LogicCone>
+    <LogicCone iCone="4">
+      <Layer iFirstInput="0" iLayer="0" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="1" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="2" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="3" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="4" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="5" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="6" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="7" nInputs="4"/>
+      <Layer iFirstInput="6" iLayer="8" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="9" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="10" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="11" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="12" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="13" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="14" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="15" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="16" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="17" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="18" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="19" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="20" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="21" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="22" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="23" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="24" nInputs="6"/>
+    </LogicCone>
+    <LogicCone iCone="5">
+      <Layer iFirstInput="0" iLayer="0" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="1" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="2" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="3" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="4" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="5" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="6" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="7" nInputs="4"/>
+      <Layer iFirstInput="8" iLayer="8" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="9" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="10" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="11" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="12" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="13" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="14" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="15" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="16" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="17" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="18" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="19" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="20" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="21" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="22" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="23" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="24" nInputs="6"/>
+    </LogicCone>
+  </Processor>
 
-<Processor iProcessor = "1">
-<RefLayer iRefLayer = "0" iPhi="589"/>
-<RefLayer iRefLayer = "1" iPhi="504"/>
-<RefLayer iRefLayer = "2" iPhi="552"/>
-<RefLayer iRefLayer = "3" iPhi="624"/>
-<RefLayer iRefLayer = "4" iPhi="622"/>
-<RefLayer iRefLayer = "5" iPhi="582"/>
-<RefLayer iRefLayer = "6" iPhi="583"/>
-<RefLayer iRefLayer = "7" iPhi="545"/>
-</Processor>
+  <Processor iProcessor="1">
+    <RefLayer iPhi="591" iRefLayer="0"/>
+    <RefLayer iPhi="505" iRefLayer="1"/>
+    <RefLayer iPhi="551" iRefLayer="2"/>
+    <RefLayer iPhi="623" iRefLayer="3"/>
+    <RefLayer iPhi="622" iRefLayer="4"/>
+    <RefLayer iPhi="582" iRefLayer="5"/>
+    <RefLayer iPhi="583" iRefLayer="6"/>
+    <RefLayer iPhi="547" iRefLayer="7"/>
+    <LogicCone iCone="0">
+      <Layer iFirstInput="0" iLayer="0" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="1" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="2" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="3" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="4" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="5" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="6" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="7" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="8" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="9" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="10" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="11" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="12" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="13" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="14" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="15" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="16" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="17" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="18" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="19" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="20" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="21" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="22" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="23" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="24" nInputs="4"/>
+    </LogicCone>
+    <LogicCone iCone="1">
+      <Layer iFirstInput="0" iLayer="0" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="1" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="2" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="3" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="4" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="5" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="6" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="7" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="8" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="9" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="10" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="11" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="12" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="13" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="14" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="15" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="16" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="17" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="18" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="19" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="20" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="21" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="22" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="23" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="24" nInputs="6"/>
+    </LogicCone>
+    <LogicCone iCone="2">
+      <Layer iFirstInput="0" iLayer="0" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="1" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="2" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="3" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="4" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="5" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="6" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="7" nInputs="4"/>
+      <Layer iFirstInput="2" iLayer="8" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="9" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="10" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="11" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="12" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="13" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="14" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="15" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="16" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="17" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="18" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="19" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="20" nInputs="4"/>
+      <Layer iFirstInput="2" iLayer="21" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="22" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="23" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="24" nInputs="6"/>
+    </LogicCone>
+    <LogicCone iCone="3">
+      <Layer iFirstInput="0" iLayer="0" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="1" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="2" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="3" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="4" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="5" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="6" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="7" nInputs="4"/>
+      <Layer iFirstInput="4" iLayer="8" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="9" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="10" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="11" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="12" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="13" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="14" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="15" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="16" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="17" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="18" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="19" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="20" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="21" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="22" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="23" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="24" nInputs="6"/>
+    </LogicCone>
+    <LogicCone iCone="4">
+      <Layer iFirstInput="0" iLayer="0" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="1" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="2" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="3" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="4" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="5" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="6" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="7" nInputs="4"/>
+      <Layer iFirstInput="6" iLayer="8" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="9" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="10" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="11" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="12" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="13" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="14" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="15" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="16" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="17" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="18" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="19" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="20" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="21" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="22" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="23" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="24" nInputs="6"/>
+    </LogicCone>
+    <LogicCone iCone="5">
+      <Layer iFirstInput="0" iLayer="0" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="1" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="2" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="3" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="4" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="5" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="6" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="7" nInputs="4"/>
+      <Layer iFirstInput="8" iLayer="8" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="9" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="10" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="11" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="12" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="13" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="14" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="15" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="16" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="17" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="18" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="19" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="20" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="21" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="22" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="23" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="24" nInputs="6"/>
+    </LogicCone>
+  </Processor>
 
-<Processor iProcessor = "2">
-<RefLayer iRefLayer = "0" iPhi="1272"/>
-<RefLayer iRefLayer = "1" iPhi="1186"/>
-<RefLayer iRefLayer = "2" iPhi="1232"/>
-<RefLayer iRefLayer = "3" iPhi="1309"/>
-<RefLayer iRefLayer = "4" iPhi="1305"/>
-<RefLayer iRefLayer = "5" iPhi="1264"/>
-<RefLayer iRefLayer = "6" iPhi="1266"/>
-<RefLayer iRefLayer = "7" iPhi="1227"/>
-</Processor>
+  <Processor iProcessor="2">
+    <RefLayer iPhi="1272" iRefLayer="0"/>
+    <RefLayer iPhi="1186" iRefLayer="1"/>
+    <RefLayer iPhi="1247" iRefLayer="2"/>
+    <RefLayer iPhi="1306" iRefLayer="3"/>
+    <RefLayer iPhi="1305" iRefLayer="4"/>
+    <RefLayer iPhi="1264" iRefLayer="5"/>
+    <RefLayer iPhi="1266" iRefLayer="6"/>
+    <RefLayer iPhi="1227" iRefLayer="7"/>
+    <LogicCone iCone="0">
+      <Layer iFirstInput="0" iLayer="0" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="1" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="2" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="3" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="4" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="5" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="6" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="7" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="8" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="9" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="10" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="11" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="12" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="13" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="14" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="15" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="16" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="17" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="18" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="19" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="20" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="21" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="22" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="23" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="24" nInputs="4"/>
+    </LogicCone>
+    <LogicCone iCone="1">
+      <Layer iFirstInput="0" iLayer="0" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="1" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="2" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="3" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="4" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="5" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="6" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="7" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="8" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="9" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="10" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="11" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="12" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="13" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="14" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="15" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="16" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="17" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="18" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="19" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="20" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="21" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="22" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="23" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="24" nInputs="6"/>
+    </LogicCone>
+    <LogicCone iCone="2">
+      <Layer iFirstInput="0" iLayer="0" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="1" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="2" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="3" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="4" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="5" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="6" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="7" nInputs="4"/>
+      <Layer iFirstInput="2" iLayer="8" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="9" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="10" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="11" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="12" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="13" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="14" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="15" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="16" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="17" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="18" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="19" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="20" nInputs="4"/>
+      <Layer iFirstInput="2" iLayer="21" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="22" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="23" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="24" nInputs="6"/>
+    </LogicCone>
+    <LogicCone iCone="3">
+      <Layer iFirstInput="0" iLayer="0" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="1" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="2" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="3" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="4" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="5" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="6" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="7" nInputs="4"/>
+      <Layer iFirstInput="4" iLayer="8" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="9" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="10" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="11" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="12" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="13" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="14" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="15" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="16" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="17" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="18" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="19" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="20" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="21" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="22" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="23" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="24" nInputs="6"/>
+    </LogicCone>
+    <LogicCone iCone="4">
+      <Layer iFirstInput="0" iLayer="0" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="1" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="2" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="3" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="4" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="5" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="6" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="7" nInputs="4"/>
+      <Layer iFirstInput="6" iLayer="8" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="9" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="10" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="11" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="12" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="13" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="14" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="15" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="16" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="17" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="18" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="19" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="20" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="21" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="22" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="23" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="24" nInputs="6"/>
+    </LogicCone>
+    <LogicCone iCone="5">
+      <Layer iFirstInput="0" iLayer="0" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="1" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="2" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="3" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="4" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="5" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="6" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="7" nInputs="4"/>
+      <Layer iFirstInput="8" iLayer="8" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="9" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="10" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="11" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="12" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="13" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="14" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="15" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="16" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="17" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="18" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="19" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="20" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="21" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="22" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="23" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="24" nInputs="6"/>
+    </LogicCone>
+  </Processor>
 
-<Processor iProcessor = "3">
-<RefLayer iRefLayer = "0" iPhi="1955"/>
-<RefLayer iRefLayer = "1" iPhi="1869"/>
-<RefLayer iRefLayer = "2" iPhi="1915"/>
-<RefLayer iRefLayer = "3" iPhi="1991"/>
-<RefLayer iRefLayer = "4" iPhi="1988"/>
-<RefLayer iRefLayer = "5" iPhi="1947"/>
-<RefLayer iRefLayer = "6" iPhi="1948"/>
-<RefLayer iRefLayer = "7" iPhi="1910"/>
-</Processor>
+  <Processor iProcessor="3">
+    <RefLayer iPhi="1957" iRefLayer="0"/>
+    <RefLayer iPhi="1869" iRefLayer="1"/>
+    <RefLayer iPhi="1920" iRefLayer="2"/>
+    <RefLayer iPhi="1989" iRefLayer="3"/>
+    <RefLayer iPhi="1987" iRefLayer="4"/>
+    <RefLayer iPhi="1947" iRefLayer="5"/>
+    <RefLayer iPhi="1948" iRefLayer="6"/>
+    <RefLayer iPhi="1910" iRefLayer="7"/>
+    <LogicCone iCone="0">
+      <Layer iFirstInput="0" iLayer="0" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="1" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="2" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="3" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="4" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="5" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="6" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="7" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="8" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="9" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="10" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="11" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="12" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="13" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="14" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="15" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="16" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="17" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="18" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="19" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="20" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="21" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="22" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="23" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="24" nInputs="4"/>
+    </LogicCone>
+    <LogicCone iCone="1">
+      <Layer iFirstInput="0" iLayer="0" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="1" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="2" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="3" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="4" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="5" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="6" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="7" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="8" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="9" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="10" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="11" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="12" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="13" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="14" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="15" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="16" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="17" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="18" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="19" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="20" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="21" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="22" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="23" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="24" nInputs="6"/>
+    </LogicCone>
+    <LogicCone iCone="2">
+      <Layer iFirstInput="0" iLayer="0" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="1" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="2" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="3" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="4" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="5" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="6" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="7" nInputs="4"/>
+      <Layer iFirstInput="2" iLayer="8" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="9" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="10" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="11" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="12" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="13" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="14" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="15" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="16" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="17" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="18" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="19" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="20" nInputs="4"/>
+      <Layer iFirstInput="2" iLayer="21" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="22" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="23" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="24" nInputs="6"/>
+    </LogicCone>
+    <LogicCone iCone="3">
+      <Layer iFirstInput="0" iLayer="0" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="1" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="2" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="3" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="4" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="5" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="6" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="7" nInputs="4"/>
+      <Layer iFirstInput="4" iLayer="8" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="9" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="10" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="11" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="12" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="13" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="14" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="15" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="16" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="17" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="18" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="19" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="20" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="21" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="22" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="23" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="24" nInputs="6"/>
+    </LogicCone>
+    <LogicCone iCone="4">
+      <Layer iFirstInput="0" iLayer="0" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="1" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="2" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="3" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="4" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="5" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="6" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="7" nInputs="4"/>
+      <Layer iFirstInput="6" iLayer="8" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="9" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="10" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="11" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="12" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="13" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="14" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="15" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="16" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="17" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="18" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="19" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="20" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="21" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="22" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="23" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="24" nInputs="6"/>
+    </LogicCone>
+    <LogicCone iCone="5">
+      <Layer iFirstInput="0" iLayer="0" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="1" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="2" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="3" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="4" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="5" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="6" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="7" nInputs="4"/>
+      <Layer iFirstInput="8" iLayer="8" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="9" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="10" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="11" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="12" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="13" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="14" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="15" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="16" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="17" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="18" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="19" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="20" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="21" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="22" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="23" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="24" nInputs="6"/>
+    </LogicCone>
+  </Processor>
 
-<Processor iProcessor = "4">
-<RefLayer iRefLayer = "0" iPhi="-1459"/>
-<RefLayer iRefLayer = "1" iPhi="-1545"/>
-<RefLayer iRefLayer = "2" iPhi="-1497"/>
-<RefLayer iRefLayer = "3" iPhi="-1424"/>
-<RefLayer iRefLayer = "4" iPhi="-1426"/>
-<RefLayer iRefLayer = "5" iPhi="-1466"/>
-<RefLayer iRefLayer = "6" iPhi="-1465"/>
-<RefLayer iRefLayer = "7" iPhi="-1503"/>
-</Processor>
+  <Processor iProcessor="4">
+    <RefLayer iPhi="-1458" iRefLayer="0"/>
+    <RefLayer iPhi="-1545" iRefLayer="1"/>
+    <RefLayer iPhi="-1492" iRefLayer="2"/>
+    <RefLayer iPhi="-1425" iRefLayer="3"/>
+    <RefLayer iPhi="-1426" iRefLayer="4"/>
+    <RefLayer iPhi="-1466" iRefLayer="5"/>
+    <RefLayer iPhi="-1465" iRefLayer="6"/>
+    <RefLayer iPhi="-1501" iRefLayer="7"/>
+    <LogicCone iCone="0">
+      <Layer iFirstInput="0" iLayer="0" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="1" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="2" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="3" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="4" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="5" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="6" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="7" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="8" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="9" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="10" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="11" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="12" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="13" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="14" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="15" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="16" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="17" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="18" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="19" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="20" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="21" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="22" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="23" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="24" nInputs="4"/>
+    </LogicCone>
+    <LogicCone iCone="1">
+      <Layer iFirstInput="0" iLayer="0" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="1" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="2" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="3" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="4" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="5" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="6" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="7" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="8" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="9" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="10" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="11" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="12" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="13" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="14" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="15" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="16" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="17" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="18" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="19" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="20" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="21" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="22" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="23" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="24" nInputs="6"/>
+    </LogicCone>
+    <LogicCone iCone="2">
+      <Layer iFirstInput="0" iLayer="0" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="1" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="2" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="3" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="4" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="5" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="6" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="7" nInputs="4"/>
+      <Layer iFirstInput="2" iLayer="8" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="9" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="10" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="11" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="12" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="13" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="14" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="15" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="16" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="17" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="18" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="19" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="20" nInputs="4"/>
+      <Layer iFirstInput="2" iLayer="21" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="22" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="23" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="24" nInputs="6"/>
+    </LogicCone>
+    <LogicCone iCone="3">
+      <Layer iFirstInput="0" iLayer="0" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="1" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="2" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="3" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="4" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="5" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="6" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="7" nInputs="4"/>
+      <Layer iFirstInput="4" iLayer="8" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="9" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="10" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="11" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="12" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="13" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="14" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="15" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="16" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="17" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="18" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="19" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="20" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="21" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="22" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="23" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="24" nInputs="6"/>
+    </LogicCone>
+    <LogicCone iCone="4">
+      <Layer iFirstInput="0" iLayer="0" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="1" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="2" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="3" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="4" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="5" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="6" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="7" nInputs="4"/>
+      <Layer iFirstInput="6" iLayer="8" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="9" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="10" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="11" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="12" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="13" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="14" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="15" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="16" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="17" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="18" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="19" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="20" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="21" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="22" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="23" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="24" nInputs="6"/>
+    </LogicCone>
+    <LogicCone iCone="5">
+      <Layer iFirstInput="0" iLayer="0" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="1" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="2" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="3" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="4" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="5" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="6" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="7" nInputs="4"/>
+      <Layer iFirstInput="8" iLayer="8" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="9" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="10" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="11" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="12" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="13" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="14" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="15" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="16" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="17" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="18" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="19" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="20" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="21" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="22" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="23" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="24" nInputs="6"/>
+    </LogicCone>
+  </Processor>
 
-<Processor iProcessor = "5">
-<RefLayer iRefLayer = "0" iPhi="-776"/>
-<RefLayer iRefLayer = "1" iPhi="-862"/>
-<RefLayer iRefLayer = "2" iPhi="-816"/>
-<RefLayer iRefLayer = "3" iPhi="-741"/>
-<RefLayer iRefLayer = "4" iPhi="-742"/>
-<RefLayer iRefLayer = "5" iPhi="-784"/>
-<RefLayer iRefLayer = "6" iPhi="-782"/>
-<RefLayer iRefLayer = "7" iPhi="-821"/>
-</Processor>
+  <Processor iProcessor="5">
+    <RefLayer iPhi="-775" iRefLayer="0"/>
+    <RefLayer iPhi="-862" iRefLayer="1"/>
+    <RefLayer iPhi="-815" iRefLayer="2"/>
+    <RefLayer iPhi="-742" iRefLayer="3"/>
+    <RefLayer iPhi="-743" iRefLayer="4"/>
+    <RefLayer iPhi="-784" iRefLayer="5"/>
+    <RefLayer iPhi="-782" iRefLayer="6"/>
+    <RefLayer iPhi="-821" iRefLayer="7"/>
+    <LogicCone iCone="0">
+      <Layer iFirstInput="0" iLayer="0" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="1" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="2" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="3" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="4" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="5" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="6" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="7" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="8" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="9" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="10" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="11" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="12" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="13" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="14" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="15" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="16" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="17" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="18" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="19" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="20" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="21" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="22" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="23" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="24" nInputs="4"/>
+    </LogicCone>
+    <LogicCone iCone="1">
+      <Layer iFirstInput="0" iLayer="0" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="1" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="2" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="3" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="4" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="5" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="6" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="7" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="8" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="9" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="10" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="11" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="12" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="13" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="14" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="15" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="16" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="17" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="18" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="19" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="20" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="21" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="22" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="23" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="24" nInputs="6"/>
+    </LogicCone>
+    <LogicCone iCone="2">
+      <Layer iFirstInput="0" iLayer="0" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="1" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="2" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="3" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="4" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="5" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="6" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="7" nInputs="4"/>
+      <Layer iFirstInput="2" iLayer="8" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="9" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="10" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="11" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="12" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="13" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="14" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="15" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="16" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="17" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="18" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="19" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="20" nInputs="4"/>
+      <Layer iFirstInput="2" iLayer="21" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="22" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="23" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="24" nInputs="6"/>
+    </LogicCone>
+    <LogicCone iCone="3">
+      <Layer iFirstInput="0" iLayer="0" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="1" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="2" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="3" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="4" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="5" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="6" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="7" nInputs="4"/>
+      <Layer iFirstInput="4" iLayer="8" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="9" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="10" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="11" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="12" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="13" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="14" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="15" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="16" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="17" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="18" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="19" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="20" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="21" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="22" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="23" nInputs="6"/>
+      <Layer iFirstInput="4" iLayer="24" nInputs="6"/>
+    </LogicCone>
+    <LogicCone iCone="4">
+      <Layer iFirstInput="0" iLayer="0" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="1" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="2" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="3" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="4" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="5" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="6" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="7" nInputs="4"/>
+      <Layer iFirstInput="6" iLayer="8" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="9" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="10" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="11" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="12" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="13" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="14" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="15" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="16" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="17" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="18" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="19" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="20" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="21" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="22" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="23" nInputs="6"/>
+      <Layer iFirstInput="6" iLayer="24" nInputs="6"/>
+    </LogicCone>
+    <LogicCone iCone="5">
+      <Layer iFirstInput="0" iLayer="0" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="1" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="2" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="3" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="4" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="5" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="6" nInputs="4"/>
+      <Layer iFirstInput="0" iLayer="7" nInputs="4"/>
+      <Layer iFirstInput="8" iLayer="8" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="9" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="10" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="11" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="12" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="13" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="14" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="15" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="16" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="17" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="18" nInputs="6"/>
+      <Layer iFirstInput="2" iLayer="19" nInputs="6"/>
+      <Layer iFirstInput="0" iLayer="20" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="21" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="22" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="23" nInputs="6"/>
+      <Layer iFirstInput="8" iLayer="24" nInputs="6"/>
+    </LogicCone>
+  </Processor>
 
 </OMTF>
 

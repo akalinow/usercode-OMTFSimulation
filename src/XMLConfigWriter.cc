@@ -1,8 +1,8 @@
-#include "interface/XMLConfigWriter.h"
-#include "interface/GoldenPattern.h"
-#include "interface/OMTFinput.h"
-#include "interface/OMTFConfiguration.h"
-#include "interface/OMTFResult.h"
+#include "UserCode/OMTFSimulation/interface/XMLConfigWriter.h"
+#include "UserCode/OMTFSimulation/interface/GoldenPattern.h"
+#include "UserCode/OMTFSimulation/interface/OMTFinput.h"
+#include "UserCode/OMTFSimulation/interface/OMTFConfiguration.h"
+#include "UserCode/OMTFSimulation/interface/OMTFResult.h"
 
 #include <iostream>
 #include <sstream>

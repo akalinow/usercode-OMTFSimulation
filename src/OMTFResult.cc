@@ -1,8 +1,8 @@
 #include <iostream>
 #include <ostream>
 
-#include "interface/OMTFResult.h"
-#include "interface/OMTFConfiguration.h"
+#include "UserCode/OMTFSimulation/interface/OMTFResult.h"
+#include "UserCode/OMTFSimulation/interface/OMTFConfiguration.h"
 
 
 ////////////////////////////////////////////

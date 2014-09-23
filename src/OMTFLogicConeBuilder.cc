@@ -1,8 +1,8 @@
-#include "interface/OMTFLogicConeBuilder.h"
-#include "interface/OMTFConfiguration.h"
-#include "interface/OMTFinputMaker.h"
-#include "interface/OMTFinput.h"
-#include "interface/MtfCoordinateConverter.h"
+#include "UserCode/OMTFSimulation/interface/OMTFLogicConeBuilder.h"
+#include "UserCode/OMTFSimulation/interface/OMTFConfiguration.h"
+#include "UserCode/OMTFSimulation/interface/OMTFinputMaker.h"
+#include "UserCode/OMTFSimulation/interface/OMTFinput.h"
+#include "UserCode/OMTFSimulation/interface/MtfCoordinateConverter.h"
 
 #include "UserCode/L1RpcTriggerAnalysis/interface/DTphDigiSpec.h"
 #include "UserCode/L1RpcTriggerAnalysis/interface/CSCDigiSpec.h"

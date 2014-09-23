@@ -4,7 +4,7 @@
 #include <vector>
 #include <ostream>
 
-#include "interface/OMTFinput.h"
+#include "UserCode/OMTFSimulation/interface/OMTFinput.h"
 
 //////////////////////////////////
 // Key

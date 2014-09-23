@@ -1,11 +1,11 @@
 #include <iostream>
 
-#include "interface/OMTFProcessor.h"
-#include "interface/OMTFConfiguration.h"
-#include "interface/GoldenPattern.h"
-#include "interface/XMLConfigReader.h"
-#include "interface/OMTFinput.h"
-#include "interface/OMTFResult.h"
+#include "UserCode/OMTFSimulation/interface/OMTFProcessor.h"
+#include "UserCode/OMTFSimulation/interface/OMTFConfiguration.h"
+#include "UserCode/OMTFSimulation/interface/GoldenPattern.h"
+#include "UserCode/OMTFSimulation/interface/XMLConfigReader.h"
+#include "UserCode/OMTFSimulation/interface/OMTFinput.h"
+#include "UserCode/OMTFSimulation/interface/OMTFResult.h"
 
 #include "FWCore/ParameterSet/interface/ParameterSet.h"
 
@@ -84,7 +84,6 @@ OMTFProcessor::resultsMap OMTFProcessor::processInput(unsigned int iProcessor,
 	    GoldenPattern::layerResult aLayerResult = itGP.second->process1Layer1RefLayer(iRefLayer,iLayer,
 											  phiRef,
 											  restricedLayerHits);
-	    //restricedLayerHits);
 	    myResults[itGP.second->key()].addResult(iRefLayer,iLayer,aLayerResult.first,phiRef);	 
 	  }
       }      

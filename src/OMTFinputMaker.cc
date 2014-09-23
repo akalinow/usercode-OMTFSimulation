@@ -214,9 +214,6 @@ const OMTFinput * OMTFinputMaker::buildInputForProcessor(const VDigiSpec & vDigi
     case MuonSubdetId::DT: {
       DTphDigiSpec digi(rawId,digiIt.second);
       myInput->addLayerHit(iLayer+1,iInput,digi.phiB());
-      /////////
-      //std::cout<<digi<<" iPhi: "<<iPhi<<std::endl;
-      /////////      
       break;
     }
     case MuonSubdetId::CSC: {

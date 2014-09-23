@@ -1,7 +1,7 @@
 #include <iostream>
 
-#include "interface/OMTFConfiguration.h"
-#include "interface/XMLConfigReader.h"
+#include "UserCode/OMTFSimulation/interface/OMTFConfiguration.h"
+#include "UserCode/OMTFSimulation/interface/XMLConfigReader.h"
 
 #include "FWCore/ParameterSet/interface/ParameterSet.h"
 

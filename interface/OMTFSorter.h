@@ -3,8 +3,8 @@
 
 #include <tuple>
 
-#include "interface/OMTFResult.h"
-#include "interface/OMTFProcessor.h"
+#include "UserCode/OMTFSimulation/interface/OMTFResult.h"
+#include "UserCode/OMTFSimulation/interface/OMTFProcessor.h"
 
 #include "UserCode/L1RpcTriggerAnalysis/interface/L1Obj.h"
 

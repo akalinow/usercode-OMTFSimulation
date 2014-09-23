@@ -1,9 +1,9 @@
 #include <iostream>
 #include <cmath>
 
-#include "interface/GoldenPattern.h"
-#include "interface/OMTFConfiguration.h"
-#include "interface/OMTFinput.h"
+#include "UserCode/OMTFSimulation/interface/GoldenPattern.h"
+#include "UserCode/OMTFSimulation/interface/OMTFConfiguration.h"
+#include "UserCode/OMTFSimulation/interface/OMTFinput.h"
 
 ////////////////////////////////////////////////////
 ////////////////////////////////////////////////////

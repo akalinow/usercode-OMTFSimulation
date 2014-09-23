@@ -178,12 +178,12 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
       //if(myOTFCandidate.pt) std::cout<<"iProcessor: "<<iProcessor<<" "<<myOTFCandidate<<std::endl;
       //////////////////////////////////
       if(myOTFCandidate.pt) myL1ObjColl.push_back(myOTFCandidate, false, 0.); 
-      if (myAnaEff) myAnaEff->run(simu, &myL1ObjColl, hitSpecProp);
     }
     ///Write to XML
     //xercesc::DOMElement *aTopElement = myWriter->writeEventHeader(ev);
     //myWriter->writeEventData(aTopElement,*myInput);
     //for(auto itKey: myResults) myWriter->writeResultsData(aTopElement, itKey.first,itKey.second);    
+    if (myAnaEff) myAnaEff->run(simu, &myL1ObjColl, hitSpecProp);
   }
 
   /////////////////

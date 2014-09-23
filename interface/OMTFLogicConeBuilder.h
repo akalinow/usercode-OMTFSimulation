@@ -1,7 +1,7 @@
 #ifndef OMTF_OMTFLogicConeBuilder_H
 #define OMTF_OMTFLogicConeBuilder_H
 
-#include "interface/OMTFinputMaker.h"
+#include "UserCode/OMTFSimulation/interface/OMTFinputMaker.h"
 
 class MtfCoordinateConverter;
 class OMTFinput;

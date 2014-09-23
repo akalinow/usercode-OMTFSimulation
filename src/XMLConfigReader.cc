@@ -1,7 +1,7 @@
-#include "interface/XMLConfigReader.h"
-#include "interface/GoldenPattern.h"
-#include "interface/OMTFinput.h"
-#include "interface/OMTFConfiguration.h"
+#include "UserCode/OMTFSimulation/interface/XMLConfigReader.h"
+#include "UserCode/OMTFSimulation/interface/GoldenPattern.h"
+#include "UserCode/OMTFSimulation/interface/OMTFinput.h"
+#include "UserCode/OMTFSimulation/interface/OMTFConfiguration.h"
 
 #include <iostream>
 #include <cmath>

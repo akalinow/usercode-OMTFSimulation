@@ -3,8 +3,8 @@
 
 #include <map>
 
-#include "interface/GoldenPattern.h"
-#include "interface/OMTFResult.h"
+#include "UserCode/OMTFSimulation/interface/GoldenPattern.h"
+#include "UserCode/OMTFSimulation/interface/OMTFResult.h"
 
 class XMLConfigReader;
 class OMTFinput;

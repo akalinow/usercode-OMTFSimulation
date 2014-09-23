@@ -6,7 +6,7 @@
 
 #include "xercesc/util/XercesDefs.hpp"
 
-#include "interface/OMTFConfiguration.h"
+#include "UserCode/OMTFSimulation/interface/OMTFConfiguration.h"
 
 class GoldenPattern;
 class OMTFConfiguration;

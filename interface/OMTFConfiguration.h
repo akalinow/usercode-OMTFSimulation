@@ -30,6 +30,7 @@ class OMTFConfiguration{
   static unsigned int nPdfAddrBits;
   static unsigned int nPdfValBits;
   static unsigned int nPhiBins;
+  static unsigned int nRefHits;
     
   static std::map<int,int> hwToLogicLayer;
   static std::map<int,int> logicToHwLayer;
@@ -54,6 +55,7 @@ class OMTFConfiguration{
   typedef std::vector<vector2D > vector3D;
   typedef std::vector<vector3D > vector4D;
   static vector4D measurements4D;
+  static vector4D measurements4Dref;
 
 };
 

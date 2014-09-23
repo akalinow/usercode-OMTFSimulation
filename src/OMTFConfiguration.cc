@@ -12,6 +12,7 @@ unsigned int OMTFConfiguration::nPdfAddrBits;
 unsigned int OMTFConfiguration::nPdfValBits;
 unsigned int OMTFConfiguration::nPhiBits;
 unsigned int OMTFConfiguration::nPhiBins;
+unsigned int OMTFConfiguration::nRefHits;
 
 std::map<int,int> OMTFConfiguration::hwToLogicLayer;
 std::map<int,int> OMTFConfiguration::logicToHwLayer;
@@ -22,6 +23,7 @@ std::vector<std::vector<int> > OMTFConfiguration::processorPhiVsRefLayer;
 OMTFConfiguration::vector3D_A OMTFConfiguration::connections;
 
 OMTFConfiguration::vector4D OMTFConfiguration::measurements4D;
+OMTFConfiguration::vector4D OMTFConfiguration::measurements4Dref;
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
 OMTFConfiguration::OMTFConfiguration(const edm::ParameterSet & theConfig){
@@ -47,6 +49,7 @@ OMTFConfiguration::OMTFConfiguration(const edm::ParameterSet & theConfig){
 
   ///Vector of all processors
   measurements4D.assign(6,aLayer3D);
+  measurements4Dref.assign(6,aLayer3D);
 
 
 }

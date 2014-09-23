@@ -273,11 +273,87 @@ void  XMLConfigWriter::writeConnectionsData(const std::vector<std::vector <OMTFC
 	aRefLayerElement->setAttribute(_toDOMS("iPhi"), _toDOMS(stringStr.str()));	
 	aProcessorElement->appendChild(aRefLayerElement);
       }
+    unsigned int iRefHit = 0;
     for(unsigned int iCone=0;iCone<6;++iCone){
       xercesc::DOMElement* aConeElement = theDoc->createElement(_toDOMS("LogicCone"));
       stringStr.str("");
       stringStr<<iCone;
       aConeElement->setAttribute(_toDOMS("iCone"), _toDOMS(stringStr.str()));   
+      ////
+      for(unsigned int iRefLayer=0;iRefLayer<OMTFConfiguration::nRefLayers;++iRefLayer){
+	if(iRefLayer>5) continue;
+	for(unsigned int iInput=0;iInput<14;++iInput){
+	  unsigned int hitCount =  OMTFConfiguration::measurements4Dref[iProcessor][iCone][iRefLayer][iInput];
+	  if(!hitCount) continue;
+	  xercesc::DOMElement* aRefHitElement = theDoc->createElement(_toDOMS("RefHit"));
+	  stringStr.str("");
+	  stringStr<<iRefHit;
+	  aRefHitElement->setAttribute(_toDOMS("iRefHit"), _toDOMS(stringStr.str()));
+	  stringStr.str("");
+	  stringStr<<iRefLayer;
+	  aRefHitElement->setAttribute(_toDOMS("iRefLayer"), _toDOMS(stringStr.str()));	  
+
+	  stringStr.str("");
+	  stringStr<<iCone;
+	  aRefHitElement->setAttribute(_toDOMS("iCone"), _toDOMS(stringStr.str()));	  
+
+	  stringStr.str("");
+	  stringStr<<iInput;
+	  aRefHitElement->setAttribute(_toDOMS("iInput"), _toDOMS(stringStr.str()));
+
+	  unsigned int logicConeSize = 10/360.0*OMTFConfiguration::nPhiBins;
+	  int iPhiMin = OMTFConfiguration::processorPhiVsRefLayer[iProcessor][iRefLayer];
+	  int iPhiMax = iPhiMin+logicConeSize;
+
+	  iPhiMin+=iCone*logicConeSize;
+	  iPhiMax+=iCone*logicConeSize;
+
+
+	  stringStr.str("");
+	  stringStr<<iPhiMin;
+	  aRefHitElement->setAttribute(_toDOMS("iPhiMin"), _toDOMS(stringStr.str()));
+
+	  stringStr.str("");
+	  stringStr<<iPhiMax;
+	  aRefHitElement->setAttribute(_toDOMS("iPhiMax"), _toDOMS(stringStr.str()));
+
+	  aProcessorElement->appendChild(aRefHitElement);
+	  ++iRefHit;
+	}
+      }
+      for(;iCone==5 && iRefHit<80;++iRefHit){
+
+	xercesc::DOMElement* aRefHitElement = theDoc->createElement(_toDOMS("RefHit"));
+	stringStr.str("");
+	stringStr<<iRefHit;
+	aRefHitElement->setAttribute(_toDOMS("iRefHit"), _toDOMS(stringStr.str()));
+	stringStr.str("");
+	stringStr<<0;
+	aRefHitElement->setAttribute(_toDOMS("iRefLayer"), _toDOMS(stringStr.str()));
+
+	stringStr.str("");
+	stringStr<<0;
+	aRefHitElement->setAttribute(_toDOMS("iCone"), _toDOMS(stringStr.str()));
+
+	stringStr.str("");
+	stringStr<<0;
+	aRefHitElement->setAttribute(_toDOMS("iInput"), _toDOMS(stringStr.str()));
+
+	int iPhiMin = 0;
+	int iPhiMax = 1;
+
+	stringStr.str("");
+	stringStr<<iPhiMin;
+	aRefHitElement->setAttribute(_toDOMS("iPhiMin"), _toDOMS(stringStr.str()));
+
+	stringStr.str("");
+	stringStr<<iPhiMax;
+	aRefHitElement->setAttribute(_toDOMS("iPhiMax"), _toDOMS(stringStr.str()));
+
+	aProcessorElement->appendChild(aRefHitElement);
+      }
+    
+      ////
       for(unsigned int iLogicLayer=0;iLogicLayer<OMTFConfiguration::nLayers;++iLogicLayer){
 	xercesc::DOMElement* aLayerElement = theDoc->createElement(_toDOMS("Layer"));
 	stringStr.str("");

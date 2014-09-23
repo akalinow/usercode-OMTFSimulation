@@ -213,11 +213,13 @@ void XMLConfigReader::readConfig(OMTFConfiguration *aConfig){
   unsigned int nHitsPerLayer =  std::atoi(_toString(aElement->getAttribute(_toDOMS("nHitsPerLayer"))).c_str()); 
   unsigned int nPhiBits =  std::atoi(_toString(aElement->getAttribute(_toDOMS("nPhiBits"))).c_str()); 
   unsigned int nPhiBins =  std::atoi(_toString(aElement->getAttribute(_toDOMS("nPhiBins"))).c_str()); 
+  unsigned int nRefHits =  std::atoi(_toString(aElement->getAttribute(_toDOMS("nRefHits"))).c_str()); 
   OMTFConfiguration::nPdfAddrBits = nPdfAddrBits;
   OMTFConfiguration::nPdfValBits = nPdfValBits;
   OMTFConfiguration::nHitsPerLayer = nHitsPerLayer;
   OMTFConfiguration::nPhiBits = nPhiBits;
   OMTFConfiguration::nPhiBins = nPhiBins;
+  OMTFConfiguration::nRefHits = nRefHits;
 
   ///hw <-> logic numbering map
   unsigned int nLogicLayers = 0;

@@ -59,6 +59,11 @@ class OMTFProcessor{
 		      unsigned int iCone,
 		      const OMTFinput & aInput);
 
+  void fillInputRange(unsigned int iProcessor,
+		      unsigned int iCone,
+		      unsigned int iRefLayer,
+		      unsigned int iHit);
+    
   ///Remove hits whis are outside input range
   ///for given processor and cone
   OMTFinput::vector1D restrictInput(unsigned int iProcessor,

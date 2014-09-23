@@ -1,6 +1,8 @@
 #include <cassert>
 #include <iostream>
 
+#include "UserCode/L1RpcTriggerAnalysis/interface/L1RpcTriggerAnalysisEfficiencyUtilities.h"
+
 #include "UserCode/OMTFSimulation/interface/OMTFSorter.h"
 
 ///////////////////////////////////////////////////////
@@ -70,7 +72,7 @@ L1Obj OMTFSorter::sortResults(const OMTFProcessor::resultsMap & aResultsMap){
   }  
 
   L1Obj candidate;
-  candidate.pt = bestKey.thePtCode;
+  candidate.pt =  L1RpcTriggerAnalysisEfficiencyUtilities::PtScale::ptValue(bestKey.thePtCode);
   candidate.eta = bestKey.theEtaCode;
   refPhi+=0;
   candidate.phi = 0;//refPhi;

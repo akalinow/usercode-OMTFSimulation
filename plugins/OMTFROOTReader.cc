@@ -107,7 +107,7 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
   Int_t nentries= (Int_t) chain.GetEntries();
   ///Test settings
   //nentries = 50;
-  nentries = 5E3;
+  nentries = 5E4;
   /////////////////
   std::cout <<" ENTRIES: " << nentries << std::endl;
  
@@ -195,7 +195,14 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
   }
   std::cout<<std::endl; 
   /////////////////
-  analyseConnections();
+  analyseConnections(0,0);
+  analyseConnections(0,1);
+  analyseConnections(0,5);
+
+  analyseConnections(5,0);
+  analyseConnections(5,5);
+
+
 }
 /////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////
@@ -211,16 +218,18 @@ void OMTFROOTReader::endJob(){
 }
 /////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////
-void OMTFROOTReader::analyseConnections(){
+void OMTFROOTReader::analyseConnections(unsigned int iProcessor,
+					unsigned int iCone){
 
- ///Print counts in indivdual inputs for single processor and logic cone
-  unsigned int iProcessor = 5;
-  unsigned int iCone = 5;
+
+  std::cout<<"iProcessor: "<<iProcessor
+	   <<" iCone: "<<iCone
+	   <<std::endl;
 
   for(unsigned int iLogicLayer=0;iLogicLayer<OMTFConfiguration::nLayers;++iLogicLayer){
     std::cout<<"Logic layer: "<<iLogicLayer<<" Hits: ";
     for(unsigned int iHit=0;iHit<14;++iHit){
-      std::cout<<OMTFConfiguration::measurements4D[iProcessor][iCone][iLogicLayer][iHit]<<"\t";
+      std::cout<<OMTFConfiguration::measurements4Dref[iProcessor][iCone][iLogicLayer][iHit]<<"\t";
     }
     std::cout<<std::endl;
   }

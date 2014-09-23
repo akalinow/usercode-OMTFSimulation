@@ -35,7 +35,8 @@ public:
 
 private:
 
-  void analyseConnections();
+  void analyseConnections(unsigned int iProcessor,
+			  unsigned int iCone);
 
   TObjArray myHistos;
   edm::ParameterSet theConfig;

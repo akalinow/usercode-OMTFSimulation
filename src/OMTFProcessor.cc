@@ -68,14 +68,16 @@ OMTFProcessor::resultsMap OMTFProcessor::processInput(unsigned int iProcessor,
   for(unsigned int iRefLayer=0;iRefLayer<OMTFConfiguration::nRefLayers;++iRefLayer){
     const OMTFinput::vector1D & refLayerHits = aInput.getLayerData(OMTFConfiguration::refToLogicNumber[iRefLayer]);	
     if(!refLayerHits.size()) continue;
+    //////////////////////
     for(unsigned int iLayer=0;iLayer<OMTFConfiguration::nLayers;++iLayer){
       const OMTFinput::vector1D & layerHits = aInput.getLayerData(iLayer);
       if(!layerHits.size()) continue;
-      for(auto itRefHit: refLayerHits){	
-	  int phiRef = itRefHit;
+      for(unsigned int iInput=0;iInput<refLayerHits.size();++iInput){	
+	  int phiRef = refLayerHits[iInput];
 	  unsigned int iCone = getConeNumber(iProcessor,iRefLayer,phiRef);
 	  if(iCone>5) continue;
 	  fillInputRange(iProcessor,iCone,aInput);
+	  fillInputRange(iProcessor,iCone,iRefLayer,iInput);
 	  //continue;//////////////////////////////////////////////////////////////////
 	  if(phiRef>=(int)OMTFConfiguration::nPhiBins) continue;
 	  if(OMTFConfiguration::bendingLayers.count(iLayer)) phiRef = 0;
@@ -106,6 +108,16 @@ void OMTFProcessor::fillInputRange(unsigned int iProcessor,
       OMTFConfiguration::measurements4D[iProcessor][iCone][iLogicLayer][iHit]+=isHit;
     }
   }
+}
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+void OMTFProcessor::fillInputRange(unsigned int iProcessor,
+				   unsigned int iCone,
+				   unsigned int iRefLayer,
+				   unsigned int iHit){
+
+      ++OMTFConfiguration::measurements4Dref[iProcessor][iCone][iRefLayer][iHit]; 
+
 }
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////

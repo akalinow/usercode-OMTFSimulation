@@ -10,6 +10,7 @@
 
 class OMTFProcessor;
 class OMTFConfiguration;
+class OMTFConfigMaker;
 class OMTFinputMaker;
 class OMTFSorter;
 
@@ -49,6 +50,7 @@ private:
   OMTFinputMaker *myInputMaker;
   OMTFSorter *mySorter;
   OMTFProcessor *myOMTF;
+  OMTFConfigMaker *myOMTFConfigMaker;
 
   ///Analysis objects
   AnaEff        *myAnaEff;

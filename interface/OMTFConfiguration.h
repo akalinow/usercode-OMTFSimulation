@@ -57,6 +57,21 @@ class OMTFConfiguration{
   static vector4D measurements4D;
   static vector4D measurements4Dref;
 
+
+  ///Find number of logic cone within a given processor.
+  ///Number is calculated assuming 10 deg wide logic cones
+  static unsigned int getConeNumber(unsigned int iProcessor,
+				    unsigned int iRefLayer,
+				    int iPhi);
+
+  
+  ///Check if given referecne hit is
+  ///in phi range for some logic cone.
+  ///Care is needed arounf +Pi and +2Pi points
+  static bool isInConeRange(int iPhiStart,
+			    unsigned int coneSize,
+			    int iPhi);
+
 };
 
 

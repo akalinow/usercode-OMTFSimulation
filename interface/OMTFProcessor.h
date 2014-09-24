@@ -6,6 +6,7 @@
 #include "UserCode/OMTFSimulation/interface/GoldenPattern.h"
 #include "UserCode/OMTFSimulation/interface/OMTFResult.h"
 
+class OMTFConfiguration;
 class XMLConfigReader;
 class OMTFinput;
 
@@ -26,32 +27,25 @@ class OMTFProcessor{
   ///Fill GP map with patterns
   bool configure(XMLConfigReader *aReader);
 
-  ///Process input datafrom asingle event
-  ///Input data i reprecented by hits in logic layers
+  ///Process input data from a single event
+  ///Input data is represented by hits in logic layers
   OMTFProcessor::resultsMap processInput(unsigned int iProcessor,
 					 const OMTFinput & aInput);
 
   ///Return map of GoldenPatterns
   const std::map<Key,GoldenPattern*> & getPatterns() const;
 
+  ///Shift phi values in input to fit the 11 bits
+  ///range. For each processor the global phi beggining-511 
+  ///is added, so it starts at -551
+  OMTFinput shiftInput(unsigned int iProcessor,
+		       const OMTFinput & aInput);
+
  private:
 
   ///Add GoldenPattern to pattern map.
   ///If GP key already exists in map, a new entry is ignored
   bool addGP(GoldenPattern *aGP);
-
-  ///Find number of logic cone within a given processor.
-  ///Number is calculated assuming 10 deg wide logic cones
-  unsigned int getConeNumber(unsigned int iProcessor,
-			     unsigned int iRefLayer,
-			     int iPhi);
-
-  ///Check if given referecne hit is
-  ///in phi range for some logic cone.
-  ///Care is needed arounf +Pi and +2Pi points
-  bool isInConeRange(int iPhiStart,
-		     unsigned int coneSize,
-		     int iPhi);
 
   ///Fill map of used inputs.
   ///FIXME: using hack from OMTFConfiguration
@@ -77,8 +71,6 @@ class OMTFProcessor{
   ///Map holding results on current event data
   ///for each GP
   OMTFProcessor::resultsMap myResults;
-
-
 
 };
 

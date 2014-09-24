@@ -28,6 +28,9 @@ class OMTFinput{
   void readData(XMLConfigReader *aReader, 
 		unsigned int iEvent=0);
 
+  ///Apply shitf to all data
+  void shiftMyPhi(int phiShift);
+
   const OMTFinput::vector1D & getLayerData(unsigned int iLayer) const;
 
   std::ostream & print(std::ostream & out) const;

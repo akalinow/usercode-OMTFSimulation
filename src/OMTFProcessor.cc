@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 
 #include "UserCode/OMTFSimulation/interface/OMTFProcessor.h"
 #include "UserCode/OMTFSimulation/interface/OMTFConfiguration.h"
@@ -74,11 +75,8 @@ OMTFProcessor::resultsMap OMTFProcessor::processInput(unsigned int iProcessor,
       if(!layerHits.size()) continue;
       for(unsigned int iInput=0;iInput<refLayerHits.size();++iInput){	
 	  int phiRef = refLayerHits[iInput];
-	  unsigned int iCone = getConeNumber(iProcessor,iRefLayer,phiRef);
+	  unsigned int iCone = OMTFConfiguration::getConeNumber(iProcessor,iRefLayer,phiRef);
 	  if(iCone>5) continue;
-	  fillInputRange(iProcessor,iCone,aInput);
-	  fillInputRange(iProcessor,iCone,iRefLayer,iInput);
-	  //continue;//////////////////////////////////////////////////////////////////
 	  if(phiRef>=(int)OMTFConfiguration::nPhiBins) continue;
 	  if(OMTFConfiguration::bendingLayers.count(iLayer)) phiRef = 0;
 	  const OMTFinput::vector1D restricedLayerHits = restrictInput(iProcessor, iCone, iLayer,layerHits);
@@ -96,71 +94,21 @@ OMTFProcessor::resultsMap OMTFProcessor::processInput(unsigned int iProcessor,
 
   return myResults;
 }   
-///////////////////////////////////////////////
-///////////////////////////////////////////////
-void OMTFProcessor::fillInputRange(unsigned int iProcessor,
-				   unsigned int iCone,
-				   const OMTFinput & aInput){
+////////////////////////////////////////////
+////////////////////////////////////////////
+OMTFinput OMTFProcessor::shiftInput(unsigned int iProcessor,
+				    const OMTFinput & aInput){
 
-  for(unsigned int iLogicLayer=0;iLogicLayer<OMTFConfiguration::nLayers;++iLogicLayer){
-    for(unsigned int iHit=0;iHit<14;++iHit){
-      bool isHit = aInput.getLayerData(iLogicLayer)[iHit]<(int)OMTFConfiguration::nPhiBins;
-      OMTFConfiguration::measurements4D[iProcessor][iCone][iLogicLayer][iHit]+=isHit;
-    }
-  }
-}
-///////////////////////////////////////////////
-///////////////////////////////////////////////
-void OMTFProcessor::fillInputRange(unsigned int iProcessor,
-				   unsigned int iCone,
-				   unsigned int iRefLayer,
-				   unsigned int iHit){
+  int minPhi =  *std::min_element(OMTFConfiguration::processorPhiVsRefLayer[iProcessor].begin(),
+				  OMTFConfiguration::processorPhiVsRefLayer[iProcessor].end());
+				 
+  ///OMTFConfiguration::nPhiBins/2 to shift the minPhi to 0-nBins scale,
+  if(minPhi<0) minPhi+=OMTFConfiguration::nPhiBins;
 
-      ++OMTFConfiguration::measurements4Dref[iProcessor][iCone][iRefLayer][iHit]; 
-
-}
-///////////////////////////////////////////////
-///////////////////////////////////////////////
-bool OMTFProcessor::isInConeRange(int iPhiStart,
-				unsigned int coneSize,
-				int iPhi){
-
-  if(iPhi<0) iPhi+=OMTFConfiguration::nPhiBins;
-  if(iPhiStart<0) iPhiStart+=OMTFConfiguration::nPhiBins;
-
-  if(iPhiStart+(int)coneSize<(int)OMTFConfiguration::nPhiBins){
-    return iPhiStart<=iPhi && iPhiStart+(int)coneSize>iPhi;
-  }
-  else if(iPhi>(int)OMTFConfiguration::nPhiBins/2){
-    return iPhiStart<=iPhi;
-  }
-  else if(iPhi<(int)OMTFConfiguration::nPhiBins/2){
-    return iPhi<iPhiStart+(int)coneSize-(int)OMTFConfiguration::nPhiBins;
-  }
-  return false;
-}
-///////////////////////////////////////////////
-///////////////////////////////////////////////
-unsigned int OMTFProcessor::getConeNumber(unsigned int iProcessor,
-					  unsigned int iRefLayer,
-					  int iPhi){
-
-  if(iPhi>=(int)OMTFConfiguration::nPhiBins) return 99;
-
-  unsigned int logicConeSize = 10/360.0*OMTFConfiguration::nPhiBins;
+  OMTFinput myCopy = aInput;
+  myCopy.shiftMyPhi(minPhi);
   
-
-  unsigned int iCone = 0;
-  int iPhiStart = OMTFConfiguration::processorPhiVsRefLayer[iProcessor][iRefLayer];
-  
-  ///FIX ME 2Pi wrapping  
-  while(!isInConeRange(iPhiStart,logicConeSize,iPhi) && iCone<6){
-    ++iCone;
-    iPhiStart+=logicConeSize;    
-  }
-
-  if(iCone>5) iCone = 99;
-  return iCone;
+  return myCopy;
 }
 ////////////////////////////////////////////
 ////////////////////////////////////////////

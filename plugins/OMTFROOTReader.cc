@@ -8,6 +8,7 @@
 #include "UserCode/OMTFSimulation/interface/OMTFinput.h"
 #include "UserCode/OMTFSimulation/interface/OMTFSorter.h"
 #include "UserCode/OMTFSimulation/interface/OMTFConfiguration.h"
+#include "UserCode/OMTFSimulation/interface/OMTFConfigMaker.h"
 #include "UserCode/OMTFSimulation/interface/XMLConfigWriter.h"
 
 #include "UserCode/L1RpcTriggerAnalysis/interface/AnaEff.h"
@@ -42,6 +43,7 @@ OMTFROOTReader::OMTFROOTReader(const edm::ParameterSet & cfg){
 
   if (cfg.exists("omtf")){
     myOMTFConfig = new OMTFConfiguration(cfg.getParameter<edm::ParameterSet>("omtf"));
+    myOMTFConfigMaker = new OMTFConfigMaker(cfg.getParameter<edm::ParameterSet>("omtf"));
     myOMTF = new OMTFProcessor(cfg.getParameter<edm::ParameterSet>("omtf"));
   }
   myInputMaker = new OMTFinputMaker();
@@ -110,9 +112,6 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
   nentries = 5E4;
   /////////////////
   std::cout <<" ENTRIES: " << nentries << std::endl;
- 
-  std::vector<int> minRefPhi1D(6,OMTFConfiguration::nPhiBins);
-  std::vector<std::vector<int> > minRefPhi2D(8,minRefPhi1D);
 
   // main loop
   unsigned int lastRun = 0;
@@ -138,37 +137,37 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
 
     for(unsigned int iProcessor=0;iProcessor<6;++iProcessor){
 	const OMTFinput *myInput = myInputMaker->buildInputForProcessor(*digSpec,iProcessor);
-      ////Find starting iPhi for each processor and each referecne layer    
-      for(unsigned int iRefLayer=0;iRefLayer<OMTFConfiguration::nRefLayers;++iRefLayer){
-	const OMTFinput::vector1D & refLayerHits = myInput->getLayerData(OMTFConfiguration::refToLogicNumber[iRefLayer]);	
-	if(!refLayerHits.size()) continue;
-	for(auto itRefHit: refLayerHits){	
-	  int phiRef = itRefHit;
-	  if(phiRef>=(int)OMTFConfiguration::nPhiBins) continue;
-	  ///FIXME: this stupid arithemetics on phi. 
-	  if( (iProcessor<2 || iProcessor>3) && phiRef<minRefPhi2D[iRefLayer][iProcessor]) minRefPhi2D[iRefLayer][iProcessor] = phiRef;
-	  else if(phiRef>0 && phiRef<minRefPhi2D[iRefLayer][iProcessor]) minRefPhi2D[iRefLayer][iProcessor] = phiRef;
-	}
-      }
-      /////////
-      const OMTFProcessor::resultsMap & myResults = myOMTF->processInput(iProcessor,*myInput);
-      L1Obj myOTFCandidate = mySorter->sortResults(myResults);
-      //std::cout<<"iProcessor: "<<iProcessor<<std::endl;     
-      if(ev==-33){
-	if(iProcessor==3){
-	  for (auto it:*digSpec){
-	    DetId detId(it.first);
-	    switch (detId.subdetId()) {
-	    case MuonSubdetId::RPC: { std::cout << std::endl <<RPCDetId(it.first)<<" "<<RPCDigiSpec(it.first, it.second);  break; }
-	    case MuonSubdetId::DT:  { std::cout << std::endl <<DTChamberId(it.first)<<" "<<DTphDigiSpec(it.first, it.second); break; }
-	    case MuonSubdetId::CSC: { std::cout << std::endl <<CSCDetId(it.first)<<" "<<CSCDigiSpec(it.first, it.second);  break; }
-	    };
-	    std::cout<<std::endl;
+	const OMTFinput myShiftedInput =  myOMTF->shiftInput(iProcessor,*myInput);	
+
+
+	///Phi maps should be made with original, global phi values.
+	//myOMTFConfigMaker->makeConnetionsMap(iProcessor,*myInput);
+	myOMTFConfigMaker->makeConnetionsMap(iProcessor,myShiftedInput);
+
+	continue;
+
+	const OMTFProcessor::resultsMap & myResults = myOMTF->processInput(iProcessor,*myInput);
+	L1Obj myOTFCandidate = mySorter->sortResults(myResults);
+	//std::cout<<"iProcessor: "<<iProcessor<<std::endl;     
+	if(ev<-100){
+	  if(iProcessor==0){
+	    for (auto it:*digSpec){
+	      DetId detId(it.first);
+	      switch (detId.subdetId()) {
+	      case MuonSubdetId::RPC: { std::cout << std::endl <<RPCDetId(it.first)<<" "<<RPCDigiSpec(it.first, it.second);  break; }
+	      case MuonSubdetId::DT:  { std::cout << std::endl <<DTChamberId(it.first)<<" "<<DTphDigiSpec(it.first, it.second); break; }
+	      case MuonSubdetId::CSC: { std::cout << std::endl <<CSCDetId(it.first)<<" "<<CSCDigiSpec(it.first, it.second);  break; }
+	      };
+	      std::cout<<std::endl;
+	    }
 	  }
+	  ///Print input and output      
+	  std::cout<<"Original input"<<std::endl;
+	  myInput->print(std::cout);
+	  std::cout<<"Shifted input"<<std::endl;
+	  myShiftedInput.print(std::cout);
+	  std::cout<<"-------------------"<<std::endl;
 	}
-	///Print input and output      
-	myInput->print(std::cout);
-      }
       /*
       for(auto & itGP: myResults){
 	std::cout<<itGP.first<<std::endl;
@@ -186,21 +185,8 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
     if (myAnaEff) myAnaEff->run(simu, &myL1ObjColl, hitSpecProp);
   }
 
-  /////////////////
-  for(unsigned int iRefLayer=0;iRefLayer<OMTFConfiguration::nRefLayers;++iRefLayer){
-    for(unsigned int iProcessor=0;iProcessor<6;++iProcessor){
-      std::cout<<"          "<<minRefPhi2D[iRefLayer][iProcessor]<<"\t";
-    }
-    std::cout<<std::endl;
-  }
-  std::cout<<std::endl; 
-  /////////////////
-  analyseConnections(0,0);
-  analyseConnections(0,1);
-  analyseConnections(0,5);
-
-  analyseConnections(5,0);
-  analyseConnections(5,5);
+  myOMTFConfigMaker->printPhiMap(std::cout);
+  myOMTFConfigMaker->printConnections(std::cout,0,0);
 
 
 }
@@ -218,21 +204,4 @@ void OMTFROOTReader::endJob(){
 }
 /////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////
-void OMTFROOTReader::analyseConnections(unsigned int iProcessor,
-					unsigned int iCone){
 
-
-  std::cout<<"iProcessor: "<<iProcessor
-	   <<" iCone: "<<iCone
-	   <<std::endl;
-
-  for(unsigned int iLogicLayer=0;iLogicLayer<OMTFConfiguration::nLayers;++iLogicLayer){
-    std::cout<<"Logic layer: "<<iLogicLayer<<" Hits: ";
-    for(unsigned int iHit=0;iHit<14;++iHit){
-      std::cout<<OMTFConfiguration::measurements4Dref[iProcessor][iCone][iLogicLayer][iHit]<<"\t";
-    }
-    std::cout<<std::endl;
-  }
-}
-/////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////

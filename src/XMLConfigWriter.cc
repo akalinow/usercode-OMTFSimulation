@@ -274,16 +274,16 @@ void  XMLConfigWriter::writeConnectionsData(const std::vector<std::vector <OMTFC
 	aProcessorElement->appendChild(aRefLayerElement);
       }
     unsigned int iRefHit = 0;
-    for(unsigned int iCone=0;iCone<6;++iCone){
-      xercesc::DOMElement* aConeElement = theDoc->createElement(_toDOMS("LogicCone"));
+    for(unsigned int iRegion=0;iRegion<6;++iRegion){
+      xercesc::DOMElement* aRegionElement = theDoc->createElement(_toDOMS("LogicRegion"));
       stringStr.str("");
-      stringStr<<iCone;
-      aConeElement->setAttribute(_toDOMS("iCone"), _toDOMS(stringStr.str()));   
+      stringStr<<iRegion;
+      aRegionElement->setAttribute(_toDOMS("iRegion"), _toDOMS(stringStr.str()));   
       ////
       for(unsigned int iRefLayer=0;iRefLayer<OMTFConfiguration::nRefLayers;++iRefLayer){
 	if(iRefLayer>5) continue;
 	for(unsigned int iInput=0;iInput<14;++iInput){
-	  unsigned int hitCount =  OMTFConfiguration::measurements4Dref[iProcessor][iCone][iRefLayer][iInput];
+	  unsigned int hitCount =  OMTFConfiguration::measurements4Dref[iProcessor][iRegion][iRefLayer][iInput];
 	  if(!hitCount) continue;
 	  xercesc::DOMElement* aRefHitElement = theDoc->createElement(_toDOMS("RefHit"));
 	  stringStr.str("");
@@ -294,19 +294,19 @@ void  XMLConfigWriter::writeConnectionsData(const std::vector<std::vector <OMTFC
 	  aRefHitElement->setAttribute(_toDOMS("iRefLayer"), _toDOMS(stringStr.str()));	  
 
 	  stringStr.str("");
-	  stringStr<<iCone;
-	  aRefHitElement->setAttribute(_toDOMS("iCone"), _toDOMS(stringStr.str()));	  
+	  stringStr<<iRegion;
+	  aRefHitElement->setAttribute(_toDOMS("iRegion"), _toDOMS(stringStr.str()));	  
 
 	  stringStr.str("");
 	  stringStr<<iInput;
 	  aRefHitElement->setAttribute(_toDOMS("iInput"), _toDOMS(stringStr.str()));
 
-	  unsigned int logicConeSize = 10/360.0*OMTFConfiguration::nPhiBins;
+	  unsigned int logicRegionSize = 10/360.0*OMTFConfiguration::nPhiBins;
 	  int iPhiMin = OMTFConfiguration::processorPhiVsRefLayer[iProcessor][iRefLayer];
-	  int iPhiMax = iPhiMin+logicConeSize;
+	  int iPhiMax = iPhiMin+logicRegionSize;
 
-	  iPhiMin+=iCone*logicConeSize;
-	  iPhiMax+=iCone*logicConeSize;
+	  iPhiMin+=iRegion*logicRegionSize;
+	  iPhiMax+=iRegion*logicRegionSize;
 
 
 	  stringStr.str("");
@@ -321,7 +321,7 @@ void  XMLConfigWriter::writeConnectionsData(const std::vector<std::vector <OMTFC
 	  ++iRefHit;
 	}
       }
-      for(;iCone==5 && iRefHit<80;++iRefHit){
+      for(;iRegion==5 && iRefHit<80;++iRefHit){
 
 	xercesc::DOMElement* aRefHitElement = theDoc->createElement(_toDOMS("RefHit"));
 	stringStr.str("");
@@ -333,7 +333,7 @@ void  XMLConfigWriter::writeConnectionsData(const std::vector<std::vector <OMTFC
 
 	stringStr.str("");
 	stringStr<<0;
-	aRefHitElement->setAttribute(_toDOMS("iCone"), _toDOMS(stringStr.str()));
+	aRefHitElement->setAttribute(_toDOMS("iRegion"), _toDOMS(stringStr.str()));
 
 	stringStr.str("");
 	stringStr<<0;
@@ -359,7 +359,7 @@ void  XMLConfigWriter::writeConnectionsData(const std::vector<std::vector <OMTFC
 	stringStr.str("");
 	stringStr<<iLogicLayer;
 	aLayerElement->setAttribute(_toDOMS("iLayer"), _toDOMS(stringStr.str()));
-	const OMTFConfiguration::vector1D & myCounts = OMTFConfiguration::measurements4D[iProcessor][iCone][iLogicLayer];
+	const OMTFConfiguration::vector1D & myCounts = OMTFConfiguration::measurements4D[iProcessor][iRegion][iLogicLayer];
 	unsigned int maxInput = findMaxInput(myCounts);
 	unsigned int begin = 0, end = 0;
 	if((int)maxInput-2>=0) begin = maxInput-2;
@@ -371,9 +371,9 @@ void  XMLConfigWriter::writeConnectionsData(const std::vector<std::vector <OMTFC
 	stringStr.str("");
 	stringStr<<end-begin+1;
 	aLayerElement->setAttribute(_toDOMS("nInputs"), _toDOMS(stringStr.str()));
-	aConeElement->appendChild(aLayerElement);
+	aRegionElement->appendChild(aLayerElement);
       }
-      aProcessorElement->appendChild(aConeElement);
+      aProcessorElement->appendChild(aRegionElement);
     }
     theTopElement->appendChild(aProcessorElement);
   }

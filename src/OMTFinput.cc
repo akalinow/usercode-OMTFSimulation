@@ -1,4 +1,6 @@
 #include <cassert>
+#include <iostream>
+
 #include "UserCode/OMTFSimulation/interface/OMTFinput.h"
 #include "UserCode/OMTFSimulation/interface/OMTFConfiguration.h"
 #include "UserCode/OMTFSimulation/interface/XMLConfigReader.h"
@@ -47,6 +49,22 @@ void OMTFinput::clear(){
   vector1D aLayer1D(14,OMTFConfiguration::nPhiBins);
   measurements.assign(OMTFConfiguration::nLayers,aLayer1D);
 
+}
+///////////////////////////////////////////////////
+///////////////////////////////////////////////////
+void  OMTFinput::shiftMyPhi(int phiShift){
+
+for(unsigned int iLogicLayer=0;iLogicLayer<measurements.size();++iLogicLayer){
+    for(unsigned int iHit=0;iHit<measurements[iLogicLayer].size();++iHit){
+      if(!OMTFConfiguration::bendingLayers.count(iLogicLayer) &&
+	 measurements[iLogicLayer][iHit]<(int)OMTFConfiguration::nPhiBins){
+	if(measurements[iLogicLayer][iHit]<0) measurements[iLogicLayer][iHit]+=OMTFConfiguration::nPhiBins;
+	measurements[iLogicLayer][iHit]-=phiShift;
+	if(measurements[iLogicLayer][iHit]<0) measurements[iLogicLayer][iHit]+=OMTFConfiguration::nPhiBins;
+	//measurements[iLogicLayer][iHit]+=-511;
+      }
+    }
+  }
 }
 ///////////////////////////////////////////////////
 ///////////////////////////////////////////////////

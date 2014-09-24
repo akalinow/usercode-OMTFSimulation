@@ -84,3 +84,46 @@ std::ostream & OMTFConfiguration::print(std::ostream & out){
 }
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
+bool OMTFConfiguration::isInConeRange(int iPhiStart,
+				unsigned int coneSize,
+				int iPhi){
+
+  if(iPhi<0) iPhi+=OMTFConfiguration::nPhiBins;
+  if(iPhiStart<0) iPhiStart+=OMTFConfiguration::nPhiBins;
+
+  if(iPhiStart+(int)coneSize<(int)OMTFConfiguration::nPhiBins){
+    return iPhiStart<=iPhi && iPhiStart+(int)coneSize>iPhi;
+  }
+  else if(iPhi>(int)OMTFConfiguration::nPhiBins/2){
+    return iPhiStart<=iPhi;
+  }
+  else if(iPhi<(int)OMTFConfiguration::nPhiBins/2){
+    return iPhi<iPhiStart+(int)coneSize-(int)OMTFConfiguration::nPhiBins;
+  }
+  return false;
+}
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+unsigned int OMTFConfiguration::getConeNumber(unsigned int iProcessor,
+					  unsigned int iRefLayer,
+					  int iPhi){
+
+  if(iPhi>=(int)OMTFConfiguration::nPhiBins) return 99;
+
+  unsigned int logicConeSize = 10/360.0*OMTFConfiguration::nPhiBins;
+  
+
+  unsigned int iCone = 0;
+  int iPhiStart = OMTFConfiguration::processorPhiVsRefLayer[iProcessor][iRefLayer];
+  
+  ///FIX ME 2Pi wrapping  
+  while(!OMTFConfiguration::isInConeRange(iPhiStart,logicConeSize,iPhi) && iCone<6){
+    ++iCone;
+    iPhiStart+=logicConeSize;    
+  }
+
+  if(iCone>5) iCone = 99;
+  return iCone;
+}
+///////////////////////////////////////////////
+///////////////////////////////////////////////

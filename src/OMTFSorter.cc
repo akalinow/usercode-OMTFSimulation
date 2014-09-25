@@ -3,6 +3,7 @@
 
 #include "UserCode/L1RpcTriggerAnalysis/interface/L1RpcTriggerAnalysisEfficiencyUtilities.h"
 
+#include "UserCode/OMTFSimulation/interface/OMTFConfiguration.h"
 #include "UserCode/OMTFSimulation/interface/OMTFSorter.h"
 
 ///////////////////////////////////////////////////////
@@ -73,9 +74,15 @@ L1Obj OMTFSorter::sortResults(const OMTFProcessor::resultsMap & aResultsMap){
 
   L1Obj candidate;
   candidate.pt =  L1RpcTriggerAnalysisEfficiencyUtilities::PtScale::ptValue(bestKey.thePtCode);
+  //candidate.pt =  bestKey.thePtCode;
   candidate.eta = bestKey.theEtaCode;
-  refPhi+=0;
-  candidate.phi = 0;//refPhi;
+  ////Swith from internal processor 10bit scale to global one
+  unsigned int iProcessor = 0; //Dummy value for now
+  int procOffset = OMTFConfiguration::globalPhiStart(iProcessor);
+  if(procOffset<0) procOffset+=OMTFConfiguration::nPhiBins;
+  //refPhi+=OMTFConfiguration::globalPhiStart(iProcessor)+511;
+  ///
+  candidate.phi = refPhi;
   candidate.charge = bestKey.theCharge;
   candidate.q   = nHitsMax;
   candidate.disc = pdfValMax;

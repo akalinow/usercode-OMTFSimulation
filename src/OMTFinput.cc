@@ -61,7 +61,7 @@ for(unsigned int iLogicLayer=0;iLogicLayer<measurements.size();++iLogicLayer){
 	if(measurements[iLogicLayer][iHit]<0) measurements[iLogicLayer][iHit]+=OMTFConfiguration::nPhiBins;
 	measurements[iLogicLayer][iHit]-=phiShift;
 	if(measurements[iLogicLayer][iHit]<0) measurements[iLogicLayer][iHit]+=OMTFConfiguration::nPhiBins;
-	//measurements[iLogicLayer][iHit]+=-511;
+	measurements[iLogicLayer][iHit]+=-511;
       }
     }
   }

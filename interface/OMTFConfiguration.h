@@ -39,9 +39,18 @@ class OMTFConfiguration{
   static std::vector<int> refToLogicNumber;
 
   ///Starting iPhi for each processor and each referecne layer    
+  ///Global phi scale is used
   ///First index: processor number
   ///Second index: referecne layer number
   static std::vector<std::vector<int> > processorPhiVsRefLayer;
+
+  ///Begin and end local phi for each processor and each referecne layer    
+  ///First index: processor number
+  ///Second index: reference layer number
+  ///Third index: region
+  ///pair.first: starting phi of region (inclusive)
+  ///pair.second: ending phi of region (inclusive)
+  static std::vector<std::vector<std::vector<std::pair<int,int> > > >regionPhisVsRefLayerVsProcessor;
 
   ///Map of connections
   typedef std::vector< std::pair<unsigned int, unsigned int> > vector1D_A;
@@ -58,19 +67,30 @@ class OMTFConfiguration{
   static vector4D measurements4Dref;
 
 
-  ///Find number of logic cone within a given processor.
-  ///Number is calculated assuming 10 deg wide logic cones
-  static unsigned int getConeNumber(unsigned int iProcessor,
+  ///Find number of logic region within a given processor.
+  ///Number is calculated assuming 10 deg wide logic regions
+  ///Global phi scale is assumed at input.
+  static unsigned int getRegionNumber(unsigned int iProcessor,
 				    unsigned int iRefLayer,
 				    int iPhi);
 
+  ///Find logic region number using shifted, 10 bit
+  ///phi values, and commection maps
+  static unsigned int getRegionNumberFromMap(unsigned int iProcessor,
+					     unsigned int iRefLayer,
+					     int iPhi);
   
   ///Check if given referecne hit is
   ///in phi range for some logic cone.
   ///Care is needed arounf +Pi and +2Pi points
-  static bool isInConeRange(int iPhiStart,
+  static bool isInRegionRange(int iPhiStart,
 			    unsigned int coneSize,
 			    int iPhi);
+
+
+  ///Return global phi for beggining of given processor
+  ///Uses minim phi over all reference layers.
+  static int globalPhiStart(unsigned int iProcessor);
 
 };
 

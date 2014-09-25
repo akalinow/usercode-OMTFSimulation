@@ -21,6 +21,8 @@ std::vector<int> OMTFConfiguration::refToLogicNumber;
 std::set<int> OMTFConfiguration::bendingLayers;
 std::vector<std::vector<int> > OMTFConfiguration::processorPhiVsRefLayer;
 OMTFConfiguration::vector3D_A OMTFConfiguration::connections;
+std::vector<std::vector<std::vector<std::pair<int,int> > > >OMTFConfiguration::regionPhisVsRefLayerVsProcessor;
+
 
 OMTFConfiguration::vector4D OMTFConfiguration::measurements4D;
 OMTFConfiguration::vector4D OMTFConfiguration::measurements4Dref;
@@ -84,7 +86,7 @@ std::ostream & OMTFConfiguration::print(std::ostream & out){
 }
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
-bool OMTFConfiguration::isInConeRange(int iPhiStart,
+bool OMTFConfiguration::isInRegionRange(int iPhiStart,
 				unsigned int coneSize,
 				int iPhi){
 
@@ -104,26 +106,47 @@ bool OMTFConfiguration::isInConeRange(int iPhiStart,
 }
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
-unsigned int OMTFConfiguration::getConeNumber(unsigned int iProcessor,
+unsigned int OMTFConfiguration::getRegionNumber(unsigned int iProcessor,
 					  unsigned int iRefLayer,
 					  int iPhi){
 
   if(iPhi>=(int)OMTFConfiguration::nPhiBins) return 99;
 
-  unsigned int logicConeSize = 10/360.0*OMTFConfiguration::nPhiBins;
+  unsigned int logicRegionSize = 10/360.0*OMTFConfiguration::nPhiBins;
   
 
-  unsigned int iCone = 0;
+  unsigned int iRegion = 0;
   int iPhiStart = OMTFConfiguration::processorPhiVsRefLayer[iProcessor][iRefLayer];
   
   ///FIX ME 2Pi wrapping  
-  while(!OMTFConfiguration::isInConeRange(iPhiStart,logicConeSize,iPhi) && iCone<6){
-    ++iCone;
-    iPhiStart+=logicConeSize;    
+  while(!OMTFConfiguration::isInRegionRange(iPhiStart,logicRegionSize,iPhi) && iRegion<6){
+    ++iRegion;
+    iPhiStart+=logicRegionSize;    
   }
 
-  if(iCone>5) iCone = 99;
-  return iCone;
+  if(iRegion>5) iRegion = 99;
+  return iRegion;
+}
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+unsigned int OMTFConfiguration::getRegionNumberFromMap(unsigned int iProcessor,
+						       unsigned int iRefLayer,
+						       int iPhi){
+  for(unsigned int iRegion=0;iRegion<6;++iRegion){
+    if(iPhi>=OMTFConfiguration::regionPhisVsRefLayerVsProcessor[iProcessor][iRefLayer][iRegion].first &&
+       iPhi<=OMTFConfiguration::regionPhisVsRefLayerVsProcessor[iProcessor][iRefLayer][iRegion].second)
+      return iRegion;
+  }
+
+  return 99;
+}
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+int OMTFConfiguration::globalPhiStart(unsigned int iProcessor){
+
+  return *std::min_element(OMTFConfiguration::processorPhiVsRefLayer[iProcessor].begin(),
+			   OMTFConfiguration::processorPhiVsRefLayer[iProcessor].end());
+
 }
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////

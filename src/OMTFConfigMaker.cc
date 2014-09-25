@@ -82,10 +82,10 @@ void OMTFConfigMaker::makeConnetionsMap(unsigned int iProcessor,
       if(!layerHits.size()) continue;
       for(unsigned int iInput=0;iInput<refLayerHits.size();++iInput){	
 	  int phiRef = refLayerHits[iInput];
-	  unsigned int iCone = OMTFConfiguration::getConeNumber(iProcessor,iRefLayer,phiRef);
-	  if(iCone>5) continue;
-	  fillInputRange(iProcessor,iCone,aInput);
-	  fillInputRange(iProcessor,iCone,iRefLayer,iInput);
+	  unsigned int iRegion = OMTFConfiguration::getRegionNumber(iProcessor,iRefLayer,phiRef);
+	  if(iRegion>5) continue;
+	  fillInputRange(iProcessor,iRegion,aInput);
+	  fillInputRange(iProcessor,iRegion,iRefLayer,iInput);
       }
     }      
   }
@@ -93,40 +93,40 @@ void OMTFConfigMaker::makeConnetionsMap(unsigned int iProcessor,
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
 void OMTFConfigMaker::fillInputRange(unsigned int iProcessor,
-				   unsigned int iCone,
+				   unsigned int iRegion,
 				   const OMTFinput & aInput){
 
   for(unsigned int iLogicLayer=0;iLogicLayer<OMTFConfiguration::nLayers;++iLogicLayer){
     for(unsigned int iHit=0;iHit<14;++iHit){
       bool isHit = aInput.getLayerData(iLogicLayer)[iHit]<(int)OMTFConfiguration::nPhiBins;
-      OMTFConfiguration::measurements4D[iProcessor][iCone][iLogicLayer][iHit]+=isHit;
+      OMTFConfiguration::measurements4D[iProcessor][iRegion][iLogicLayer][iHit]+=isHit;
     }
   }
 }
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
 void OMTFConfigMaker::fillInputRange(unsigned int iProcessor,
-				   unsigned int iCone,
+				   unsigned int iRegion,
 				   unsigned int iRefLayer,
 				   unsigned int iHit){
 
-      ++OMTFConfiguration::measurements4Dref[iProcessor][iCone][iRefLayer][iHit]; 
+      ++OMTFConfiguration::measurements4Dref[iProcessor][iRegion][iRefLayer][iHit]; 
 
 }
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
 void OMTFConfigMaker::printConnections(std::ostream & out,
 				       unsigned int iProcessor,
-				       unsigned int iCone){
+				       unsigned int iRegion){
 
   out<<"iProcessor: "<<iProcessor
-     <<" iCone: "<<iCone
+     <<" iRegion: "<<iRegion
      <<std::endl;
 
   for(unsigned int iLogicLayer=0;iLogicLayer<OMTFConfiguration::nLayers;++iLogicLayer){
     out<<"Logic layer: "<<iLogicLayer<<" Hits: ";
     for(unsigned int iHit=0;iHit<14;++iHit){
-      out<<OMTFConfiguration::measurements4Dref[iProcessor][iCone][iLogicLayer][iHit]<<"\t";
+      out<<OMTFConfiguration::measurements4Dref[iProcessor][iRegion][iLogicLayer][iHit]<<"\t";
     }
     out<<std::endl;
   }

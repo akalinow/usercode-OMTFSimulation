@@ -75,15 +75,15 @@ OMTFProcessor::resultsMap OMTFProcessor::processInput(unsigned int iProcessor,
       if(!layerHits.size()) continue;
       for(unsigned int iInput=0;iInput<refLayerHits.size();++iInput){	
 	  int phiRef = refLayerHits[iInput];
-	  unsigned int iCone = OMTFConfiguration::getConeNumber(iProcessor,iRefLayer,phiRef);
-	  if(iCone>5) continue;
+	  unsigned int iRegion = OMTFConfiguration::getRegionNumberFromMap(iProcessor,iRefLayer,phiRef);
+	  if(iRegion>5) continue;
 	  if(phiRef>=(int)OMTFConfiguration::nPhiBins) continue;
 	  if(OMTFConfiguration::bendingLayers.count(iLayer)) phiRef = 0;
-	  const OMTFinput::vector1D restricedLayerHits = restrictInput(iProcessor, iCone, iLayer,layerHits);
+	  const OMTFinput::vector1D restrictedLayerHits = restrictInput(iProcessor, iRegion, iLayer,layerHits);
 	  for(auto itGP: theGPs){
 	    GoldenPattern::layerResult aLayerResult = itGP.second->process1Layer1RefLayer(iRefLayer,iLayer,
 											  phiRef,
-											  restricedLayerHits);
+											  restrictedLayerHits);
 	    myResults[itGP.second->key()].addResult(iRefLayer,iLayer,aLayerResult.first,phiRef);	 
 	  }
       }      
@@ -99,9 +99,8 @@ OMTFProcessor::resultsMap OMTFProcessor::processInput(unsigned int iProcessor,
 OMTFinput OMTFProcessor::shiftInput(unsigned int iProcessor,
 				    const OMTFinput & aInput){
 
-  int minPhi =  *std::min_element(OMTFConfiguration::processorPhiVsRefLayer[iProcessor].begin(),
-				  OMTFConfiguration::processorPhiVsRefLayer[iProcessor].end());
-				 
+  int minPhi =  OMTFConfiguration::globalPhiStart(iProcessor);
+
   ///OMTFConfiguration::nPhiBins/2 to shift the minPhi to 0-nBins scale,
   if(minPhi<0) minPhi+=OMTFConfiguration::nPhiBins;
 
@@ -113,13 +112,13 @@ OMTFinput OMTFProcessor::shiftInput(unsigned int iProcessor,
 ////////////////////////////////////////////
 ////////////////////////////////////////////
 OMTFinput::vector1D OMTFProcessor::restrictInput(unsigned int iProcessor,
-						 unsigned int iCone,
+						 unsigned int iRegion,
 						 unsigned int iLayer,
 						 const OMTFinput::vector1D & layerHits){
 
   OMTFinput::vector1D myHits = layerHits;
-  unsigned int iStart = OMTFConfiguration::connections[iProcessor][iCone][iLayer].first;
-  unsigned int iEnd = iStart + OMTFConfiguration::connections[iProcessor][iCone][iLayer].second -1;
+  unsigned int iStart = OMTFConfiguration::connections[iProcessor][iRegion][iLayer].first;
+  unsigned int iEnd = iStart + OMTFConfiguration::connections[iProcessor][iRegion][iLayer].second -1;
 
   for(unsigned int iHit=0;iHit<14;++iHit){
     if(iHit<iStart || iHit>iEnd) myHits[iHit] = OMTFConfiguration::nPhiBins;    

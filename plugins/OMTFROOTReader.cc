@@ -108,7 +108,7 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
   // number of events
   Int_t nentries= (Int_t) chain.GetEntries();
   ///Test settings
-  //nentries = 50;
+  //nentries = 2000;
   nentries = 5E4;
   /////////////////
   std::cout <<" ENTRIES: " << nentries << std::endl;
@@ -116,7 +116,7 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
   // main loop
   unsigned int lastRun = 0;
   for (int ev=0; ev<nentries; ev+=1) {
-  //for (int ev=33; ev<34; ev+=1) {
+  //for (int ev=5; ev<6; ev+=1) {
 
     chain.GetEntry(ev);
     L1ObjColl myL1ObjColl = *l1ObjColl;
@@ -139,44 +139,30 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
 	const OMTFinput *myInput = myInputMaker->buildInputForProcessor(*digSpec,iProcessor);
 	const OMTFinput myShiftedInput =  myOMTF->shiftInput(iProcessor,*myInput);	
 
-
 	///Phi maps should be made with original, global phi values.
-	//myOMTFConfigMaker->makeConnetionsMap(iProcessor,*myInput);
-	myOMTFConfigMaker->makeConnetionsMap(iProcessor,myShiftedInput);
+	myOMTFConfigMaker->makeConnetionsMap(iProcessor,*myInput);
+	/////////////////////////
 
-	continue;
-
-	const OMTFProcessor::resultsMap & myResults = myOMTF->processInput(iProcessor,*myInput);
+	const OMTFProcessor::resultsMap & myResults = myOMTF->processInput(iProcessor,myShiftedInput);
 	L1Obj myOTFCandidate = mySorter->sortResults(myResults);
 	//std::cout<<"iProcessor: "<<iProcessor<<std::endl;     
 	if(ev<-100){
-	  if(iProcessor==0){
-	    for (auto it:*digSpec){
-	      DetId detId(it.first);
-	      switch (detId.subdetId()) {
-	      case MuonSubdetId::RPC: { std::cout << std::endl <<RPCDetId(it.first)<<" "<<RPCDigiSpec(it.first, it.second);  break; }
-	      case MuonSubdetId::DT:  { std::cout << std::endl <<DTChamberId(it.first)<<" "<<DTphDigiSpec(it.first, it.second); break; }
-	      case MuonSubdetId::CSC: { std::cout << std::endl <<CSCDetId(it.first)<<" "<<CSCDigiSpec(it.first, it.second);  break; }
-	      };
-	      std::cout<<std::endl;
-	    }
-	  }
 	  ///Print input and output      
 	  std::cout<<"Original input"<<std::endl;
 	  myInput->print(std::cout);
 	  std::cout<<"Shifted input"<<std::endl;
 	  myShiftedInput.print(std::cout);
 	  std::cout<<"-------------------"<<std::endl;
-	}
-      /*
-      for(auto & itGP: myResults){
-	std::cout<<itGP.first<<std::endl;
-	itGP.second.print(std::cout);
-	std::cout<<std::endl;
-	} */          
-      //if(myOTFCandidate.pt) std::cout<<"iProcessor: "<<iProcessor<<" "<<myOTFCandidate<<std::endl;
-      //////////////////////////////////
-      if(myOTFCandidate.pt) myL1ObjColl.push_back(myOTFCandidate, false, 0.); 
+	  /*
+	    for(auto & itGP: myResults){
+	    std::cout<<itGP.first<<std::endl;
+	    itGP.second.print(std::cout);
+	    std::cout<<std::endl;
+	    } */
+	}          
+	//if(myOTFCandidate.pt) std::cout<<"iProcessor: "<<iProcessor<<" "<<myOTFCandidate<<std::endl;    
+	//////////////////////////////////
+	if(myOTFCandidate.pt) myL1ObjColl.push_back(myOTFCandidate, false, 0.); 
     }
     ///Write to XML
     //xercesc::DOMElement *aTopElement = myWriter->writeEventHeader(ev);
@@ -188,7 +174,6 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
   myOMTFConfigMaker->printPhiMap(std::cout);
   myOMTFConfigMaker->printConnections(std::cout,0,0);
 
-
 }
 /////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////
@@ -196,7 +181,6 @@ void OMTFROOTReader::endJob(){
 
   //std::string fName = "TestEvents.xml";
   //myWriter->finaliseXMLDocument(fName);
-
   
   std::string fName = "Connections.xml";  
   myWriter->writeConnectionsData(OMTFConfiguration::measurements4D);

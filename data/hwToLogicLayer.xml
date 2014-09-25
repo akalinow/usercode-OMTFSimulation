@@ -1,4 +1,5 @@
-<OMTF>
+<?xml version="1.0" encoding="utf-8"?>
+<OMTF xmlns:xi="http://www.w3.org/2001/XInclude">
 
 <GlobalData minPdfVal="0.001" nPdfAddrBits="7" nPdfValBits="6" nHitsPerLayer="6" nPhiBits="10" nPhiBins="4096" nRefHits="80"/>
 
@@ -38,24 +39,24 @@
 <RefLayerMap refLayer="7" logicNumber ="20"/>
 
   <Processor iProcessor="0">
-    <RefLayer iPhi="-90" iRefLayer="0"/>
-    <RefLayer iPhi="-178" iRefLayer="1"/>
-    <RefLayer iPhi="-130" iRefLayer="2"/>
-    <RefLayer iPhi="-59" iRefLayer="3"/>
-    <RefLayer iPhi="-60" iRefLayer="4"/>
-    <RefLayer iPhi="-101" iRefLayer="5"/>
-    <RefLayer iPhi="-100" iRefLayer="6"/>
-    <RefLayer iPhi="-138" iRefLayer="7"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="23" iPhiMin="-90" iRefHit="0" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="-65" iPhiMin="-178" iRefHit="1" iRefLayer="1"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="-17" iPhiMin="-130" iRefHit="2" iRefLayer="2"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="54" iPhiMin="-59" iRefHit="3" iRefLayer="3"/>
-    <RefHit iCone="0" iInput="1" iPhiMax="54" iPhiMin="-59" iRefHit="4" iRefLayer="3"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="53" iPhiMin="-60" iRefHit="5" iRefLayer="4"/>
-    <RefHit iCone="0" iInput="1" iPhiMax="53" iPhiMin="-60" iRefHit="6" iRefLayer="4"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="12" iPhiMin="-101" iRefHit="7" iRefLayer="5"/>
-    <RefHit iCone="0" iInput="1" iPhiMax="12" iPhiMin="-101" iRefHit="8" iRefLayer="5"/>
-    <LogicCone iCone="0">
+    <RefLayer iGlobalPhiStart="-90" iRefLayer="0"/>
+    <RefLayer iGlobalPhiStart="-178" iRefLayer="1"/>
+    <RefLayer iGlobalPhiStart="-130" iRefLayer="2"/>
+    <RefLayer iGlobalPhiStart="-59" iRefLayer="3"/>
+    <RefLayer iGlobalPhiStart="-60" iRefLayer="4"/>
+    <RefLayer iGlobalPhiStart="-101" iRefLayer="5"/>
+    <RefLayer iGlobalPhiStart="-100" iRefLayer="6"/>
+    <RefLayer iGlobalPhiStart="-138" iRefLayer="7"/>
+    <RefHit iInput="0" iPhiMax="-310" iPhiMin="-423" iRefHit="0" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="-398" iPhiMin="-511" iRefHit="1" iRefLayer="1" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="-350" iPhiMin="-463" iRefHit="2" iRefLayer="2" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="-279" iPhiMin="-392" iRefHit="3" iRefLayer="3" iRegion="0"/>
+    <RefHit iInput="1" iPhiMax="-279" iPhiMin="-392" iRefHit="4" iRefLayer="3" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="-280" iPhiMin="-393" iRefHit="5" iRefLayer="4" iRegion="0"/>
+    <RefHit iInput="1" iPhiMax="-280" iPhiMin="-393" iRefHit="6" iRefLayer="4" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="-321" iPhiMin="-434" iRefHit="7" iRefLayer="5" iRegion="0"/>
+    <RefHit iInput="1" iPhiMax="-321" iPhiMin="-434" iRefHit="8" iRefLayer="5" iRegion="0"/>
+    <LogicRegion iRegion="0">
       <Layer iFirstInput="0" iLayer="0" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="1" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="2" nInputs="4"/>
@@ -81,18 +82,19 @@
       <Layer iFirstInput="0" iLayer="22" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="23" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="24" nInputs="4"/>
-    </LogicCone>
-    <RefHit iCone="1" iInput="0" iPhiMax="136" iPhiMin="23" iRefHit="9" iRefLayer="0"/>
-    <RefHit iCone="1" iInput="0" iPhiMax="48" iPhiMin="-65" iRefHit="10" iRefLayer="1"/>
-    <RefHit iCone="1" iInput="0" iPhiMax="96" iPhiMin="-17" iRefHit="11" iRefLayer="2"/>
-    <RefHit iCone="1" iInput="2" iPhiMax="167" iPhiMin="54" iRefHit="12" iRefLayer="3"/>
-    <RefHit iCone="1" iInput="3" iPhiMax="167" iPhiMin="54" iRefHit="13" iRefLayer="3"/>
-    <RefHit iCone="1" iInput="0" iPhiMax="166" iPhiMin="53" iRefHit="14" iRefLayer="4"/>
-    <RefHit iCone="1" iInput="2" iPhiMax="166" iPhiMin="53" iRefHit="15" iRefLayer="4"/>
-    <RefHit iCone="1" iInput="3" iPhiMax="166" iPhiMin="53" iRefHit="16" iRefLayer="4"/>
-    <RefHit iCone="1" iInput="0" iPhiMax="125" iPhiMin="12" iRefHit="17" iRefLayer="5"/>
-    <RefHit iCone="1" iInput="1" iPhiMax="125" iPhiMin="12" iRefHit="18" iRefLayer="5"/>
-    <LogicCone iCone="1">
+    </LogicRegion>
+    <RefHit iInput="0" iPhiMax="-197" iPhiMin="-310" iRefHit="9" iRefLayer="0" iRegion="1"/>
+    <RefHit iInput="0" iPhiMax="-285" iPhiMin="-398" iRefHit="10" iRefLayer="1" iRegion="1"/>
+    <RefHit iInput="0" iPhiMax="-237" iPhiMin="-350" iRefHit="11" iRefLayer="2" iRegion="1"/>
+    <RefHit iInput="0" iPhiMax="-166" iPhiMin="-279" iRefHit="12" iRefLayer="3" iRegion="1"/>
+    <RefHit iInput="2" iPhiMax="-166" iPhiMin="-279" iRefHit="13" iRefLayer="3" iRegion="1"/>
+    <RefHit iInput="3" iPhiMax="-166" iPhiMin="-279" iRefHit="14" iRefLayer="3" iRegion="1"/>
+    <RefHit iInput="0" iPhiMax="-167" iPhiMin="-280" iRefHit="15" iRefLayer="4" iRegion="1"/>
+    <RefHit iInput="2" iPhiMax="-167" iPhiMin="-280" iRefHit="16" iRefLayer="4" iRegion="1"/>
+    <RefHit iInput="3" iPhiMax="-167" iPhiMin="-280" iRefHit="17" iRefLayer="4" iRegion="1"/>
+    <RefHit iInput="0" iPhiMax="-208" iPhiMin="-321" iRefHit="18" iRefLayer="5" iRegion="1"/>
+    <RefHit iInput="1" iPhiMax="-208" iPhiMin="-321" iRefHit="19" iRefLayer="5" iRegion="1"/>
+    <LogicRegion iRegion="1">
       <Layer iFirstInput="0" iLayer="0" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="1" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="2" nInputs="4"/>
@@ -118,19 +120,18 @@
       <Layer iFirstInput="0" iLayer="22" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="23" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="24" nInputs="6"/>
-    </LogicCone>
-    <RefHit iCone="2" iInput="0" iPhiMax="249" iPhiMin="136" iRefHit="19" iRefLayer="0"/>
-    <RefHit iCone="2" iInput="0" iPhiMax="161" iPhiMin="48" iRefHit="20" iRefLayer="1"/>
-    <RefHit iCone="2" iInput="0" iPhiMax="209" iPhiMin="96" iRefHit="21" iRefLayer="2"/>
-    <RefHit iCone="2" iInput="4" iPhiMax="280" iPhiMin="167" iRefHit="22" iRefLayer="3"/>
-    <RefHit iCone="2" iInput="5" iPhiMax="280" iPhiMin="167" iRefHit="23" iRefLayer="3"/>
-    <RefHit iCone="2" iInput="2" iPhiMax="279" iPhiMin="166" iRefHit="24" iRefLayer="4"/>
-    <RefHit iCone="2" iInput="3" iPhiMax="279" iPhiMin="166" iRefHit="25" iRefLayer="4"/>
-    <RefHit iCone="2" iInput="4" iPhiMax="279" iPhiMin="166" iRefHit="26" iRefLayer="4"/>
-    <RefHit iCone="2" iInput="5" iPhiMax="279" iPhiMin="166" iRefHit="27" iRefLayer="4"/>
-    <RefHit iCone="2" iInput="0" iPhiMax="238" iPhiMin="125" iRefHit="28" iRefLayer="5"/>
-    <RefHit iCone="2" iInput="1" iPhiMax="238" iPhiMin="125" iRefHit="29" iRefLayer="5"/>
-    <LogicCone iCone="2">
+    </LogicRegion>
+    <RefHit iInput="0" iPhiMax="-84" iPhiMin="-197" iRefHit="20" iRefLayer="0" iRegion="2"/>
+    <RefHit iInput="0" iPhiMax="-172" iPhiMin="-285" iRefHit="21" iRefLayer="1" iRegion="2"/>
+    <RefHit iInput="0" iPhiMax="-124" iPhiMin="-237" iRefHit="22" iRefLayer="2" iRegion="2"/>
+    <RefHit iInput="4" iPhiMax="-53" iPhiMin="-166" iRefHit="23" iRefLayer="3" iRegion="2"/>
+    <RefHit iInput="5" iPhiMax="-53" iPhiMin="-166" iRefHit="24" iRefLayer="3" iRegion="2"/>
+    <RefHit iInput="2" iPhiMax="-54" iPhiMin="-167" iRefHit="25" iRefLayer="4" iRegion="2"/>
+    <RefHit iInput="4" iPhiMax="-54" iPhiMin="-167" iRefHit="26" iRefLayer="4" iRegion="2"/>
+    <RefHit iInput="5" iPhiMax="-54" iPhiMin="-167" iRefHit="27" iRefLayer="4" iRegion="2"/>
+    <RefHit iInput="0" iPhiMax="-95" iPhiMin="-208" iRefHit="28" iRefLayer="5" iRegion="2"/>
+    <RefHit iInput="1" iPhiMax="-95" iPhiMin="-208" iRefHit="29" iRefLayer="5" iRegion="2"/>
+    <LogicRegion iRegion="2">
       <Layer iFirstInput="0" iLayer="0" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="1" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="2" nInputs="6"/>
@@ -156,20 +157,18 @@
       <Layer iFirstInput="2" iLayer="22" nInputs="6"/>
       <Layer iFirstInput="2" iLayer="23" nInputs="6"/>
       <Layer iFirstInput="2" iLayer="24" nInputs="6"/>
-    </LogicCone>
-    <RefHit iCone="3" iInput="2" iPhiMax="362" iPhiMin="249" iRefHit="30" iRefLayer="0"/>
-    <RefHit iCone="3" iInput="2" iPhiMax="274" iPhiMin="161" iRefHit="31" iRefLayer="1"/>
-    <RefHit iCone="3" iInput="2" iPhiMax="322" iPhiMin="209" iRefHit="32" iRefLayer="2"/>
-    <RefHit iCone="3" iInput="4" iPhiMax="393" iPhiMin="280" iRefHit="33" iRefLayer="3"/>
-    <RefHit iCone="3" iInput="6" iPhiMax="393" iPhiMin="280" iRefHit="34" iRefLayer="3"/>
-    <RefHit iCone="3" iInput="7" iPhiMax="393" iPhiMin="280" iRefHit="35" iRefLayer="3"/>
-    <RefHit iCone="3" iInput="4" iPhiMax="392" iPhiMin="279" iRefHit="36" iRefLayer="4"/>
-    <RefHit iCone="3" iInput="5" iPhiMax="392" iPhiMin="279" iRefHit="37" iRefLayer="4"/>
-    <RefHit iCone="3" iInput="6" iPhiMax="392" iPhiMin="279" iRefHit="38" iRefLayer="4"/>
-    <RefHit iCone="3" iInput="7" iPhiMax="392" iPhiMin="279" iRefHit="39" iRefLayer="4"/>
-    <RefHit iCone="3" iInput="2" iPhiMax="351" iPhiMin="238" iRefHit="40" iRefLayer="5"/>
-    <RefHit iCone="3" iInput="3" iPhiMax="351" iPhiMin="238" iRefHit="41" iRefLayer="5"/>
-    <LogicCone iCone="3">
+    </LogicRegion>
+    <RefHit iInput="2" iPhiMax="29" iPhiMin="-84" iRefHit="30" iRefLayer="0" iRegion="3"/>
+    <RefHit iInput="2" iPhiMax="-59" iPhiMin="-172" iRefHit="31" iRefLayer="1" iRegion="3"/>
+    <RefHit iInput="2" iPhiMax="-11" iPhiMin="-124" iRefHit="32" iRefLayer="2" iRegion="3"/>
+    <RefHit iInput="6" iPhiMax="60" iPhiMin="-53" iRefHit="33" iRefLayer="3" iRegion="3"/>
+    <RefHit iInput="7" iPhiMax="60" iPhiMin="-53" iRefHit="34" iRefLayer="3" iRegion="3"/>
+    <RefHit iInput="4" iPhiMax="59" iPhiMin="-54" iRefHit="35" iRefLayer="4" iRegion="3"/>
+    <RefHit iInput="6" iPhiMax="59" iPhiMin="-54" iRefHit="36" iRefLayer="4" iRegion="3"/>
+    <RefHit iInput="7" iPhiMax="59" iPhiMin="-54" iRefHit="37" iRefLayer="4" iRegion="3"/>
+    <RefHit iInput="2" iPhiMax="18" iPhiMin="-95" iRefHit="38" iRefLayer="5" iRegion="3"/>
+    <RefHit iInput="3" iPhiMax="18" iPhiMin="-95" iRefHit="39" iRefLayer="5" iRegion="3"/>
+    <LogicRegion iRegion="3">
       <Layer iFirstInput="0" iLayer="0" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="1" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="2" nInputs="6"/>
@@ -195,19 +194,19 @@
       <Layer iFirstInput="4" iLayer="22" nInputs="6"/>
       <Layer iFirstInput="4" iLayer="23" nInputs="6"/>
       <Layer iFirstInput="4" iLayer="24" nInputs="6"/>
-    </LogicCone>
-    <RefHit iCone="4" iInput="2" iPhiMax="475" iPhiMin="362" iRefHit="42" iRefLayer="0"/>
-    <RefHit iCone="4" iInput="2" iPhiMax="387" iPhiMin="274" iRefHit="43" iRefLayer="1"/>
-    <RefHit iCone="4" iInput="2" iPhiMax="435" iPhiMin="322" iRefHit="44" iRefLayer="2"/>
-    <RefHit iCone="4" iInput="6" iPhiMax="506" iPhiMin="393" iRefHit="45" iRefLayer="3"/>
-    <RefHit iCone="4" iInput="8" iPhiMax="506" iPhiMin="393" iRefHit="46" iRefLayer="3"/>
-    <RefHit iCone="4" iInput="9" iPhiMax="506" iPhiMin="393" iRefHit="47" iRefLayer="3"/>
-    <RefHit iCone="4" iInput="6" iPhiMax="505" iPhiMin="392" iRefHit="48" iRefLayer="4"/>
-    <RefHit iCone="4" iInput="8" iPhiMax="505" iPhiMin="392" iRefHit="49" iRefLayer="4"/>
-    <RefHit iCone="4" iInput="9" iPhiMax="505" iPhiMin="392" iRefHit="50" iRefLayer="4"/>
-    <RefHit iCone="4" iInput="2" iPhiMax="464" iPhiMin="351" iRefHit="51" iRefLayer="5"/>
-    <RefHit iCone="4" iInput="3" iPhiMax="464" iPhiMin="351" iRefHit="52" iRefLayer="5"/>
-    <LogicCone iCone="4">
+    </LogicRegion>
+    <RefHit iInput="2" iPhiMax="142" iPhiMin="29" iRefHit="40" iRefLayer="0" iRegion="4"/>
+    <RefHit iInput="2" iPhiMax="54" iPhiMin="-59" iRefHit="41" iRefLayer="1" iRegion="4"/>
+    <RefHit iInput="2" iPhiMax="102" iPhiMin="-11" iRefHit="42" iRefLayer="2" iRegion="4"/>
+    <RefHit iInput="8" iPhiMax="173" iPhiMin="60" iRefHit="43" iRefLayer="3" iRegion="4"/>
+    <RefHit iInput="9" iPhiMax="173" iPhiMin="60" iRefHit="44" iRefLayer="3" iRegion="4"/>
+    <RefHit iInput="6" iPhiMax="172" iPhiMin="59" iRefHit="45" iRefLayer="4" iRegion="4"/>
+    <RefHit iInput="7" iPhiMax="172" iPhiMin="59" iRefHit="46" iRefLayer="4" iRegion="4"/>
+    <RefHit iInput="8" iPhiMax="172" iPhiMin="59" iRefHit="47" iRefLayer="4" iRegion="4"/>
+    <RefHit iInput="9" iPhiMax="172" iPhiMin="59" iRefHit="48" iRefLayer="4" iRegion="4"/>
+    <RefHit iInput="2" iPhiMax="131" iPhiMin="18" iRefHit="49" iRefLayer="5" iRegion="4"/>
+    <RefHit iInput="3" iPhiMax="131" iPhiMin="18" iRefHit="50" iRefLayer="5" iRegion="4"/>
+    <LogicRegion iRegion="4">
       <Layer iFirstInput="0" iLayer="0" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="1" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="2" nInputs="6"/>
@@ -233,35 +232,37 @@
       <Layer iFirstInput="6" iLayer="22" nInputs="6"/>
       <Layer iFirstInput="6" iLayer="23" nInputs="6"/>
       <Layer iFirstInput="6" iLayer="24" nInputs="6"/>
-    </LogicCone>
-    <RefHit iCone="5" iInput="2" iPhiMax="588" iPhiMin="475" iRefHit="53" iRefLayer="0"/>
-    <RefHit iCone="5" iInput="2" iPhiMax="500" iPhiMin="387" iRefHit="54" iRefLayer="1"/>
-    <RefHit iCone="5" iInput="2" iPhiMax="548" iPhiMin="435" iRefHit="55" iRefLayer="2"/>
-    <RefHit iCone="5" iInput="8" iPhiMax="619" iPhiMin="506" iRefHit="56" iRefLayer="3"/>
-    <RefHit iCone="5" iInput="10" iPhiMax="619" iPhiMin="506" iRefHit="57" iRefLayer="3"/>
-    <RefHit iCone="5" iInput="11" iPhiMax="619" iPhiMin="506" iRefHit="58" iRefLayer="3"/>
-    <RefHit iCone="5" iInput="8" iPhiMax="618" iPhiMin="505" iRefHit="59" iRefLayer="4"/>
-    <RefHit iCone="5" iInput="10" iPhiMax="618" iPhiMin="505" iRefHit="60" iRefLayer="4"/>
-    <RefHit iCone="5" iInput="11" iPhiMax="618" iPhiMin="505" iRefHit="61" iRefLayer="4"/>
-    <RefHit iCone="5" iInput="2" iPhiMax="577" iPhiMin="464" iRefHit="62" iRefLayer="5"/>
-    <RefHit iCone="5" iInput="3" iPhiMax="577" iPhiMin="464" iRefHit="63" iRefLayer="5"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="64" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="65" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="66" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="67" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="68" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="69" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="70" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="71" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="72" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="73" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="74" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="75" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="76" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="77" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="78" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="79" iRefLayer="0"/>
-    <LogicCone iCone="5">
+    </LogicRegion>
+    <RefHit iInput="2" iPhiMax="255" iPhiMin="142" iRefHit="51" iRefLayer="0" iRegion="5"/>
+    <RefHit iInput="2" iPhiMax="167" iPhiMin="54" iRefHit="52" iRefLayer="1" iRegion="5"/>
+    <RefHit iInput="2" iPhiMax="215" iPhiMin="102" iRefHit="53" iRefLayer="2" iRegion="5"/>
+    <RefHit iInput="8" iPhiMax="286" iPhiMin="173" iRefHit="54" iRefLayer="3" iRegion="5"/>
+    <RefHit iInput="10" iPhiMax="286" iPhiMin="173" iRefHit="55" iRefLayer="3" iRegion="5"/>
+    <RefHit iInput="11" iPhiMax="286" iPhiMin="173" iRefHit="56" iRefLayer="3" iRegion="5"/>
+    <RefHit iInput="8" iPhiMax="285" iPhiMin="172" iRefHit="57" iRefLayer="4" iRegion="5"/>
+    <RefHit iInput="10" iPhiMax="285" iPhiMin="172" iRefHit="58" iRefLayer="4" iRegion="5"/>
+    <RefHit iInput="11" iPhiMax="285" iPhiMin="172" iRefHit="59" iRefLayer="4" iRegion="5"/>
+    <RefHit iInput="2" iPhiMax="244" iPhiMin="131" iRefHit="60" iRefLayer="5" iRegion="5"/>
+    <RefHit iInput="3" iPhiMax="244" iPhiMin="131" iRefHit="61" iRefLayer="5" iRegion="5"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="62" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="63" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="64" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="65" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="66" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="67" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="68" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="69" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="70" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="71" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="72" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="73" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="74" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="75" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="76" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="77" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="78" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="79" iRefLayer="0" iRegion="0"/>
+    <LogicRegion iRegion="5">
       <Layer iFirstInput="0" iLayer="0" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="1" nInputs="6"/>
       <Layer iFirstInput="2" iLayer="2" nInputs="6"/>
@@ -287,28 +288,28 @@
       <Layer iFirstInput="8" iLayer="22" nInputs="6"/>
       <Layer iFirstInput="8" iLayer="23" nInputs="6"/>
       <Layer iFirstInput="8" iLayer="24" nInputs="6"/>
-    </LogicCone>
+    </LogicRegion>
   </Processor>
 
   <Processor iProcessor="1">
-    <RefLayer iPhi="591" iRefLayer="0"/>
-    <RefLayer iPhi="505" iRefLayer="1"/>
-    <RefLayer iPhi="551" iRefLayer="2"/>
-    <RefLayer iPhi="623" iRefLayer="3"/>
-    <RefLayer iPhi="622" iRefLayer="4"/>
-    <RefLayer iPhi="582" iRefLayer="5"/>
-    <RefLayer iPhi="583" iRefLayer="6"/>
-    <RefLayer iPhi="547" iRefLayer="7"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="704" iPhiMin="591" iRefHit="0" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="618" iPhiMin="505" iRefHit="1" iRefLayer="1"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="664" iPhiMin="551" iRefHit="2" iRefLayer="2"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="736" iPhiMin="623" iRefHit="3" iRefLayer="3"/>
-    <RefHit iCone="0" iInput="1" iPhiMax="736" iPhiMin="623" iRefHit="4" iRefLayer="3"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="735" iPhiMin="622" iRefHit="5" iRefLayer="4"/>
-    <RefHit iCone="0" iInput="1" iPhiMax="735" iPhiMin="622" iRefHit="6" iRefLayer="4"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="695" iPhiMin="582" iRefHit="7" iRefLayer="5"/>
-    <RefHit iCone="0" iInput="1" iPhiMax="695" iPhiMin="582" iRefHit="8" iRefLayer="5"/>
-    <LogicCone iCone="0">
+    <RefLayer iGlobalPhiStart="591" iRefLayer="0"/>
+    <RefLayer iGlobalPhiStart="505" iRefLayer="1"/>
+    <RefLayer iGlobalPhiStart="551" iRefLayer="2"/>
+    <RefLayer iGlobalPhiStart="623" iRefLayer="3"/>
+    <RefLayer iGlobalPhiStart="622" iRefLayer="4"/>
+    <RefLayer iGlobalPhiStart="582" iRefLayer="5"/>
+    <RefLayer iGlobalPhiStart="583" iRefLayer="6"/>
+    <RefLayer iGlobalPhiStart="547" iRefLayer="7"/>
+    <RefHit iInput="0" iPhiMax="-312" iPhiMin="-425" iRefHit="0" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="-398" iPhiMin="-511" iRefHit="1" iRefLayer="1" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="-352" iPhiMin="-465" iRefHit="2" iRefLayer="2" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="-280" iPhiMin="-393" iRefHit="3" iRefLayer="3" iRegion="0"/>
+    <RefHit iInput="1" iPhiMax="-280" iPhiMin="-393" iRefHit="4" iRefLayer="3" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="-281" iPhiMin="-394" iRefHit="5" iRefLayer="4" iRegion="0"/>
+    <RefHit iInput="1" iPhiMax="-281" iPhiMin="-394" iRefHit="6" iRefLayer="4" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="-321" iPhiMin="-434" iRefHit="7" iRefLayer="5" iRegion="0"/>
+    <RefHit iInput="1" iPhiMax="-321" iPhiMin="-434" iRefHit="8" iRefLayer="5" iRegion="0"/>
+    <LogicRegion iRegion="0">
       <Layer iFirstInput="0" iLayer="0" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="1" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="2" nInputs="4"/>
@@ -334,19 +335,19 @@
       <Layer iFirstInput="0" iLayer="22" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="23" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="24" nInputs="4"/>
-    </LogicCone>
-    <RefHit iCone="1" iInput="0" iPhiMax="817" iPhiMin="704" iRefHit="9" iRefLayer="0"/>
-    <RefHit iCone="1" iInput="0" iPhiMax="731" iPhiMin="618" iRefHit="10" iRefLayer="1"/>
-    <RefHit iCone="1" iInput="0" iPhiMax="777" iPhiMin="664" iRefHit="11" iRefLayer="2"/>
-    <RefHit iCone="1" iInput="0" iPhiMax="849" iPhiMin="736" iRefHit="12" iRefLayer="3"/>
-    <RefHit iCone="1" iInput="2" iPhiMax="849" iPhiMin="736" iRefHit="13" iRefLayer="3"/>
-    <RefHit iCone="1" iInput="3" iPhiMax="849" iPhiMin="736" iRefHit="14" iRefLayer="3"/>
-    <RefHit iCone="1" iInput="0" iPhiMax="848" iPhiMin="735" iRefHit="15" iRefLayer="4"/>
-    <RefHit iCone="1" iInput="2" iPhiMax="848" iPhiMin="735" iRefHit="16" iRefLayer="4"/>
-    <RefHit iCone="1" iInput="3" iPhiMax="848" iPhiMin="735" iRefHit="17" iRefLayer="4"/>
-    <RefHit iCone="1" iInput="0" iPhiMax="808" iPhiMin="695" iRefHit="18" iRefLayer="5"/>
-    <RefHit iCone="1" iInput="1" iPhiMax="808" iPhiMin="695" iRefHit="19" iRefLayer="5"/>
-    <LogicCone iCone="1">
+    </LogicRegion>
+    <RefHit iInput="0" iPhiMax="-199" iPhiMin="-312" iRefHit="9" iRefLayer="0" iRegion="1"/>
+    <RefHit iInput="0" iPhiMax="-285" iPhiMin="-398" iRefHit="10" iRefLayer="1" iRegion="1"/>
+    <RefHit iInput="0" iPhiMax="-239" iPhiMin="-352" iRefHit="11" iRefLayer="2" iRegion="1"/>
+    <RefHit iInput="0" iPhiMax="-167" iPhiMin="-280" iRefHit="12" iRefLayer="3" iRegion="1"/>
+    <RefHit iInput="2" iPhiMax="-167" iPhiMin="-280" iRefHit="13" iRefLayer="3" iRegion="1"/>
+    <RefHit iInput="3" iPhiMax="-167" iPhiMin="-280" iRefHit="14" iRefLayer="3" iRegion="1"/>
+    <RefHit iInput="0" iPhiMax="-168" iPhiMin="-281" iRefHit="15" iRefLayer="4" iRegion="1"/>
+    <RefHit iInput="2" iPhiMax="-168" iPhiMin="-281" iRefHit="16" iRefLayer="4" iRegion="1"/>
+    <RefHit iInput="3" iPhiMax="-168" iPhiMin="-281" iRefHit="17" iRefLayer="4" iRegion="1"/>
+    <RefHit iInput="0" iPhiMax="-208" iPhiMin="-321" iRefHit="18" iRefLayer="5" iRegion="1"/>
+    <RefHit iInput="1" iPhiMax="-208" iPhiMin="-321" iRefHit="19" iRefLayer="5" iRegion="1"/>
+    <LogicRegion iRegion="1">
       <Layer iFirstInput="0" iLayer="0" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="1" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="2" nInputs="4"/>
@@ -372,19 +373,19 @@
       <Layer iFirstInput="0" iLayer="22" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="23" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="24" nInputs="6"/>
-    </LogicCone>
-    <RefHit iCone="2" iInput="0" iPhiMax="930" iPhiMin="817" iRefHit="20" iRefLayer="0"/>
-    <RefHit iCone="2" iInput="0" iPhiMax="844" iPhiMin="731" iRefHit="21" iRefLayer="1"/>
-    <RefHit iCone="2" iInput="0" iPhiMax="890" iPhiMin="777" iRefHit="22" iRefLayer="2"/>
-    <RefHit iCone="2" iInput="2" iPhiMax="962" iPhiMin="849" iRefHit="23" iRefLayer="3"/>
-    <RefHit iCone="2" iInput="4" iPhiMax="962" iPhiMin="849" iRefHit="24" iRefLayer="3"/>
-    <RefHit iCone="2" iInput="5" iPhiMax="962" iPhiMin="849" iRefHit="25" iRefLayer="3"/>
-    <RefHit iCone="2" iInput="2" iPhiMax="961" iPhiMin="848" iRefHit="26" iRefLayer="4"/>
-    <RefHit iCone="2" iInput="4" iPhiMax="961" iPhiMin="848" iRefHit="27" iRefLayer="4"/>
-    <RefHit iCone="2" iInput="5" iPhiMax="961" iPhiMin="848" iRefHit="28" iRefLayer="4"/>
-    <RefHit iCone="2" iInput="0" iPhiMax="921" iPhiMin="808" iRefHit="29" iRefLayer="5"/>
-    <RefHit iCone="2" iInput="1" iPhiMax="921" iPhiMin="808" iRefHit="30" iRefLayer="5"/>
-    <LogicCone iCone="2">
+    </LogicRegion>
+    <RefHit iInput="0" iPhiMax="-86" iPhiMin="-199" iRefHit="20" iRefLayer="0" iRegion="2"/>
+    <RefHit iInput="0" iPhiMax="-172" iPhiMin="-285" iRefHit="21" iRefLayer="1" iRegion="2"/>
+    <RefHit iInput="0" iPhiMax="-126" iPhiMin="-239" iRefHit="22" iRefLayer="2" iRegion="2"/>
+    <RefHit iInput="2" iPhiMax="-54" iPhiMin="-167" iRefHit="23" iRefLayer="3" iRegion="2"/>
+    <RefHit iInput="4" iPhiMax="-54" iPhiMin="-167" iRefHit="24" iRefLayer="3" iRegion="2"/>
+    <RefHit iInput="5" iPhiMax="-54" iPhiMin="-167" iRefHit="25" iRefLayer="3" iRegion="2"/>
+    <RefHit iInput="2" iPhiMax="-55" iPhiMin="-168" iRefHit="26" iRefLayer="4" iRegion="2"/>
+    <RefHit iInput="4" iPhiMax="-55" iPhiMin="-168" iRefHit="27" iRefLayer="4" iRegion="2"/>
+    <RefHit iInput="5" iPhiMax="-55" iPhiMin="-168" iRefHit="28" iRefLayer="4" iRegion="2"/>
+    <RefHit iInput="0" iPhiMax="-95" iPhiMin="-208" iRefHit="29" iRefLayer="5" iRegion="2"/>
+    <RefHit iInput="1" iPhiMax="-95" iPhiMin="-208" iRefHit="30" iRefLayer="5" iRegion="2"/>
+    <LogicRegion iRegion="2">
       <Layer iFirstInput="0" iLayer="0" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="1" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="2" nInputs="6"/>
@@ -410,18 +411,18 @@
       <Layer iFirstInput="2" iLayer="22" nInputs="6"/>
       <Layer iFirstInput="2" iLayer="23" nInputs="6"/>
       <Layer iFirstInput="2" iLayer="24" nInputs="6"/>
-    </LogicCone>
-    <RefHit iCone="3" iInput="2" iPhiMax="1043" iPhiMin="930" iRefHit="31" iRefLayer="0"/>
-    <RefHit iCone="3" iInput="2" iPhiMax="957" iPhiMin="844" iRefHit="32" iRefLayer="1"/>
-    <RefHit iCone="3" iInput="2" iPhiMax="1003" iPhiMin="890" iRefHit="33" iRefLayer="2"/>
-    <RefHit iCone="3" iInput="6" iPhiMax="1075" iPhiMin="962" iRefHit="34" iRefLayer="3"/>
-    <RefHit iCone="3" iInput="7" iPhiMax="1075" iPhiMin="962" iRefHit="35" iRefLayer="3"/>
-    <RefHit iCone="3" iInput="4" iPhiMax="1074" iPhiMin="961" iRefHit="36" iRefLayer="4"/>
-    <RefHit iCone="3" iInput="6" iPhiMax="1074" iPhiMin="961" iRefHit="37" iRefLayer="4"/>
-    <RefHit iCone="3" iInput="7" iPhiMax="1074" iPhiMin="961" iRefHit="38" iRefLayer="4"/>
-    <RefHit iCone="3" iInput="2" iPhiMax="1034" iPhiMin="921" iRefHit="39" iRefLayer="5"/>
-    <RefHit iCone="3" iInput="3" iPhiMax="1034" iPhiMin="921" iRefHit="40" iRefLayer="5"/>
-    <LogicCone iCone="3">
+    </LogicRegion>
+    <RefHit iInput="2" iPhiMax="27" iPhiMin="-86" iRefHit="31" iRefLayer="0" iRegion="3"/>
+    <RefHit iInput="2" iPhiMax="-59" iPhiMin="-172" iRefHit="32" iRefLayer="1" iRegion="3"/>
+    <RefHit iInput="2" iPhiMax="-13" iPhiMin="-126" iRefHit="33" iRefLayer="2" iRegion="3"/>
+    <RefHit iInput="6" iPhiMax="59" iPhiMin="-54" iRefHit="34" iRefLayer="3" iRegion="3"/>
+    <RefHit iInput="7" iPhiMax="59" iPhiMin="-54" iRefHit="35" iRefLayer="3" iRegion="3"/>
+    <RefHit iInput="4" iPhiMax="58" iPhiMin="-55" iRefHit="36" iRefLayer="4" iRegion="3"/>
+    <RefHit iInput="6" iPhiMax="58" iPhiMin="-55" iRefHit="37" iRefLayer="4" iRegion="3"/>
+    <RefHit iInput="7" iPhiMax="58" iPhiMin="-55" iRefHit="38" iRefLayer="4" iRegion="3"/>
+    <RefHit iInput="2" iPhiMax="18" iPhiMin="-95" iRefHit="39" iRefLayer="5" iRegion="3"/>
+    <RefHit iInput="3" iPhiMax="18" iPhiMin="-95" iRefHit="40" iRefLayer="5" iRegion="3"/>
+    <LogicRegion iRegion="3">
       <Layer iFirstInput="0" iLayer="0" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="1" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="2" nInputs="6"/>
@@ -447,19 +448,20 @@
       <Layer iFirstInput="4" iLayer="22" nInputs="6"/>
       <Layer iFirstInput="4" iLayer="23" nInputs="6"/>
       <Layer iFirstInput="4" iLayer="24" nInputs="6"/>
-    </LogicCone>
-    <RefHit iCone="4" iInput="2" iPhiMax="1156" iPhiMin="1043" iRefHit="41" iRefLayer="0"/>
-    <RefHit iCone="4" iInput="2" iPhiMax="1070" iPhiMin="957" iRefHit="42" iRefLayer="1"/>
-    <RefHit iCone="4" iInput="2" iPhiMax="1116" iPhiMin="1003" iRefHit="43" iRefLayer="2"/>
-    <RefHit iCone="4" iInput="6" iPhiMax="1188" iPhiMin="1075" iRefHit="44" iRefLayer="3"/>
-    <RefHit iCone="4" iInput="8" iPhiMax="1188" iPhiMin="1075" iRefHit="45" iRefLayer="3"/>
-    <RefHit iCone="4" iInput="9" iPhiMax="1188" iPhiMin="1075" iRefHit="46" iRefLayer="3"/>
-    <RefHit iCone="4" iInput="6" iPhiMax="1187" iPhiMin="1074" iRefHit="47" iRefLayer="4"/>
-    <RefHit iCone="4" iInput="8" iPhiMax="1187" iPhiMin="1074" iRefHit="48" iRefLayer="4"/>
-    <RefHit iCone="4" iInput="9" iPhiMax="1187" iPhiMin="1074" iRefHit="49" iRefLayer="4"/>
-    <RefHit iCone="4" iInput="2" iPhiMax="1147" iPhiMin="1034" iRefHit="50" iRefLayer="5"/>
-    <RefHit iCone="4" iInput="3" iPhiMax="1147" iPhiMin="1034" iRefHit="51" iRefLayer="5"/>
-    <LogicCone iCone="4">
+    </LogicRegion>
+    <RefHit iInput="2" iPhiMax="140" iPhiMin="27" iRefHit="41" iRefLayer="0" iRegion="4"/>
+    <RefHit iInput="2" iPhiMax="54" iPhiMin="-59" iRefHit="42" iRefLayer="1" iRegion="4"/>
+    <RefHit iInput="2" iPhiMax="100" iPhiMin="-13" iRefHit="43" iRefLayer="2" iRegion="4"/>
+    <RefHit iInput="6" iPhiMax="172" iPhiMin="59" iRefHit="44" iRefLayer="3" iRegion="4"/>
+    <RefHit iInput="8" iPhiMax="172" iPhiMin="59" iRefHit="45" iRefLayer="3" iRegion="4"/>
+    <RefHit iInput="9" iPhiMax="172" iPhiMin="59" iRefHit="46" iRefLayer="3" iRegion="4"/>
+    <RefHit iInput="6" iPhiMax="171" iPhiMin="58" iRefHit="47" iRefLayer="4" iRegion="4"/>
+    <RefHit iInput="7" iPhiMax="171" iPhiMin="58" iRefHit="48" iRefLayer="4" iRegion="4"/>
+    <RefHit iInput="8" iPhiMax="171" iPhiMin="58" iRefHit="49" iRefLayer="4" iRegion="4"/>
+    <RefHit iInput="9" iPhiMax="171" iPhiMin="58" iRefHit="50" iRefLayer="4" iRegion="4"/>
+    <RefHit iInput="2" iPhiMax="131" iPhiMin="18" iRefHit="51" iRefLayer="5" iRegion="4"/>
+    <RefHit iInput="3" iPhiMax="131" iPhiMin="18" iRefHit="52" iRefLayer="5" iRegion="4"/>
+    <LogicRegion iRegion="4">
       <Layer iFirstInput="0" iLayer="0" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="1" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="2" nInputs="6"/>
@@ -485,36 +487,35 @@
       <Layer iFirstInput="6" iLayer="22" nInputs="6"/>
       <Layer iFirstInput="6" iLayer="23" nInputs="6"/>
       <Layer iFirstInput="6" iLayer="24" nInputs="6"/>
-    </LogicCone>
-    <RefHit iCone="5" iInput="2" iPhiMax="1269" iPhiMin="1156" iRefHit="52" iRefLayer="0"/>
-    <RefHit iCone="5" iInput="2" iPhiMax="1183" iPhiMin="1070" iRefHit="53" iRefLayer="1"/>
-    <RefHit iCone="5" iInput="2" iPhiMax="1229" iPhiMin="1116" iRefHit="54" iRefLayer="2"/>
-    <RefHit iCone="5" iInput="10" iPhiMax="1301" iPhiMin="1188" iRefHit="55" iRefLayer="3"/>
-    <RefHit iCone="5" iInput="11" iPhiMax="1301" iPhiMin="1188" iRefHit="56" iRefLayer="3"/>
-    <RefHit iCone="5" iInput="8" iPhiMax="1300" iPhiMin="1187" iRefHit="57" iRefLayer="4"/>
-    <RefHit iCone="5" iInput="9" iPhiMax="1300" iPhiMin="1187" iRefHit="58" iRefLayer="4"/>
-    <RefHit iCone="5" iInput="10" iPhiMax="1300" iPhiMin="1187" iRefHit="59" iRefLayer="4"/>
-    <RefHit iCone="5" iInput="11" iPhiMax="1300" iPhiMin="1187" iRefHit="60" iRefLayer="4"/>
-    <RefHit iCone="5" iInput="2" iPhiMax="1260" iPhiMin="1147" iRefHit="61" iRefLayer="5"/>
-    <RefHit iCone="5" iInput="3" iPhiMax="1260" iPhiMin="1147" iRefHit="62" iRefLayer="5"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="63" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="64" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="65" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="66" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="67" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="68" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="69" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="70" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="71" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="72" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="73" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="74" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="75" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="76" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="77" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="78" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="79" iRefLayer="0"/>
-    <LogicCone iCone="5">
+    </LogicRegion>
+    <RefHit iInput="2" iPhiMax="253" iPhiMin="140" iRefHit="53" iRefLayer="0" iRegion="5"/>
+    <RefHit iInput="2" iPhiMax="167" iPhiMin="54" iRefHit="54" iRefLayer="1" iRegion="5"/>
+    <RefHit iInput="2" iPhiMax="213" iPhiMin="100" iRefHit="55" iRefLayer="2" iRegion="5"/>
+    <RefHit iInput="8" iPhiMax="285" iPhiMin="172" iRefHit="56" iRefLayer="3" iRegion="5"/>
+    <RefHit iInput="10" iPhiMax="285" iPhiMin="172" iRefHit="57" iRefLayer="3" iRegion="5"/>
+    <RefHit iInput="11" iPhiMax="285" iPhiMin="172" iRefHit="58" iRefLayer="3" iRegion="5"/>
+    <RefHit iInput="8" iPhiMax="284" iPhiMin="171" iRefHit="59" iRefLayer="4" iRegion="5"/>
+    <RefHit iInput="10" iPhiMax="284" iPhiMin="171" iRefHit="60" iRefLayer="4" iRegion="5"/>
+    <RefHit iInput="11" iPhiMax="284" iPhiMin="171" iRefHit="61" iRefLayer="4" iRegion="5"/>
+    <RefHit iInput="2" iPhiMax="244" iPhiMin="131" iRefHit="62" iRefLayer="5" iRegion="5"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="63" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="64" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="65" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="66" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="67" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="68" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="69" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="70" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="71" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="72" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="73" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="74" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="75" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="76" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="77" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="78" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="79" iRefLayer="0" iRegion="0"/>
+    <LogicRegion iRegion="5">
       <Layer iFirstInput="0" iLayer="0" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="1" nInputs="6"/>
       <Layer iFirstInput="2" iLayer="2" nInputs="6"/>
@@ -540,28 +541,27 @@
       <Layer iFirstInput="8" iLayer="22" nInputs="6"/>
       <Layer iFirstInput="8" iLayer="23" nInputs="6"/>
       <Layer iFirstInput="8" iLayer="24" nInputs="6"/>
-    </LogicCone>
+    </LogicRegion>
   </Processor>
 
   <Processor iProcessor="2">
-    <RefLayer iPhi="1272" iRefLayer="0"/>
-    <RefLayer iPhi="1186" iRefLayer="1"/>
-    <RefLayer iPhi="1247" iRefLayer="2"/>
-    <RefLayer iPhi="1306" iRefLayer="3"/>
-    <RefLayer iPhi="1305" iRefLayer="4"/>
-    <RefLayer iPhi="1264" iRefLayer="5"/>
-    <RefLayer iPhi="1266" iRefLayer="6"/>
-    <RefLayer iPhi="1227" iRefLayer="7"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1385" iPhiMin="1272" iRefHit="0" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1299" iPhiMin="1186" iRefHit="1" iRefLayer="1"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1360" iPhiMin="1247" iRefHit="2" iRefLayer="2"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1419" iPhiMin="1306" iRefHit="3" iRefLayer="3"/>
-    <RefHit iCone="0" iInput="1" iPhiMax="1419" iPhiMin="1306" iRefHit="4" iRefLayer="3"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1418" iPhiMin="1305" iRefHit="5" iRefLayer="4"/>
-    <RefHit iCone="0" iInput="1" iPhiMax="1418" iPhiMin="1305" iRefHit="6" iRefLayer="4"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1377" iPhiMin="1264" iRefHit="7" iRefLayer="5"/>
-    <RefHit iCone="0" iInput="1" iPhiMax="1377" iPhiMin="1264" iRefHit="8" iRefLayer="5"/>
-    <LogicCone iCone="0">
+    <RefLayer iGlobalPhiStart="1272" iRefLayer="0"/>
+    <RefLayer iGlobalPhiStart="1186" iRefLayer="1"/>
+    <RefLayer iGlobalPhiStart="1247" iRefLayer="2"/>
+    <RefLayer iGlobalPhiStart="1306" iRefLayer="3"/>
+    <RefLayer iGlobalPhiStart="1305" iRefLayer="4"/>
+    <RefLayer iGlobalPhiStart="1264" iRefLayer="5"/>
+    <RefLayer iGlobalPhiStart="1266" iRefLayer="6"/>
+    <RefLayer iGlobalPhiStart="1227" iRefLayer="7"/>
+    <RefHit iInput="0" iPhiMax="-312" iPhiMin="-425" iRefHit="0" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="-398" iPhiMin="-511" iRefHit="1" iRefLayer="1" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="-337" iPhiMin="-450" iRefHit="2" iRefLayer="2" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="-278" iPhiMin="-391" iRefHit="3" iRefLayer="3" iRegion="0"/>
+    <RefHit iInput="1" iPhiMax="-278" iPhiMin="-391" iRefHit="4" iRefLayer="3" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="-279" iPhiMin="-392" iRefHit="5" iRefLayer="4" iRegion="0"/>
+    <RefHit iInput="1" iPhiMax="-279" iPhiMin="-392" iRefHit="6" iRefLayer="4" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="-320" iPhiMin="-433" iRefHit="7" iRefLayer="5" iRegion="0"/>
+    <LogicRegion iRegion="0">
       <Layer iFirstInput="0" iLayer="0" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="1" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="2" nInputs="4"/>
@@ -587,20 +587,20 @@
       <Layer iFirstInput="0" iLayer="22" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="23" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="24" nInputs="4"/>
-    </LogicCone>
-    <RefHit iCone="1" iInput="0" iPhiMax="1498" iPhiMin="1385" iRefHit="9" iRefLayer="0"/>
-    <RefHit iCone="1" iInput="0" iPhiMax="1412" iPhiMin="1299" iRefHit="10" iRefLayer="1"/>
-    <RefHit iCone="1" iInput="0" iPhiMax="1473" iPhiMin="1360" iRefHit="11" iRefLayer="2"/>
-    <RefHit iCone="1" iInput="0" iPhiMax="1532" iPhiMin="1419" iRefHit="12" iRefLayer="3"/>
-    <RefHit iCone="1" iInput="2" iPhiMax="1532" iPhiMin="1419" iRefHit="13" iRefLayer="3"/>
-    <RefHit iCone="1" iInput="3" iPhiMax="1532" iPhiMin="1419" iRefHit="14" iRefLayer="3"/>
-    <RefHit iCone="1" iInput="0" iPhiMax="1531" iPhiMin="1418" iRefHit="15" iRefLayer="4"/>
-    <RefHit iCone="1" iInput="1" iPhiMax="1531" iPhiMin="1418" iRefHit="16" iRefLayer="4"/>
-    <RefHit iCone="1" iInput="2" iPhiMax="1531" iPhiMin="1418" iRefHit="17" iRefLayer="4"/>
-    <RefHit iCone="1" iInput="3" iPhiMax="1531" iPhiMin="1418" iRefHit="18" iRefLayer="4"/>
-    <RefHit iCone="1" iInput="0" iPhiMax="1490" iPhiMin="1377" iRefHit="19" iRefLayer="5"/>
-    <RefHit iCone="1" iInput="1" iPhiMax="1490" iPhiMin="1377" iRefHit="20" iRefLayer="5"/>
-    <LogicCone iCone="1">
+    </LogicRegion>
+    <RefHit iInput="0" iPhiMax="-199" iPhiMin="-312" iRefHit="8" iRefLayer="0" iRegion="1"/>
+    <RefHit iInput="0" iPhiMax="-285" iPhiMin="-398" iRefHit="9" iRefLayer="1" iRegion="1"/>
+    <RefHit iInput="0" iPhiMax="-224" iPhiMin="-337" iRefHit="10" iRefLayer="2" iRegion="1"/>
+    <RefHit iInput="0" iPhiMax="-165" iPhiMin="-278" iRefHit="11" iRefLayer="3" iRegion="1"/>
+    <RefHit iInput="2" iPhiMax="-165" iPhiMin="-278" iRefHit="12" iRefLayer="3" iRegion="1"/>
+    <RefHit iInput="3" iPhiMax="-165" iPhiMin="-278" iRefHit="13" iRefLayer="3" iRegion="1"/>
+    <RefHit iInput="0" iPhiMax="-166" iPhiMin="-279" iRefHit="14" iRefLayer="4" iRegion="1"/>
+    <RefHit iInput="1" iPhiMax="-166" iPhiMin="-279" iRefHit="15" iRefLayer="4" iRegion="1"/>
+    <RefHit iInput="2" iPhiMax="-166" iPhiMin="-279" iRefHit="16" iRefLayer="4" iRegion="1"/>
+    <RefHit iInput="3" iPhiMax="-166" iPhiMin="-279" iRefHit="17" iRefLayer="4" iRegion="1"/>
+    <RefHit iInput="0" iPhiMax="-207" iPhiMin="-320" iRefHit="18" iRefLayer="5" iRegion="1"/>
+    <RefHit iInput="1" iPhiMax="-207" iPhiMin="-320" iRefHit="19" iRefLayer="5" iRegion="1"/>
+    <LogicRegion iRegion="1">
       <Layer iFirstInput="0" iLayer="0" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="1" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="2" nInputs="4"/>
@@ -626,20 +626,21 @@
       <Layer iFirstInput="0" iLayer="22" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="23" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="24" nInputs="6"/>
-    </LogicCone>
-    <RefHit iCone="2" iInput="0" iPhiMax="1611" iPhiMin="1498" iRefHit="21" iRefLayer="0"/>
-    <RefHit iCone="2" iInput="0" iPhiMax="1525" iPhiMin="1412" iRefHit="22" iRefLayer="1"/>
-    <RefHit iCone="2" iInput="0" iPhiMax="1586" iPhiMin="1473" iRefHit="23" iRefLayer="2"/>
-    <RefHit iCone="2" iInput="2" iPhiMax="1586" iPhiMin="1473" iRefHit="24" iRefLayer="2"/>
-    <RefHit iCone="2" iInput="2" iPhiMax="1645" iPhiMin="1532" iRefHit="25" iRefLayer="3"/>
-    <RefHit iCone="2" iInput="4" iPhiMax="1645" iPhiMin="1532" iRefHit="26" iRefLayer="3"/>
-    <RefHit iCone="2" iInput="5" iPhiMax="1645" iPhiMin="1532" iRefHit="27" iRefLayer="3"/>
-    <RefHit iCone="2" iInput="2" iPhiMax="1644" iPhiMin="1531" iRefHit="28" iRefLayer="4"/>
-    <RefHit iCone="2" iInput="4" iPhiMax="1644" iPhiMin="1531" iRefHit="29" iRefLayer="4"/>
-    <RefHit iCone="2" iInput="5" iPhiMax="1644" iPhiMin="1531" iRefHit="30" iRefLayer="4"/>
-    <RefHit iCone="2" iInput="0" iPhiMax="1603" iPhiMin="1490" iRefHit="31" iRefLayer="5"/>
-    <RefHit iCone="2" iInput="1" iPhiMax="1603" iPhiMin="1490" iRefHit="32" iRefLayer="5"/>
-    <LogicCone iCone="2">
+    </LogicRegion>
+    <RefHit iInput="0" iPhiMax="-86" iPhiMin="-199" iRefHit="20" iRefLayer="0" iRegion="2"/>
+    <RefHit iInput="0" iPhiMax="-172" iPhiMin="-285" iRefHit="21" iRefLayer="1" iRegion="2"/>
+    <RefHit iInput="0" iPhiMax="-111" iPhiMin="-224" iRefHit="22" iRefLayer="2" iRegion="2"/>
+    <RefHit iInput="2" iPhiMax="-111" iPhiMin="-224" iRefHit="23" iRefLayer="2" iRegion="2"/>
+    <RefHit iInput="2" iPhiMax="-52" iPhiMin="-165" iRefHit="24" iRefLayer="3" iRegion="2"/>
+    <RefHit iInput="4" iPhiMax="-52" iPhiMin="-165" iRefHit="25" iRefLayer="3" iRegion="2"/>
+    <RefHit iInput="5" iPhiMax="-52" iPhiMin="-165" iRefHit="26" iRefLayer="3" iRegion="2"/>
+    <RefHit iInput="2" iPhiMax="-53" iPhiMin="-166" iRefHit="27" iRefLayer="4" iRegion="2"/>
+    <RefHit iInput="3" iPhiMax="-53" iPhiMin="-166" iRefHit="28" iRefLayer="4" iRegion="2"/>
+    <RefHit iInput="4" iPhiMax="-53" iPhiMin="-166" iRefHit="29" iRefLayer="4" iRegion="2"/>
+    <RefHit iInput="5" iPhiMax="-53" iPhiMin="-166" iRefHit="30" iRefLayer="4" iRegion="2"/>
+    <RefHit iInput="0" iPhiMax="-94" iPhiMin="-207" iRefHit="31" iRefLayer="5" iRegion="2"/>
+    <RefHit iInput="1" iPhiMax="-94" iPhiMin="-207" iRefHit="32" iRefLayer="5" iRegion="2"/>
+    <LogicRegion iRegion="2">
       <Layer iFirstInput="0" iLayer="0" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="1" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="2" nInputs="6"/>
@@ -665,19 +666,18 @@
       <Layer iFirstInput="2" iLayer="22" nInputs="6"/>
       <Layer iFirstInput="2" iLayer="23" nInputs="6"/>
       <Layer iFirstInput="2" iLayer="24" nInputs="6"/>
-    </LogicCone>
-    <RefHit iCone="3" iInput="2" iPhiMax="1724" iPhiMin="1611" iRefHit="33" iRefLayer="0"/>
-    <RefHit iCone="3" iInput="2" iPhiMax="1638" iPhiMin="1525" iRefHit="34" iRefLayer="1"/>
-    <RefHit iCone="3" iInput="2" iPhiMax="1699" iPhiMin="1586" iRefHit="35" iRefLayer="2"/>
-    <RefHit iCone="3" iInput="4" iPhiMax="1758" iPhiMin="1645" iRefHit="36" iRefLayer="3"/>
-    <RefHit iCone="3" iInput="6" iPhiMax="1758" iPhiMin="1645" iRefHit="37" iRefLayer="3"/>
-    <RefHit iCone="3" iInput="7" iPhiMax="1758" iPhiMin="1645" iRefHit="38" iRefLayer="3"/>
-    <RefHit iCone="3" iInput="4" iPhiMax="1757" iPhiMin="1644" iRefHit="39" iRefLayer="4"/>
-    <RefHit iCone="3" iInput="6" iPhiMax="1757" iPhiMin="1644" iRefHit="40" iRefLayer="4"/>
-    <RefHit iCone="3" iInput="7" iPhiMax="1757" iPhiMin="1644" iRefHit="41" iRefLayer="4"/>
-    <RefHit iCone="3" iInput="2" iPhiMax="1716" iPhiMin="1603" iRefHit="42" iRefLayer="5"/>
-    <RefHit iCone="3" iInput="3" iPhiMax="1716" iPhiMin="1603" iRefHit="43" iRefLayer="5"/>
-    <LogicCone iCone="3">
+    </LogicRegion>
+    <RefHit iInput="2" iPhiMax="27" iPhiMin="-86" iRefHit="33" iRefLayer="0" iRegion="3"/>
+    <RefHit iInput="2" iPhiMax="-59" iPhiMin="-172" iRefHit="34" iRefLayer="1" iRegion="3"/>
+    <RefHit iInput="2" iPhiMax="2" iPhiMin="-111" iRefHit="35" iRefLayer="2" iRegion="3"/>
+    <RefHit iInput="6" iPhiMax="61" iPhiMin="-52" iRefHit="36" iRefLayer="3" iRegion="3"/>
+    <RefHit iInput="7" iPhiMax="61" iPhiMin="-52" iRefHit="37" iRefLayer="3" iRegion="3"/>
+    <RefHit iInput="4" iPhiMax="60" iPhiMin="-53" iRefHit="38" iRefLayer="4" iRegion="3"/>
+    <RefHit iInput="6" iPhiMax="60" iPhiMin="-53" iRefHit="39" iRefLayer="4" iRegion="3"/>
+    <RefHit iInput="7" iPhiMax="60" iPhiMin="-53" iRefHit="40" iRefLayer="4" iRegion="3"/>
+    <RefHit iInput="2" iPhiMax="19" iPhiMin="-94" iRefHit="41" iRefLayer="5" iRegion="3"/>
+    <RefHit iInput="3" iPhiMax="19" iPhiMin="-94" iRefHit="42" iRefLayer="5" iRegion="3"/>
+    <LogicRegion iRegion="3">
       <Layer iFirstInput="0" iLayer="0" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="1" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="2" nInputs="6"/>
@@ -703,19 +703,19 @@
       <Layer iFirstInput="4" iLayer="22" nInputs="6"/>
       <Layer iFirstInput="4" iLayer="23" nInputs="6"/>
       <Layer iFirstInput="4" iLayer="24" nInputs="6"/>
-    </LogicCone>
-    <RefHit iCone="4" iInput="2" iPhiMax="1837" iPhiMin="1724" iRefHit="44" iRefLayer="0"/>
-    <RefHit iCone="4" iInput="2" iPhiMax="1751" iPhiMin="1638" iRefHit="45" iRefLayer="1"/>
-    <RefHit iCone="4" iInput="2" iPhiMax="1812" iPhiMin="1699" iRefHit="46" iRefLayer="2"/>
-    <RefHit iCone="4" iInput="6" iPhiMax="1871" iPhiMin="1758" iRefHit="47" iRefLayer="3"/>
-    <RefHit iCone="4" iInput="8" iPhiMax="1871" iPhiMin="1758" iRefHit="48" iRefLayer="3"/>
-    <RefHit iCone="4" iInput="9" iPhiMax="1871" iPhiMin="1758" iRefHit="49" iRefLayer="3"/>
-    <RefHit iCone="4" iInput="6" iPhiMax="1870" iPhiMin="1757" iRefHit="50" iRefLayer="4"/>
-    <RefHit iCone="4" iInput="8" iPhiMax="1870" iPhiMin="1757" iRefHit="51" iRefLayer="4"/>
-    <RefHit iCone="4" iInput="9" iPhiMax="1870" iPhiMin="1757" iRefHit="52" iRefLayer="4"/>
-    <RefHit iCone="4" iInput="2" iPhiMax="1829" iPhiMin="1716" iRefHit="53" iRefLayer="5"/>
-    <RefHit iCone="4" iInput="3" iPhiMax="1829" iPhiMin="1716" iRefHit="54" iRefLayer="5"/>
-    <LogicCone iCone="4">
+    </LogicRegion>
+    <RefHit iInput="2" iPhiMax="140" iPhiMin="27" iRefHit="43" iRefLayer="0" iRegion="4"/>
+    <RefHit iInput="2" iPhiMax="54" iPhiMin="-59" iRefHit="44" iRefLayer="1" iRegion="4"/>
+    <RefHit iInput="2" iPhiMax="115" iPhiMin="2" iRefHit="45" iRefLayer="2" iRegion="4"/>
+    <RefHit iInput="6" iPhiMax="174" iPhiMin="61" iRefHit="46" iRefLayer="3" iRegion="4"/>
+    <RefHit iInput="8" iPhiMax="174" iPhiMin="61" iRefHit="47" iRefLayer="3" iRegion="4"/>
+    <RefHit iInput="9" iPhiMax="174" iPhiMin="61" iRefHit="48" iRefLayer="3" iRegion="4"/>
+    <RefHit iInput="6" iPhiMax="173" iPhiMin="60" iRefHit="49" iRefLayer="4" iRegion="4"/>
+    <RefHit iInput="8" iPhiMax="173" iPhiMin="60" iRefHit="50" iRefLayer="4" iRegion="4"/>
+    <RefHit iInput="9" iPhiMax="173" iPhiMin="60" iRefHit="51" iRefLayer="4" iRegion="4"/>
+    <RefHit iInput="2" iPhiMax="132" iPhiMin="19" iRefHit="52" iRefLayer="5" iRegion="4"/>
+    <RefHit iInput="3" iPhiMax="132" iPhiMin="19" iRefHit="53" iRefLayer="5" iRegion="4"/>
+    <LogicRegion iRegion="4">
       <Layer iFirstInput="0" iLayer="0" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="1" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="2" nInputs="6"/>
@@ -741,33 +741,34 @@
       <Layer iFirstInput="6" iLayer="22" nInputs="6"/>
       <Layer iFirstInput="6" iLayer="23" nInputs="6"/>
       <Layer iFirstInput="6" iLayer="24" nInputs="6"/>
-    </LogicCone>
-    <RefHit iCone="5" iInput="2" iPhiMax="1950" iPhiMin="1837" iRefHit="55" iRefLayer="0"/>
-    <RefHit iCone="5" iInput="2" iPhiMax="1864" iPhiMin="1751" iRefHit="56" iRefLayer="1"/>
-    <RefHit iCone="5" iInput="2" iPhiMax="1925" iPhiMin="1812" iRefHit="57" iRefLayer="2"/>
-    <RefHit iCone="5" iInput="4" iPhiMax="1925" iPhiMin="1812" iRefHit="58" iRefLayer="2"/>
-    <RefHit iCone="5" iInput="8" iPhiMax="1984" iPhiMin="1871" iRefHit="59" iRefLayer="3"/>
-    <RefHit iCone="5" iInput="10" iPhiMax="1984" iPhiMin="1871" iRefHit="60" iRefLayer="3"/>
-    <RefHit iCone="5" iInput="11" iPhiMax="1984" iPhiMin="1871" iRefHit="61" iRefLayer="3"/>
-    <RefHit iCone="5" iInput="8" iPhiMax="1983" iPhiMin="1870" iRefHit="62" iRefLayer="4"/>
-    <RefHit iCone="5" iInput="10" iPhiMax="1983" iPhiMin="1870" iRefHit="63" iRefLayer="4"/>
-    <RefHit iCone="5" iInput="11" iPhiMax="1983" iPhiMin="1870" iRefHit="64" iRefLayer="4"/>
-    <RefHit iCone="5" iInput="2" iPhiMax="1942" iPhiMin="1829" iRefHit="65" iRefLayer="5"/>
-    <RefHit iCone="5" iInput="3" iPhiMax="1942" iPhiMin="1829" iRefHit="66" iRefLayer="5"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="67" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="68" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="69" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="70" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="71" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="72" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="73" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="74" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="75" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="76" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="77" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="78" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="79" iRefLayer="0"/>
-    <LogicCone iCone="5">
+    </LogicRegion>
+    <RefHit iInput="2" iPhiMax="253" iPhiMin="140" iRefHit="54" iRefLayer="0" iRegion="5"/>
+    <RefHit iInput="2" iPhiMax="167" iPhiMin="54" iRefHit="55" iRefLayer="1" iRegion="5"/>
+    <RefHit iInput="2" iPhiMax="228" iPhiMin="115" iRefHit="56" iRefLayer="2" iRegion="5"/>
+    <RefHit iInput="4" iPhiMax="228" iPhiMin="115" iRefHit="57" iRefLayer="2" iRegion="5"/>
+    <RefHit iInput="8" iPhiMax="287" iPhiMin="174" iRefHit="58" iRefLayer="3" iRegion="5"/>
+    <RefHit iInput="10" iPhiMax="287" iPhiMin="174" iRefHit="59" iRefLayer="3" iRegion="5"/>
+    <RefHit iInput="11" iPhiMax="287" iPhiMin="174" iRefHit="60" iRefLayer="3" iRegion="5"/>
+    <RefHit iInput="8" iPhiMax="286" iPhiMin="173" iRefHit="61" iRefLayer="4" iRegion="5"/>
+    <RefHit iInput="10" iPhiMax="286" iPhiMin="173" iRefHit="62" iRefLayer="4" iRegion="5"/>
+    <RefHit iInput="11" iPhiMax="286" iPhiMin="173" iRefHit="63" iRefLayer="4" iRegion="5"/>
+    <RefHit iInput="2" iPhiMax="245" iPhiMin="132" iRefHit="64" iRefLayer="5" iRegion="5"/>
+    <RefHit iInput="3" iPhiMax="245" iPhiMin="132" iRefHit="65" iRefLayer="5" iRegion="5"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="66" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="67" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="68" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="69" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="70" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="71" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="72" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="73" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="74" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="75" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="76" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="77" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="78" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="79" iRefLayer="0" iRegion="0"/>
+    <LogicRegion iRegion="5">
       <Layer iFirstInput="0" iLayer="0" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="1" nInputs="6"/>
       <Layer iFirstInput="2" iLayer="2" nInputs="6"/>
@@ -793,28 +794,28 @@
       <Layer iFirstInput="8" iLayer="22" nInputs="6"/>
       <Layer iFirstInput="8" iLayer="23" nInputs="6"/>
       <Layer iFirstInput="8" iLayer="24" nInputs="6"/>
-    </LogicCone>
+    </LogicRegion>
   </Processor>
 
   <Processor iProcessor="3">
-    <RefLayer iPhi="1957" iRefLayer="0"/>
-    <RefLayer iPhi="1869" iRefLayer="1"/>
-    <RefLayer iPhi="1920" iRefLayer="2"/>
-    <RefLayer iPhi="1989" iRefLayer="3"/>
-    <RefLayer iPhi="1987" iRefLayer="4"/>
-    <RefLayer iPhi="1947" iRefLayer="5"/>
-    <RefLayer iPhi="1948" iRefLayer="6"/>
-    <RefLayer iPhi="1910" iRefLayer="7"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="2070" iPhiMin="1957" iRefHit="0" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1982" iPhiMin="1869" iRefHit="1" iRefLayer="1"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="2033" iPhiMin="1920" iRefHit="2" iRefLayer="2"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="2102" iPhiMin="1989" iRefHit="3" iRefLayer="3"/>
-    <RefHit iCone="0" iInput="1" iPhiMax="2102" iPhiMin="1989" iRefHit="4" iRefLayer="3"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="2100" iPhiMin="1987" iRefHit="5" iRefLayer="4"/>
-    <RefHit iCone="0" iInput="1" iPhiMax="2100" iPhiMin="1987" iRefHit="6" iRefLayer="4"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="2060" iPhiMin="1947" iRefHit="7" iRefLayer="5"/>
-    <RefHit iCone="0" iInput="1" iPhiMax="2060" iPhiMin="1947" iRefHit="8" iRefLayer="5"/>
-    <LogicCone iCone="0">
+    <RefLayer iGlobalPhiStart="1957" iRefLayer="0"/>
+    <RefLayer iGlobalPhiStart="1869" iRefLayer="1"/>
+    <RefLayer iGlobalPhiStart="1920" iRefLayer="2"/>
+    <RefLayer iGlobalPhiStart="1989" iRefLayer="3"/>
+    <RefLayer iGlobalPhiStart="1987" iRefLayer="4"/>
+    <RefLayer iGlobalPhiStart="1947" iRefLayer="5"/>
+    <RefLayer iGlobalPhiStart="1948" iRefLayer="6"/>
+    <RefLayer iGlobalPhiStart="1910" iRefLayer="7"/>
+    <RefHit iInput="0" iPhiMax="-310" iPhiMin="-423" iRefHit="0" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="-398" iPhiMin="-511" iRefHit="1" iRefLayer="1" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="-347" iPhiMin="-460" iRefHit="2" iRefLayer="2" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="-278" iPhiMin="-391" iRefHit="3" iRefLayer="3" iRegion="0"/>
+    <RefHit iInput="1" iPhiMax="-278" iPhiMin="-391" iRefHit="4" iRefLayer="3" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="-280" iPhiMin="-393" iRefHit="5" iRefLayer="4" iRegion="0"/>
+    <RefHit iInput="1" iPhiMax="-280" iPhiMin="-393" iRefHit="6" iRefLayer="4" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="-320" iPhiMin="-433" iRefHit="7" iRefLayer="5" iRegion="0"/>
+    <RefHit iInput="1" iPhiMax="-320" iPhiMin="-433" iRefHit="8" iRefLayer="5" iRegion="0"/>
+    <LogicRegion iRegion="0">
       <Layer iFirstInput="0" iLayer="0" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="1" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="2" nInputs="4"/>
@@ -840,19 +841,18 @@
       <Layer iFirstInput="0" iLayer="22" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="23" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="24" nInputs="4"/>
-    </LogicCone>
-    <RefHit iCone="1" iInput="0" iPhiMax="2183" iPhiMin="2070" iRefHit="9" iRefLayer="0"/>
-    <RefHit iCone="1" iInput="0" iPhiMax="2095" iPhiMin="1982" iRefHit="10" iRefLayer="1"/>
-    <RefHit iCone="1" iInput="0" iPhiMax="2146" iPhiMin="2033" iRefHit="11" iRefLayer="2"/>
-    <RefHit iCone="1" iInput="0" iPhiMax="2215" iPhiMin="2102" iRefHit="12" iRefLayer="3"/>
-    <RefHit iCone="1" iInput="2" iPhiMax="2215" iPhiMin="2102" iRefHit="13" iRefLayer="3"/>
-    <RefHit iCone="1" iInput="3" iPhiMax="2215" iPhiMin="2102" iRefHit="14" iRefLayer="3"/>
-    <RefHit iCone="1" iInput="0" iPhiMax="2213" iPhiMin="2100" iRefHit="15" iRefLayer="4"/>
-    <RefHit iCone="1" iInput="2" iPhiMax="2213" iPhiMin="2100" iRefHit="16" iRefLayer="4"/>
-    <RefHit iCone="1" iInput="3" iPhiMax="2213" iPhiMin="2100" iRefHit="17" iRefLayer="4"/>
-    <RefHit iCone="1" iInput="0" iPhiMax="2173" iPhiMin="2060" iRefHit="18" iRefLayer="5"/>
-    <RefHit iCone="1" iInput="1" iPhiMax="2173" iPhiMin="2060" iRefHit="19" iRefLayer="5"/>
-    <LogicCone iCone="1">
+    </LogicRegion>
+    <RefHit iInput="0" iPhiMax="-197" iPhiMin="-310" iRefHit="9" iRefLayer="0" iRegion="1"/>
+    <RefHit iInput="0" iPhiMax="-285" iPhiMin="-398" iRefHit="10" iRefLayer="1" iRegion="1"/>
+    <RefHit iInput="0" iPhiMax="-234" iPhiMin="-347" iRefHit="11" iRefLayer="2" iRegion="1"/>
+    <RefHit iInput="2" iPhiMax="-165" iPhiMin="-278" iRefHit="12" iRefLayer="3" iRegion="1"/>
+    <RefHit iInput="3" iPhiMax="-165" iPhiMin="-278" iRefHit="13" iRefLayer="3" iRegion="1"/>
+    <RefHit iInput="0" iPhiMax="-167" iPhiMin="-280" iRefHit="14" iRefLayer="4" iRegion="1"/>
+    <RefHit iInput="2" iPhiMax="-167" iPhiMin="-280" iRefHit="15" iRefLayer="4" iRegion="1"/>
+    <RefHit iInput="3" iPhiMax="-167" iPhiMin="-280" iRefHit="16" iRefLayer="4" iRegion="1"/>
+    <RefHit iInput="0" iPhiMax="-207" iPhiMin="-320" iRefHit="17" iRefLayer="5" iRegion="1"/>
+    <RefHit iInput="1" iPhiMax="-207" iPhiMin="-320" iRefHit="18" iRefLayer="5" iRegion="1"/>
+    <LogicRegion iRegion="1">
       <Layer iFirstInput="0" iLayer="0" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="1" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="2" nInputs="4"/>
@@ -878,20 +878,19 @@
       <Layer iFirstInput="0" iLayer="22" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="23" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="24" nInputs="6"/>
-    </LogicCone>
-    <RefHit iCone="2" iInput="0" iPhiMax="2296" iPhiMin="2183" iRefHit="20" iRefLayer="0"/>
-    <RefHit iCone="2" iInput="0" iPhiMax="2208" iPhiMin="2095" iRefHit="21" iRefLayer="1"/>
-    <RefHit iCone="2" iInput="0" iPhiMax="2259" iPhiMin="2146" iRefHit="22" iRefLayer="2"/>
-    <RefHit iCone="2" iInput="2" iPhiMax="2328" iPhiMin="2215" iRefHit="23" iRefLayer="3"/>
-    <RefHit iCone="2" iInput="4" iPhiMax="2328" iPhiMin="2215" iRefHit="24" iRefLayer="3"/>
-    <RefHit iCone="2" iInput="5" iPhiMax="2328" iPhiMin="2215" iRefHit="25" iRefLayer="3"/>
-    <RefHit iCone="2" iInput="2" iPhiMax="2326" iPhiMin="2213" iRefHit="26" iRefLayer="4"/>
-    <RefHit iCone="2" iInput="3" iPhiMax="2326" iPhiMin="2213" iRefHit="27" iRefLayer="4"/>
-    <RefHit iCone="2" iInput="4" iPhiMax="2326" iPhiMin="2213" iRefHit="28" iRefLayer="4"/>
-    <RefHit iCone="2" iInput="5" iPhiMax="2326" iPhiMin="2213" iRefHit="29" iRefLayer="4"/>
-    <RefHit iCone="2" iInput="0" iPhiMax="2286" iPhiMin="2173" iRefHit="30" iRefLayer="5"/>
-    <RefHit iCone="2" iInput="1" iPhiMax="2286" iPhiMin="2173" iRefHit="31" iRefLayer="5"/>
-    <LogicCone iCone="2">
+    </LogicRegion>
+    <RefHit iInput="0" iPhiMax="-84" iPhiMin="-197" iRefHit="19" iRefLayer="0" iRegion="2"/>
+    <RefHit iInput="0" iPhiMax="-172" iPhiMin="-285" iRefHit="20" iRefLayer="1" iRegion="2"/>
+    <RefHit iInput="0" iPhiMax="-121" iPhiMin="-234" iRefHit="21" iRefLayer="2" iRegion="2"/>
+    <RefHit iInput="2" iPhiMax="-121" iPhiMin="-234" iRefHit="22" iRefLayer="2" iRegion="2"/>
+    <RefHit iInput="2" iPhiMax="-52" iPhiMin="-165" iRefHit="23" iRefLayer="3" iRegion="2"/>
+    <RefHit iInput="4" iPhiMax="-52" iPhiMin="-165" iRefHit="24" iRefLayer="3" iRegion="2"/>
+    <RefHit iInput="5" iPhiMax="-52" iPhiMin="-165" iRefHit="25" iRefLayer="3" iRegion="2"/>
+    <RefHit iInput="2" iPhiMax="-54" iPhiMin="-167" iRefHit="26" iRefLayer="4" iRegion="2"/>
+    <RefHit iInput="4" iPhiMax="-54" iPhiMin="-167" iRefHit="27" iRefLayer="4" iRegion="2"/>
+    <RefHit iInput="5" iPhiMax="-54" iPhiMin="-167" iRefHit="28" iRefLayer="4" iRegion="2"/>
+    <RefHit iInput="0" iPhiMax="-94" iPhiMin="-207" iRefHit="29" iRefLayer="5" iRegion="2"/>
+    <LogicRegion iRegion="2">
       <Layer iFirstInput="0" iLayer="0" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="1" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="2" nInputs="6"/>
@@ -917,19 +916,19 @@
       <Layer iFirstInput="2" iLayer="22" nInputs="6"/>
       <Layer iFirstInput="2" iLayer="23" nInputs="6"/>
       <Layer iFirstInput="2" iLayer="24" nInputs="6"/>
-    </LogicCone>
-    <RefHit iCone="3" iInput="2" iPhiMax="2409" iPhiMin="2296" iRefHit="32" iRefLayer="0"/>
-    <RefHit iCone="3" iInput="2" iPhiMax="2321" iPhiMin="2208" iRefHit="33" iRefLayer="1"/>
-    <RefHit iCone="3" iInput="2" iPhiMax="2372" iPhiMin="2259" iRefHit="34" iRefLayer="2"/>
-    <RefHit iCone="3" iInput="4" iPhiMax="2441" iPhiMin="2328" iRefHit="35" iRefLayer="3"/>
-    <RefHit iCone="3" iInput="6" iPhiMax="2441" iPhiMin="2328" iRefHit="36" iRefLayer="3"/>
-    <RefHit iCone="3" iInput="7" iPhiMax="2441" iPhiMin="2328" iRefHit="37" iRefLayer="3"/>
-    <RefHit iCone="3" iInput="4" iPhiMax="2439" iPhiMin="2326" iRefHit="38" iRefLayer="4"/>
-    <RefHit iCone="3" iInput="6" iPhiMax="2439" iPhiMin="2326" iRefHit="39" iRefLayer="4"/>
-    <RefHit iCone="3" iInput="7" iPhiMax="2439" iPhiMin="2326" iRefHit="40" iRefLayer="4"/>
-    <RefHit iCone="3" iInput="2" iPhiMax="2399" iPhiMin="2286" iRefHit="41" iRefLayer="5"/>
-    <RefHit iCone="3" iInput="3" iPhiMax="2399" iPhiMin="2286" iRefHit="42" iRefLayer="5"/>
-    <LogicCone iCone="3">
+    </LogicRegion>
+    <RefHit iInput="2" iPhiMax="29" iPhiMin="-84" iRefHit="30" iRefLayer="0" iRegion="3"/>
+    <RefHit iInput="2" iPhiMax="-59" iPhiMin="-172" iRefHit="31" iRefLayer="1" iRegion="3"/>
+    <RefHit iInput="2" iPhiMax="-8" iPhiMin="-121" iRefHit="32" iRefLayer="2" iRegion="3"/>
+    <RefHit iInput="6" iPhiMax="61" iPhiMin="-52" iRefHit="33" iRefLayer="3" iRegion="3"/>
+    <RefHit iInput="7" iPhiMax="61" iPhiMin="-52" iRefHit="34" iRefLayer="3" iRegion="3"/>
+    <RefHit iInput="4" iPhiMax="59" iPhiMin="-54" iRefHit="35" iRefLayer="4" iRegion="3"/>
+    <RefHit iInput="5" iPhiMax="59" iPhiMin="-54" iRefHit="36" iRefLayer="4" iRegion="3"/>
+    <RefHit iInput="6" iPhiMax="59" iPhiMin="-54" iRefHit="37" iRefLayer="4" iRegion="3"/>
+    <RefHit iInput="7" iPhiMax="59" iPhiMin="-54" iRefHit="38" iRefLayer="4" iRegion="3"/>
+    <RefHit iInput="2" iPhiMax="19" iPhiMin="-94" iRefHit="39" iRefLayer="5" iRegion="3"/>
+    <RefHit iInput="3" iPhiMax="19" iPhiMin="-94" iRefHit="40" iRefLayer="5" iRegion="3"/>
+    <LogicRegion iRegion="3">
       <Layer iFirstInput="0" iLayer="0" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="1" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="2" nInputs="6"/>
@@ -955,20 +954,19 @@
       <Layer iFirstInput="4" iLayer="22" nInputs="6"/>
       <Layer iFirstInput="4" iLayer="23" nInputs="6"/>
       <Layer iFirstInput="4" iLayer="24" nInputs="6"/>
-    </LogicCone>
-    <RefHit iCone="4" iInput="2" iPhiMax="2522" iPhiMin="2409" iRefHit="43" iRefLayer="0"/>
-    <RefHit iCone="4" iInput="2" iPhiMax="2434" iPhiMin="2321" iRefHit="44" iRefLayer="1"/>
-    <RefHit iCone="4" iInput="2" iPhiMax="2485" iPhiMin="2372" iRefHit="45" iRefLayer="2"/>
-    <RefHit iCone="4" iInput="6" iPhiMax="2554" iPhiMin="2441" iRefHit="46" iRefLayer="3"/>
-    <RefHit iCone="4" iInput="8" iPhiMax="2554" iPhiMin="2441" iRefHit="47" iRefLayer="3"/>
-    <RefHit iCone="4" iInput="9" iPhiMax="2554" iPhiMin="2441" iRefHit="48" iRefLayer="3"/>
-    <RefHit iCone="4" iInput="6" iPhiMax="2552" iPhiMin="2439" iRefHit="49" iRefLayer="4"/>
-    <RefHit iCone="4" iInput="7" iPhiMax="2552" iPhiMin="2439" iRefHit="50" iRefLayer="4"/>
-    <RefHit iCone="4" iInput="8" iPhiMax="2552" iPhiMin="2439" iRefHit="51" iRefLayer="4"/>
-    <RefHit iCone="4" iInput="9" iPhiMax="2552" iPhiMin="2439" iRefHit="52" iRefLayer="4"/>
-    <RefHit iCone="4" iInput="2" iPhiMax="2512" iPhiMin="2399" iRefHit="53" iRefLayer="5"/>
-    <RefHit iCone="4" iInput="3" iPhiMax="2512" iPhiMin="2399" iRefHit="54" iRefLayer="5"/>
-    <LogicCone iCone="4">
+    </LogicRegion>
+    <RefHit iInput="2" iPhiMax="142" iPhiMin="29" iRefHit="41" iRefLayer="0" iRegion="4"/>
+    <RefHit iInput="2" iPhiMax="54" iPhiMin="-59" iRefHit="42" iRefLayer="1" iRegion="4"/>
+    <RefHit iInput="2" iPhiMax="105" iPhiMin="-8" iRefHit="43" iRefLayer="2" iRegion="4"/>
+    <RefHit iInput="6" iPhiMax="174" iPhiMin="61" iRefHit="44" iRefLayer="3" iRegion="4"/>
+    <RefHit iInput="8" iPhiMax="174" iPhiMin="61" iRefHit="45" iRefLayer="3" iRegion="4"/>
+    <RefHit iInput="9" iPhiMax="174" iPhiMin="61" iRefHit="46" iRefLayer="3" iRegion="4"/>
+    <RefHit iInput="6" iPhiMax="172" iPhiMin="59" iRefHit="47" iRefLayer="4" iRegion="4"/>
+    <RefHit iInput="8" iPhiMax="172" iPhiMin="59" iRefHit="48" iRefLayer="4" iRegion="4"/>
+    <RefHit iInput="9" iPhiMax="172" iPhiMin="59" iRefHit="49" iRefLayer="4" iRegion="4"/>
+    <RefHit iInput="2" iPhiMax="132" iPhiMin="19" iRefHit="50" iRefLayer="5" iRegion="4"/>
+    <RefHit iInput="3" iPhiMax="132" iPhiMin="19" iRefHit="51" iRefLayer="5" iRegion="4"/>
+    <LogicRegion iRegion="4">
       <Layer iFirstInput="0" iLayer="0" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="1" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="2" nInputs="6"/>
@@ -994,33 +992,36 @@
       <Layer iFirstInput="6" iLayer="22" nInputs="6"/>
       <Layer iFirstInput="6" iLayer="23" nInputs="6"/>
       <Layer iFirstInput="6" iLayer="24" nInputs="6"/>
-    </LogicCone>
-    <RefHit iCone="5" iInput="2" iPhiMax="2635" iPhiMin="2522" iRefHit="55" iRefLayer="0"/>
-    <RefHit iCone="5" iInput="2" iPhiMax="2547" iPhiMin="2434" iRefHit="56" iRefLayer="1"/>
-    <RefHit iCone="5" iInput="2" iPhiMax="2598" iPhiMin="2485" iRefHit="57" iRefLayer="2"/>
-    <RefHit iCone="5" iInput="10" iPhiMax="2667" iPhiMin="2554" iRefHit="58" iRefLayer="3"/>
-    <RefHit iCone="5" iInput="11" iPhiMax="2667" iPhiMin="2554" iRefHit="59" iRefLayer="3"/>
-    <RefHit iCone="5" iInput="8" iPhiMax="2665" iPhiMin="2552" iRefHit="60" iRefLayer="4"/>
-    <RefHit iCone="5" iInput="9" iPhiMax="2665" iPhiMin="2552" iRefHit="61" iRefLayer="4"/>
-    <RefHit iCone="5" iInput="10" iPhiMax="2665" iPhiMin="2552" iRefHit="62" iRefLayer="4"/>
-    <RefHit iCone="5" iInput="11" iPhiMax="2665" iPhiMin="2552" iRefHit="63" iRefLayer="4"/>
-    <RefHit iCone="5" iInput="2" iPhiMax="2625" iPhiMin="2512" iRefHit="64" iRefLayer="5"/>
-    <RefHit iCone="5" iInput="3" iPhiMax="2625" iPhiMin="2512" iRefHit="65" iRefLayer="5"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="66" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="67" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="68" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="69" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="70" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="71" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="72" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="73" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="74" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="75" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="76" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="77" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="78" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="79" iRefLayer="0"/>
-    <LogicCone iCone="5">
+    </LogicRegion>
+    <RefHit iInput="2" iPhiMax="255" iPhiMin="142" iRefHit="52" iRefLayer="0" iRegion="5"/>
+    <RefHit iInput="2" iPhiMax="167" iPhiMin="54" iRefHit="53" iRefLayer="1" iRegion="5"/>
+    <RefHit iInput="2" iPhiMax="218" iPhiMin="105" iRefHit="54" iRefLayer="2" iRegion="5"/>
+    <RefHit iInput="10" iPhiMax="287" iPhiMin="174" iRefHit="55" iRefLayer="3" iRegion="5"/>
+    <RefHit iInput="11" iPhiMax="287" iPhiMin="174" iRefHit="56" iRefLayer="3" iRegion="5"/>
+    <RefHit iInput="8" iPhiMax="285" iPhiMin="172" iRefHit="57" iRefLayer="4" iRegion="5"/>
+    <RefHit iInput="9" iPhiMax="285" iPhiMin="172" iRefHit="58" iRefLayer="4" iRegion="5"/>
+    <RefHit iInput="10" iPhiMax="285" iPhiMin="172" iRefHit="59" iRefLayer="4" iRegion="5"/>
+    <RefHit iInput="11" iPhiMax="285" iPhiMin="172" iRefHit="60" iRefLayer="4" iRegion="5"/>
+    <RefHit iInput="2" iPhiMax="245" iPhiMin="132" iRefHit="61" iRefLayer="5" iRegion="5"/>
+    <RefHit iInput="3" iPhiMax="245" iPhiMin="132" iRefHit="62" iRefLayer="5" iRegion="5"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="63" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="64" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="65" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="66" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="67" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="68" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="69" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="70" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="71" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="72" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="73" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="74" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="75" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="76" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="77" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="78" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="79" iRefLayer="0" iRegion="0"/>
+    <LogicRegion iRegion="5">
       <Layer iFirstInput="0" iLayer="0" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="1" nInputs="6"/>
       <Layer iFirstInput="2" iLayer="2" nInputs="6"/>
@@ -1046,28 +1047,28 @@
       <Layer iFirstInput="8" iLayer="22" nInputs="6"/>
       <Layer iFirstInput="8" iLayer="23" nInputs="6"/>
       <Layer iFirstInput="8" iLayer="24" nInputs="6"/>
-    </LogicCone>
+    </LogicRegion>
   </Processor>
 
   <Processor iProcessor="4">
-    <RefLayer iPhi="-1458" iRefLayer="0"/>
-    <RefLayer iPhi="-1545" iRefLayer="1"/>
-    <RefLayer iPhi="-1492" iRefLayer="2"/>
-    <RefLayer iPhi="-1425" iRefLayer="3"/>
-    <RefLayer iPhi="-1426" iRefLayer="4"/>
-    <RefLayer iPhi="-1466" iRefLayer="5"/>
-    <RefLayer iPhi="-1465" iRefLayer="6"/>
-    <RefLayer iPhi="-1501" iRefLayer="7"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="-1345" iPhiMin="-1458" iRefHit="0" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="-1432" iPhiMin="-1545" iRefHit="1" iRefLayer="1"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="-1379" iPhiMin="-1492" iRefHit="2" iRefLayer="2"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="-1312" iPhiMin="-1425" iRefHit="3" iRefLayer="3"/>
-    <RefHit iCone="0" iInput="1" iPhiMax="-1312" iPhiMin="-1425" iRefHit="4" iRefLayer="3"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="-1313" iPhiMin="-1426" iRefHit="5" iRefLayer="4"/>
-    <RefHit iCone="0" iInput="1" iPhiMax="-1313" iPhiMin="-1426" iRefHit="6" iRefLayer="4"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="-1353" iPhiMin="-1466" iRefHit="7" iRefLayer="5"/>
-    <RefHit iCone="0" iInput="1" iPhiMax="-1353" iPhiMin="-1466" iRefHit="8" iRefLayer="5"/>
-    <LogicCone iCone="0">
+    <RefLayer iGlobalPhiStart="-1458" iRefLayer="0"/>
+    <RefLayer iGlobalPhiStart="-1545" iRefLayer="1"/>
+    <RefLayer iGlobalPhiStart="-1492" iRefLayer="2"/>
+    <RefLayer iGlobalPhiStart="-1425" iRefLayer="3"/>
+    <RefLayer iGlobalPhiStart="-1426" iRefLayer="4"/>
+    <RefLayer iGlobalPhiStart="-1466" iRefLayer="5"/>
+    <RefLayer iGlobalPhiStart="-1465" iRefLayer="6"/>
+    <RefLayer iGlobalPhiStart="-1501" iRefLayer="7"/>
+    <RefHit iInput="0" iPhiMax="-311" iPhiMin="-424" iRefHit="0" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="-398" iPhiMin="-511" iRefHit="1" iRefLayer="1" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="-345" iPhiMin="-458" iRefHit="2" iRefLayer="2" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="-278" iPhiMin="-391" iRefHit="3" iRefLayer="3" iRegion="0"/>
+    <RefHit iInput="1" iPhiMax="-278" iPhiMin="-391" iRefHit="4" iRefLayer="3" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="-279" iPhiMin="-392" iRefHit="5" iRefLayer="4" iRegion="0"/>
+    <RefHit iInput="1" iPhiMax="-279" iPhiMin="-392" iRefHit="6" iRefLayer="4" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="-319" iPhiMin="-432" iRefHit="7" iRefLayer="5" iRegion="0"/>
+    <RefHit iInput="1" iPhiMax="-319" iPhiMin="-432" iRefHit="8" iRefLayer="5" iRegion="0"/>
+    <LogicRegion iRegion="0">
       <Layer iFirstInput="0" iLayer="0" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="1" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="2" nInputs="4"/>
@@ -1093,19 +1094,18 @@
       <Layer iFirstInput="0" iLayer="22" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="23" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="24" nInputs="4"/>
-    </LogicCone>
-    <RefHit iCone="1" iInput="0" iPhiMax="-1232" iPhiMin="-1345" iRefHit="9" iRefLayer="0"/>
-    <RefHit iCone="1" iInput="0" iPhiMax="-1319" iPhiMin="-1432" iRefHit="10" iRefLayer="1"/>
-    <RefHit iCone="1" iInput="0" iPhiMax="-1266" iPhiMin="-1379" iRefHit="11" iRefLayer="2"/>
-    <RefHit iCone="1" iInput="0" iPhiMax="-1199" iPhiMin="-1312" iRefHit="12" iRefLayer="3"/>
-    <RefHit iCone="1" iInput="2" iPhiMax="-1199" iPhiMin="-1312" iRefHit="13" iRefLayer="3"/>
-    <RefHit iCone="1" iInput="3" iPhiMax="-1199" iPhiMin="-1312" iRefHit="14" iRefLayer="3"/>
-    <RefHit iCone="1" iInput="0" iPhiMax="-1200" iPhiMin="-1313" iRefHit="15" iRefLayer="4"/>
-    <RefHit iCone="1" iInput="2" iPhiMax="-1200" iPhiMin="-1313" iRefHit="16" iRefLayer="4"/>
-    <RefHit iCone="1" iInput="3" iPhiMax="-1200" iPhiMin="-1313" iRefHit="17" iRefLayer="4"/>
-    <RefHit iCone="1" iInput="0" iPhiMax="-1240" iPhiMin="-1353" iRefHit="18" iRefLayer="5"/>
-    <RefHit iCone="1" iInput="1" iPhiMax="-1240" iPhiMin="-1353" iRefHit="19" iRefLayer="5"/>
-    <LogicCone iCone="1">
+    </LogicRegion>
+    <RefHit iInput="0" iPhiMax="-198" iPhiMin="-311" iRefHit="9" iRefLayer="0" iRegion="1"/>
+    <RefHit iInput="0" iPhiMax="-285" iPhiMin="-398" iRefHit="10" iRefLayer="1" iRegion="1"/>
+    <RefHit iInput="0" iPhiMax="-232" iPhiMin="-345" iRefHit="11" iRefLayer="2" iRegion="1"/>
+    <RefHit iInput="2" iPhiMax="-165" iPhiMin="-278" iRefHit="12" iRefLayer="3" iRegion="1"/>
+    <RefHit iInput="3" iPhiMax="-165" iPhiMin="-278" iRefHit="13" iRefLayer="3" iRegion="1"/>
+    <RefHit iInput="0" iPhiMax="-166" iPhiMin="-279" iRefHit="14" iRefLayer="4" iRegion="1"/>
+    <RefHit iInput="2" iPhiMax="-166" iPhiMin="-279" iRefHit="15" iRefLayer="4" iRegion="1"/>
+    <RefHit iInput="3" iPhiMax="-166" iPhiMin="-279" iRefHit="16" iRefLayer="4" iRegion="1"/>
+    <RefHit iInput="0" iPhiMax="-206" iPhiMin="-319" iRefHit="17" iRefLayer="5" iRegion="1"/>
+    <RefHit iInput="1" iPhiMax="-206" iPhiMin="-319" iRefHit="18" iRefLayer="5" iRegion="1"/>
+    <LogicRegion iRegion="1">
       <Layer iFirstInput="0" iLayer="0" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="1" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="2" nInputs="4"/>
@@ -1131,20 +1131,19 @@
       <Layer iFirstInput="0" iLayer="22" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="23" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="24" nInputs="6"/>
-    </LogicCone>
-    <RefHit iCone="2" iInput="0" iPhiMax="-1119" iPhiMin="-1232" iRefHit="20" iRefLayer="0"/>
-    <RefHit iCone="2" iInput="0" iPhiMax="-1206" iPhiMin="-1319" iRefHit="21" iRefLayer="1"/>
-    <RefHit iCone="2" iInput="0" iPhiMax="-1153" iPhiMin="-1266" iRefHit="22" iRefLayer="2"/>
-    <RefHit iCone="2" iInput="2" iPhiMax="-1086" iPhiMin="-1199" iRefHit="23" iRefLayer="3"/>
-    <RefHit iCone="2" iInput="4" iPhiMax="-1086" iPhiMin="-1199" iRefHit="24" iRefLayer="3"/>
-    <RefHit iCone="2" iInput="5" iPhiMax="-1086" iPhiMin="-1199" iRefHit="25" iRefLayer="3"/>
-    <RefHit iCone="2" iInput="2" iPhiMax="-1087" iPhiMin="-1200" iRefHit="26" iRefLayer="4"/>
-    <RefHit iCone="2" iInput="3" iPhiMax="-1087" iPhiMin="-1200" iRefHit="27" iRefLayer="4"/>
-    <RefHit iCone="2" iInput="4" iPhiMax="-1087" iPhiMin="-1200" iRefHit="28" iRefLayer="4"/>
-    <RefHit iCone="2" iInput="5" iPhiMax="-1087" iPhiMin="-1200" iRefHit="29" iRefLayer="4"/>
-    <RefHit iCone="2" iInput="0" iPhiMax="-1127" iPhiMin="-1240" iRefHit="30" iRefLayer="5"/>
-    <RefHit iCone="2" iInput="1" iPhiMax="-1127" iPhiMin="-1240" iRefHit="31" iRefLayer="5"/>
-    <LogicCone iCone="2">
+    </LogicRegion>
+    <RefHit iInput="0" iPhiMax="-85" iPhiMin="-198" iRefHit="19" iRefLayer="0" iRegion="2"/>
+    <RefHit iInput="0" iPhiMax="-172" iPhiMin="-285" iRefHit="20" iRefLayer="1" iRegion="2"/>
+    <RefHit iInput="0" iPhiMax="-119" iPhiMin="-232" iRefHit="21" iRefLayer="2" iRegion="2"/>
+    <RefHit iInput="2" iPhiMax="-52" iPhiMin="-165" iRefHit="22" iRefLayer="3" iRegion="2"/>
+    <RefHit iInput="4" iPhiMax="-52" iPhiMin="-165" iRefHit="23" iRefLayer="3" iRegion="2"/>
+    <RefHit iInput="5" iPhiMax="-52" iPhiMin="-165" iRefHit="24" iRefLayer="3" iRegion="2"/>
+    <RefHit iInput="2" iPhiMax="-53" iPhiMin="-166" iRefHit="25" iRefLayer="4" iRegion="2"/>
+    <RefHit iInput="4" iPhiMax="-53" iPhiMin="-166" iRefHit="26" iRefLayer="4" iRegion="2"/>
+    <RefHit iInput="5" iPhiMax="-53" iPhiMin="-166" iRefHit="27" iRefLayer="4" iRegion="2"/>
+    <RefHit iInput="0" iPhiMax="-93" iPhiMin="-206" iRefHit="28" iRefLayer="5" iRegion="2"/>
+    <RefHit iInput="1" iPhiMax="-93" iPhiMin="-206" iRefHit="29" iRefLayer="5" iRegion="2"/>
+    <LogicRegion iRegion="2">
       <Layer iFirstInput="0" iLayer="0" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="1" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="2" nInputs="6"/>
@@ -1170,18 +1169,18 @@
       <Layer iFirstInput="2" iLayer="22" nInputs="6"/>
       <Layer iFirstInput="2" iLayer="23" nInputs="6"/>
       <Layer iFirstInput="2" iLayer="24" nInputs="6"/>
-    </LogicCone>
-    <RefHit iCone="3" iInput="2" iPhiMax="-1006" iPhiMin="-1119" iRefHit="32" iRefLayer="0"/>
-    <RefHit iCone="3" iInput="2" iPhiMax="-1093" iPhiMin="-1206" iRefHit="33" iRefLayer="1"/>
-    <RefHit iCone="3" iInput="2" iPhiMax="-1040" iPhiMin="-1153" iRefHit="34" iRefLayer="2"/>
-    <RefHit iCone="3" iInput="6" iPhiMax="-973" iPhiMin="-1086" iRefHit="35" iRefLayer="3"/>
-    <RefHit iCone="3" iInput="7" iPhiMax="-973" iPhiMin="-1086" iRefHit="36" iRefLayer="3"/>
-    <RefHit iCone="3" iInput="4" iPhiMax="-974" iPhiMin="-1087" iRefHit="37" iRefLayer="4"/>
-    <RefHit iCone="3" iInput="6" iPhiMax="-974" iPhiMin="-1087" iRefHit="38" iRefLayer="4"/>
-    <RefHit iCone="3" iInput="7" iPhiMax="-974" iPhiMin="-1087" iRefHit="39" iRefLayer="4"/>
-    <RefHit iCone="3" iInput="2" iPhiMax="-1014" iPhiMin="-1127" iRefHit="40" iRefLayer="5"/>
-    <RefHit iCone="3" iInput="3" iPhiMax="-1014" iPhiMin="-1127" iRefHit="41" iRefLayer="5"/>
-    <LogicCone iCone="3">
+    </LogicRegion>
+    <RefHit iInput="2" iPhiMax="28" iPhiMin="-85" iRefHit="30" iRefLayer="0" iRegion="3"/>
+    <RefHit iInput="2" iPhiMax="-59" iPhiMin="-172" iRefHit="31" iRefLayer="1" iRegion="3"/>
+    <RefHit iInput="2" iPhiMax="-6" iPhiMin="-119" iRefHit="32" iRefLayer="2" iRegion="3"/>
+    <RefHit iInput="6" iPhiMax="61" iPhiMin="-52" iRefHit="33" iRefLayer="3" iRegion="3"/>
+    <RefHit iInput="7" iPhiMax="61" iPhiMin="-52" iRefHit="34" iRefLayer="3" iRegion="3"/>
+    <RefHit iInput="4" iPhiMax="60" iPhiMin="-53" iRefHit="35" iRefLayer="4" iRegion="3"/>
+    <RefHit iInput="6" iPhiMax="60" iPhiMin="-53" iRefHit="36" iRefLayer="4" iRegion="3"/>
+    <RefHit iInput="7" iPhiMax="60" iPhiMin="-53" iRefHit="37" iRefLayer="4" iRegion="3"/>
+    <RefHit iInput="2" iPhiMax="20" iPhiMin="-93" iRefHit="38" iRefLayer="5" iRegion="3"/>
+    <RefHit iInput="3" iPhiMax="20" iPhiMin="-93" iRefHit="39" iRefLayer="5" iRegion="3"/>
+    <LogicRegion iRegion="3">
       <Layer iFirstInput="0" iLayer="0" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="1" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="2" nInputs="6"/>
@@ -1207,19 +1206,20 @@
       <Layer iFirstInput="4" iLayer="22" nInputs="6"/>
       <Layer iFirstInput="4" iLayer="23" nInputs="6"/>
       <Layer iFirstInput="4" iLayer="24" nInputs="6"/>
-    </LogicCone>
-    <RefHit iCone="4" iInput="2" iPhiMax="-893" iPhiMin="-1006" iRefHit="42" iRefLayer="0"/>
-    <RefHit iCone="4" iInput="2" iPhiMax="-980" iPhiMin="-1093" iRefHit="43" iRefLayer="1"/>
-    <RefHit iCone="4" iInput="2" iPhiMax="-927" iPhiMin="-1040" iRefHit="44" iRefLayer="2"/>
-    <RefHit iCone="4" iInput="6" iPhiMax="-860" iPhiMin="-973" iRefHit="45" iRefLayer="3"/>
-    <RefHit iCone="4" iInput="8" iPhiMax="-860" iPhiMin="-973" iRefHit="46" iRefLayer="3"/>
-    <RefHit iCone="4" iInput="9" iPhiMax="-860" iPhiMin="-973" iRefHit="47" iRefLayer="3"/>
-    <RefHit iCone="4" iInput="6" iPhiMax="-861" iPhiMin="-974" iRefHit="48" iRefLayer="4"/>
-    <RefHit iCone="4" iInput="8" iPhiMax="-861" iPhiMin="-974" iRefHit="49" iRefLayer="4"/>
-    <RefHit iCone="4" iInput="9" iPhiMax="-861" iPhiMin="-974" iRefHit="50" iRefLayer="4"/>
-    <RefHit iCone="4" iInput="2" iPhiMax="-901" iPhiMin="-1014" iRefHit="51" iRefLayer="5"/>
-    <RefHit iCone="4" iInput="3" iPhiMax="-901" iPhiMin="-1014" iRefHit="52" iRefLayer="5"/>
-    <LogicCone iCone="4">
+    </LogicRegion>
+    <RefHit iInput="2" iPhiMax="141" iPhiMin="28" iRefHit="40" iRefLayer="0" iRegion="4"/>
+    <RefHit iInput="2" iPhiMax="54" iPhiMin="-59" iRefHit="41" iRefLayer="1" iRegion="4"/>
+    <RefHit iInput="2" iPhiMax="107" iPhiMin="-6" iRefHit="42" iRefLayer="2" iRegion="4"/>
+    <RefHit iInput="6" iPhiMax="174" iPhiMin="61" iRefHit="43" iRefLayer="3" iRegion="4"/>
+    <RefHit iInput="8" iPhiMax="174" iPhiMin="61" iRefHit="44" iRefLayer="3" iRegion="4"/>
+    <RefHit iInput="9" iPhiMax="174" iPhiMin="61" iRefHit="45" iRefLayer="3" iRegion="4"/>
+    <RefHit iInput="6" iPhiMax="173" iPhiMin="60" iRefHit="46" iRefLayer="4" iRegion="4"/>
+    <RefHit iInput="7" iPhiMax="173" iPhiMin="60" iRefHit="47" iRefLayer="4" iRegion="4"/>
+    <RefHit iInput="8" iPhiMax="173" iPhiMin="60" iRefHit="48" iRefLayer="4" iRegion="4"/>
+    <RefHit iInput="9" iPhiMax="173" iPhiMin="60" iRefHit="49" iRefLayer="4" iRegion="4"/>
+    <RefHit iInput="2" iPhiMax="133" iPhiMin="20" iRefHit="50" iRefLayer="5" iRegion="4"/>
+    <RefHit iInput="3" iPhiMax="133" iPhiMin="20" iRefHit="51" iRefLayer="5" iRegion="4"/>
+    <LogicRegion iRegion="4">
       <Layer iFirstInput="0" iLayer="0" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="1" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="2" nInputs="6"/>
@@ -1245,35 +1245,36 @@
       <Layer iFirstInput="6" iLayer="22" nInputs="6"/>
       <Layer iFirstInput="6" iLayer="23" nInputs="6"/>
       <Layer iFirstInput="6" iLayer="24" nInputs="6"/>
-    </LogicCone>
-    <RefHit iCone="5" iInput="2" iPhiMax="-780" iPhiMin="-893" iRefHit="53" iRefLayer="0"/>
-    <RefHit iCone="5" iInput="2" iPhiMax="-867" iPhiMin="-980" iRefHit="54" iRefLayer="1"/>
-    <RefHit iCone="5" iInput="2" iPhiMax="-814" iPhiMin="-927" iRefHit="55" iRefLayer="2"/>
-    <RefHit iCone="5" iInput="10" iPhiMax="-747" iPhiMin="-860" iRefHit="56" iRefLayer="3"/>
-    <RefHit iCone="5" iInput="11" iPhiMax="-747" iPhiMin="-860" iRefHit="57" iRefLayer="3"/>
-    <RefHit iCone="5" iInput="8" iPhiMax="-748" iPhiMin="-861" iRefHit="58" iRefLayer="4"/>
-    <RefHit iCone="5" iInput="10" iPhiMax="-748" iPhiMin="-861" iRefHit="59" iRefLayer="4"/>
-    <RefHit iCone="5" iInput="11" iPhiMax="-748" iPhiMin="-861" iRefHit="60" iRefLayer="4"/>
-    <RefHit iCone="5" iInput="2" iPhiMax="-788" iPhiMin="-901" iRefHit="61" iRefLayer="5"/>
-    <RefHit iCone="5" iInput="3" iPhiMax="-788" iPhiMin="-901" iRefHit="62" iRefLayer="5"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="63" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="64" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="65" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="66" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="67" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="68" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="69" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="70" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="71" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="72" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="73" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="74" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="75" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="76" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="77" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="78" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="79" iRefLayer="0"/>
-    <LogicCone iCone="5">
+    </LogicRegion>
+    <RefHit iInput="2" iPhiMax="254" iPhiMin="141" iRefHit="52" iRefLayer="0" iRegion="5"/>
+    <RefHit iInput="2" iPhiMax="167" iPhiMin="54" iRefHit="53" iRefLayer="1" iRegion="5"/>
+    <RefHit iInput="2" iPhiMax="220" iPhiMin="107" iRefHit="54" iRefLayer="2" iRegion="5"/>
+    <RefHit iInput="10" iPhiMax="287" iPhiMin="174" iRefHit="55" iRefLayer="3" iRegion="5"/>
+    <RefHit iInput="11" iPhiMax="287" iPhiMin="174" iRefHit="56" iRefLayer="3" iRegion="5"/>
+    <RefHit iInput="8" iPhiMax="286" iPhiMin="173" iRefHit="57" iRefLayer="4" iRegion="5"/>
+    <RefHit iInput="10" iPhiMax="286" iPhiMin="173" iRefHit="58" iRefLayer="4" iRegion="5"/>
+    <RefHit iInput="11" iPhiMax="286" iPhiMin="173" iRefHit="59" iRefLayer="4" iRegion="5"/>
+    <RefHit iInput="2" iPhiMax="246" iPhiMin="133" iRefHit="60" iRefLayer="5" iRegion="5"/>
+    <RefHit iInput="3" iPhiMax="246" iPhiMin="133" iRefHit="61" iRefLayer="5" iRegion="5"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="62" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="63" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="64" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="65" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="66" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="67" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="68" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="69" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="70" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="71" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="72" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="73" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="74" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="75" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="76" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="77" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="78" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="79" iRefLayer="0" iRegion="0"/>
+    <LogicRegion iRegion="5">
       <Layer iFirstInput="0" iLayer="0" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="1" nInputs="6"/>
       <Layer iFirstInput="2" iLayer="2" nInputs="6"/>
@@ -1299,28 +1300,27 @@
       <Layer iFirstInput="8" iLayer="22" nInputs="6"/>
       <Layer iFirstInput="8" iLayer="23" nInputs="6"/>
       <Layer iFirstInput="8" iLayer="24" nInputs="6"/>
-    </LogicCone>
+    </LogicRegion>
   </Processor>
 
   <Processor iProcessor="5">
-    <RefLayer iPhi="-775" iRefLayer="0"/>
-    <RefLayer iPhi="-862" iRefLayer="1"/>
-    <RefLayer iPhi="-815" iRefLayer="2"/>
-    <RefLayer iPhi="-742" iRefLayer="3"/>
-    <RefLayer iPhi="-743" iRefLayer="4"/>
-    <RefLayer iPhi="-784" iRefLayer="5"/>
-    <RefLayer iPhi="-782" iRefLayer="6"/>
-    <RefLayer iPhi="-821" iRefLayer="7"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="-662" iPhiMin="-775" iRefHit="0" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="-749" iPhiMin="-862" iRefHit="1" iRefLayer="1"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="-702" iPhiMin="-815" iRefHit="2" iRefLayer="2"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="-629" iPhiMin="-742" iRefHit="3" iRefLayer="3"/>
-    <RefHit iCone="0" iInput="1" iPhiMax="-629" iPhiMin="-742" iRefHit="4" iRefLayer="3"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="-630" iPhiMin="-743" iRefHit="5" iRefLayer="4"/>
-    <RefHit iCone="0" iInput="1" iPhiMax="-630" iPhiMin="-743" iRefHit="6" iRefLayer="4"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="-671" iPhiMin="-784" iRefHit="7" iRefLayer="5"/>
-    <RefHit iCone="0" iInput="1" iPhiMax="-671" iPhiMin="-784" iRefHit="8" iRefLayer="5"/>
-    <LogicCone iCone="0">
+    <RefLayer iGlobalPhiStart="-775" iRefLayer="0"/>
+    <RefLayer iGlobalPhiStart="-862" iRefLayer="1"/>
+    <RefLayer iGlobalPhiStart="-815" iRefLayer="2"/>
+    <RefLayer iGlobalPhiStart="-742" iRefLayer="3"/>
+    <RefLayer iGlobalPhiStart="-743" iRefLayer="4"/>
+    <RefLayer iGlobalPhiStart="-784" iRefLayer="5"/>
+    <RefLayer iGlobalPhiStart="-782" iRefLayer="6"/>
+    <RefLayer iGlobalPhiStart="-821" iRefLayer="7"/>
+    <RefHit iInput="0" iPhiMax="-311" iPhiMin="-424" iRefHit="0" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="-398" iPhiMin="-511" iRefHit="1" iRefLayer="1" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="-351" iPhiMin="-464" iRefHit="2" iRefLayer="2" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="-278" iPhiMin="-391" iRefHit="3" iRefLayer="3" iRegion="0"/>
+    <RefHit iInput="1" iPhiMax="-278" iPhiMin="-391" iRefHit="4" iRefLayer="3" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="-279" iPhiMin="-392" iRefHit="5" iRefLayer="4" iRegion="0"/>
+    <RefHit iInput="1" iPhiMax="-279" iPhiMin="-392" iRefHit="6" iRefLayer="4" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="-320" iPhiMin="-433" iRefHit="7" iRefLayer="5" iRegion="0"/>
+    <LogicRegion iRegion="0">
       <Layer iFirstInput="0" iLayer="0" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="1" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="2" nInputs="4"/>
@@ -1346,18 +1346,19 @@
       <Layer iFirstInput="0" iLayer="22" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="23" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="24" nInputs="4"/>
-    </LogicCone>
-    <RefHit iCone="1" iInput="0" iPhiMax="-549" iPhiMin="-662" iRefHit="9" iRefLayer="0"/>
-    <RefHit iCone="1" iInput="0" iPhiMax="-636" iPhiMin="-749" iRefHit="10" iRefLayer="1"/>
-    <RefHit iCone="1" iInput="0" iPhiMax="-589" iPhiMin="-702" iRefHit="11" iRefLayer="2"/>
-    <RefHit iCone="1" iInput="2" iPhiMax="-516" iPhiMin="-629" iRefHit="12" iRefLayer="3"/>
-    <RefHit iCone="1" iInput="3" iPhiMax="-516" iPhiMin="-629" iRefHit="13" iRefLayer="3"/>
-    <RefHit iCone="1" iInput="0" iPhiMax="-517" iPhiMin="-630" iRefHit="14" iRefLayer="4"/>
-    <RefHit iCone="1" iInput="2" iPhiMax="-517" iPhiMin="-630" iRefHit="15" iRefLayer="4"/>
-    <RefHit iCone="1" iInput="3" iPhiMax="-517" iPhiMin="-630" iRefHit="16" iRefLayer="4"/>
-    <RefHit iCone="1" iInput="0" iPhiMax="-558" iPhiMin="-671" iRefHit="17" iRefLayer="5"/>
-    <RefHit iCone="1" iInput="1" iPhiMax="-558" iPhiMin="-671" iRefHit="18" iRefLayer="5"/>
-    <LogicCone iCone="1">
+    </LogicRegion>
+    <RefHit iInput="0" iPhiMax="-198" iPhiMin="-311" iRefHit="8" iRefLayer="0" iRegion="1"/>
+    <RefHit iInput="0" iPhiMax="-285" iPhiMin="-398" iRefHit="9" iRefLayer="1" iRegion="1"/>
+    <RefHit iInput="0" iPhiMax="-238" iPhiMin="-351" iRefHit="10" iRefLayer="2" iRegion="1"/>
+    <RefHit iInput="2" iPhiMax="-165" iPhiMin="-278" iRefHit="11" iRefLayer="3" iRegion="1"/>
+    <RefHit iInput="3" iPhiMax="-165" iPhiMin="-278" iRefHit="12" iRefLayer="3" iRegion="1"/>
+    <RefHit iInput="0" iPhiMax="-166" iPhiMin="-279" iRefHit="13" iRefLayer="4" iRegion="1"/>
+    <RefHit iInput="1" iPhiMax="-166" iPhiMin="-279" iRefHit="14" iRefLayer="4" iRegion="1"/>
+    <RefHit iInput="2" iPhiMax="-166" iPhiMin="-279" iRefHit="15" iRefLayer="4" iRegion="1"/>
+    <RefHit iInput="3" iPhiMax="-166" iPhiMin="-279" iRefHit="16" iRefLayer="4" iRegion="1"/>
+    <RefHit iInput="0" iPhiMax="-207" iPhiMin="-320" iRefHit="17" iRefLayer="5" iRegion="1"/>
+    <RefHit iInput="1" iPhiMax="-207" iPhiMin="-320" iRefHit="18" iRefLayer="5" iRegion="1"/>
+    <LogicRegion iRegion="1">
       <Layer iFirstInput="0" iLayer="0" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="1" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="2" nInputs="4"/>
@@ -1383,17 +1384,19 @@
       <Layer iFirstInput="0" iLayer="22" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="23" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="24" nInputs="6"/>
-    </LogicCone>
-    <RefHit iCone="2" iInput="0" iPhiMax="-436" iPhiMin="-549" iRefHit="19" iRefLayer="0"/>
-    <RefHit iCone="2" iInput="0" iPhiMax="-523" iPhiMin="-636" iRefHit="20" iRefLayer="1"/>
-    <RefHit iCone="2" iInput="0" iPhiMax="-476" iPhiMin="-589" iRefHit="21" iRefLayer="2"/>
-    <RefHit iCone="2" iInput="4" iPhiMax="-403" iPhiMin="-516" iRefHit="22" iRefLayer="3"/>
-    <RefHit iCone="2" iInput="2" iPhiMax="-404" iPhiMin="-517" iRefHit="23" iRefLayer="4"/>
-    <RefHit iCone="2" iInput="4" iPhiMax="-404" iPhiMin="-517" iRefHit="24" iRefLayer="4"/>
-    <RefHit iCone="2" iInput="5" iPhiMax="-404" iPhiMin="-517" iRefHit="25" iRefLayer="4"/>
-    <RefHit iCone="2" iInput="0" iPhiMax="-445" iPhiMin="-558" iRefHit="26" iRefLayer="5"/>
-    <RefHit iCone="2" iInput="1" iPhiMax="-445" iPhiMin="-558" iRefHit="27" iRefLayer="5"/>
-    <LogicCone iCone="2">
+    </LogicRegion>
+    <RefHit iInput="0" iPhiMax="-85" iPhiMin="-198" iRefHit="19" iRefLayer="0" iRegion="2"/>
+    <RefHit iInput="0" iPhiMax="-172" iPhiMin="-285" iRefHit="20" iRefLayer="1" iRegion="2"/>
+    <RefHit iInput="0" iPhiMax="-125" iPhiMin="-238" iRefHit="21" iRefLayer="2" iRegion="2"/>
+    <RefHit iInput="2" iPhiMax="-52" iPhiMin="-165" iRefHit="22" iRefLayer="3" iRegion="2"/>
+    <RefHit iInput="4" iPhiMax="-52" iPhiMin="-165" iRefHit="23" iRefLayer="3" iRegion="2"/>
+    <RefHit iInput="5" iPhiMax="-52" iPhiMin="-165" iRefHit="24" iRefLayer="3" iRegion="2"/>
+    <RefHit iInput="2" iPhiMax="-53" iPhiMin="-166" iRefHit="25" iRefLayer="4" iRegion="2"/>
+    <RefHit iInput="4" iPhiMax="-53" iPhiMin="-166" iRefHit="26" iRefLayer="4" iRegion="2"/>
+    <RefHit iInput="5" iPhiMax="-53" iPhiMin="-166" iRefHit="27" iRefLayer="4" iRegion="2"/>
+    <RefHit iInput="0" iPhiMax="-94" iPhiMin="-207" iRefHit="28" iRefLayer="5" iRegion="2"/>
+    <RefHit iInput="1" iPhiMax="-94" iPhiMin="-207" iRefHit="29" iRefLayer="5" iRegion="2"/>
+    <LogicRegion iRegion="2">
       <Layer iFirstInput="0" iLayer="0" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="1" nInputs="4"/>
       <Layer iFirstInput="0" iLayer="2" nInputs="6"/>
@@ -1419,18 +1422,18 @@
       <Layer iFirstInput="2" iLayer="22" nInputs="6"/>
       <Layer iFirstInput="2" iLayer="23" nInputs="6"/>
       <Layer iFirstInput="2" iLayer="24" nInputs="6"/>
-    </LogicCone>
-    <RefHit iCone="3" iInput="2" iPhiMax="-323" iPhiMin="-436" iRefHit="28" iRefLayer="0"/>
-    <RefHit iCone="3" iInput="2" iPhiMax="-410" iPhiMin="-523" iRefHit="29" iRefLayer="1"/>
-    <RefHit iCone="3" iInput="2" iPhiMax="-363" iPhiMin="-476" iRefHit="30" iRefLayer="2"/>
-    <RefHit iCone="3" iInput="6" iPhiMax="-290" iPhiMin="-403" iRefHit="31" iRefLayer="3"/>
-    <RefHit iCone="3" iInput="7" iPhiMax="-290" iPhiMin="-403" iRefHit="32" iRefLayer="3"/>
-    <RefHit iCone="3" iInput="4" iPhiMax="-291" iPhiMin="-404" iRefHit="33" iRefLayer="4"/>
-    <RefHit iCone="3" iInput="6" iPhiMax="-291" iPhiMin="-404" iRefHit="34" iRefLayer="4"/>
-    <RefHit iCone="3" iInput="7" iPhiMax="-291" iPhiMin="-404" iRefHit="35" iRefLayer="4"/>
-    <RefHit iCone="3" iInput="2" iPhiMax="-332" iPhiMin="-445" iRefHit="36" iRefLayer="5"/>
-    <RefHit iCone="3" iInput="3" iPhiMax="-332" iPhiMin="-445" iRefHit="37" iRefLayer="5"/>
-    <LogicCone iCone="3">
+    </LogicRegion>
+    <RefHit iInput="2" iPhiMax="28" iPhiMin="-85" iRefHit="30" iRefLayer="0" iRegion="3"/>
+    <RefHit iInput="2" iPhiMax="-59" iPhiMin="-172" iRefHit="31" iRefLayer="1" iRegion="3"/>
+    <RefHit iInput="2" iPhiMax="-12" iPhiMin="-125" iRefHit="32" iRefLayer="2" iRegion="3"/>
+    <RefHit iInput="6" iPhiMax="61" iPhiMin="-52" iRefHit="33" iRefLayer="3" iRegion="3"/>
+    <RefHit iInput="7" iPhiMax="61" iPhiMin="-52" iRefHit="34" iRefLayer="3" iRegion="3"/>
+    <RefHit iInput="4" iPhiMax="60" iPhiMin="-53" iRefHit="35" iRefLayer="4" iRegion="3"/>
+    <RefHit iInput="6" iPhiMax="60" iPhiMin="-53" iRefHit="36" iRefLayer="4" iRegion="3"/>
+    <RefHit iInput="7" iPhiMax="60" iPhiMin="-53" iRefHit="37" iRefLayer="4" iRegion="3"/>
+    <RefHit iInput="2" iPhiMax="19" iPhiMin="-94" iRefHit="38" iRefLayer="5" iRegion="3"/>
+    <RefHit iInput="3" iPhiMax="19" iPhiMin="-94" iRefHit="39" iRefLayer="5" iRegion="3"/>
+    <LogicRegion iRegion="3">
       <Layer iFirstInput="0" iLayer="0" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="1" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="2" nInputs="6"/>
@@ -1456,20 +1459,20 @@
       <Layer iFirstInput="4" iLayer="22" nInputs="6"/>
       <Layer iFirstInput="4" iLayer="23" nInputs="6"/>
       <Layer iFirstInput="4" iLayer="24" nInputs="6"/>
-    </LogicCone>
-    <RefHit iCone="4" iInput="2" iPhiMax="-210" iPhiMin="-323" iRefHit="38" iRefLayer="0"/>
-    <RefHit iCone="4" iInput="4" iPhiMax="-210" iPhiMin="-323" iRefHit="39" iRefLayer="0"/>
-    <RefHit iCone="4" iInput="2" iPhiMax="-297" iPhiMin="-410" iRefHit="40" iRefLayer="1"/>
-    <RefHit iCone="4" iInput="2" iPhiMax="-250" iPhiMin="-363" iRefHit="41" iRefLayer="2"/>
-    <RefHit iCone="4" iInput="6" iPhiMax="-177" iPhiMin="-290" iRefHit="42" iRefLayer="3"/>
-    <RefHit iCone="4" iInput="8" iPhiMax="-177" iPhiMin="-290" iRefHit="43" iRefLayer="3"/>
-    <RefHit iCone="4" iInput="9" iPhiMax="-177" iPhiMin="-290" iRefHit="44" iRefLayer="3"/>
-    <RefHit iCone="4" iInput="6" iPhiMax="-178" iPhiMin="-291" iRefHit="45" iRefLayer="4"/>
-    <RefHit iCone="4" iInput="7" iPhiMax="-178" iPhiMin="-291" iRefHit="46" iRefLayer="4"/>
-    <RefHit iCone="4" iInput="8" iPhiMax="-178" iPhiMin="-291" iRefHit="47" iRefLayer="4"/>
-    <RefHit iCone="4" iInput="9" iPhiMax="-178" iPhiMin="-291" iRefHit="48" iRefLayer="4"/>
-    <RefHit iCone="4" iInput="2" iPhiMax="-219" iPhiMin="-332" iRefHit="49" iRefLayer="5"/>
-    <LogicCone iCone="4">
+    </LogicRegion>
+    <RefHit iInput="2" iPhiMax="141" iPhiMin="28" iRefHit="40" iRefLayer="0" iRegion="4"/>
+    <RefHit iInput="4" iPhiMax="141" iPhiMin="28" iRefHit="41" iRefLayer="0" iRegion="4"/>
+    <RefHit iInput="2" iPhiMax="54" iPhiMin="-59" iRefHit="42" iRefLayer="1" iRegion="4"/>
+    <RefHit iInput="2" iPhiMax="101" iPhiMin="-12" iRefHit="43" iRefLayer="2" iRegion="4"/>
+    <RefHit iInput="6" iPhiMax="174" iPhiMin="61" iRefHit="44" iRefLayer="3" iRegion="4"/>
+    <RefHit iInput="8" iPhiMax="174" iPhiMin="61" iRefHit="45" iRefLayer="3" iRegion="4"/>
+    <RefHit iInput="9" iPhiMax="174" iPhiMin="61" iRefHit="46" iRefLayer="3" iRegion="4"/>
+    <RefHit iInput="6" iPhiMax="173" iPhiMin="60" iRefHit="47" iRefLayer="4" iRegion="4"/>
+    <RefHit iInput="8" iPhiMax="173" iPhiMin="60" iRefHit="48" iRefLayer="4" iRegion="4"/>
+    <RefHit iInput="9" iPhiMax="173" iPhiMin="60" iRefHit="49" iRefLayer="4" iRegion="4"/>
+    <RefHit iInput="2" iPhiMax="132" iPhiMin="19" iRefHit="50" iRefLayer="5" iRegion="4"/>
+    <RefHit iInput="3" iPhiMax="132" iPhiMin="19" iRefHit="51" iRefLayer="5" iRegion="4"/>
+    <LogicRegion iRegion="4">
       <Layer iFirstInput="0" iLayer="0" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="1" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="2" nInputs="6"/>
@@ -1495,38 +1498,36 @@
       <Layer iFirstInput="6" iLayer="22" nInputs="6"/>
       <Layer iFirstInput="6" iLayer="23" nInputs="6"/>
       <Layer iFirstInput="6" iLayer="24" nInputs="6"/>
-    </LogicCone>
-    <RefHit iCone="5" iInput="2" iPhiMax="-97" iPhiMin="-210" iRefHit="50" iRefLayer="0"/>
-    <RefHit iCone="5" iInput="4" iPhiMax="-97" iPhiMin="-210" iRefHit="51" iRefLayer="0"/>
-    <RefHit iCone="5" iInput="2" iPhiMax="-184" iPhiMin="-297" iRefHit="52" iRefLayer="1"/>
-    <RefHit iCone="5" iInput="2" iPhiMax="-137" iPhiMin="-250" iRefHit="53" iRefLayer="2"/>
-    <RefHit iCone="5" iInput="8" iPhiMax="-64" iPhiMin="-177" iRefHit="54" iRefLayer="3"/>
-    <RefHit iCone="5" iInput="10" iPhiMax="-64" iPhiMin="-177" iRefHit="55" iRefLayer="3"/>
-    <RefHit iCone="5" iInput="11" iPhiMax="-64" iPhiMin="-177" iRefHit="56" iRefLayer="3"/>
-    <RefHit iCone="5" iInput="8" iPhiMax="-65" iPhiMin="-178" iRefHit="57" iRefLayer="4"/>
-    <RefHit iCone="5" iInput="10" iPhiMax="-65" iPhiMin="-178" iRefHit="58" iRefLayer="4"/>
-    <RefHit iCone="5" iInput="11" iPhiMax="-65" iPhiMin="-178" iRefHit="59" iRefLayer="4"/>
-    <RefHit iCone="5" iInput="2" iPhiMax="-106" iPhiMin="-219" iRefHit="60" iRefLayer="5"/>
-    <RefHit iCone="5" iInput="3" iPhiMax="-106" iPhiMin="-219" iRefHit="61" iRefLayer="5"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="62" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="63" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="64" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="65" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="66" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="67" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="68" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="69" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="70" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="71" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="72" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="73" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="74" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="75" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="76" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="77" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="78" iRefLayer="0"/>
-    <RefHit iCone="0" iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="79" iRefLayer="0"/>
-    <LogicCone iCone="5">
+    </LogicRegion>
+    <RefHit iInput="2" iPhiMax="254" iPhiMin="141" iRefHit="52" iRefLayer="0" iRegion="5"/>
+    <RefHit iInput="4" iPhiMax="254" iPhiMin="141" iRefHit="53" iRefLayer="0" iRegion="5"/>
+    <RefHit iInput="2" iPhiMax="167" iPhiMin="54" iRefHit="54" iRefLayer="1" iRegion="5"/>
+    <RefHit iInput="2" iPhiMax="214" iPhiMin="101" iRefHit="55" iRefLayer="2" iRegion="5"/>
+    <RefHit iInput="10" iPhiMax="287" iPhiMin="174" iRefHit="56" iRefLayer="3" iRegion="5"/>
+    <RefHit iInput="11" iPhiMax="287" iPhiMin="174" iRefHit="57" iRefLayer="3" iRegion="5"/>
+    <RefHit iInput="8" iPhiMax="286" iPhiMin="173" iRefHit="58" iRefLayer="4" iRegion="5"/>
+    <RefHit iInput="9" iPhiMax="286" iPhiMin="173" iRefHit="59" iRefLayer="4" iRegion="5"/>
+    <RefHit iInput="10" iPhiMax="286" iPhiMin="173" iRefHit="60" iRefLayer="4" iRegion="5"/>
+    <RefHit iInput="11" iPhiMax="286" iPhiMin="173" iRefHit="61" iRefLayer="4" iRegion="5"/>
+    <RefHit iInput="2" iPhiMax="245" iPhiMin="132" iRefHit="62" iRefLayer="5" iRegion="5"/>
+    <RefHit iInput="3" iPhiMax="245" iPhiMin="132" iRefHit="63" iRefLayer="5" iRegion="5"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="64" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="65" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="66" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="67" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="68" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="69" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="70" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="71" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="72" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="73" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="74" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="75" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="76" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="77" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="78" iRefLayer="0" iRegion="0"/>
+    <RefHit iInput="0" iPhiMax="1" iPhiMin="0" iRefHit="79" iRefLayer="0" iRegion="0"/>
+    <LogicRegion iRegion="5">
       <Layer iFirstInput="0" iLayer="0" nInputs="6"/>
       <Layer iFirstInput="0" iLayer="1" nInputs="6"/>
       <Layer iFirstInput="2" iLayer="2" nInputs="6"/>
@@ -1552,9 +1553,8 @@
       <Layer iFirstInput="8" iLayer="22" nInputs="6"/>
       <Layer iFirstInput="8" iLayer="23" nInputs="6"/>
       <Layer iFirstInput="8" iLayer="24" nInputs="6"/>
-    </LogicCone>
+    </LogicRegion>
   </Processor>
 
 </OMTF>
-
 

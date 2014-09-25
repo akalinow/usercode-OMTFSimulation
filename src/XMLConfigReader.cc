@@ -272,7 +272,17 @@ void XMLConfigReader::readConfig(OMTFConfiguration *aConfig){
   ///Vector of all processors
   OMTFConfiguration::connections.assign(6,aLayer2D);
 
+  ///Starting phis of each region
+  ///Vector of all regions in one processor
+  std::vector<std::pair<int,int> > aRefHit1D(6,std::pair<int,int>(9999,9999));
+  ///Vector of all reflayers
+  std::vector<std::vector<std::pair<int,int> > > aRefHit2D;
+  aRefHit2D.assign(8,aRefHit1D);
+  ///Vector of all processors
+  OMTFConfiguration::regionPhisVsRefLayerVsProcessor.assign(6,aRefHit2D);
+
   nElem = aOMTFElement->getElementsByTagName(_toDOMS("Processor"))->getLength();
+  std::cout<<"nElem Processor: "<<nElem<<std::endl;
   assert(nElem==6);
   DOMElement* aProcessorElement = 0;
   for(uint i=0;i<nElem;++i){
@@ -286,31 +296,44 @@ void XMLConfigReader::readConfig(OMTFConfiguration *aConfig){
       aNode = aProcessorElement->getElementsByTagName(_toDOMS("RefLayer"))->item(ii);
       aRefLayerElement = static_cast<DOMElement *>(aNode); 
       unsigned int iRefLayer = std::atoi(_toString(aRefLayerElement->getAttribute(_toDOMS("iRefLayer"))).c_str());
-      int iPhi = std::atoi(_toString(aRefLayerElement->getAttribute(_toDOMS("iPhi"))).c_str());
+      int iPhi = std::atoi(_toString(aRefLayerElement->getAttribute(_toDOMS("iGlobalPhiStart"))).c_str());
       OMTFConfiguration::processorPhiVsRefLayer[iProcessor][iRefLayer] = iPhi;
     }
-    unsigned int nElem2 = aProcessorElement->getElementsByTagName(_toDOMS("LogicCone"))->getLength();
+    ///////////
+    nElem1 = aProcessorElement->getElementsByTagName(_toDOMS("RefHit"))->getLength();
+    assert(nElem1==80);
+    DOMElement* aRefHitElement = 0;
+    for(uint ii=0;ii<nElem1;++ii){
+      aNode = aProcessorElement->getElementsByTagName(_toDOMS("RefHit"))->item(ii);
+      aRefHitElement = static_cast<DOMElement *>(aNode); 
+      //unsigned int iRefHit = std::atoi(_toString(aRefLayerElement->getAttribute(_toDOMS("iRefHit"))).c_str());
+      int iPhiMin = std::atoi(_toString(aRefHitElement->getAttribute(_toDOMS("iPhiMin"))).c_str());
+      int iPhiMax = std::atoi(_toString(aRefHitElement->getAttribute(_toDOMS("iPhiMax"))).c_str());
+      int iRegion = std::atoi(_toString(aRefHitElement->getAttribute(_toDOMS("iRegion"))).c_str());
+      int iRefLayer = std::atoi(_toString(aRefHitElement->getAttribute(_toDOMS("iRefLayer"))).c_str());
+      OMTFConfiguration::regionPhisVsRefLayerVsProcessor[iProcessor][iRefLayer][iRegion] = std::pair<int,int>(iPhiMin,iPhiMax);
+    }
+    ///////////
+    unsigned int nElem2 = aProcessorElement->getElementsByTagName(_toDOMS("LogicRegion"))->getLength();
     assert(nElem2==6); //FIXME: hardcoded
-    DOMElement* aConeElement = 0;
+    DOMElement* aRegionElement = 0;
     for(uint ii=0;ii<nElem2;++ii){
-      aNode = aProcessorElement->getElementsByTagName(_toDOMS("LogicCone"))->item(ii);
-      aConeElement = static_cast<DOMElement *>(aNode); 
-      unsigned int iCone = std::atoi(_toString(aConeElement->getAttribute(_toDOMS("iCone"))).c_str());
-      unsigned int nElem3 = aConeElement->getElementsByTagName(_toDOMS("Layer"))->getLength();
+      aNode = aProcessorElement->getElementsByTagName(_toDOMS("LogicRegion"))->item(ii);
+      aRegionElement = static_cast<DOMElement *>(aNode); 
+      unsigned int iRegion = std::atoi(_toString(aRegionElement->getAttribute(_toDOMS("iRegion"))).c_str());
+      unsigned int nElem3 = aRegionElement->getElementsByTagName(_toDOMS("Layer"))->getLength();
       assert(nElem3==OMTFConfiguration::nLayers); 
       DOMElement* aLayerElement = 0;
       for(uint iii=0;iii<nElem3;++iii){
-	aNode = aConeElement->getElementsByTagName(_toDOMS("Layer"))->item(ii);
+	aNode = aRegionElement->getElementsByTagName(_toDOMS("Layer"))->item(ii);
 	aLayerElement = static_cast<DOMElement *>(aNode); 
 	unsigned int iLayer = std::atoi(_toString(aLayerElement->getAttribute(_toDOMS("iLayer"))).c_str());
 	unsigned int iFirstInput = std::atoi(_toString(aLayerElement->getAttribute(_toDOMS("iFirstInput"))).c_str());
 	unsigned int nInputs = std::atoi(_toString(aLayerElement->getAttribute(_toDOMS("nInputs"))).c_str());
-	OMTFConfiguration::connections[iProcessor][iCone][iLayer] = std::pair<unsigned int, unsigned int>(iFirstInput,nInputs);
+	OMTFConfiguration::connections[iProcessor][iRegion][iLayer] = std::pair<unsigned int, unsigned int>(iFirstInput,nInputs);
       }
     }   
   }
-
-
   delete doc;
 }
 //////////////////////////////////////////////////

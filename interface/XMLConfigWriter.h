@@ -33,8 +33,9 @@ class XMLConfigWriter{
 
   xercesc::DOMElement * writeEventHeader(unsigned int eventId);
 
-  void writeEventData(xercesc::DOMElement *aTopElement,
-		      const OMTFinput & aInput);
+  xercesc::DOMElement * writeEventData(xercesc::DOMElement *aTopElement,
+				       unsigned int iProcessor,
+				       const OMTFinput & aInput);
 
   void writeResultsData(xercesc::DOMElement *aTopElement,
 			const Key& aKey,

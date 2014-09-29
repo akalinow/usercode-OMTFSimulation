@@ -157,8 +157,8 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
 
 	///Write to XML
 	if(dumpToXML){
-	  myWriter->writeEventData(aTopElement,myShiftedInput);
-	  //for(auto itKey: myResults) myWriter->writeResultsData(aTopElement, itKey.first,itKey.second);    
+	  xercesc::DOMElement * aProcElement = myWriter->writeEventData(aTopElement,iProcessor,myShiftedInput);
+	  for(auto & itRegion: myResults) for(auto & itKey: itRegion) myWriter->writeResultsData(aProcElement, itKey.first,itKey.second);    
 	}
     }
     if (myAnaEff) myAnaEff->run(simu, &myL1ObjColl, hitSpecProp);

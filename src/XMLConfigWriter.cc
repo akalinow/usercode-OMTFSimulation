@@ -113,10 +113,16 @@ xercesc::DOMElement * XMLConfigWriter::writeEventHeader(unsigned int eventId){
 }
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////
-void XMLConfigWriter::writeEventData(xercesc::DOMElement *aTopElement,
-				     const OMTFinput & aInput){
+xercesc::DOMElement * XMLConfigWriter::writeEventData(xercesc::DOMElement *aTopElement,
+						      unsigned int iProcessor,
+						      const OMTFinput & aInput){
 
   std::ostringstream stringStr;
+
+  xercesc::DOMElement *aProcessor = theDoc->createElement(_toDOMS("Processor"));
+  stringStr.str("");
+  stringStr<<iProcessor;
+  aProcessor->setAttribute(_toDOMS("iProcessor"), _toDOMS(stringStr.str()));
   
   xercesc::DOMElement *aLayer, *aHit; 
   for(unsigned int iLayer=0;iLayer<OMTFConfiguration::nLayers;++iLayer){
@@ -139,8 +145,12 @@ void XMLConfigWriter::writeEventData(xercesc::DOMElement *aTopElement,
       aLayer->appendChild(aHit);
 
     }
-    if(aLayer->getChildNodes()->getLength()) aTopElement->appendChild(aLayer);   
+    if(aLayer->getChildNodes()->getLength()) aProcessor->appendChild(aLayer);   
   }
+
+  aTopElement->appendChild(aProcessor);
+  return aProcessor;
+
 }
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////

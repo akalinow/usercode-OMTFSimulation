@@ -68,16 +68,18 @@ for(unsigned int iLogicLayer=0;iLogicLayer<measurements.size();++iLogicLayer){
 }
 ///////////////////////////////////////////////////
 ///////////////////////////////////////////////////
-std::ostream & OMTFinput::print(std::ostream & out) const{
-
-  for(unsigned int iLogicLayer=0;iLogicLayer<measurements.size();++iLogicLayer){
+std::ostream & operator << (std::ostream &out, const OMTFinput & aInput){
+  
+for(unsigned int iLogicLayer=0;iLogicLayer<aInput.measurements.size();++iLogicLayer){
     out<<"Logic layer: "<<iLogicLayer<<" Hits: ";
-    for(unsigned int iHit=0;iHit<measurements[iLogicLayer].size();++iHit){
-      out<<measurements[iLogicLayer][iHit]<<"\t";
+    for(unsigned int iHit=0;iHit<aInput.measurements[iLogicLayer].size();++iHit){
+      out<<aInput.measurements[iLogicLayer][iHit]<<"\t";
     }
     out<<std::endl;
   }
   return out;
+
+
 }
 ///////////////////////////////////////////////////
 ///////////////////////////////////////////////////

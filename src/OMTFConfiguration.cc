@@ -36,7 +36,6 @@ OMTFConfiguration::OMTFConfiguration(const edm::ParameterSet & theConfig){
   XMLConfigReader myReader;
   myReader.setConfigFile(fName);
   configure(&myReader);
-  print(std::cout);
 
   ///Vector of all inpouts (14)
   std::vector<int> aLayer1D(14,0);
@@ -64,21 +63,22 @@ void OMTFConfiguration::configure(XMLConfigReader *aReader){
 }
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
-std::ostream & OMTFConfiguration::print(std::ostream & out){
+std::ostream & operator << (std::ostream &out, const OMTFConfiguration & aConfig){
 
-  out<<"nLayers: "<<nLayers
-     <<" nHitsPerLayer: "<<nHitsPerLayer
-     <<" nRefLayers: "<<nRefLayers
-     <<" nPdfAddrBits: "<<nPdfAddrBits
-     <<" nPdfValBits: "<<nPdfValBits
+
+  out<<"nLayers: "<<aConfig.nLayers
+     <<" nHitsPerLayer: "<<aConfig.nHitsPerLayer
+     <<" nRefLayers: "<<aConfig.nRefLayers
+     <<" nPdfAddrBits: "<<aConfig.nPdfAddrBits
+     <<" nPdfValBits: "<<aConfig.nPdfValBits
      <<std::endl;
 
   for(unsigned int iProcessor = 0;iProcessor<6; ++iProcessor){
-    std::cout<<"Processor: "<<iProcessor;
-    for(unsigned int iRefLayer=0;iRefLayer<nRefLayers;++iRefLayer){
-      std::cout<<" "<<processorPhiVsRefLayer[iProcessor][iRefLayer];
+    out<<"Processor: "<<iProcessor;
+    for(unsigned int iRefLayer=0;iRefLayer<aConfig.nRefLayers;++iRefLayer){
+      out<<" "<<aConfig.processorPhiVsRefLayer[iProcessor][iRefLayer];
     }
-    std::cout<<std::endl;
+    out<<std::endl;
   }
   
   return out;

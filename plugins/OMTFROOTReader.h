@@ -42,6 +42,8 @@ private:
   TObjArray myHistos;
   edm::ParameterSet theConfig;
 
+  bool dumpToXML;
+
   ////
   XMLConfigWriter *myWriter; 
 

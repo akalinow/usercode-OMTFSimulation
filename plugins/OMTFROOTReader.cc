@@ -54,6 +54,8 @@ OMTFROOTReader::OMTFROOTReader(const edm::ParameterSet & cfg){
   myWriter->initialiseXMLDocument(fName);
 
   theConfig = cfg;
+
+  dumpToXML = theConfig.getParameter<bool>("dumpToXML");
 }
 /////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////
@@ -87,7 +89,8 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
   TChain chain("tL1Rpc");
   std::vector<std::string> treeFileNames = theConfig.getParameter<std::vector<std::string> >("treeFileNames");
   for (auto it:treeFileNames)  chain.Add(it.c_str());
-
+  int maxEvents = theConfig.getParameter<int>("maxEvents");
+ 
   // prepare datastructures and branches
   std::vector<std::pair<uint32_t, uint32_t> > *digSpec = 0;
   TBranch *digSpecBranch = 0;
@@ -107,23 +110,22 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
 
   // number of events
   Int_t nentries= (Int_t) chain.GetEntries();
-  ///Test settings
-  //nentries = 2000;
-  nentries = 5E4;
-  /////////////////
+  if(maxEvents>0 && maxEvents<=nentries) nentries = maxEvents;
+
   std::cout <<" ENTRIES: " << nentries << std::endl;
+
+  xercesc::DOMElement *aTopElement = 0;
 
   // main loop
   unsigned int lastRun = 0;
   for (int ev=0; ev<nentries; ev+=1) {
-  //for (int ev=5; ev<6; ev+=1) {
 
     chain.GetEntry(ev);
     L1ObjColl myL1ObjColl = *l1ObjColl;
 
     if ( (lastRun != (*event).run) || 
-	 (nentries>1000 && ev%(nentries/10)==0) || 
-	 nentries<1000) { 
+	 (nentries>100000 && ev%(nentries/10)==0) || 
+	 nentries<100000) { 
       lastRun = (*event).run; 
       std::cout <<"RUN:"    << std::setw(7) << (*event).run
                 <<" event:" << std::setw(8) << ev
@@ -135,56 +137,48 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
 	!myAnaSiMu->filter(event, simu, hitSpec, hitSpecProp) && 
 	theConfig.getParameter<bool>("filterByAnaSiMuDistribution") ) continue;
 
+    if(dumpToXML) aTopElement = myWriter->writeEventHeader(ev);
+
     for(unsigned int iProcessor=0;iProcessor<6;++iProcessor){
 	const OMTFinput *myInput = myInputMaker->buildInputForProcessor(*digSpec,iProcessor);
+
+	///Input data with phi ranges shifted for each processor, so it fits 10 bits range
 	const OMTFinput myShiftedInput =  myOMTF->shiftInput(iProcessor,*myInput);	
 
 	///Phi maps should be made with original, global phi values.
 	myOMTFConfigMaker->makeConnetionsMap(iProcessor,*myInput);
 	/////////////////////////
 
-	const OMTFProcessor::resultsMap & myResults = myOMTF->processInput(iProcessor,myShiftedInput);
-	L1Obj myOTFCandidate = mySorter->sortResults(myResults);
-	//std::cout<<"iProcessor: "<<iProcessor<<std::endl;     
-	if(ev<-100){
-	  ///Print input and output      
-	  std::cout<<"Original input"<<std::endl;
-	  myInput->print(std::cout);
-	  std::cout<<"Shifted input"<<std::endl;
-	  myShiftedInput.print(std::cout);
-	  std::cout<<"-------------------"<<std::endl;
-	  /*
-	    for(auto & itGP: myResults){
-	    std::cout<<itGP.first<<std::endl;
-	    itGP.second.print(std::cout);
-	    std::cout<<std::endl;
-	    } */
-	}          
-	//if(myOTFCandidate.pt) std::cout<<"iProcessor: "<<iProcessor<<" "<<myOTFCandidate<<std::endl;    
-	//////////////////////////////////
+	///Results for each GP in each logic region of given processor
+	const std::vector<OMTFProcessor::resultsMap> & myResults = myOMTF->processInput(iProcessor,myShiftedInput);
+
+	L1Obj myOTFCandidate = mySorter->sortProcessorResults(myResults);
 	if(myOTFCandidate.pt) myL1ObjColl.push_back(myOTFCandidate, false, 0.); 
+
+	///Write to XML
+	if(dumpToXML){
+	  myWriter->writeEventData(aTopElement,myShiftedInput);
+	  //for(auto itKey: myResults) myWriter->writeResultsData(aTopElement, itKey.first,itKey.second);    
+	}
     }
-    ///Write to XML
-    //xercesc::DOMElement *aTopElement = myWriter->writeEventHeader(ev);
-    //myWriter->writeEventData(aTopElement,*myInput);
-    //for(auto itKey: myResults) myWriter->writeResultsData(aTopElement, itKey.first,itKey.second);    
     if (myAnaEff) myAnaEff->run(simu, &myL1ObjColl, hitSpecProp);
   }
-
-  myOMTFConfigMaker->printPhiMap(std::cout);
-  myOMTFConfigMaker->printConnections(std::cout,0,0);
-
 }
 /////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////
 void OMTFROOTReader::endJob(){
 
-  //std::string fName = "TestEvents.xml";
-  //myWriter->finaliseXMLDocument(fName);
-  
+  if(dumpToXML){
+    std::string fName = "TestEvents.xml";
+    myWriter->finaliseXMLDocument(fName);
+  }
+
   std::string fName = "Connections.xml";  
   myWriter->writeConnectionsData(OMTFConfiguration::measurements4D);
   myWriter->finaliseXMLDocument(fName);
+
+  //myOMTFConfigMaker->printPhiMap(std::cout);
+  //myOMTFConfigMaker->printConnections(std::cout,0,0);
 }
 /////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////

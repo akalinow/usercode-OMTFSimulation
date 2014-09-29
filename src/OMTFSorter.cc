@@ -1,5 +1,8 @@
 #include <cassert>
 #include <iostream>
+#include <strstream>
+
+#include "FWCore/MessageLogger/interface/MessageLogger.h"
 
 #include "UserCode/L1RpcTriggerAnalysis/interface/L1RpcTriggerAnalysisEfficiencyUtilities.h"
 
@@ -48,7 +51,7 @@ std::tuple<unsigned int,unsigned int, int> OMTFSorter::sortSingleResult(const OM
 }
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
-L1Obj OMTFSorter::sortResults(const OMTFProcessor::resultsMap & aResultsMap){
+L1Obj OMTFSorter::sortRegionResults(const OMTFProcessor::resultsMap & aResultsMap){
 
   unsigned int pdfValMax = 0;
   unsigned int nHitsMax = 0;
@@ -73,8 +76,8 @@ L1Obj OMTFSorter::sortResults(const OMTFProcessor::resultsMap & aResultsMap){
   }  
 
   L1Obj candidate;
-  candidate.pt =  L1RpcTriggerAnalysisEfficiencyUtilities::PtScale::ptValue(bestKey.thePtCode);
-  //candidate.pt =  bestKey.thePtCode;
+  //candidate.pt =  L1RpcTriggerAnalysisEfficiencyUtilities::PtScale::ptValue(bestKey.thePtCode);
+  candidate.pt =  bestKey.thePtCode;
   candidate.eta = bestKey.theEtaCode;
   ////Swith from internal processor 10bit scale to global one
   unsigned int iProcessor = 0; //Dummy value for now
@@ -90,6 +93,27 @@ L1Obj OMTFSorter::sortResults(const OMTFProcessor::resultsMap & aResultsMap){
 
   return candidate;
 
+}
+///////////////////////////////////////////////////////
+///////////////////////////////////////////////////////
+L1Obj OMTFSorter::sortProcessorResults(const std::vector<OMTFProcessor::resultsMap> & procResults){
+
+  L1Obj candidate;
+  std::vector<L1Obj> regionCands;
+
+  for(auto itRegion: procResults) regionCands.push_back(sortRegionResults(itRegion));
+
+  for(auto itCand: regionCands){
+    if(itCand.q>candidate.q) candidate = itCand;
+    if(itCand.q==candidate.q && itCand.disc>candidate.disc) candidate = itCand;
+  }
+
+  std::strstream myStr;
+  for(unsigned int iRegion=0;iRegion<regionCands.size();++iRegion) myStr<<"Logic Region: "<<iRegion<<" "<<regionCands[iRegion]<<std::endl;
+  myStr<<"Selected Candidate: "<<candidate<<std::endl;
+  edm::LogInfo("OMTF")<<myStr.str();
+  
+  return candidate;
 }
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////

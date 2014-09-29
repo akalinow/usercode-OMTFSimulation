@@ -1,5 +1,9 @@
 #include <iostream>
 #include <algorithm>
+#include <strstream>
+
+#include "FWCore/MessageLogger/interface/MessageLogger.h"
+#include "FWCore/ParameterSet/interface/ParameterSet.h"
 
 #include "UserCode/OMTFSimulation/interface/OMTFProcessor.h"
 #include "UserCode/OMTFSimulation/interface/OMTFConfiguration.h"
@@ -8,11 +12,11 @@
 #include "UserCode/OMTFSimulation/interface/OMTFinput.h"
 #include "UserCode/OMTFSimulation/interface/OMTFResult.h"
 
-#include "FWCore/ParameterSet/interface/ParameterSet.h"
-
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
 OMTFProcessor::OMTFProcessor(const edm::ParameterSet & theConfig){
+
+myResults.assign(6,OMTFProcessor::resultsMap());
 
   if ( !theConfig.exists("patternsXMLFiles") ) return;
   std::vector<std::string> fileNames = theConfig.getParameter<std::vector<std::string> >("patternsXMLFiles");
@@ -48,7 +52,7 @@ bool OMTFProcessor::addGP(GoldenPattern *aGP){
   if(theGPs.find(aGP->key())!=theGPs.end()) return false;
   else theGPs[aGP->key()] = new GoldenPattern(*aGP);
 
-  myResults[aGP->key()] = OMTFResult(); 
+  for(auto & itRegion: myResults) itRegion[aGP->key()] = OMTFResult(); 
 
   return true;
 }
@@ -61,10 +65,10 @@ const std::map<Key,GoldenPattern*> & OMTFProcessor::getPatterns() const{
 }
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
-OMTFProcessor::resultsMap OMTFProcessor::processInput(unsigned int iProcessor,
-						      const OMTFinput & aInput){
+const std::vector<OMTFProcessor::resultsMap> & OMTFProcessor::processInput(unsigned int iProcessor,
+									     const OMTFinput & aInput){
 
-  for(auto & itKey: myResults) itKey.second.clear();
+  for(auto & itRegion: myResults) for(auto & itKey: itRegion) itKey.second.clear();
 
   for(unsigned int iRefLayer=0;iRefLayer<OMTFConfiguration::nRefLayers;++iRefLayer){
     const OMTFinput::vector1D & refLayerHits = aInput.getLayerData(OMTFConfiguration::refToLogicNumber[iRefLayer]);	
@@ -84,14 +88,28 @@ OMTFProcessor::resultsMap OMTFProcessor::processInput(unsigned int iProcessor,
 	    GoldenPattern::layerResult aLayerResult = itGP.second->process1Layer1RefLayer(iRefLayer,iLayer,
 											  phiRef,
 											  restrictedLayerHits);
-	    myResults[itGP.second->key()].addResult(iRefLayer,iLayer,aLayerResult.first,phiRef);	 
+	    myResults[iRegion][itGP.second->key()].addResult(iRefLayer,iLayer,aLayerResult.first,phiRef);	 
 	  }
       }      
     }
   }
 
-  for(auto & itKey: myResults) itKey.second.finalise();
+  for(auto & itRegion: myResults) for(auto & itKey: itRegion) itKey.second.finalise();
 
+  
+  std::strstream myStr;
+  myStr<<"iProcessor: "<<iProcessor<<std::endl;
+  myStr<<"Input: ------------"<<std::endl;
+  myStr<<aInput<<std::endl;
+  for(auto itRegion: myResults){ 
+    for(auto itKey: itRegion){      
+      myStr<<itKey.first<<std::endl;
+      myStr<<itKey.second<<std::endl;
+    }
+  }
+  LogDebug("OMTF")<<myStr.str();
+  LogDebug("OMTF")<<"";
+  
   return myResults;
 }   
 ////////////////////////////////////////////

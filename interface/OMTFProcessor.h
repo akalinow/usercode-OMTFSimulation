@@ -28,9 +28,11 @@ class OMTFProcessor{
   bool configure(XMLConfigReader *aReader);
 
   ///Process input data from a single event
-  ///Input data is represented by hits in logic layers
-  OMTFProcessor::resultsMap processInput(unsigned int iProcessor,
-					 const OMTFinput & aInput);
+  ///Input data is represented by hits in logic layers expressed in local coordinates
+  ///Vector index: logic region number
+  ///Map key: GoldenPattern key
+  const std::vector<OMTFProcessor::resultsMap> & processInput(unsigned int iProcessor,
+							      const OMTFinput & aInput);
 
   ///Return map of GoldenPatterns
   const std::map<Key,GoldenPattern*> & getPatterns() const;
@@ -70,7 +72,7 @@ class OMTFProcessor{
 
   ///Map holding results on current event data
   ///for each GP
-  OMTFProcessor::resultsMap myResults;
+  std::vector<OMTFProcessor::resultsMap> myResults;
 
 };
 

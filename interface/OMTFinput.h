@@ -33,7 +33,7 @@ class OMTFinput{
 
   const OMTFinput::vector1D & getLayerData(unsigned int iLayer) const;
 
-  std::ostream & print(std::ostream & out) const;
+  friend std::ostream & operator << (std::ostream &out, const OMTFinput & aInput);
 
  private:
 

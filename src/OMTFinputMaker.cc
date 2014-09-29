@@ -14,6 +14,7 @@
 #include "DataFormats/MuonDetId/interface/MuonSubdetId.h"
 
 #include "FWCore/Framework/interface/EventSetup.h"
+#include "FWCore/MessageLogger/interface/MessageLogger.h"
 
 ///////////////////////////////////////
 ///////////////////////////////////////
@@ -49,22 +50,11 @@ bool  OMTFinputMaker::acceptDigi(const DigiSpec & aDigi,
   int endcapChamberMin = iProcessor*6 + 1;
   int endcapChamberMax = (iProcessor*6 + 6 +1);
 
-  //FIXME: wraparoung for last processor
-
-  /*
-  std::cout<<"iProcessor: "<<iProcessor
-           <<" barrelChamberMin: "<<barrelChamberMin
-	   <<" barrelChamberMax: "<<barrelChamberMax
-	   <<" endcapChamberMin: "<<endcapChamberMin
-	   <<" endcapChamberMax: "<<endcapChamberMax
-	   <<std::endl;
-  */
-
   ///Clean up digis. Remove unconnected detectors
   uint32_t rawId = aDigi.first;   
   DetId detId(rawId);
   if (detId.det() != DetId::Muon) 
-    std::cout << "PROBLEM: hit in unknown Det, detID: "<<detId.det()<<std::endl;
+    edm::LogError("Critical") << "PROBLEM: hit in unknown Det, detID: "<<detId.det()<<std::endl;
   switch (detId.subdetId()) {
   case MuonSubdetId::RPC: {
     RPCDetId aId(rawId);
@@ -113,7 +103,7 @@ unsigned int OMTFinputMaker::getInputNumber(unsigned int rawId,
 
   DetId detId(rawId);
   if (detId.det() != DetId::Muon) 
-    std::cout << "PROBLEM: hit in unknown Det, detID: "<<detId.det()<<std::endl;
+    edm::LogError("Critical") << "PROBLEM: hit in unknown Det, detID: "<<detId.det()<<std::endl;
   switch (detId.subdetId()) {
   case MuonSubdetId::RPC: {
     RPCDetId rpc(rawId);        
@@ -160,7 +150,7 @@ const OMTFinput * OMTFinputMaker::getEvent(const VDigiSpec & vDigi){
 
     DetId detId(rawId);
     if (detId.det() != DetId::Muon) 
-      std::cout << "PROBLEM: hit in unknown Det, detID: "<<detId.det()<<std::endl;
+      edm::LogError("Critical") << "PROBLEM: hit in unknown Det, detID: "<<detId.det()<<std::endl;
     switch (detId.subdetId()) {
       case MuonSubdetId::DT: {
         DTphDigiSpec digi(rawId,digiIt.second);
@@ -181,18 +171,6 @@ const OMTFinput * OMTFinputMaker::getEvent(const VDigiSpec & vDigi){
 const OMTFinput * OMTFinputMaker::buildInputForProcessor(const VDigiSpec & vDigi,
 							 unsigned int iProcessor){
 
-  /*
-  for (auto it:vDigi){
-    DetId detId(it.first);
-    switch (detId.subdetId()) {
-    case MuonSubdetId::RPC: { std::cout << std::endl <<RPCDetId(it.first)<<" "<<RPCDigiSpec(it.first, it.second);  break; }
-    case MuonSubdetId::DT:  { std::cout << std::endl <<DTChamberId(it.first)<<" "<<DTphDigiSpec(it.first, it.second); break; }
-    case MuonSubdetId::CSC: { std::cout << std::endl <<CSCDetId(it.first)<<" "<<CSCDigiSpec(it.first, it.second);  break; }
-    };
-    std::cout<<std::endl;
-  }
-  */
-
   myInput->clear();	
   
   ///Prepare inpout for individual processors.
@@ -209,7 +187,7 @@ const OMTFinput * OMTFinputMaker::buildInputForProcessor(const VDigiSpec & vDigi
     myInput->addLayerHit(iLayer,iInput,iPhi);
     DetId detId(rawId);
     if (detId.det() != DetId::Muon) 
-      std::cout << "PROBLEM: hit in unknown Det, detID: "<<detId.det()<<std::endl;
+      edm::LogError("Critical") << "PROBLEM: hit in unknown Det, detID: "<<detId.det()<<std::endl;
     switch (detId.subdetId()) {
     case MuonSubdetId::DT: {
       DTphDigiSpec digi(rawId,digiIt.second);

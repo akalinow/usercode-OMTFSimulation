@@ -31,7 +31,7 @@ class OMTFResult{
 
   void clear();
 
-  std::ostream & print(std::ostream & out) const;
+  friend std::ostream & operator << (std::ostream &out, const OMTFResult & aResult);
 
  private:
 

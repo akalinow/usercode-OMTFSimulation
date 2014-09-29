@@ -1,10 +1,12 @@
+#include <iostream>
+#include <cmath>
+
 #include "UserCode/OMTFSimulation/interface/XMLConfigReader.h"
 #include "UserCode/OMTFSimulation/interface/GoldenPattern.h"
 #include "UserCode/OMTFSimulation/interface/OMTFinput.h"
 #include "UserCode/OMTFSimulation/interface/OMTFConfiguration.h"
 
-#include <iostream>
-#include <cmath>
+#include "FWCore/MessageLogger/interface/MessageLogger.h"
 
 #include "xercesc/framework/StdOutFormatTarget.hpp"
 #include "xercesc/framework/LocalFileFormatTarget.hpp"
@@ -53,10 +55,9 @@ std::vector<GoldenPattern*> XMLConfigReader::readPatterns(){
   assert(doc);
 
   unsigned int nElem = doc->getElementsByTagName(_toDOMS("GP"))->getLength();
-  std::cout<<"GP size: "<<nElem<<std::endl;
   if(nElem<1){
-    std::cout<<"Problem parsing XML file "<<patternsFile<<std::endl;
-    std::cout<<"No GoldenPattern items: GP found"<<std::endl;
+    edm::LogError("critical")<<"Problem parsing XML file "<<patternsFile<<std::endl;
+    edm::LogError("critical")<<"No GoldenPattern items: GP found"<<std::endl;
     return aGPs;
   }
 
@@ -151,8 +152,8 @@ std::vector<std::vector<int> > XMLConfigReader::readEvent(unsigned int iEvent){
 
   nElem = aOMTFElement->getElementsByTagName(_toDOMS("Event"))->getLength();
    if(nElem<iEvent){
-    std::cout<<"Problem parsing XML file "<<eventsFile<<std::endl;
-    std::cout<<"not enough events found: "<<nElem<<std::endl;
+    edm::LogError("critical")<<"Problem parsing XML file "<<eventsFile<<std::endl;
+    edm::LogError("critical")<<"not enough events found: "<<nElem<<std::endl;
     assert(nElem>=iEvent);
   }
  
@@ -195,9 +196,8 @@ void XMLConfigReader::readConfig(OMTFConfiguration *aConfig){
   xercesc::DOMDocument* doc = parser->getDocument();
   assert(doc);
   unsigned int nElem = doc->getElementsByTagName(_toDOMS("OMTF"))->getLength();
-  std::cout<<"OMTF size: "<<nElem<<std::endl;
   if(nElem!=1){
-    std::cout<<"Problem parsing XML file "<<configFile<<std::endl;
+    edm::LogError("critical")<<"Problem parsing XML file "<<configFile<<std::endl;
     assert(nElem==1);
   }
   DOMNode *aNode = doc->getElementsByTagName(_toDOMS("OMTF"))->item(0);
@@ -224,7 +224,6 @@ void XMLConfigReader::readConfig(OMTFConfiguration *aConfig){
   ///hw <-> logic numbering map
   unsigned int nLogicLayers = 0;
   nElem = aOMTFElement->getElementsByTagName(_toDOMS("LayerMap"))->getLength();
-  std::cout<<"LayerMap size: "<<nElem<<std::endl;
   DOMElement* aLayerElement = 0;
   for(uint i=0;i<nElem;++i){
     aNode = aOMTFElement->getElementsByTagName(_toDOMS("LayerMap"))->item(i);
@@ -245,7 +244,6 @@ void XMLConfigReader::readConfig(OMTFConfiguration *aConfig){
   ///ref<->logic numberig map
   unsigned int nRefLayers = 0;
   nElem = aOMTFElement->getElementsByTagName(_toDOMS("RefLayerMap"))->getLength();
-  std::cout<<"RefLayerMap size: "<<nElem<<std::endl;
   aConfig->refToLogicNumber.resize(nElem);
   DOMElement* aRefLayerElement = 0;
   for(uint i=0;i<nElem;++i){
@@ -282,7 +280,6 @@ void XMLConfigReader::readConfig(OMTFConfiguration *aConfig){
   OMTFConfiguration::regionPhisVsRefLayerVsProcessor.assign(6,aRefHit2D);
 
   nElem = aOMTFElement->getElementsByTagName(_toDOMS("Processor"))->getLength();
-  std::cout<<"nElem Processor: "<<nElem<<std::endl;
   assert(nElem==6);
   DOMElement* aProcessorElement = 0;
   for(uint i=0;i<nElem;++i){

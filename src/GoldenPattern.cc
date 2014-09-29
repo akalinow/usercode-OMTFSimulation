@@ -39,38 +39,38 @@ GoldenPattern::layerResult GoldenPattern::process1Layer1RefLayer(unsigned int iR
 }
 ////////////////////////////////////////////////////
 ////////////////////////////////////////////////////
-std::ostream & GoldenPattern::print(std::ostream &out) const{
+std::ostream & operator << (std::ostream &out, const GoldenPattern & aPattern){
 
- out <<"GoldenPattern "<< theKey <<std::endl;
- out <<"Number of reference layers: "<<meanDistPhi[0].size()
-     <<", number of measurement layers: "<<pdfAllRef.size()
-     <<std::endl;
+  out <<"GoldenPattern "<< aPattern.theKey <<std::endl;
+  out <<"Number of reference layers: "<<aPattern.meanDistPhi[0].size()
+      <<", number of measurement layers: "<<aPattern.pdfAllRef.size()
+      <<std::endl;
 
- if(!meanDistPhi.size()) return out;
- if(!pdfAllRef.size()) return out;
+  if(!aPattern.meanDistPhi.size()) return out;
+  if(!aPattern.pdfAllRef.size()) return out;
 
- out<<"Mean dist phi per layer:"<<std::endl;
- for (unsigned int iRefLayer=0;iRefLayer<meanDistPhi[0].size();++iRefLayer){
-   out<<"Ref layer: "<<iRefLayer<<" (";
-   for (unsigned int iLayer=0;iLayer<meanDistPhi.size();++iLayer){   
-     out<<meanDistPhi[iLayer][iRefLayer]<<"\t";
-   }
-   out<<")"<<std::endl;
- }
+  out<<"Mean dist phi per layer:"<<std::endl;
+  for (unsigned int iRefLayer=0;iRefLayer<aPattern.meanDistPhi[0].size();++iRefLayer){
+    out<<"Ref layer: "<<iRefLayer<<" (";
+    for (unsigned int iLayer=0;iLayer<aPattern.meanDistPhi.size();++iLayer){   
+      out<<aPattern.meanDistPhi[iLayer][iRefLayer]<<"\t";
+    }
+    out<<")"<<std::endl;
+  }
 
- out<<"PDF per layer:"<<std::endl;
- for (unsigned int iRefLayer=0;iRefLayer<pdfAllRef[0].size();++iRefLayer){
-   out<<"Ref layer: "<<iRefLayer;
-   for (unsigned int iLayer=0;iLayer<pdfAllRef.size();++iLayer){   
-     out<<", measurement layer: "<<iLayer<<std::endl;
-     for (unsigned int iPdf=0;iPdf<pdfAllRef[iLayer][iRefLayer].size();++iPdf){   
-       out<<pdfAllRef[iLayer][iRefLayer][iPdf]<<" ";
-     }
-     out<<std::endl;
-   }
- }
-   
- return out;
+  out<<"PDF per layer:"<<std::endl;
+  for (unsigned int iRefLayer=0;iRefLayer<aPattern.pdfAllRef[0].size();++iRefLayer){
+    out<<"Ref layer: "<<iRefLayer;
+    for (unsigned int iLayer=0;iLayer<aPattern.pdfAllRef.size();++iLayer){   
+      out<<", measurement layer: "<<iLayer<<std::endl;
+      for (unsigned int iPdf=0;iPdf<aPattern.pdfAllRef[iLayer][iRefLayer].size();++iPdf){   
+	out<<aPattern.pdfAllRef[iLayer][iRefLayer][iPdf]<<" ";
+      }
+      out<<std::endl;
+    }
+  }
+  
+  return out;
 }
 ////////////////////////////////////////////////////
 ////////////////////////////////////////////////////

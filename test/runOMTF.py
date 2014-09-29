@@ -10,6 +10,24 @@ inputFiles =  cms.vstring("/home/akalinow/scratch/CMS/OverlapTrackFinder/Crab/Si
 #                          #"/home/akalinow/scratch/CMS/OverlapTrackFinder/Crab/SingleMuFullEtaTestSample/Tree/v1/data//l1RpcTree_p6_m_v1_FullEta_1_1_YpO.root"
 #                         )
 
+process.load("FWCore.MessageLogger.MessageLogger_cfi")
+process.MessageLogger = cms.Service("MessageLogger",
+       suppressInfo       = cms.untracked.vstring('AfterSource', 'PostModule'),
+       destinations   = cms.untracked.vstring(
+                                             'detailedInfo'
+                                               ,'critical'
+                                               ,'cout'
+                    ),
+       critical       = cms.untracked.PSet(
+                        threshold = cms.untracked.string('ERROR') 
+        ),
+       detailedInfo   = cms.untracked.PSet(
+                      threshold  = cms.untracked.string('INFO') 
+       ),
+       cout           = cms.untracked.PSet(
+                       threshold  = cms.untracked.string('INFO') 
+        )
+)
 
 process.source = cms.Source("EmptySource")
 process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(1))
@@ -18,13 +36,15 @@ process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 process.GlobalTag.globaltag = 'POSTLS162_V1::All'
 process.load('Configuration.StandardSequences.GeometryRecoDB_cff')
 
-path = "/home/akalinow/scratch/CMS/OverlapTrackFinder/Dev4/CMSSW_7_0_1/src/UserCode/OMTFSimulation/data/"
+path = os.environ['CMSSW_BASE']+"/src/UserCode/OMTFSimulation/data/"
 
 process.omtfAnalysis = cms.EDAnalyzer("OMTFROOTReader",
   treeFileNames = cms.vstring(inputFiles),
+  maxEvents =  cms.int32(10), #FIXME
+  dumpToXML = cms.bool(True),                                      
   omtf = cms.PSet(
     configXMLFile = cms.string(path+"hwToLogicLayer.xml"),
-    patternsXMLFiles = cms.vstring(path+"Patterns_chPlus.xml",path+"Patterns_chMinus.xml")
+    patternsXMLFiles = cms.vstring(path+"Patterns_chPlus.xml",path+"Patterns_chMinus.xml"),
  ),
  filterByAnaSiMuDistribution = cms.bool(True),
  anaSiMuDistribution = cms.PSet(
@@ -39,3 +59,5 @@ process.omtfAnalysis = cms.EDAnalyzer("OMTFROOTReader",
 )
 
 process.p = cms.Path(process.omtfAnalysis)
+
+

@@ -71,7 +71,7 @@ class GoldenPattern {
 						    const int refPhi,
 						    const OMTFinput::vector1D & layerHits);
 
-  std::ostream & print(std::ostream & out) const;
+  friend std::ostream & operator << (std::ostream &out, const GoldenPattern & aPattern);
     
  private:
 

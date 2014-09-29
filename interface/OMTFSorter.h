@@ -12,10 +12,22 @@ class OMTFSorter{
 
  public:
 
-  L1Obj sortResults(const OMTFProcessor::resultsMap & aResultsMap);
+  ///Sort all processor results. 
+  ///First for each region cone find a best candidate using sortRegionResults() 
+  ///Then select best candidate amongs found for each logic region
+  L1Obj sortProcessorResults(const std::vector<OMTFProcessor::resultsMap> & procResults);
+
+
+  ///Sort results for signle logic region.
+  ///Select candidate with highed number of hit layers
+  ///Then select a candidate with largest likelihood value
+  L1Obj sortRegionResults(const OMTFProcessor::resultsMap & aResultsMap);
 
  private:
 
+  ///Find a candidate with best parameters for given GoldenPattern
+  ///Sorting is made amongs candidates with different reference layers
+  ///The output tuple contains (nHitsMax, pdfValMax, refPhi) 
   std::tuple<unsigned int,unsigned int, int> sortSingleResult(const OMTFResult & aResult);
 
 };

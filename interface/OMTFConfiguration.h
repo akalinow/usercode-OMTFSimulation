@@ -21,7 +21,7 @@ class OMTFConfiguration{
 
   void configure(XMLConfigReader *aReader);
 
-  std::ostream & print(std::ostream & out);
+  friend std::ostream & operator << (std::ostream &out, const OMTFConfiguration & aConfig);
 
   static unsigned int nLayers;
   static unsigned int nHitsPerLayer;

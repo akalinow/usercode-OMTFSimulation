@@ -50,26 +50,26 @@ void OMTFResult::finalise(){
 }
 ////////////////////////////////////////////
 ////////////////////////////////////////////
-std::ostream & OMTFResult::print(std::ostream & out) const{
+std::ostream & operator << (std::ostream &out, const OMTFResult & aResult){
 
- for(unsigned int iLogicLayer=0;iLogicLayer<results.size();++iLogicLayer){
+ for(unsigned int iLogicLayer=0;iLogicLayer<aResult.results.size();++iLogicLayer){
     out<<"Logic layer: "<<iLogicLayer<<" results: ";
-    for(unsigned int iRefLayer=0;iRefLayer<results[iLogicLayer].size();++iRefLayer){
-      out<<results[iLogicLayer][iRefLayer]<<"\t";
+    for(unsigned int iRefLayer=0;iRefLayer<aResult.results[iLogicLayer].size();++iRefLayer){
+      out<<aResult.results[iLogicLayer][iRefLayer]<<"\t";
     }
     out<<std::endl;
   }
 
  out<<"      Sum over layers: ";
- for(unsigned int iRefLayer=0;iRefLayer<results1D.size();++iRefLayer){
-   out<<results1D[iRefLayer]<<"\t";
+ for(unsigned int iRefLayer=0;iRefLayer<aResult.results1D.size();++iRefLayer){
+   out<<aResult.results1D[iRefLayer]<<"\t";
  }
 
  out<<std::endl;
 
  out<<"       Number of hits: ";
- for(unsigned int iRefLayer=0;iRefLayer<hits1D.size();++iRefLayer){
-   out<<hits1D[iRefLayer]<<"\t";
+ for(unsigned int iRefLayer=0;iRefLayer<aResult.hits1D.size();++iRefLayer){
+   out<<aResult.hits1D[iRefLayer]<<"\t";
  }
 
   return out;

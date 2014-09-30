@@ -54,7 +54,7 @@ bool  OMTFinputMaker::acceptDigi(const DigiSpec & aDigi,
   uint32_t rawId = aDigi.first;   
   DetId detId(rawId);
   if (detId.det() != DetId::Muon) 
-    edm::LogError("Critical") << "PROBLEM: hit in unknown Det, detID: "<<detId.det()<<std::endl;
+    edm::LogError("Critical OMTFinputMaker") << "PROBLEM: hit in unknown Det, detID: "<<detId.det()<<std::endl;
   switch (detId.subdetId()) {
   case MuonSubdetId::RPC: {
     RPCDetId aId(rawId);
@@ -103,7 +103,7 @@ unsigned int OMTFinputMaker::getInputNumber(unsigned int rawId,
 
   DetId detId(rawId);
   if (detId.det() != DetId::Muon) 
-    edm::LogError("Critical") << "PROBLEM: hit in unknown Det, detID: "<<detId.det()<<std::endl;
+    edm::LogError("Critical OMTFinputMaker") << "PROBLEM: hit in unknown Det, detID: "<<detId.det()<<std::endl;
   switch (detId.subdetId()) {
   case MuonSubdetId::RPC: {
     RPCDetId rpc(rawId);        
@@ -150,7 +150,7 @@ const OMTFinput * OMTFinputMaker::getEvent(const VDigiSpec & vDigi){
 
     DetId detId(rawId);
     if (detId.det() != DetId::Muon) 
-      edm::LogError("Critical") << "PROBLEM: hit in unknown Det, detID: "<<detId.det()<<std::endl;
+      edm::LogError("Critical OMTFinputMaker") << "PROBLEM: hit in unknown Det, detID: "<<detId.det()<<std::endl;
     switch (detId.subdetId()) {
       case MuonSubdetId::DT: {
         DTphDigiSpec digi(rawId,digiIt.second);
@@ -187,7 +187,7 @@ const OMTFinput * OMTFinputMaker::buildInputForProcessor(const VDigiSpec & vDigi
     myInput->addLayerHit(iLayer,iInput,iPhi);
     DetId detId(rawId);
     if (detId.det() != DetId::Muon) 
-      edm::LogError("Critical") << "PROBLEM: hit in unknown Det, detID: "<<detId.det()<<std::endl;
+      edm::LogError("Critical OMTFinputMaker") << "PROBLEM: hit in unknown Det, detID: "<<detId.det()<<std::endl;
     switch (detId.subdetId()) {
     case MuonSubdetId::DT: {
       DTphDigiSpec digi(rawId,digiIt.second);

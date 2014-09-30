@@ -1,6 +1,8 @@
 #include <iostream>
 #include <iomanip>
 
+#include "FWCore/MessageLogger/interface/MessageLogger.h"
+
 #include "UserCode/OMTFSimulation/plugins/OMTFROOTReader.h"
 
 #include "UserCode/OMTFSimulation/interface/OMTFProcessor.h"
@@ -56,6 +58,7 @@ OMTFROOTReader::OMTFROOTReader(const edm::ParameterSet & cfg){
   theConfig = cfg;
 
   dumpToXML = theConfig.getParameter<bool>("dumpToXML");
+  makeConnectionsMaps = theConfig.getParameter<bool>("makeConnectionsMaps");
 }
 /////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////
@@ -124,8 +127,8 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
     L1ObjColl myL1ObjColl = *l1ObjColl;
 
     if ( (lastRun != (*event).run) || 
-	 (nentries>100000 && ev%(nentries/10)==0) || 
-	 nentries<100000) { 
+	 (nentries>1000 && ev%(nentries/10)==0) || 
+	 nentries<1000) { 
       lastRun = (*event).run; 
       std::cout <<"RUN:"    << std::setw(7) << (*event).run
                 <<" event:" << std::setw(8) << ev
@@ -140,13 +143,16 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
     if(dumpToXML) aTopElement = myWriter->writeEventHeader(ev);
 
     for(unsigned int iProcessor=0;iProcessor<6;++iProcessor){
+
+      //edm::LogInfo("OMTF ROOTReader")<<"iProcessor: "<<iProcessor;
+
 	const OMTFinput *myInput = myInputMaker->buildInputForProcessor(*digSpec,iProcessor);
 
 	///Input data with phi ranges shifted for each processor, so it fits 10 bits range
 	const OMTFinput myShiftedInput =  myOMTF->shiftInput(iProcessor,*myInput);	
 
 	///Phi maps should be made with original, global phi values.
-	myOMTFConfigMaker->makeConnetionsMap(iProcessor,*myInput);
+	if(makeConnectionsMaps) myOMTFConfigMaker->makeConnetionsMap(iProcessor,*myInput);
 	/////////////////////////
 
 	///Results for each GP in each logic region of given processor
@@ -158,9 +164,20 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
 	///Write to XML
 	if(dumpToXML){
 	  xercesc::DOMElement * aProcElement = myWriter->writeEventData(aTopElement,iProcessor,myShiftedInput);
-	  for(auto & itRegion: myResults) for(auto & itKey: itRegion) myWriter->writeResultsData(aProcElement, itKey.first,itKey.second);    
+	  for(unsigned int iRegion=0;iRegion<6;++iRegion){
+	    ///Dump only regions, where a candidate was found
+	    L1Obj myCand = mySorter->sortRegionResults(myResults[iRegion]);
+	    if(myCand.pt){
+	      myWriter->writeCandidateData(aProcElement,iRegion,myCand);
+	      for(auto & itKey: myResults[iRegion]) myWriter->writeResultsData(aProcElement, 
+									       iRegion,
+									       itKey.first,itKey.second);    
+	    }
+	  }
+	  //delete aProcElement;
 	}
     }
+    //if(dumpToXML) delete aTopElement;
     if (myAnaEff) myAnaEff->run(simu, &myL1ObjColl, hitSpecProp);
   }
 }
@@ -173,12 +190,13 @@ void OMTFROOTReader::endJob(){
     myWriter->finaliseXMLDocument(fName);
   }
 
-  std::string fName = "Connections.xml";  
-  myWriter->writeConnectionsData(OMTFConfiguration::measurements4D);
-  myWriter->finaliseXMLDocument(fName);
-
-  //myOMTFConfigMaker->printPhiMap(std::cout);
-  //myOMTFConfigMaker->printConnections(std::cout,0,0);
+  if(makeConnectionsMaps){
+    std::string fName = "Connections.xml";  
+    myWriter->writeConnectionsData(OMTFConfiguration::measurements4D);
+    myWriter->finaliseXMLDocument(fName);
+    myOMTFConfigMaker->printPhiMap(std::cout);
+    myOMTFConfigMaker->printConnections(std::cout,0,0);
+  }
 }
 /////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////

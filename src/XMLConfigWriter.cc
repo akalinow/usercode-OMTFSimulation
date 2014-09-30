@@ -4,6 +4,9 @@
 #include "UserCode/OMTFSimulation/interface/OMTFConfiguration.h"
 #include "UserCode/OMTFSimulation/interface/OMTFResult.h"
 
+#include "UserCode/L1RpcTriggerAnalysis/interface/L1Obj.h"
+#include "UserCode/L1RpcTriggerAnalysis/interface/L1RpcTriggerAnalysisEfficiencyUtilities.h"
+
 #include <iostream>
 #include <sstream>
 #include <cmath>
@@ -154,7 +157,33 @@ xercesc::DOMElement * XMLConfigWriter::writeEventData(xercesc::DOMElement *aTopE
 }
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////
+void  XMLConfigWriter::writeCandidateData(xercesc::DOMElement *aTopElement,
+					  unsigned int iRegion,
+					  const L1Obj & aCand){
+
+  xercesc::DOMElement* aResult = theDoc->createElement(_toDOMS("Candidate"));
+  std::ostringstream stringStr;
+  stringStr.str("");
+  stringStr<<iRegion;
+  aResult->setAttribute(_toDOMS("iRegion"),_toDOMS(stringStr.str()));
+  stringStr.str("");
+  stringStr<<L1RpcTriggerAnalysisEfficiencyUtilities::PtScale::ptCode(aCand.pt);
+  aResult->setAttribute(_toDOMS("ptCode"),_toDOMS(stringStr.str()));
+  stringStr.str("");
+  stringStr<<aCand.charge;
+  aResult->setAttribute(_toDOMS("charge"),_toDOMS(stringStr.str()));
+  stringStr.str("");
+  stringStr<<aCand.q;
+  aResult->setAttribute(_toDOMS("nHits"), _toDOMS(stringStr.str()));
+  stringStr.str("");
+  stringStr<<aCand.disc;
+  aResult->setAttribute(_toDOMS("disc"), _toDOMS(stringStr.str()));
+  aTopElement->appendChild(aResult); 
+}
+//////////////////////////////////////////////////
+//////////////////////////////////////////////////
 void XMLConfigWriter::writeResultsData(xercesc::DOMElement *aTopElement,
+				       unsigned int iRegion,
 				       const Key & aKey,
 				       const OMTFResult & aResult){
 
@@ -182,6 +211,9 @@ void XMLConfigWriter::writeResultsData(xercesc::DOMElement *aTopElement,
     stringStr.str("");
     stringStr<<iRefLayer;
     aRefLayer->setAttribute(_toDOMS("iRefLayer"), _toDOMS(stringStr.str()));
+    stringStr.str("");
+    stringStr<<iRegion;
+    aRefLayer->setAttribute(_toDOMS("iRegion"), _toDOMS(stringStr.str()));
     stringStr.str("");
     stringStr<<OMTFConfiguration::refToLogicNumber[iRefLayer];
     aRefLayer->setAttribute(_toDOMS("iLogicLayer"), _toDOMS(stringStr.str()));

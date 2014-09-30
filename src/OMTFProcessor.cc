@@ -96,8 +96,9 @@ const std::vector<OMTFProcessor::resultsMap> & OMTFProcessor::processInput(unsig
 
   for(auto & itRegion: myResults) for(auto & itKey: itRegion) itKey.second.finalise();
 
-  
-  std::strstream myStr;
+
+#ifndef NDEBUG
+  std::ostringstream myStr;
   myStr<<"iProcessor: "<<iProcessor<<std::endl;
   myStr<<"Input: ------------"<<std::endl;
   myStr<<aInput<<std::endl;
@@ -107,8 +108,8 @@ const std::vector<OMTFProcessor::resultsMap> & OMTFProcessor::processInput(unsig
       myStr<<itKey.second<<std::endl;
     }
   }
-  LogDebug("OMTF")<<myStr.str();
-  LogDebug("OMTF")<<"";
+  LogDebug("OMTF processor")<<myStr.str();
+#endif
   
   return myResults;
 }   

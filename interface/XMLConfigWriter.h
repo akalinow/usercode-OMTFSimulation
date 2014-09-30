@@ -12,6 +12,7 @@ class GoldenPattern;
 class OMTFConfiguration;
 class OMTFinput;
 class OMTFResult;
+class L1Obj;
 struct Key;
 
 namespace XERCES_CPP_NAMESPACE{
@@ -37,7 +38,12 @@ class XMLConfigWriter{
 				       unsigned int iProcessor,
 				       const OMTFinput & aInput);
 
+  void writeCandidateData(xercesc::DOMElement *aTopElement,
+			  unsigned int iRegion,
+			  const L1Obj & aCand);
+
   void writeResultsData(xercesc::DOMElement *aTopElement,
+			unsigned int iRegion,
 			const Key& aKey,
 			const OMTFResult & aResult);
 

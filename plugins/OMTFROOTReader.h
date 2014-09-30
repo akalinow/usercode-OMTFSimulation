@@ -43,6 +43,7 @@ private:
   edm::ParameterSet theConfig;
 
   bool dumpToXML;
+  bool makeConnectionsMaps;
 
   ////
   XMLConfigWriter *myWriter; 

@@ -15,19 +15,30 @@ process.MessageLogger = cms.Service("MessageLogger",
        suppressInfo       = cms.untracked.vstring('AfterSource', 'PostModule'),
        destinations   = cms.untracked.vstring(
                                              'detailedInfo'
-                                               ,'critical'
-                                               ,'cout'
+                                             ,'critical'
+                                             ,'cout'
                     ),
+       categories = cms.untracked.vstring(
+                                        'CondDBESSource'
+                                        ,'EventSetupDependency'
+                                        ,'Geometry'
+                                        ,'Alignment'
+        ),
        critical       = cms.untracked.PSet(
                         threshold = cms.untracked.string('ERROR') 
         ),
        detailedInfo   = cms.untracked.PSet(
-                      threshold  = cms.untracked.string('INFO') 
+                      threshold  = cms.untracked.string('INFO'), 
+                      CondDBESSource  = cms.untracked.PSet (limit = cms.untracked.int32(0) ), 
+                      EventSetupDependency  = cms.untracked.PSet (limit = cms.untracked.int32(0) ), 
+                      Geometry  = cms.untracked.PSet (limit = cms.untracked.int32(0) ), 
+                      Alignment  = cms.untracked.PSet (limit = cms.untracked.int32(0) ), 
        ),
        cout           = cms.untracked.PSet(
                        threshold  = cms.untracked.string('INFO') 
         )
 )
+process.MessageLogger = cms.Service("MessageLogger")
 
 process.source = cms.Source("EmptySource")
 process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(1))
@@ -40,8 +51,9 @@ path = os.environ['CMSSW_BASE']+"/src/UserCode/OMTFSimulation/data/"
 
 process.omtfAnalysis = cms.EDAnalyzer("OMTFROOTReader",
   treeFileNames = cms.vstring(inputFiles),
-  maxEvents =  cms.int32(10), #FIXME
-  dumpToXML = cms.bool(True),                                      
+  maxEvents =  cms.int32(50000), #FIXME
+  dumpToXML = cms.bool(False),                                      
+  makeConnectionsMaps = cms.bool(False),                                      
   omtf = cms.PSet(
     configXMLFile = cms.string(path+"hwToLogicLayer.xml"),
     patternsXMLFiles = cms.vstring(path+"Patterns_chPlus.xml",path+"Patterns_chMinus.xml"),

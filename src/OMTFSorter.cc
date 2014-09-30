@@ -76,14 +76,13 @@ L1Obj OMTFSorter::sortRegionResults(const OMTFProcessor::resultsMap & aResultsMa
   }  
 
   L1Obj candidate;
-  //candidate.pt =  L1RpcTriggerAnalysisEfficiencyUtilities::PtScale::ptValue(bestKey.thePtCode);
-  candidate.pt =  bestKey.thePtCode;
+  candidate.pt =  L1RpcTriggerAnalysisEfficiencyUtilities::PtScale::ptValue(bestKey.thePtCode);
   candidate.eta = bestKey.theEtaCode;
   ////Swith from internal processor 10bit scale to global one
   unsigned int iProcessor = 0; //Dummy value for now
   int procOffset = OMTFConfiguration::globalPhiStart(iProcessor);
   if(procOffset<0) procOffset+=OMTFConfiguration::nPhiBins;
-  //refPhi+=OMTFConfiguration::globalPhiStart(iProcessor)+511;
+  refPhi+=OMTFConfiguration::globalPhiStart(iProcessor)+511;
   ///
   candidate.phi = refPhi;
   candidate.charge = bestKey.theCharge;
@@ -108,11 +107,12 @@ L1Obj OMTFSorter::sortProcessorResults(const std::vector<OMTFProcessor::resultsM
     if(itCand.q==candidate.q && itCand.disc>candidate.disc) candidate = itCand;
   }
 
-  std::strstream myStr;
+/*
+  std::ostringstream myStr;
   for(unsigned int iRegion=0;iRegion<regionCands.size();++iRegion) myStr<<"Logic Region: "<<iRegion<<" "<<regionCands[iRegion]<<std::endl;
   myStr<<"Selected Candidate: "<<candidate<<std::endl;
-  edm::LogInfo("OMTF")<<myStr.str();
-  
+  edm::LogInfo("OMTF Sorter")<<myStr.str();
+*/
   return candidate;
 }
 ///////////////////////////////////////////////////////

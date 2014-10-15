@@ -49,6 +49,9 @@ bool OMTFProcessor::configure(XMLConfigReader *aReader){
 ///////////////////////////////////////////////
 bool OMTFProcessor::addGP(GoldenPattern *aGP){
 
+  if(aGP->key().thePtCode>20 ||
+     aGP->key().thePtCode<16) return true;
+
   if(theGPs.find(aGP->key())!=theGPs.end()) return false;
   else theGPs[aGP->key()] = new GoldenPattern(*aGP);
 
@@ -97,7 +100,7 @@ const std::vector<OMTFProcessor::resultsMap> & OMTFProcessor::processInput(unsig
   for(auto & itRegion: myResults) for(auto & itKey: itRegion) itKey.second.finalise();
 
 
-#ifndef NDEBUG
+  //#ifndef NDEBUG
   std::ostringstream myStr;
   myStr<<"iProcessor: "<<iProcessor<<std::endl;
   myStr<<"Input: ------------"<<std::endl;
@@ -108,8 +111,9 @@ const std::vector<OMTFProcessor::resultsMap> & OMTFProcessor::processInput(unsig
       myStr<<itKey.second<<std::endl;
     }
   }
-  LogDebug("OMTF processor")<<myStr.str();
-#endif
+  //LogDebug("OMTF processor")<<myStr.str();
+  edm::LogInfo("OMTF processor")<<myStr.str();
+  //#endif
   
   return myResults;
 }   

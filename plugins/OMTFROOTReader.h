@@ -42,7 +42,7 @@ private:
   TObjArray myHistos;
   edm::ParameterSet theConfig;
 
-  bool dumpToXML;
+  bool dumpResultToXML, dumpGPToXML;
   bool makeConnectionsMaps;
 
   ////

@@ -3,8 +3,8 @@ process = cms.Process("MakePatterns")
 import os
 import sys
 
-inputFiles =  cms.vstring("/home/akalinow/scratch/CMS/OverlapTrackFinder/Crab/SingleMuFullEtaTestSample/Tree/v1/data//l1RpcTree_p19_p_v1_FullEta_1_1_mqa.root")
-#inputFiles =  cms.vstring("/home/akalinow/scratch/CMS/OverlapTrackFinder/Crab/SingleMuFullEtaTestSample/Tree/v1/data//l1RpcTree_p10_p_v1_FullEta_1_1_Ylg.root")
+#inputFiles =  cms.vstring("/home/akalinow/scratch/CMS/OverlapTrackFinder/Crab/SingleMuFullEtaTestSample/Tree/v1/data//l1RpcTree_p19_p_v1_FullEta_1_1_mqa.root")
+inputFiles =  cms.vstring("/home/akalinow/scratch/CMS/OverlapTrackFinder/Crab/SingleMuFullEtaTestSample/Tree/v1/data//l1RpcTree_p10_p_v1_FullEta_1_1_Ylg.root")
 
 #inputFiles =  cms.vstring("/home/akalinow/scratch/CMS/OverlapTrackFinder/Crab/SingleMuFullEtaTestSample/Tree/v1/data//l1RpcTree_p6_p_v1_FullEta_1_1_hdg.root",
 #                          #"/home/akalinow/scratch/CMS/OverlapTrackFinder/Crab/SingleMuFullEtaTestSample/Tree/v1/data//l1RpcTree_p6_m_v1_FullEta_1_1_YpO.root"
@@ -38,7 +38,7 @@ process.MessageLogger = cms.Service("MessageLogger",
                        threshold  = cms.untracked.string('INFO') 
         )
 )
-process.MessageLogger = cms.Service("MessageLogger")
+#process.MessageLogger = cms.Service("MessageLogger")
 
 process.source = cms.Source("EmptySource")
 process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(1))
@@ -51,8 +51,9 @@ path = os.environ['CMSSW_BASE']+"/src/UserCode/OMTFSimulation/data/"
 
 process.omtfAnalysis = cms.EDAnalyzer("OMTFROOTReader",
   treeFileNames = cms.vstring(inputFiles),
-  maxEvents =  cms.int32(50000), #FIXME
-  dumpToXML = cms.bool(False),                                      
+  maxEvents =  cms.int32(2000), #FIXME
+  dumpResultToXML = cms.bool(True),                                     
+  dumpGPToXML = cms.bool(True),                                     
   makeConnectionsMaps = cms.bool(False),                                      
   omtf = cms.PSet(
     configXMLFile = cms.string(path+"hwToLogicLayer.xml"),

@@ -57,7 +57,8 @@ OMTFROOTReader::OMTFROOTReader(const edm::ParameterSet & cfg){
 
   theConfig = cfg;
 
-  dumpToXML = theConfig.getParameter<bool>("dumpToXML");
+  dumpResultToXML = theConfig.getParameter<bool>("dumpResultToXML");
+  dumpGPToXML = theConfig.getParameter<bool>("dumpGPToXML");
   makeConnectionsMaps = theConfig.getParameter<bool>("makeConnectionsMaps");
 }
 /////////////////////////////////////////////////////////////
@@ -140,7 +141,7 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
 	!myAnaSiMu->filter(event, simu, hitSpec, hitSpecProp) && 
 	theConfig.getParameter<bool>("filterByAnaSiMuDistribution") ) continue;
 
-    if(dumpToXML) aTopElement = myWriter->writeEventHeader(ev);
+    if(dumpResultToXML) aTopElement = myWriter->writeEventHeader(ev);
 
     for(unsigned int iProcessor=0;iProcessor<6;++iProcessor){
 
@@ -162,7 +163,7 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
 	if(myOTFCandidate.pt) myL1ObjColl.push_back(myOTFCandidate, false, 0.); 
 
 	///Write to XML
-	if(dumpToXML){
+	if(dumpResultToXML){
 	  xercesc::DOMElement * aProcElement = myWriter->writeEventData(aTopElement,iProcessor,myShiftedInput);
 	  for(unsigned int iRegion=0;iRegion<6;++iRegion){
 	    ///Dump only regions, where a candidate was found
@@ -177,7 +178,7 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
 	  //delete aProcElement;
 	}
     }
-    //if(dumpToXML) delete aTopElement;
+    //if(dumpResultToXML) delete aTopElement;
     if (myAnaEff) myAnaEff->run(simu, &myL1ObjColl, hitSpecProp);
   }
 }
@@ -185,8 +186,20 @@ void OMTFROOTReader::analyze(const edm::Event&, const edm::EventSetup& es){
 /////////////////////////////////////////////////////////////
 void OMTFROOTReader::endJob(){
 
-  if(dumpToXML){
+  if(dumpResultToXML){
     std::string fName = "TestEvents.xml";
+    myWriter->finaliseXMLDocument(fName);
+  }
+
+  if(dumpGPToXML){
+    std::string fName = "OMTF";
+    myWriter->initialiseXMLDocument(fName);
+    const std::map<Key,GoldenPattern*> & myGPmap = myOMTF->getPatterns();
+    for(auto itGP: myGPmap){
+      std::cout<<*itGP.second<<std::endl;
+      myWriter->writeGPData(*itGP.second);
+    }
+    fName = "GPs.xml";
     myWriter->finaliseXMLDocument(fName);
   }
 

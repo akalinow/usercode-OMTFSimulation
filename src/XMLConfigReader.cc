@@ -214,12 +214,14 @@ void XMLConfigReader::readConfig(OMTFConfiguration *aConfig){
   unsigned int nPhiBits =  std::atoi(_toString(aElement->getAttribute(_toDOMS("nPhiBits"))).c_str()); 
   unsigned int nPhiBins =  std::atoi(_toString(aElement->getAttribute(_toDOMS("nPhiBins"))).c_str()); 
   unsigned int nRefHits =  std::atoi(_toString(aElement->getAttribute(_toDOMS("nRefHits"))).c_str()); 
+  unsigned int nTestRefHits =  std::atoi(_toString(aElement->getAttribute(_toDOMS("nTestRefHits"))).c_str()); 
   OMTFConfiguration::nPdfAddrBits = nPdfAddrBits;
   OMTFConfiguration::nPdfValBits = nPdfValBits;
   OMTFConfiguration::nHitsPerLayer = nHitsPerLayer;
   OMTFConfiguration::nPhiBits = nPhiBits;
   OMTFConfiguration::nPhiBins = nPhiBins;
   OMTFConfiguration::nRefHits = nRefHits;
+  OMTFConfiguration::nTestRefHits = nTestRefHits;
 
   ///hw <-> logic numbering map
   unsigned int nLogicLayers = 0;
@@ -279,6 +281,11 @@ void XMLConfigReader::readConfig(OMTFConfiguration *aConfig){
   ///Vector of all processors
   OMTFConfiguration::regionPhisVsRefLayerVsProcessor.assign(6,aRefHit2D);
 
+  //Vector of 80 ref hit definitions
+  std::vector<RefHitDef> aRefHitsDefs(80);
+  ///Vector of all processros
+  OMTFConfiguration::refHitsDefs.assign(6,aRefHitsDefs);
+
   nElem = aOMTFElement->getElementsByTagName(_toDOMS("Processor"))->getLength();
   assert(nElem==6);
   DOMElement* aProcessorElement = 0;
@@ -303,12 +310,14 @@ void XMLConfigReader::readConfig(OMTFConfiguration *aConfig){
     for(uint ii=0;ii<nElem1;++ii){
       aNode = aProcessorElement->getElementsByTagName(_toDOMS("RefHit"))->item(ii);
       aRefHitElement = static_cast<DOMElement *>(aNode); 
-      //unsigned int iRefHit = std::atoi(_toString(aRefLayerElement->getAttribute(_toDOMS("iRefHit"))).c_str());
+      unsigned int iRefHit = std::atoi(_toString(aRefHitElement->getAttribute(_toDOMS("iRefHit"))).c_str());
       int iPhiMin = std::atoi(_toString(aRefHitElement->getAttribute(_toDOMS("iPhiMin"))).c_str());
       int iPhiMax = std::atoi(_toString(aRefHitElement->getAttribute(_toDOMS("iPhiMax"))).c_str());
-      int iRegion = std::atoi(_toString(aRefHitElement->getAttribute(_toDOMS("iRegion"))).c_str());
-      int iRefLayer = std::atoi(_toString(aRefHitElement->getAttribute(_toDOMS("iRefLayer"))).c_str());
+      unsigned int iInput = std::atoi(_toString(aRefHitElement->getAttribute(_toDOMS("iInput"))).c_str());
+      unsigned int iRegion = std::atoi(_toString(aRefHitElement->getAttribute(_toDOMS("iRegion"))).c_str());
+      unsigned int iRefLayer = std::atoi(_toString(aRefHitElement->getAttribute(_toDOMS("iRefLayer"))).c_str());
       OMTFConfiguration::regionPhisVsRefLayerVsProcessor[iProcessor][iRefLayer][iRegion] = std::pair<int,int>(iPhiMin,iPhiMax);
+      OMTFConfiguration::refHitsDefs[iProcessor][iRefHit] = RefHitDef(iInput,iPhiMin,iPhiMax,iRegion,iRefLayer);
     }
     ///////////
     unsigned int nElem2 = aProcessorElement->getElementsByTagName(_toDOMS("LogicRegion"))->getLength();

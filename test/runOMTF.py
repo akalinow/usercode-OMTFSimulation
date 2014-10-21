@@ -23,6 +23,11 @@ process.MessageLogger = cms.Service("MessageLogger",
                                         ,'EventSetupDependency'
                                         ,'Geometry'
                                         ,'Alignment'
+                                        ,'SiStripBackPlaneCorrectionDepESProducer'
+                                        ,'SiStripLorentzAngleDepESProducer'
+                                        ,'SiStripQualityESProducer'
+                                        ,'TRACKER'
+                                        ,'HCAL'
         ),
        critical       = cms.untracked.PSet(
                         threshold = cms.untracked.string('ERROR') 
@@ -34,9 +39,13 @@ process.MessageLogger = cms.Service("MessageLogger",
                       Geometry  = cms.untracked.PSet (limit = cms.untracked.int32(0) ), 
                       Alignment  = cms.untracked.PSet (limit = cms.untracked.int32(0) ), 
        ),
-       cout           = cms.untracked.PSet(
-                       threshold  = cms.untracked.string('INFO') 
-        )
+       cout   = cms.untracked.PSet(
+                threshold  = cms.untracked.string('INFO'), 
+                CondDBESSource  = cms.untracked.PSet (limit = cms.untracked.int32(0) ), 
+                EventSetupDependency  = cms.untracked.PSet (limit = cms.untracked.int32(0) ), 
+                Geometry  = cms.untracked.PSet (limit = cms.untracked.int32(0) ), 
+                Alignment  = cms.untracked.PSet (limit = cms.untracked.int32(0) ), 
+       ),
 )
 #process.MessageLogger = cms.Service("MessageLogger")
 
@@ -51,9 +60,9 @@ path = os.environ['CMSSW_BASE']+"/src/UserCode/OMTFSimulation/data/"
 
 process.omtfAnalysis = cms.EDAnalyzer("OMTFROOTReader",
   treeFileNames = cms.vstring(inputFiles),
-  maxEvents =  cms.int32(2000), #FIXME
-  dumpResultToXML = cms.bool(True),                                     
-  dumpGPToXML = cms.bool(True),                                     
+  maxEvents =  cms.int32(10000), #FIXME
+  dumpResultToXML = cms.bool(False),                                     
+  dumpGPToXML = cms.bool(False),                                     
   makeConnectionsMaps = cms.bool(False),                                      
   omtf = cms.PSet(
     configXMLFile = cms.string(path+"hwToLogicLayer.xml"),

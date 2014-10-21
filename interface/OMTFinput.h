@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <ostream>
+#include <bitset>
 
 class XMLConfigReader;
 
@@ -28,10 +29,12 @@ class OMTFinput{
   void readData(XMLConfigReader *aReader, 
 		unsigned int iEvent=0);
 
-  ///Apply shitf to all data
+  ///Apply shift to all data
   void shiftMyPhi(int phiShift);
 
   const OMTFinput::vector1D & getLayerData(unsigned int iLayer) const;
+
+  std::bitset<80> getRefHits(unsigned int iProcessor) const;
 
   friend std::ostream & operator << (std::ostream &out, const OMTFinput & aInput);
 
@@ -41,6 +44,11 @@ class OMTFinput{
   ///First index: layer number
   ///Second index: measurement number within layer
   vector2D measurements; 
+
+  ///Bitset of reference hit flags
+  ///If there is a reference hit matching definition for
+  ///i-th ref hit index==i is set to true
+  //std::bitset<80> refHits;
 
 };
 

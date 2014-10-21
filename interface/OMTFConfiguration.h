@@ -13,6 +13,37 @@ namespace edm{
   class ParameterSet;
 }
 
+class RefHitDef{
+
+ public:
+
+  //FIXME: default values should be sonnected to configuration values
+  RefHitDef(unsigned int aInput=15, 
+	    int aPhiMin=4096, 
+	    int aPhiMax=4096,
+	    unsigned int aRegion=99,
+	    unsigned int aRefLayer=99);
+
+
+ public:
+
+  bool fitsRange(int iPhi) const;
+  
+  ///Hit input number within a cone
+  unsigned int iInput;
+
+  ///Region number assigned to this referecne hit
+  unsigned int iRegion;
+
+  ///Reference layer logic number (0-7)
+  unsigned int iRefLayer;
+
+  ///Local to processor phi range.
+  ///Hit has to fit into this range to be assigned to this iRegion;
+  std::pair<int, int> range;
+
+};
+
 class OMTFConfiguration{
 
  public:
@@ -31,6 +62,7 @@ class OMTFConfiguration{
   static unsigned int nPdfValBits;
   static unsigned int nPhiBins;
   static unsigned int nRefHits;
+  static unsigned int nTestRefHits;
     
   static std::map<int,int> hwToLogicLayer;
   static std::map<int,int> logicToHwLayer;
@@ -44,7 +76,7 @@ class OMTFConfiguration{
   ///Second index: referecne layer number
   static std::vector<std::vector<int> > processorPhiVsRefLayer;
 
-  ///Begin and end local phi for each processor and each referecne layer    
+  ///Begin and end local phi for each processor and each reference layer    
   ///First index: processor number
   ///Second index: reference layer number
   ///Third index: region
@@ -52,13 +84,20 @@ class OMTFConfiguration{
   ///pair.second: ending phi of region (inclusive)
   static std::vector<std::vector<std::vector<std::pair<int,int> > > >regionPhisVsRefLayerVsProcessor;
 
+  ///Vector with definitions of reference hits
+  ///Vector has fixed size of 80
+  ///Order of elements defines priority order
+  ///First index: processor number (0-5)
+  ///Second index: ref hit number (0-79)
+  static std::vector<std::vector<RefHitDef> > refHitsDefs;
+
   ///Map of connections
   typedef std::vector< std::pair<unsigned int, unsigned int> > vector1D_A;
   typedef std::vector<vector1D_A > vector2D_A;
   typedef std::vector<vector2D_A > vector3D_A;
   static vector3D_A connections;
 
-  ///Temporary hack to pass data from deep in class
+  ///Temporary hack to pass data from deep inside class
   typedef std::vector<int> vector1D;
   typedef std::vector<vector1D > vector2D;
   typedef std::vector<vector2D > vector3D;

@@ -75,18 +75,19 @@ const std::vector<OMTFProcessor::resultsMap> & OMTFProcessor::processInput(unsig
 
   for(auto & itRegion: myResults) for(auto & itKey: itRegion) itKey.second.clear();
 
-  ///Number of reference hits to be checked. 
-  ///Value read from XML configuration
-  unsigned int nTestedRefHits = OMTFConfiguration::nTestRefHits;
-
   //////////////////////////////////////
   //////////////////////////////////////  
   std::bitset<80> refHitsBits = aInput.getRefHits(iProcessor);
   if(refHitsBits.none()) return myResults;
+  
+  //if(refHitsBits.count()>4) std::cout<<"ref hits: "<<refHitsBits.to_string()<<std::endl;
  
   for(unsigned int iLayer=0;iLayer<OMTFConfiguration::nLayers;++iLayer){
     const OMTFinput::vector1D & layerHits = aInput.getLayerData(iLayer);
     if(!layerHits.size()) continue;
+    ///Number of reference hits to be checked. 
+    ///Value read from XML configuration
+    unsigned int nTestedRefHits = OMTFConfiguration::nTestRefHits;
     for(unsigned int iRefHit=0;iRefHit<80;++iRefHit){
       if(!refHitsBits[iRefHit]) continue;
       if(nTestedRefHits--==0) break;

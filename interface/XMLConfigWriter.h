@@ -16,7 +16,6 @@ class L1Obj;
 struct Key;
 
 namespace XERCES_CPP_NAMESPACE{
-
   class DOMElement;
   class DOMDocument;
   class DOMImplementation;

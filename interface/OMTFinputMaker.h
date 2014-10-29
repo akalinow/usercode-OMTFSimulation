@@ -4,7 +4,9 @@
 #include <vector>
 #include <stdint.h>
 
-//class EventObj;
+#include "DataFormats/L1TMuon/interface/L1TMuonTriggerPrimitive.h"
+#include "DataFormats/L1TMuon/interface/L1TMuonTriggerPrimitiveFwd.h"
+
 class MtfCoordinateConverter;
 class OMTFinput;
 
@@ -16,25 +18,23 @@ class OMTFinputMaker{
 
  public:
 
-  typedef std::pair<uint32_t, uint32_t> DigiSpec;
-  typedef std::vector< DigiSpec > VDigiSpec;
-
   OMTFinputMaker();
 
   ~OMTFinputMaker();
 
   void initialize(const edm::EventSetup& es);
 
-  const OMTFinput * getEvent(const VDigiSpec & vDigi);
-
-  const OMTFinput * buildInputForProcessor(const VDigiSpec & vDigi, unsigned int iProcessor);
+  ///Method translating trigger digis into input matrix with global phi coordinates
+  ///Flavour using a vector of trigger primitives. 
+  const OMTFinput * buildInputForProcessor(const L1TMuon::TriggerPrimitiveCollection & vDigi, unsigned int iProcessor);
 
  private:
 
   ///Check if digis are within a give processor input.
   ///Simply checks sectors range. 
-  bool acceptDigi(const DigiSpec & aDigi,
-		  unsigned int iProcessor=0);
+  bool acceptDigi(uint32_t rawId, unsigned int iProcessor);
+
+  bool filterDigiQuality(const L1TMuon::TriggerPrimitive & aDigi) const;
 
   ///Give input number for givedn processor, using
   ///the chamber sector number. 
@@ -42,7 +42,6 @@ class OMTFinputMaker{
   unsigned int getInputNumber(unsigned int rawId, 
 			      unsigned int iProcessor);
   
-  MtfCoordinateConverter *myPhiConverter;
   OMTFinput *myInput;
   
 };

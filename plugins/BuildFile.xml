@@ -1,7 +1,5 @@
-<use   name="UserCode/L1RpcTriggerAnalysis"/>
+<use   name="DataFormats/L1TMuon"/>
 <use   name="UserCode/OMTFSimulation"/>
-
-<Flags CXXFLAGS="-I/scratch_local/akalinow/CMS/OverlapTrackFinder/Dev4/CMSSW_7_0_1/src/UserCode/OMTFSimulation/"/>
 
 <library   file="*.cc" name="UserCodeOMTFSimulationPlugins">
   <flags   EDM_PLUGIN="1"/>

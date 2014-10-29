@@ -79,9 +79,7 @@ const std::vector<OMTFProcessor::resultsMap> & OMTFProcessor::processInput(unsig
   //////////////////////////////////////  
   std::bitset<80> refHitsBits = aInput.getRefHits(iProcessor);
   if(refHitsBits.none()) return myResults;
-  
-  //if(refHitsBits.count()>4) std::cout<<"ref hits: "<<refHitsBits.to_string()<<std::endl;
- 
+   
   for(unsigned int iLayer=0;iLayer<OMTFConfiguration::nLayers;++iLayer){
     const OMTFinput::vector1D & layerHits = aInput.getLayerData(iLayer);
     if(!layerHits.size()) continue;
@@ -105,34 +103,7 @@ const std::vector<OMTFProcessor::resultsMap> & OMTFProcessor::processInput(unsig
     }
   }  
   //////////////////////////////////////
-  //////////////////////////////////////
-  
-  /*
-  for(unsigned int iRefLayer=0;iRefLayer<OMTFConfiguration::nRefLayers;++iRefLayer){
-    const OMTFinput::vector1D & refLayerHits = aInput.getLayerData(OMTFConfiguration::refToLogicNumber[iRefLayer]);	
-    if(!refLayerHits.size()) continue;
-    //////////////////////
-    for(unsigned int iLayer=0;iLayer<OMTFConfiguration::nLayers;++iLayer){
-      const OMTFinput::vector1D & layerHits = aInput.getLayerData(iLayer);
-      if(!layerHits.size()) continue;
-      for(unsigned int iInput=0;iInput<refLayerHits.size();++iInput){	
-	  int phiRef = refLayerHits[iInput];
-	  unsigned int iRegion = OMTFConfiguration::getRegionNumberFromMap(iProcessor,iRefLayer,phiRef);
-	  if(iRegion>5) continue;
-	  if(phiRef>=(int)OMTFConfiguration::nPhiBins) continue;
-	  if(OMTFConfiguration::bendingLayers.count(iLayer)) phiRef = 0;
-	  const OMTFinput::vector1D restrictedLayerHits = restrictInput(iProcessor, iRegion, iLayer,layerHits);
-	  for(auto itGP: theGPs){
-	    GoldenPattern::layerResult aLayerResult = itGP.second->process1Layer1RefLayer(iRefLayer,iLayer,
-											  phiRef,
-											  restrictedLayerHits);
-	    myResults[iRegion][itGP.second->key()].addResult(iRefLayer,iLayer,aLayerResult.first,phiRef);	 
-	  }
-      }      
-    }
-  }
-  */
-
+  ////////////////////////////////////// 
   for(auto & itRegion: myResults) for(auto & itKey: itRegion) itKey.second.finalise();
 
 

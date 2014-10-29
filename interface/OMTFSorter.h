@@ -6,7 +6,9 @@
 #include "UserCode/OMTFSimulation/interface/OMTFResult.h"
 #include "UserCode/OMTFSimulation/interface/OMTFProcessor.h"
 
-#include "UserCode/L1RpcTriggerAnalysis/interface/L1Obj.h"
+#include "UserCode/OMTFSimulation/interface/L1Obj.h"
+
+class L1MuRegionalCand;
 
 class OMTFSorter{
 
@@ -17,6 +19,10 @@ class OMTFSorter{
   ///Then select best candidate amongs found for each logic region
   L1Obj sortProcessorResults(const std::vector<OMTFProcessor::resultsMap> & procResults);
 
+  ///Sort all processor results. 
+  ///First for each region cone find a best candidate using sortRegionResults() 
+  ///Then select best candidate amongs found for each logic region
+  L1MuRegionalCand sortProcessor(const std::vector<OMTFProcessor::resultsMap> & procResults);
 
   ///Sort results for signle logic region.
   ///Select candidate with highed number of hit layers

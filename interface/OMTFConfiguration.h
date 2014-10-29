@@ -131,6 +131,12 @@ class OMTFConfiguration{
   ///Uses minim phi over all reference layers.
   static int globalPhiStart(unsigned int iProcessor);
 
+  ///Return layer number encoding subsystem, and
+  ///station number in a simple formula:
+  /// aLayer+100*detId.subdetId()
+  ///where aLayer is a layer number counting from vertex
+  static uint32_t getLayerNumber(uint32_t rawId);
+
 };
 
 

@@ -1,5 +1,10 @@
 #include <iostream>
 
+#include "DataFormats/MuonDetId/interface/CSCDetId.h"
+#include "DataFormats/MuonDetId/interface/RPCDetId.h"
+#include "DataFormats/MuonDetId/interface/DTChamberId.h"
+#include "DataFormats/MuonDetId/interface/MuonSubdetId.h"
+
 #include "UserCode/OMTFSimulation/interface/OMTFConfiguration.h"
 #include "UserCode/OMTFSimulation/interface/XMLConfigReader.h"
 
@@ -26,7 +31,6 @@ std::vector<std::vector<std::vector<std::pair<int,int> > > >OMTFConfiguration::r
 
 std::vector<std::vector<RefHitDef> >OMTFConfiguration::refHitsDefs;
 
-
 OMTFConfiguration::vector4D OMTFConfiguration::measurements4D;
 OMTFConfiguration::vector4D OMTFConfiguration::measurements4Dref;
 
@@ -52,7 +56,7 @@ bool RefHitDef::fitsRange(int iPhi) const{
 ///////////////////////////////////////////////
 OMTFConfiguration::OMTFConfiguration(const edm::ParameterSet & theConfig){
 
-  if ( !theConfig.exists("configXMLFile") ) return;
+  if (!theConfig.exists("configXMLFile") ) return;
   std::string fName = theConfig.getParameter<std::string>("configXMLFile");
 
   XMLConfigReader myReader;
@@ -73,8 +77,6 @@ OMTFConfiguration::OMTFConfiguration(const edm::ParameterSet & theConfig){
   ///Vector of all processors
   measurements4D.assign(6,aLayer3D);
   measurements4Dref.assign(6,aLayer3D);
-
-
 }
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
@@ -169,6 +171,48 @@ int OMTFConfiguration::globalPhiStart(unsigned int iProcessor){
   return *std::min_element(OMTFConfiguration::processorPhiVsRefLayer[iProcessor].begin(),
 			   OMTFConfiguration::processorPhiVsRefLayer[iProcessor].end());
 
+}
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+uint32_t OMTFConfiguration::getLayerNumber(uint32_t rawId){
+
+  uint32_t aLayer = 0;
+  
+  DetId detId(rawId);
+  if (detId.det() != DetId::Muon){
+    std::cout << "PROBLEM: hit in unknown Det, detID: "<<detId.det()<<std::endl;
+    return rawId;
+  }
+
+  switch (detId.subdetId()) {
+  case MuonSubdetId::RPC: {
+    RPCDetId aId(rawId);
+    bool isBarrel = aId.region()==0;
+    unsigned int aLayer = 0;
+    if(isBarrel) aLayer = aId.station() <=2  ? 
+		   2*( aId.station()-1)+ aId.layer() 
+		   : aId.station()+2;
+    else aLayer = aId.station(); 
+    aLayer+= 10*(!isBarrel);
+    ///Necessary for ME1/1
+    ///if(aId.ring()==1 && aIdUtil.layer()==1) aLayer = aIdUtil.layer() + 20*(!aIdUtil.isBarrel());
+  }
+    break;
+  case MuonSubdetId::DT: {
+    DTChamberId dt(rawId);
+    aLayer = dt.station();
+    break;
+  }
+  case MuonSubdetId::CSC: {
+    CSCDetId csc(rawId);
+    aLayer = csc.station();
+    break;
+  }
+  }  
+
+  int hwNumber = aLayer+100*detId.subdetId();
+
+  return hwNumber;
 }
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////

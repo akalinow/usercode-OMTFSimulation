@@ -4,7 +4,7 @@
 
 #include "FWCore/MessageLogger/interface/MessageLogger.h"
 
-#include "UserCode/L1RpcTriggerAnalysis/interface/L1RpcTriggerAnalysisEfficiencyUtilities.h"
+#include "DataFormats/L1GlobalMuonTrigger/interface/L1MuRegionalCand.h"
 
 #include "UserCode/OMTFSimulation/interface/OMTFConfiguration.h"
 #include "UserCode/OMTFSimulation/interface/OMTFSorter.h"
@@ -76,14 +76,8 @@ L1Obj OMTFSorter::sortRegionResults(const OMTFProcessor::resultsMap & aResultsMa
   }  
 
   L1Obj candidate;
-  candidate.pt =  L1RpcTriggerAnalysisEfficiencyUtilities::PtScale::ptValue(bestKey.thePtCode);
-  candidate.eta = bestKey.theEtaCode;
-  ////Swith from internal processor 10bit scale to global one
-  unsigned int iProcessor = 0; //Dummy value for now
-  int procOffset = OMTFConfiguration::globalPhiStart(iProcessor);
-  if(procOffset<0) procOffset+=OMTFConfiguration::nPhiBins;
-  refPhi+=OMTFConfiguration::globalPhiStart(iProcessor)+511;
-  ///
+  candidate.pt =  bestKey.thePtCode;
+  candidate.eta = bestKey.theEtaCode; 
   candidate.phi = refPhi;
   candidate.charge = bestKey.theCharge;
   candidate.q   = nHitsMax;
@@ -106,13 +100,26 @@ L1Obj OMTFSorter::sortProcessorResults(const std::vector<OMTFProcessor::resultsM
     if(itCand.q>candidate.q) candidate = itCand;
     if(itCand.q==candidate.q && itCand.disc>candidate.disc) candidate = itCand;
   }
-
-/*
   std::ostringstream myStr;
   for(unsigned int iRegion=0;iRegion<regionCands.size();++iRegion) myStr<<"Logic Region: "<<iRegion<<" "<<regionCands[iRegion]<<std::endl;
   myStr<<"Selected Candidate: "<<candidate<<std::endl;
   edm::LogInfo("OMTF Sorter")<<myStr.str();
-*/
+
+  return candidate;
+}
+///////////////////////////////////////////////////////
+///////////////////////////////////////////////////////
+L1MuRegionalCand OMTFSorter::sortProcessor(const std::vector<OMTFProcessor::resultsMap> & procResults){
+
+  L1Obj myCand = sortProcessorResults(procResults);
+
+  L1MuRegionalCand candidate;
+  std::cout<<"myCand.pt: "<<myCand.pt<<std::endl;
+  candidate.setPhiValue(myCand.phi);
+  candidate.setPtPacked(myCand.pt);
+  candidate.setQualityPacked(4);//FIX ME
+  candidate.setChargeValue(myCand.charge);
+
   return candidate;
 }
 ///////////////////////////////////////////////////////

@@ -1,11 +1,12 @@
+#include "FWCore/Framework/interface/Event.h"
+
 #include "UserCode/OMTFSimulation/interface/XMLConfigWriter.h"
 #include "UserCode/OMTFSimulation/interface/GoldenPattern.h"
 #include "UserCode/OMTFSimulation/interface/OMTFinput.h"
 #include "UserCode/OMTFSimulation/interface/OMTFConfiguration.h"
 #include "UserCode/OMTFSimulation/interface/OMTFResult.h"
 
-#include "UserCode/L1RpcTriggerAnalysis/interface/L1Obj.h"
-#include "UserCode/L1RpcTriggerAnalysis/interface/L1RpcTriggerAnalysisEfficiencyUtilities.h"
+#include "UserCode/OMTFSimulation/interface/L1Obj.h"
 
 #include <iostream>
 #include <sstream>
@@ -167,7 +168,8 @@ void  XMLConfigWriter::writeCandidateData(xercesc::DOMElement *aTopElement,
   stringStr<<iRegion;
   aResult->setAttribute(_toDOMS("iRegion"),_toDOMS(stringStr.str()));
   stringStr.str("");
-  stringStr<<L1RpcTriggerAnalysisEfficiencyUtilities::PtScale::ptCode(aCand.pt);
+  //stringStr<<L1RpcTriggerAnalysisEfficiencyUtilities::PtScale::ptCode(aCand.pt);
+  stringStr<<aCand.pt;
   aResult->setAttribute(_toDOMS("ptCode"),_toDOMS(stringStr.str()));
   stringStr.str("");
   stringStr<<aCand.charge;

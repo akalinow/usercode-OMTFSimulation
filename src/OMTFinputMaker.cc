@@ -1,17 +1,14 @@
 #include <cmath>
 #include <iostream>
 
+#include "DataFormats/MuonDetId/interface/CSCDetId.h"
+#include "DataFormats/MuonDetId/interface/RPCDetId.h"
+#include "DataFormats/MuonDetId/interface/DTChamberId.h"
+#include "DataFormats/MuonDetId/interface/MuonSubdetId.h"
+
 #include "UserCode/OMTFSimulation/interface/OMTFinputMaker.h"
 #include "UserCode/OMTFSimulation/interface/OMTFinput.h"
 #include "UserCode/OMTFSimulation/interface/OMTFConfiguration.h"
-#include "UserCode/OMTFSimulation/interface/MtfCoordinateConverter.h"
-
-#include "UserCode/L1RpcTriggerAnalysis/interface/EventObj.h"
-#include "UserCode/L1RpcTriggerAnalysis/interface/RPCDetIdUtil.h"
-#include "UserCode/L1RpcTriggerAnalysis/interface/DTphDigiSpec.h"
-#include "UserCode/L1RpcTriggerAnalysis/interface/CSCDigiSpec.h"
-#include "UserCode/L1RpcTriggerAnalysis/interface/RPCDigiSpec.h"
-#include "DataFormats/MuonDetId/interface/MuonSubdetId.h"
 
 #include "FWCore/Framework/interface/EventSetup.h"
 #include "FWCore/MessageLogger/interface/MessageLogger.h"
@@ -25,23 +22,17 @@ OMTFinputMaker::OMTFinputMaker(){
 }
 ///////////////////////////////////////
 ///////////////////////////////////////
-void OMTFinputMaker::initialize(const edm::EventSetup& es){
-
- myPhiConverter = new MtfCoordinateConverter(es);
-  myPhiConverter->setReferencePhi(0);
-
-}
+void OMTFinputMaker::initialize(const edm::EventSetup& es){ }
 ///////////////////////////////////////
 ///////////////////////////////////////
 OMTFinputMaker::~OMTFinputMaker(){ 
 
   if(myInput) delete myInput;
-  if(myPhiConverter) delete myPhiConverter;
 
 }
 ///////////////////////////////////////
 ///////////////////////////////////////
-bool  OMTFinputMaker::acceptDigi(const DigiSpec & aDigi,
+bool  OMTFinputMaker::acceptDigi(uint32_t rawId,
 				 unsigned int iProcessor){
   
   int barrelChamberMin = iProcessor*2 + 1;
@@ -51,7 +42,6 @@ bool  OMTFinputMaker::acceptDigi(const DigiSpec & aDigi,
   int endcapChamberMax = (iProcessor*6 + 6 +1);
 
   ///Clean up digis. Remove unconnected detectors
-  uint32_t rawId = aDigi.first;   
   DetId detId(rawId);
   if (detId.det() != DetId::Muon) 
     edm::LogError("Critical OMTFinputMaker") << "PROBLEM: hit in unknown Det, detID: "<<detId.det()<<std::endl;
@@ -71,13 +61,11 @@ bool  OMTFinputMaker::acceptDigi(const DigiSpec & aDigi,
   }
     break;
   case MuonSubdetId::DT: {
-    DTphDigiSpec digi(rawId, aDigi.second);
     DTChamberId dt(rawId);
     ///DT sector counts from 0. Other subsystems count from 1
     if(barrelChamberMax==13 && dt.sector()+1==1) return true;
     if(dt.sector()+1<barrelChamberMin || dt.sector()+1>barrelChamberMax) return false;
-    ///Select DT digis with hits in inner and outer layers 
-    if (digi.bxNum() != 0 || digi.bxCnt() != 0 || digi.ts2() != 0 ||  digi.code()<4) return false;	
+   	
     break;
   }
   case MuonSubdetId::CSC: {
@@ -89,6 +77,21 @@ bool  OMTFinputMaker::acceptDigi(const DigiSpec & aDigi,
     break;
   }
   }
+  return true;
+}
+///////////////////////////////////////
+///////////////////////////////////////
+bool OMTFinputMaker::filterDigiQuality(const L1TMuon::TriggerPrimitive & aDigi) const{
+
+  switch (aDigi.subsystem()) {
+  case L1TMuon::TriggerPrimitive::kDT: {
+    if (aDigi.getDTData().bx!= 0 || aDigi.getDTData().BxCntCode!= 0 || aDigi.getDTData().Ts2TagCode!= 0 || aDigi.getDTData().qualityCode<4) return false;  
+    break;
+  }
+  case L1TMuon::TriggerPrimitive::kCSC: {}
+  case L1TMuon::TriggerPrimitive::kRPC: {}
+  case L1TMuon::TriggerPrimitive::kNSubsystems: {}
+  }    
   return true;
 }
 ///////////////////////////////////////
@@ -131,79 +134,39 @@ unsigned int OMTFinputMaker::getInputNumber(unsigned int rawId,
   }
   return iInput;
 }
-///////////////////////////////////////
-///////////////////////////////////////
-const OMTFinput * OMTFinputMaker::getEvent(const VDigiSpec & vDigi){
-
-  myInput->clear();
-
-  for (auto digiIt:vDigi) {
-    if(!acceptDigi(digiIt)) continue;
- 
-    uint32_t rawId = digiIt.first;
-    
-    unsigned int hwNumber = MtfCoordinateConverter::getLayerNumber(rawId);
-    unsigned int iLayer = OMTFConfiguration::hwToLogicLayer[hwNumber];
-    unsigned int nGlobalPhi = OMTFConfiguration::nPhiBins;
-    unsigned int iInput = 0;
-    myInput->addLayerHit(iLayer,iInput,myPhiConverter->convert(digiIt,nGlobalPhi));
-
-    DetId detId(rawId);
-    if (detId.det() != DetId::Muon) 
-      edm::LogError("Critical OMTFinputMaker") << "PROBLEM: hit in unknown Det, detID: "<<detId.det()<<std::endl;
-    switch (detId.subdetId()) {
-      case MuonSubdetId::DT: {
-        DTphDigiSpec digi(rawId,digiIt.second);
-	myInput->addLayerHit(iLayer+1,iInput,digi.phiB());
-        break;
-      }
-      case MuonSubdetId::CSC: {
-        CSCDigiSpec digi(rawId,digiIt.second);
-	myInput->addLayerHit(iLayer+1,iInput,digi.pattern());
-        break;
-      }
-    };
-  }
-  return myInput;
-}
 ////////////////////////////////////////////
 ////////////////////////////////////////////
-const OMTFinput * OMTFinputMaker::buildInputForProcessor(const VDigiSpec & vDigi,
+const OMTFinput * OMTFinputMaker::buildInputForProcessor(const L1TMuon::TriggerPrimitiveCollection & vDigi,
 							 unsigned int iProcessor){
-
   myInput->clear();	
   
   ///Prepare inpout for individual processors.
   for (auto digiIt:vDigi) { 
     ///Check it the data fits into given processor input range
-    if(!acceptDigi(digiIt, iProcessor)) continue;
+    if(!acceptDigi(digiIt.rawId(), iProcessor)) continue;
+    if(!filterDigiQuality(digiIt)) continue;
 
-    uint32_t rawId = digiIt.first;   
-    unsigned int hwNumber = MtfCoordinateConverter::getLayerNumber(rawId);
+    unsigned int hwNumber = OMTFConfiguration::getLayerNumber(digiIt.rawId());
     unsigned int iLayer = OMTFConfiguration::hwToLogicLayer[hwNumber];
     unsigned int nGlobalPhi = OMTFConfiguration::nPhiBins;
-    int iPhi = myPhiConverter->convert(digiIt,nGlobalPhi);
-    unsigned int iInput= getInputNumber(rawId, iProcessor);
+    int iPhi =  digiIt.getCMSGlobalPhi()/(2.0*M_PI)*nGlobalPhi;
+    unsigned int iInput= getInputNumber(digiIt.rawId(), iProcessor);
     myInput->addLayerHit(iLayer,iInput,iPhi);
-    DetId detId(rawId);
-    if (detId.det() != DetId::Muon) 
-      edm::LogError("Critical OMTFinputMaker") << "PROBLEM: hit in unknown Det, detID: "<<detId.det()<<std::endl;
-    switch (detId.subdetId()) {
-    case MuonSubdetId::DT: {
-      DTphDigiSpec digi(rawId,digiIt.second);
-      myInput->addLayerHit(iLayer+1,iInput,digi.phiB());
+    
+    switch (digiIt.subsystem()) {
+    case L1TMuon::TriggerPrimitive::kDT: {
+      myInput->addLayerHit(iLayer+1,iInput,digiIt.getDTData().bendingAngle);
       break;
     }
-    case MuonSubdetId::CSC: {
-        CSCDigiSpec digi(rawId,digiIt.second);
-	myInput->addLayerHit(iLayer+1,iInput,digi.pattern());
+    case L1TMuon::TriggerPrimitive::kCSC: {
+      myInput->addLayerHit(iLayer+1,iInput,digiIt.getCSCData().pattern);
         break;
-      }
-    };
+    }
+    case L1TMuon::TriggerPrimitive::kRPC: {}
+    case L1TMuon::TriggerPrimitive::kNSubsystems: {}
+    };    
   }
   return myInput;
 }
 ////////////////////////////////////////////
 ////////////////////////////////////////////
-
-

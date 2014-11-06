@@ -28,6 +28,11 @@ class OMTFinputMaker{
   ///Flavour using a vector of trigger primitives. 
   const OMTFinput * buildInputForProcessor(const L1TMuon::TriggerPrimitiveCollection & vDigi, unsigned int iProcessor);
 
+  ///Decluster PRC digis. Consecutive set of fires strips has a ccordinate
+  ///equal to begin+end, which is the mean expresses in half RPC strips granularity.
+  void declusterRPC(const L1TMuon::TriggerPrimitiveCollection & vDigi);
+
+
  private:
 
   ///Check if digis are within a give processor input.
@@ -41,7 +46,11 @@ class OMTFinputMaker{
   ///Result is modulo allowed number of hits per chamber
   unsigned int getInputNumber(unsigned int rawId, 
 			      unsigned int iProcessor);
-  
+  /*
+  ///Helper function for sorting the RPC primitives by strip number
+  bool rpcPrimitiveCmp(const L1TMuon::TriggerPrimitive *a,
+		       const L1TMuon::TriggerPrimitive *b) { return a->getStrip()<b->getStrip(); };
+  */
   OMTFinput *myInput;
   
 };

@@ -1,4 +1,5 @@
 #include <cmath>
+#include <vector>
 #include <iostream>
 
 #include "DataFormats/MuonDetId/interface/CSCDetId.h"
@@ -114,34 +115,36 @@ unsigned int OMTFinputMaker::getInputNumber(unsigned int rawId,
     if(rpc.region()!=0) iInput = ((rpc.sector()-1)*6+rpc.subsector()-endcapChamberMin)*2;
     if(iProcessor==5 && rpc.region()==0 && rpc.sector()==1) iInput = 4;
     if(iProcessor==5 && rpc.region()!=0 && (rpc.sector()-1)*6+rpc.subsector()==1) iInput = 12;
-    //std::cout<<rpc<<" iInput: "<<iInput<<" iProcessor: "<<iProcessor<<std::endl;    
     break;
   }
   case MuonSubdetId::DT: {
     DTChamberId dt(rawId);
     iInput = (dt.sector()+1-barrelChamberMin)*2;
     if(iProcessor==5 && dt.sector()+1==1) iInput = 4;
-    //std::cout<<dt<<" iInput: "<<iInput<<" iProcessor: "<<iProcessor<<std::endl;
     break;
   }
   case MuonSubdetId::CSC: {
     CSCDetId csc(rawId);
     iInput = (csc.chamber()-endcapChamberMin)*2;
     if(iProcessor==5 && csc.chamber()==1) iInput = 12;
-    //std::cout<<csc<<" iInput: "<<iInput<<" iProcessor: "<<iProcessor<<std::endl;
     break;
   }
   }
   return iInput;
 }
 ////////////////////////////////////////////
+///Helper function for sorting the RPC primitives by strip number
+bool rpcPrimitiveCmp(const L1TMuon::TriggerPrimitive *a,
+		     const L1TMuon::TriggerPrimitive *b) { return a->getStrip()<b->getStrip(); };
 ////////////////////////////////////////////
 const OMTFinput * OMTFinputMaker::buildInputForProcessor(const L1TMuon::TriggerPrimitiveCollection & vDigi,
 							 unsigned int iProcessor){
   myInput->clear();	
+
+  std::map<unsigned int, std::vector<const L1TMuon::TriggerPrimitive *> > detMap;
   
   ///Prepare inpout for individual processors.
-  for (auto digiIt:vDigi) { 
+  for (const auto &digiIt:vDigi) { 
     ///Check it the data fits into given processor input range
     if(!acceptDigi(digiIt.rawId(), iProcessor)) continue;
     if(!filterDigiQuality(digiIt)) continue;
@@ -151,7 +154,7 @@ const OMTFinput * OMTFinputMaker::buildInputForProcessor(const L1TMuon::TriggerP
     unsigned int nGlobalPhi = OMTFConfiguration::nPhiBins;
     int iPhi =  digiIt.getCMSGlobalPhi()/(2.0*M_PI)*nGlobalPhi;
     unsigned int iInput= getInputNumber(digiIt.rawId(), iProcessor);
-    myInput->addLayerHit(iLayer,iInput,iPhi);
+    if(digiIt.subsystem()!=L1TMuon::TriggerPrimitive::kRPC) myInput->addLayerHit(iLayer,iInput,iPhi);
     
     switch (digiIt.subsystem()) {
     case L1TMuon::TriggerPrimitive::kDT: {
@@ -162,11 +165,70 @@ const OMTFinput * OMTFinputMaker::buildInputForProcessor(const L1TMuon::TriggerP
       myInput->addLayerHit(iLayer+1,iInput,digiIt.getCSCData().pattern);
         break;
     }
-    case L1TMuon::TriggerPrimitive::kRPC: {}
+    case L1TMuon::TriggerPrimitive::kRPC: {
+      if(detMap.find(digiIt.rawId())==detMap.end()) detMap[digiIt.rawId()] = std::vector<const L1TMuon::TriggerPrimitive *>(0);
+      detMap[digiIt.rawId()].push_back(&(digiIt));
+      break;
+    }
     case L1TMuon::TriggerPrimitive::kNSubsystems: {}
     };    
   }
+
+  std::ostringstream myStr;
+  ///Decluster hits in each RPC detId
+  typedef std::tuple<unsigned int,const L1TMuon::TriggerPrimitive *, const L1TMuon::TriggerPrimitive *> halfDigi;
+  std::vector<halfDigi> result;
+
+  for(auto detIt:detMap) {   
+    myStr<<"det: "<<detIt.first<<" size: "<<detIt.second.size()<<std::endl;
+    std::sort(detIt.second.begin(), detIt.second.end(),rpcPrimitiveCmp);    
+    for(auto stripIt: detIt.second) {
+      myStr<<"strip: "<<stripIt->getStrip()<<std::endl;
+      if (result.empty() || std::get<0>(result.back()) != detIt.first) result.push_back(halfDigi(detIt.first,stripIt,stripIt));
+      else if (stripIt->getStrip() - std::get<2>(result.back())->getStrip() == 1) std::get<2>(result.back()) = stripIt;
+      else if (stripIt->getStrip() - std::get<2>(result.back())->getStrip() > 1) result.push_back(halfDigi(detIt.first,stripIt,stripIt));
+    }
+  }
+  for(auto halfDigiIt:result) myStr<<"halfDigi: "<<std::get<1>(halfDigiIt)->getStrip()<<" "<<std::get<2>(halfDigiIt)->getStrip()<<std::endl;
+  edm::LogInfo("OMTFInputMaker")<<myStr.str();
+  
   return myInput;
+}
+////////////////////////////////////////////
+////////////////////////////////////////////
+void OMTFinputMaker::declusterRPC(const L1TMuon::TriggerPrimitiveCollection & vDigi){
+
+  std::map<unsigned int, std::vector<int> > detMap;
+
+  ///Sort RPC digis by a detId
+  for (auto digiIt:vDigi) {
+    if(digiIt.subsystem()==L1TMuon::TriggerPrimitive::kRPC) {
+      if(detMap.find(digiIt.rawId())==detMap.end()) detMap[digiIt.rawId()] = std::vector<int>(0); 
+	 detMap[digiIt.rawId()].push_back(digiIt.getStrip());
+	 }
+    }
+
+
+  std::ostringstream myStr;
+
+
+    typedef std::tuple<unsigned int,int,int> halfDigi;
+    std::vector<halfDigi> result;
+    ///Decluster hits in each detId
+    for(auto &detIt:detMap) {
+      myStr<<"det: "<<detIt.first<<std::endl;
+      std::sort(detIt.second.begin(), detIt.second.end());
+      for(const auto &stripIt:detIt.second) {
+	myStr<<"strip: "<<stripIt<<std::endl;
+	if (result.empty() || std::get<0>(result.back()) != detIt.first) result.push_back(halfDigi(detIt.first,stripIt,stripIt));
+	else if (stripIt - std::get<2>(result.back()) == 1) std::get<2>(result.back()) = stripIt;
+	else if (stripIt - std::get<2>(result.back()) > 1) result.push_back(halfDigi(detIt.first,stripIt,stripIt));
+      }
+    } 
+      for(auto halfDigiIt:result) myStr<<"halfDigi: "<<std::get<1>(halfDigiIt)<<" "<<std::get<2>(halfDigiIt)<<std::endl;
+    
+
+    edm::LogInfo("OMTFInputMaker")<<myStr.str();
 }
 ////////////////////////////////////////////
 ////////////////////////////////////////////

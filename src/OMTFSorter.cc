@@ -51,7 +51,7 @@ std::tuple<unsigned int,unsigned int, int> OMTFSorter::sortSingleResult(const OM
 }
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
-L1Obj OMTFSorter::sortRegionResults(const OMTFProcessor::resultsMap & aResultsMap){
+InternalObj OMTFSorter::sortRegionResults(const OMTFProcessor::resultsMap & aResultsMap){
 
   unsigned int pdfValMax = 0;
   unsigned int nHitsMax = 0;
@@ -75,24 +75,24 @@ L1Obj OMTFSorter::sortRegionResults(const OMTFProcessor::resultsMap & aResultsMa
     }
   }  
 
-  L1Obj candidate;
+  InternalObj candidate;
   candidate.pt =  bestKey.thePtCode;
   candidate.eta = bestKey.theEtaCode; 
   candidate.phi = refPhi;
   candidate.charge = bestKey.theCharge;
   candidate.q   = nHitsMax;
   candidate.disc = pdfValMax;
-  candidate.type = L1Obj::OTF;
+  //candidate.refLayer = 
 
   return candidate;
 
 }
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
-L1Obj OMTFSorter::sortProcessorResults(const std::vector<OMTFProcessor::resultsMap> & procResults){
+InternalObj OMTFSorter::sortProcessorResults(const std::vector<OMTFProcessor::resultsMap> & procResults){
 
-  L1Obj candidate;
-  std::vector<L1Obj> regionCands;
+  InternalObj candidate;
+  std::vector<InternalObj> regionCands;
 
   for(auto itRegion: procResults) regionCands.push_back(sortRegionResults(itRegion));
 
@@ -111,10 +111,9 @@ L1Obj OMTFSorter::sortProcessorResults(const std::vector<OMTFProcessor::resultsM
 ///////////////////////////////////////////////////////
 L1MuRegionalCand OMTFSorter::sortProcessor(const std::vector<OMTFProcessor::resultsMap> & procResults){
 
-  L1Obj myCand = sortProcessorResults(procResults);
+  InternalObj myCand = sortProcessorResults(procResults);
 
   L1MuRegionalCand candidate;
-  std::cout<<"myCand.pt: "<<myCand.pt<<std::endl;
   candidate.setPhiValue(myCand.phi);
   candidate.setPtPacked(myCand.pt);
   candidate.setQualityPacked(4);//FIX ME

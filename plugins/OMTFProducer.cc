@@ -93,14 +93,14 @@ void OMTFProducer::produce(edm::Event& iEvent, const edm::EventSetup& aESetup){
     if(procOffset<0) procOffset+=OMTFConfiguration::nPhiBins;
     myOTFCandidate.setPhiValue(myOTFCandidate.phiValue()+OMTFConfiguration::globalPhiStart(iProcessor)+511);
     //////////////////
-    if(myOTFCandidate.ptValue()) myCands->push_back(myOTFCandidate); 
+    if(myOTFCandidate.pt_packed()) myCands->push_back(myOTFCandidate); 
     
     ///Write to XML
     if(dumpResultToXML){
       xercesc::DOMElement * aProcElement = myWriter->writeEventData(aTopElement,iProcessor,myShiftedInput);
       for(unsigned int iRegion=0;iRegion<6;++iRegion){
 	///Dump only regions, where a candidate was found
-	L1Obj myCand = mySorter->sortRegionResults(myResults[iRegion]);
+	InternalObj myCand = mySorter->sortRegionResults(myResults[iRegion]);
 	if(myCand.pt){
 	  myWriter->writeCandidateData(aProcElement,iRegion,myCand);
 	  for(auto & itKey: myResults[iRegion]) myWriter->writeResultsData(aProcElement, 

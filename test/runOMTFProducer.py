@@ -58,7 +58,12 @@ process.MessageLogger = cms.Service("MessageLogger",
        ),
 )
 #Uncomment it to switch off messages
-##process.MessageLogger = cms.Service("MessageLogger")
+#process.MessageLogger = cms.Service("MessageLogger")
+process.MessageLogger.cout = cms.untracked.PSet(INFO = cms.untracked.PSet(
+        reportEvery = cms.untracked.int32(1) # every 100th only
+     ))
+
+
 
 process.source = cms.Source(
     'PoolSource',
@@ -67,7 +72,7 @@ process.source = cms.Source(
                                       )
     )
 
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(10))
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(100))
 
 ###PostLS1 geometry used
 process.load('Configuration.Geometry.GeometryExtendedPostLS1Reco_cff')

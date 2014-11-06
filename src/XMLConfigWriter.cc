@@ -6,7 +6,7 @@
 #include "UserCode/OMTFSimulation/interface/OMTFConfiguration.h"
 #include "UserCode/OMTFSimulation/interface/OMTFResult.h"
 
-#include "UserCode/OMTFSimulation/interface/L1Obj.h"
+#include "UserCode/OMTFSimulation/interface/InternalObj.h"
 
 #include <iostream>
 #include <sstream>
@@ -160,7 +160,7 @@ xercesc::DOMElement * XMLConfigWriter::writeEventData(xercesc::DOMElement *aTopE
 //////////////////////////////////////////////////
 void  XMLConfigWriter::writeCandidateData(xercesc::DOMElement *aTopElement,
 					  unsigned int iRegion,
-					  const L1Obj & aCand){
+					  const InternalObj & aCand){
 
   xercesc::DOMElement* aResult = theDoc->createElement(_toDOMS("Candidate"));
   std::ostringstream stringStr;

@@ -33,8 +33,8 @@ class OMTFSorter{
 
   ///Find a candidate with best parameters for given GoldenPattern
   ///Sorting is made amongs candidates with different reference layers
-  ///The output tuple contains (nHitsMax, pdfValMax, refPhi) 
-  std::tuple<unsigned int,unsigned int, int> sortSingleResult(const OMTFResult & aResult);
+  ///The output tuple contains (nHitsMax, pdfValMax, refPhi, refLayer) 
+  std::tuple<unsigned int,unsigned int, int, int> sortSingleResult(const OMTFResult & aResult);
 
 };
 

@@ -61,6 +61,35 @@ void OMTFProducer::beginJob(){
 }
 /////////////////////////////////////////////////////
 /////////////////////////////////////////////////////  
+void OMTFProducer::endJob(){
+
+  if(dumpResultToXML){
+    std::string fName = "TestEvents.xml";
+    myWriter->finaliseXMLDocument(fName);
+  }
+
+  if(dumpGPToXML){
+    std::string fName = "OMTF";
+    myWriter->initialiseXMLDocument(fName);
+    const std::map<Key,GoldenPattern*> & myGPmap = myOMTF->getPatterns();
+    for(auto itGP: myGPmap){
+      std::cout<<*itGP.second<<std::endl;
+      myWriter->writeGPData(*itGP.second);
+    }
+    fName = "GPs.xml";
+    myWriter->finaliseXMLDocument(fName);
+  }
+
+  if(makeConnectionsMaps){
+    std::string fName = "Connections.xml";  
+    myWriter->writeConnectionsData(OMTFConfiguration::measurements4D);
+    myWriter->finaliseXMLDocument(fName);
+    myOMTFConfigMaker->printPhiMap(std::cout);
+    myOMTFConfigMaker->printConnections(std::cout,0,0);
+  }
+}
+/////////////////////////////////////////////////////
+/////////////////////////////////////////////////////  
 void OMTFProducer::produce(edm::Event& iEvent, const edm::EventSetup& aESetup){
 
   edm::Handle<TriggerPrimitiveCollection> trigPrimitives;

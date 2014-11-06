@@ -11,7 +11,7 @@
 
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
-std::tuple<unsigned int,unsigned int, int> OMTFSorter::sortSingleResult(const OMTFResult & aResult){
+std::tuple<unsigned int,unsigned int, int, int> OMTFSorter::sortSingleResult(const OMTFResult & aResult){
 
   OMTFResult::vector1D pdfValsVec = aResult.getSummaryVals();
   OMTFResult::vector1D nHitsVec = aResult.getSummaryHits();
@@ -22,11 +22,13 @@ std::tuple<unsigned int,unsigned int, int> OMTFSorter::sortSingleResult(const OM
   unsigned int nHitsMax = 0;
   unsigned int pdfValMax = 0;
   int refPhi = 1024;
+  int refLayer = -1;
 
-  std::tuple<unsigned int,unsigned int, int>  sortedResult;
+  std::tuple<unsigned int,unsigned int, int, int>  sortedResult;
   std::get<0>(sortedResult) = nHitsMax;
   std::get<1>(sortedResult) = pdfValMax;
   std::get<2>(sortedResult) = refPhi;
+  std::get<3>(sortedResult) = refLayer;
 
   ///Find a result with biggest number of hits
   for(auto itHits: nHitsVec){
@@ -40,6 +42,7 @@ std::tuple<unsigned int,unsigned int, int> OMTFSorter::sortSingleResult(const OM
       if(pdfValsVec[ipdfVal]>pdfValMax){
 	pdfValMax = pdfValsVec[ipdfVal]; 
 	refPhi = refPhiVec[ipdfVal]; 
+	refLayer = ipdfVal;
       }
     }
   }
@@ -47,6 +50,7 @@ std::tuple<unsigned int,unsigned int, int> OMTFSorter::sortSingleResult(const OM
   std::get<0>(sortedResult) = nHitsMax;
   std::get<1>(sortedResult) = pdfValMax;
   std::get<2>(sortedResult) = refPhi;
+  std::get<3>(sortedResult) = refLayer;
   return sortedResult;
 }
 ///////////////////////////////////////////////////////
@@ -54,11 +58,12 @@ std::tuple<unsigned int,unsigned int, int> OMTFSorter::sortSingleResult(const OM
 InternalObj OMTFSorter::sortRegionResults(const OMTFProcessor::resultsMap & aResultsMap){
 
   unsigned int pdfValMax = 0;
-  unsigned int nHitsMax = 0;
+  unsigned int nHitsMax = 0;  
   int refPhi = 9999;
+  int refLayer = -1;
   Key bestKey;
   for(auto itKey: aResultsMap){   
-    std::tuple<unsigned int,unsigned int, int> val = sortSingleResult(itKey.second);
+    std::tuple<unsigned int,unsigned int, int, int > val = sortSingleResult(itKey.second);
     ///Accept only candidates with >2 hits
     if(std::get<0>(val)<3) continue;
     ///
@@ -66,11 +71,13 @@ InternalObj OMTFSorter::sortRegionResults(const OMTFProcessor::resultsMap & aRes
       nHitsMax = std::get<0>(val);
       pdfValMax = std::get<1>(val);
       refPhi = std::get<2>(val);
+      refLayer = std::get<3>(val);
       bestKey = itKey.first;
     }
     else if(std::get<0>(val)==nHitsMax &&  std::get<1>(val)>pdfValMax){
       pdfValMax = std::get<1>(val);
       refPhi = std::get<2>(val);
+      refLayer = std::get<3>(val);
       bestKey = itKey.first;
     }
   }  
@@ -82,7 +89,7 @@ InternalObj OMTFSorter::sortRegionResults(const OMTFProcessor::resultsMap & aRes
   candidate.charge = bestKey.theCharge;
   candidate.q   = nHitsMax;
   candidate.disc = pdfValMax;
-  //candidate.refLayer = 
+  candidate.refLayer = refLayer;
 
   return candidate;
 

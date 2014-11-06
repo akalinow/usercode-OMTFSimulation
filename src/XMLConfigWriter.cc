@@ -168,7 +168,6 @@ void  XMLConfigWriter::writeCandidateData(xercesc::DOMElement *aTopElement,
   stringStr<<iRegion;
   aResult->setAttribute(_toDOMS("iRegion"),_toDOMS(stringStr.str()));
   stringStr.str("");
-  //stringStr<<L1RpcTriggerAnalysisEfficiencyUtilities::PtScale::ptCode(aCand.pt);
   stringStr<<aCand.pt;
   aResult->setAttribute(_toDOMS("ptCode"),_toDOMS(stringStr.str()));
   stringStr.str("");
@@ -180,6 +179,9 @@ void  XMLConfigWriter::writeCandidateData(xercesc::DOMElement *aTopElement,
   stringStr.str("");
   stringStr<<aCand.disc;
   aResult->setAttribute(_toDOMS("disc"), _toDOMS(stringStr.str()));
+  stringStr.str("");
+  stringStr<<aCand.refLayer;
+  aResult->setAttribute(_toDOMS("iRefLayer"), _toDOMS(stringStr.str()));
   aTopElement->appendChild(aResult); 
 }
 //////////////////////////////////////////////////

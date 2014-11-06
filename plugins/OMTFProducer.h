@@ -34,6 +34,8 @@ class OMTFProducer : public edm::EDProducer {
   ~OMTFProducer();
 
   virtual void beginJob();
+
+  virtual void endJob();
   
   virtual void produce(edm::Event&, const edm::EventSetup&);  
 

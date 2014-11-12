@@ -187,8 +187,7 @@ uint32_t OMTFConfiguration::getLayerNumber(uint32_t rawId){
   switch (detId.subdetId()) {
   case MuonSubdetId::RPC: {
     RPCDetId aId(rawId);
-    bool isBarrel = aId.region()==0;
-    unsigned int aLayer = 0;
+    bool isBarrel = (aId.region()==0);
     if(isBarrel) aLayer = aId.station() <=2  ? 
 		   2*( aId.station()-1)+ aId.layer() 
 		   : aId.station()+2;
@@ -196,8 +195,8 @@ uint32_t OMTFConfiguration::getLayerNumber(uint32_t rawId){
     aLayer+= 10*(!isBarrel);
     ///Necessary for ME1/1
     ///if(aId.ring()==1 && aIdUtil.layer()==1) aLayer = aIdUtil.layer() + 20*(!aIdUtil.isBarrel());
-  }
     break;
+  }
   case MuonSubdetId::DT: {
     DTChamberId dt(rawId);
     aLayer = dt.station();

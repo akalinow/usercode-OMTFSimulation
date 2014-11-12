@@ -90,7 +90,9 @@ void OMTFProducer::endJob(){
 }
 /////////////////////////////////////////////////////
 /////////////////////////////////////////////////////  
-void OMTFProducer::produce(edm::Event& iEvent, const edm::EventSetup& aESetup){
+void OMTFProducer::produce(edm::Event& iEvent, const edm::EventSetup& evSetup){
+
+  myInputMaker->initialize(evSetup);
 
   edm::Handle<TriggerPrimitiveCollection> trigPrimitives;
   iEvent.getByToken(inputToken, trigPrimitives);
@@ -120,7 +122,8 @@ void OMTFProducer::produce(edm::Event& iEvent, const edm::EventSetup& aESetup){
     ////Swith from internal processor 10bit scale to global one
     int procOffset = OMTFConfiguration::globalPhiStart(iProcessor);
     if(procOffset<0) procOffset+=OMTFConfiguration::nPhiBins;
-    myOTFCandidate.setPhiValue(myOTFCandidate.phiValue()+OMTFConfiguration::globalPhiStart(iProcessor)+511);
+    float phiValue = (myOTFCandidate.phiValue()+OMTFConfiguration::globalPhiStart(iProcessor)+511)/OMTFConfiguration::nPhiBins*2*M_PI;
+    myOTFCandidate.setPhiValue(phiValue);
     //////////////////
     if(myOTFCandidate.pt_packed()) myCands->push_back(myOTFCandidate); 
     

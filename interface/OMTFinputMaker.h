@@ -3,6 +3,9 @@
 
 #include <vector>
 #include <stdint.h>
+#include <memory>
+
+#include "L1Trigger/L1TMuon/interface/GeometryTranslator.h"
 
 #include "DataFormats/L1TMuon/interface/L1TMuonTriggerPrimitive.h"
 #include "DataFormats/L1TMuon/interface/L1TMuonTriggerPrimitiveFwd.h"
@@ -28,11 +31,6 @@ class OMTFinputMaker{
   ///Flavour using a vector of trigger primitives. 
   const OMTFinput * buildInputForProcessor(const L1TMuon::TriggerPrimitiveCollection & vDigi, unsigned int iProcessor);
 
-  ///Decluster PRC digis. Consecutive set of fires strips has a ccordinate
-  ///equal to begin+end, which is the mean expresses in half RPC strips granularity.
-  void declusterRPC(const L1TMuon::TriggerPrimitiveCollection & vDigi);
-
-
  private:
 
   ///Check if digis are within a give processor input.
@@ -52,6 +50,9 @@ class OMTFinputMaker{
 		       const L1TMuon::TriggerPrimitive *b) { return a->getStrip()<b->getStrip(); };
   */
   OMTFinput *myInput;
+
+   
+  std::unique_ptr<L1TMuon::GeometryTranslator> geom;
   
 };
 

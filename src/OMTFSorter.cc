@@ -123,7 +123,8 @@ L1MuRegionalCand OMTFSorter::sortProcessor(const std::vector<OMTFProcessor::resu
   L1MuRegionalCand candidate;
   candidate.setPhiValue(myCand.phi);
   candidate.setPtPacked(myCand.pt);
-  candidate.setQualityPacked(4);//FIX ME
+  //candidate.setQualityPacked(3);//FIX ME
+  candidate.setBx(myCand.q);//FIX ME
   candidate.setChargeValue(myCand.charge);
 
   return candidate;

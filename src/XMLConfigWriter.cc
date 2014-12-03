@@ -256,11 +256,20 @@ void XMLConfigWriter::writeGPData(const GoldenPattern & aGP){
   stringStr.str("");
   stringStr<<aGP.key().theCharge;
   aGPElement->setAttribute(_toDOMS("iCharge"), _toDOMS(stringStr.str()));
+
+  unsigned int iLayerNew=0;
   for(unsigned int iLayer = 0;iLayer<OMTFConfiguration::nLayers;++iLayer){
     int nOfPhis = 0;
+    ///Remove some layers.
+    if(removeLayers(iLayer)) continue;
+    /////////////////////////////////////
     aLayer = theDoc->createElement(_toDOMS("Layer"));
     stringStr.str("");
-    stringStr<<iLayer;
+    //stringStr<<iLayer;
+    //After layer removal inxed has to be realigned
+    stringStr<<iLayerNew;
+    ++iLayerNew;
+    //////////////////////////////////
     aLayer->setAttribute(_toDOMS("iLayer"), _toDOMS(stringStr.str()));
     stringStr.str("");
     stringStr<<nOfPhis;
@@ -327,7 +336,7 @@ void  XMLConfigWriter::writeConnectionsData(const std::vector<std::vector <OMTFC
       aRegionElement->setAttribute(_toDOMS("iRegion"), _toDOMS(stringStr.str()));   
       ////
       for(unsigned int iRefLayer=0;iRefLayer<OMTFConfiguration::nRefLayers;++iRefLayer){
-	if(iRefLayer>5) continue;
+	//if(iRefLayer>5) continue;
 	for(unsigned int iInput=0;iInput<14;++iInput){
 	  unsigned int hitCount =  OMTFConfiguration::measurements4Dref[iProcessor][iRegion][iRefLayer][iInput];
 	  if(!hitCount) continue;
@@ -364,7 +373,7 @@ void  XMLConfigWriter::writeConnectionsData(const std::vector<std::vector <OMTFC
 	  stringStr<<iPhiMax;
 	  aRefHitElement->setAttribute(_toDOMS("iPhiMax"), _toDOMS(stringStr.str()));
 
-	  aProcessorElement->appendChild(aRefHitElement);
+	  if(iRefHit<81) aProcessorElement->appendChild(aRefHitElement);
 	  ++iRefHit;
 	}
       }
@@ -401,10 +410,16 @@ void  XMLConfigWriter::writeConnectionsData(const std::vector<std::vector <OMTFC
       }
     
       ////
+      unsigned int iLayerNew = 0;
       for(unsigned int iLogicLayer=0;iLogicLayer<OMTFConfiguration::nLayers;++iLogicLayer){
+	if(removeLayers(iLogicLayer)) continue;
 	xercesc::DOMElement* aLayerElement = theDoc->createElement(_toDOMS("Layer"));
 	stringStr.str("");
-	stringStr<<iLogicLayer;
+	//stringStr<<iLogicLayer;
+	//After layer removal inxed has to be realigned
+	stringStr<<iLayerNew;
+	++iLayerNew;
+	////////////////////////////////////////////////
 	aLayerElement->setAttribute(_toDOMS("iLayer"), _toDOMS(stringStr.str()));
 	const OMTFConfiguration::vector1D & myCounts = OMTFConfiguration::measurements4D[iProcessor][iRegion][iLogicLayer];
 	unsigned int maxInput = findMaxInput(myCounts);
@@ -438,6 +453,13 @@ unsigned int XMLConfigWriter::findMaxInput(const OMTFConfiguration::vector1D & m
     }
   }
   return maxInput;
+}
+/////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////
+bool  XMLConfigWriter::removeLayers(unsigned int iLayer){
+
+  return (iLayer==6 || iLayer==7 || iLayer==9 || iLayer==11 || iLayer==13 || iLayer==15 || iLayer==24);
+
 }
 /////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////

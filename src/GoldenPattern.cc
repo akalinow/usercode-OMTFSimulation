@@ -22,7 +22,8 @@ GoldenPattern::layerResult GoldenPattern::process1Layer1RefLayer(unsigned int iR
     //if(itHit>=(int)OMTFConfiguration::nPhiBins) continue;
     if(abs(itHit-phiMean-phiRefHit)<phiDist) phiDist = itHit-phiMean-phiRefHit;
   }
-  ///Shift phidist, so 0 it at the middle of the range
+
+  ///Shift phidist, so 0 is at the middle of the range
   phiDist+=exp2(OMTFConfiguration::nPdfAddrBits-1);
 
   ///Check if phiDist is within pdf range
@@ -34,6 +35,9 @@ GoldenPattern::layerResult GoldenPattern::process1Layer1RefLayer(unsigned int iR
   }
 
   int pdfVal = pdfAllRef[iLayer][iRefLayer][phiDist];
+
+  if(iRefLayer<6) pdfVal = 0;
+
   return GoldenPattern::layerResult(pdfVal,pdfVal>0);
 }
 ////////////////////////////////////////////////////

@@ -1,9 +1,11 @@
 import FWCore.ParameterSet.Config as cms
-process = cms.Process("MakePatterns")
+process = cms.Process("OMTFEmulation")
 import os
 import sys
+import commands
 
 process.load("FWCore.MessageLogger.MessageLogger_cfi")
+'''
 process.MessageLogger = cms.Service("MessageLogger",
        suppressInfo       = cms.untracked.vstring('AfterSource', 'PostModule'),
        destinations   = cms.untracked.vstring(
@@ -50,22 +52,29 @@ process.MessageLogger = cms.Service("MessageLogger",
                 GetByLabelWithoutRegistration  = cms.untracked.PSet (limit = cms.untracked.int32(0) ) 
        ),
 )
-#Uncomment it to switch off messages
-#process.MessageLogger = cms.Service("MessageLogger")
-process.MessageLogger.cout = cms.untracked.PSet(INFO = cms.untracked.PSet(
-        reportEvery = cms.untracked.int32(1) # every 100th only
-     ))
+'''
 
-
+process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32(10000)
+process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 
 process.source = cms.Source(
     'PoolSource',
-    fileNames = cms.untracked.vstring('file:/home/akalinow/scratch/CMS/OverlapTrackFinder/Crab/Test/Ipt_16m_720_FullEta_Test_v2/crab_0_141028_111133/res/SingleMu_16_m_1_1_hvk.root',
-                                      'file:/home/akalinow/scratch/CMS/OverlapTrackFinder/Crab/Test/Ipt_16m_720_FullEta_Test_v2/crab_0_141028_111133/res/SingleMu_16_m_2_1_SZ6.root'
-                                      )
+    fileNames = cms.untracked.vstring('file:/home/akalinow/scratch/CMS/OverlapTrackFinder/Crab/SingleMuFullEtaTestSample/720_FullEta_v1/data/SingleMu_16_p_1_2_TWz.root')
     )
 
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(100))
+##Use all available events in a single job.
+##Only for making the connections maps.
+process.source.fileNames =  cms.untracked.vstring()
+path = "/home/akalinow/scratch/CMS/OverlapTrackFinder/Crab/SingleMuFullEtaTestSample/720_FullEta_v1/data/"
+command = "ls "+path+"/SingleMu_{10,11,16}*"
+fileList = commands.getoutput(command).split("\n")
+process.source.fileNames =  cms.untracked.vstring()
+for aFile in fileList:
+    process.source.fileNames.append('file:'+aFile)
+
+
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1))
+
 
 ###PostLS1 geometry used
 process.load('Configuration.Geometry.GeometryExtendedPostLS1Reco_cff')
@@ -80,22 +89,45 @@ path = os.environ['CMSSW_BASE']+"/src/UserCode/OMTFSimulation/data/"
 
 process.load('L1Trigger.L1TMuon.L1TMuonTriggerPrimitiveProducer_cfi')
 
+###OMTF emulator configuration
 process.omtfEmulator = cms.EDProducer("OMTFProducer",
                                       TriggerPrimitiveSrc = cms.InputTag('L1TMuonTriggerPrimitives'),
-                                      dumpResultToXML = cms.bool(True),                                     
+                                      dumpResultToXML = cms.bool(False),                                     
                                       dumpGPToXML = cms.bool(False),                                     
-                                      makeConnectionsMaps = cms.bool(False),                                      
+                                      makeConnectionsMaps = cms.bool(True),                                      
                                       omtf = cms.PSet(
         configXMLFile = cms.string(path+"hwToLogicLayer.xml"),
         patternsXMLFiles = cms.vstring(path+"Patterns_chPlus.xml",path+"Patterns_chMinus.xml"),
+        #configXMLFile = cms.string(path+"hwToLogicLayer_18layers.xml"),
+        #patternsXMLFiles = cms.vstring("GPs.xml"),
         )
                                       )
 
+###Gen level filter configuration
+process.MuonEtaFilter = cms.EDFilter("SimTrackEtaFilter",
+                                minNumber = cms.uint32(1),
+                                src = cms.InputTag("g4SimHits"),
+                                cut = cms.string("momentum.eta<1.24 && momentum.eta>0.83 &&  momentum.pt>1")
+                                )
+process.GenMuPath = cms.Path(process.MuonEtaFilter)
+##########################################
 
-process.L1TMuonSeq = cms.Sequence( process.L1TMuonTriggerPrimitives +
-                                   process.omtfEmulator )
 
-process.L1TMuonPath = cms.Path(process.L1TMuonSeq)
 
-process.schedule = cms.Schedule(process.L1TMuonPath)
+process.L1TMuonSeq = cms.Sequence( process.L1TMuonTriggerPrimitives+ 
+                                   process.omtfEmulator)
 
+process.L1TMuonPath = cms.Path(process.MuonEtaFilter*process.L1TMuonSeq)
+
+
+process.out = cms.OutputModule("PoolOutputModule", 
+   fileName = cms.untracked.string("Test.root"),
+                               SelectEvents = cms.untracked.PSet(
+        SelectEvents = cms.vstring('GenMuPath')
+        )
+                               )
+
+process.output_step = cms.EndPath(process.out)
+
+process.schedule = cms.Schedule(process.GenMuPath,process.L1TMuonPath)
+process.schedule.extend([process.output_step])

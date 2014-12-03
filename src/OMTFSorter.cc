@@ -55,7 +55,8 @@ std::tuple<unsigned int,unsigned int, int, int> OMTFSorter::sortSingleResult(con
 }
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
-InternalObj OMTFSorter::sortRegionResults(const OMTFProcessor::resultsMap & aResultsMap){
+InternalObj OMTFSorter::sortRegionResults(const OMTFProcessor::resultsMap & aResultsMap,
+					  int charge){
 
   unsigned int pdfValMax = 0;
   unsigned int nHitsMax = 0;  
@@ -63,6 +64,7 @@ InternalObj OMTFSorter::sortRegionResults(const OMTFProcessor::resultsMap & aRes
   int refLayer = -1;
   Key bestKey;
   for(auto itKey: aResultsMap){   
+    if(itKey.first.theCharge!=charge) continue;
     std::tuple<unsigned int,unsigned int, int, int > val = sortSingleResult(itKey.second);
     ///Accept only candidates with >2 hits
     if(std::get<0>(val)<3) continue;
@@ -96,35 +98,38 @@ InternalObj OMTFSorter::sortRegionResults(const OMTFProcessor::resultsMap & aRes
 }
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
-InternalObj OMTFSorter::sortProcessorResults(const std::vector<OMTFProcessor::resultsMap> & procResults){
+InternalObj OMTFSorter::sortProcessorResults(const std::vector<OMTFProcessor::resultsMap> & procResults,
+					     int charge){
 
   InternalObj candidate;
   std::vector<InternalObj> regionCands;
 
-  for(auto itRegion: procResults) regionCands.push_back(sortRegionResults(itRegion));
+  for(auto itRegion: procResults) regionCands.push_back(sortRegionResults(itRegion,charge));
 
   for(auto itCand: regionCands){
     if(itCand.q>candidate.q) candidate = itCand;
     if(itCand.q==candidate.q && itCand.disc>candidate.disc) candidate = itCand;
   }
+
   std::ostringstream myStr;
   for(unsigned int iRegion=0;iRegion<regionCands.size();++iRegion) myStr<<"Logic Region: "<<iRegion<<" "<<regionCands[iRegion]<<std::endl;
-  myStr<<"Selected Candidate: "<<candidate<<std::endl;
+  myStr<<"Selected Candidate with charge: "<<charge<<" "<<candidate<<std::endl;
   edm::LogInfo("OMTF Sorter")<<myStr.str();
 
   return candidate;
 }
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
-L1MuRegionalCand OMTFSorter::sortProcessor(const std::vector<OMTFProcessor::resultsMap> & procResults){
+L1MuRegionalCand OMTFSorter::sortProcessor(const std::vector<OMTFProcessor::resultsMap> & procResults,
+					   int charge){
 
-  InternalObj myCand = sortProcessorResults(procResults);
+  InternalObj myCand = sortProcessorResults(procResults, charge);
 
   L1MuRegionalCand candidate;
   candidate.setPhiValue(myCand.phi);
   candidate.setPtPacked(myCand.pt);
   //candidate.setQualityPacked(3);//FIX ME
-  candidate.setBx(myCand.q);//FIX ME
+  candidate.setBx(100*myCand.refLayer+myCand.q);//FIX ME
   candidate.setChargeValue(myCand.charge);
 
   return candidate;

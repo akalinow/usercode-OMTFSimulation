@@ -54,6 +54,9 @@ class XMLConfigWriter{
 
  private:
 
+  ///Utility function to set which layers should be ignored
+  bool removeLayers(unsigned int iLayer);
+
   xercesc::DOMImplementation* domImpl;
   xercesc::DOMElement* theTopElement;
   xercesc::DOMDocument* theDoc;

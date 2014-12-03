@@ -63,12 +63,12 @@ void OMTFProducer::beginJob(){
 /////////////////////////////////////////////////////  
 void OMTFProducer::endJob(){
 
-  if(dumpResultToXML){
+  if(dumpResultToXML && !dumpGPToXML && !makeConnectionsMaps){
     std::string fName = "TestEvents.xml";
     myWriter->finaliseXMLDocument(fName);
   }
 
-  if(dumpGPToXML){
+  if(dumpGPToXML && !dumpResultToXML && !makeConnectionsMaps){
     std::string fName = "OMTF";
     myWriter->initialiseXMLDocument(fName);
     const std::map<Key,GoldenPattern*> & myGPmap = myOMTF->getPatterns();
@@ -80,7 +80,7 @@ void OMTFProducer::endJob(){
     myWriter->finaliseXMLDocument(fName);
   }
 
-  if(makeConnectionsMaps){
+  if(makeConnectionsMaps && !dumpGPToXML && !dumpResultToXML){
     std::string fName = "Connections.xml";  
     myWriter->writeConnectionsData(OMTFConfiguration::measurements4D);
     myWriter->finaliseXMLDocument(fName);
@@ -107,32 +107,47 @@ void OMTFProducer::produce(edm::Event& iEvent, const edm::EventSetup& evSetup){
     edm::LogInfo("OMTF ROOTReader")<<"iProcessor: "<<iProcessor;
     
     const OMTFinput *myInput = myInputMaker->buildInputForProcessor(*trigPrimitives,iProcessor);
-    
+       
     ///Input data with phi ranges shifted for each processor, so it fits 10 bits range
     const OMTFinput myShiftedInput =  myOMTF->shiftInput(iProcessor,*myInput);	
     
     ///Phi maps should be made with original, global phi values.
-    if(makeConnectionsMaps) myOMTFConfigMaker->makeConnetionsMap(iProcessor,*myInput);
+    ///Connections maps are rtun on large samples, so the rest
+    ///of algoritm is not executed.
+    if(makeConnectionsMaps) {
+      myOMTFConfigMaker->makeConnetionsMap(iProcessor,*myInput);
+      continue;
+    }
     /////////////////////////
     
     ///Results for each GP in each logic region of given processor
     const std::vector<OMTFProcessor::resultsMap> & myResults = myOMTF->processInput(iProcessor,myShiftedInput);
-    
-    L1MuRegionalCand myOTFCandidate = mySorter->sortProcessor(myResults);
-    ////Swith from internal processor 10bit scale to global one
+
+    ///At the moment allow up to two, opposite charge, candidates per processor.    
+    L1MuRegionalCand myOTFCandidatePlus = mySorter->sortProcessor(myResults,1);
+    L1MuRegionalCand myOTFCandidateMinus = mySorter->sortProcessor(myResults,-1);
+
+    ////Switch from internal processor 10bit scale to global one
     int procOffset = OMTFConfiguration::globalPhiStart(iProcessor);
     if(procOffset<0) procOffset+=OMTFConfiguration::nPhiBins;
-    float phiValue = (myOTFCandidate.phiValue()+OMTFConfiguration::globalPhiStart(iProcessor)+511)/OMTFConfiguration::nPhiBins*2*M_PI;
-    myOTFCandidate.setPhiValue(phiValue);
+
+    float phiValue = (myOTFCandidatePlus.phiValue()+OMTFConfiguration::globalPhiStart(iProcessor)+511)/OMTFConfiguration::nPhiBins*2*M_PI;
+    if(phiValue>2*M_PI) phiValue-=2*M_PI;
+    myOTFCandidatePlus.setPhiValue(phiValue);
+
+    phiValue = (myOTFCandidateMinus.phiValue()+OMTFConfiguration::globalPhiStart(iProcessor)+511)/OMTFConfiguration::nPhiBins*2*M_PI;
+    if(phiValue>2*M_PI) phiValue-=2*M_PI;
+    myOTFCandidateMinus.setPhiValue(phiValue);
     //////////////////
-    if(myOTFCandidate.pt_packed()) myCands->push_back(myOTFCandidate); 
-    
+    if(myOTFCandidatePlus.pt_packed()) myCands->push_back(myOTFCandidatePlus); 
+    if(myOTFCandidateMinus.pt_packed()) myCands->push_back(myOTFCandidateMinus); 
+   
     ///Write to XML
     if(dumpResultToXML){
       xercesc::DOMElement * aProcElement = myWriter->writeEventData(aTopElement,iProcessor,myShiftedInput);
       for(unsigned int iRegion=0;iRegion<6;++iRegion){
 	///Dump only regions, where a candidate was found
-	InternalObj myCand = mySorter->sortRegionResults(myResults[iRegion]);
+	InternalObj myCand = mySorter->sortRegionResults(myResults[iRegion],1);
 	if(myCand.pt){
 	  myWriter->writeCandidateData(aProcElement,iRegion,myCand);
 	  for(auto & itKey: myResults[iRegion]) myWriter->writeResultsData(aProcElement, 

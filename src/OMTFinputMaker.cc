@@ -55,21 +55,24 @@ bool  OMTFinputMaker::acceptDigi(uint32_t rawId,
   switch (detId.subdetId()) {
   case MuonSubdetId::RPC: {
     RPCDetId aId(rawId);
+    ///Select RPC chambers connected to OMTF
+    if(aId.region()<0 ||
+       (aId.region()==0 && aId.ring()<2) ||
+       (aId.region()==0 && aId.station()==4)
+       ) return false;    
+    if(aId.region()==1 &&  aId.ring()<2) return false;
+    ////////////////
     if(aId.region()==0 && barrelChamberMax==13 && aId.sector()==1) return true;
-      if(aId.region()==0 && (aId.sector()<barrelChamberMin || aId.sector()>barrelChamberMax)) return false;    
-      if(aId.region()!=0 && 
-	 ((aId.sector()-1)*6+aId.subsector()<endcapChamberMin || 
-	  (aId.sector()-1)*6+aId.subsector()>endcapChamberMax)) return false;  
-      if(aId.region()<0 && barrelChamberMax==37 && (aId.sector()-1)*6+aId.subsector()==1) return true;  
-      if(aId.region()<0 ||
-	 (aId.region()==0 && aId.ring()<2) ||
-	 (aId.region()==0 && aId.station()==4)
-	 ) return false;
+    if(aId.region()==0 && (aId.sector()<barrelChamberMin || aId.sector()>barrelChamberMax)) return false;    
+    if(aId.region()!=0 && 
+       ((aId.sector()-1)*6+aId.subsector()<endcapChamberMin || 
+	(aId.sector()-1)*6+aId.subsector()>endcapChamberMax)) return false;  
+    if(aId.region()<0 && barrelChamberMax==37 && (aId.sector()-1)*6+aId.subsector()==1) return true;  
   }
     break;
   case MuonSubdetId::DT: {
     DTChamberId dt(rawId);
-    ///DT sector counts from 0. Other subsystems count from 1
+    if(dt.wheel()<2) return false;
     if(barrelChamberMax==13 && dt.sector()==1) return true;
     if(dt.sector()<barrelChamberMin || dt.sector()>barrelChamberMax) return false;
    	
@@ -77,9 +80,9 @@ bool  OMTFinputMaker::acceptDigi(uint32_t rawId,
   }
   case MuonSubdetId::CSC: {
     CSCDetId csc(rawId);
+    if(csc.ring()<2)return false;//Take only CSC rings 2 and 3
     if(endcapChamberMax==37 && csc.chamber()==1) return true;
     if(csc.chamber()<endcapChamberMin || csc.chamber()>endcapChamberMax) return false;
-    //if(csc.station()==1 && csc.ring()==4) return false; //Skip ME1/a due to use of ganged strips, causing problems in phi calculation
     ///////////////////
     break;
   }

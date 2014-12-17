@@ -458,6 +458,8 @@ unsigned int XMLConfigWriter::findMaxInput(const OMTFConfiguration::vector1D & m
 /////////////////////////////////////////////////////////////
 bool  XMLConfigWriter::removeLayers(unsigned int iLayer){
 
+  return false;
+
   return (iLayer==6 || iLayer==7 || iLayer==9 || iLayer==11 || iLayer==13 || iLayer==15 || iLayer==24);
 
 }

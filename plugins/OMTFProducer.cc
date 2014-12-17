@@ -73,7 +73,7 @@ void OMTFProducer::endJob(){
     myWriter->initialiseXMLDocument(fName);
     const std::map<Key,GoldenPattern*> & myGPmap = myOMTF->getPatterns();
     for(auto itGP: myGPmap){
-      std::cout<<*itGP.second<<std::endl;
+      //std::cout<<*itGP.second<<std::endl;
       myWriter->writeGPData(*itGP.second);
     }
     fName = "GPs.xml";

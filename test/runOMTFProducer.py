@@ -94,7 +94,7 @@ process.load('L1Trigger.L1TMuon.L1TMuonTriggerPrimitiveProducer_cfi')
 process.omtfEmulator = cms.EDProducer("OMTFProducer",
                                       TriggerPrimitiveSrc = cms.InputTag('L1TMuonTriggerPrimitives'),
                                       dumpResultToXML = cms.bool(False),                                     
-                                      dumpGPToXML = cms.bool(False),                                     
+                                      dumpGPToXML = cms.bool(True),                                     
                                       makeConnectionsMaps = cms.bool(False),                                      
                                       dropRPCPrimitives = cms.bool(False),                                    
                                       dropDTPrimitives = cms.bool(False),                                    

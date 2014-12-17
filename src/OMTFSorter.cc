@@ -70,7 +70,7 @@ InternalObj OMTFSorter::sortRegionResults(const OMTFProcessor::resultsMap & aRes
     if(std::get<0>(val)<3) continue;
     ///Accept candidates with good likelihood value
     //if(std::get<1>(val)/std::get<0>(val)<30) continue;
-    if(std::get<3>(val)>5) continue;
+    //if(std::get<3>(val)>5) continue;
     ///
     if( std::get<0>(val)>nHitsMax){
       nHitsMax = std::get<0>(val);

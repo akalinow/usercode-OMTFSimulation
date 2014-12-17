@@ -22,6 +22,12 @@ OMTFConfigMaker::OMTFConfigMaker(const edm::ParameterSet & theConfig){
 OMTFConfigMaker::~OMTFConfigMaker(){ }
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
+void OMTFConfigMaker::fillCounts(unsigned int iProcessor,
+				 const OMTFinput & aInput){
+
+}
+///////////////////////////////////////////////
+///////////////////////////////////////////////
 void OMTFConfigMaker::fillPhiMaps(unsigned int iProcessor,
 				  const OMTFinput & aInput){
 

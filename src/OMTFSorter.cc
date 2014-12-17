@@ -64,10 +64,13 @@ InternalObj OMTFSorter::sortRegionResults(const OMTFProcessor::resultsMap & aRes
   int refLayer = -1;
   Key bestKey;
   for(auto itKey: aResultsMap){   
-    if(itKey.first.theCharge!=charge) continue;
+    //if(itKey.first.theCharge!=charge) continue;
     std::tuple<unsigned int,unsigned int, int, int > val = sortSingleResult(itKey.second);
     ///Accept only candidates with >2 hits
     if(std::get<0>(val)<3) continue;
+    ///Accept candidates with good likelihood value
+    //if(std::get<1>(val)/std::get<0>(val)<30) continue;
+    if(std::get<3>(val)>5) continue;
     ///
     if( std::get<0>(val)>nHitsMax){
       nHitsMax = std::get<0>(val);
@@ -129,7 +132,7 @@ L1MuRegionalCand OMTFSorter::sortProcessor(const std::vector<OMTFProcessor::resu
   candidate.setPhiValue(myCand.phi);
   candidate.setPtPacked(myCand.pt);
   //candidate.setQualityPacked(3);//FIX ME
-  candidate.setBx(100*myCand.refLayer+myCand.q);//FIX ME
+  candidate.setBx(1000*myCand.disc+100*myCand.refLayer+myCand.q);//FIX ME
   candidate.setChargeValue(myCand.charge);
 
   return candidate;

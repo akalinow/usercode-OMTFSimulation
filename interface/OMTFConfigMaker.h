@@ -20,6 +20,11 @@ class OMTFConfigMaker{
   OMTFConfigMaker(const edm::ParameterSet & cfg);
 
   ~OMTFConfigMaker();
+
+  ///Fill counts in GoldenPattern pdf bins
+  ///Normalised counts will make a pdf for given GP.
+  void fillCounts(unsigned int iProcessor,
+		  const OMTFinput & aInput);
   
   ///Fill histograms used for making the connections
   ///maps

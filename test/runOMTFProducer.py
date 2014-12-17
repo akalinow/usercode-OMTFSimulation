@@ -5,7 +5,7 @@ import sys
 import commands
 
 process.load("FWCore.MessageLogger.MessageLogger_cfi")
-'''
+
 process.MessageLogger = cms.Service("MessageLogger",
        suppressInfo       = cms.untracked.vstring('AfterSource', 'PostModule'),
        destinations   = cms.untracked.vstring(
@@ -52,9 +52,9 @@ process.MessageLogger = cms.Service("MessageLogger",
                 GetByLabelWithoutRegistration  = cms.untracked.PSet (limit = cms.untracked.int32(0) ) 
        ),
 )
-'''
 
-process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32(10000)
+
+#process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32(10000)
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 
 process.source = cms.Source(
@@ -62,6 +62,7 @@ process.source = cms.Source(
     fileNames = cms.untracked.vstring('file:/home/akalinow/scratch/CMS/OverlapTrackFinder/Crab/SingleMuFullEtaTestSample/720_FullEta_v1/data/SingleMu_16_p_1_2_TWz.root')
     )
 
+'''
 ##Use all available events in a single job.
 ##Only for making the connections maps.
 process.source.fileNames =  cms.untracked.vstring()
@@ -71,9 +72,9 @@ fileList = commands.getoutput(command).split("\n")
 process.source.fileNames =  cms.untracked.vstring()
 for aFile in fileList:
     process.source.fileNames.append('file:'+aFile)
+'''
 
-
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1))
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(100))
 
 
 ###PostLS1 geometry used
@@ -94,12 +95,17 @@ process.omtfEmulator = cms.EDProducer("OMTFProducer",
                                       TriggerPrimitiveSrc = cms.InputTag('L1TMuonTriggerPrimitives'),
                                       dumpResultToXML = cms.bool(False),                                     
                                       dumpGPToXML = cms.bool(False),                                     
-                                      makeConnectionsMaps = cms.bool(True),                                      
+                                      makeConnectionsMaps = cms.bool(False),                                      
+                                      dropRPCPrimitives = cms.bool(False),                                    
+                                      dropDTPrimitives = cms.bool(False),                                    
+                                      dropCSCPrimitives = cms.bool(False),   
                                       omtf = cms.PSet(
-        configXMLFile = cms.string(path+"hwToLogicLayer.xml"),
-        patternsXMLFiles = cms.vstring(path+"Patterns_chPlus.xml",path+"Patterns_chMinus.xml"),
-        #configXMLFile = cms.string(path+"hwToLogicLayer_18layers.xml"),
-        #patternsXMLFiles = cms.vstring("GPs.xml"),
+        #configXMLFile = cms.string(path+"hwToLogicLayer.xml"),
+        #patternsXMLFiles = cms.vstring(path+"Patterns_chPlus.xml",path+"Patterns_chMinus.xml"),
+
+        configXMLFile = cms.string(path+"hwToLogicLayer_18layersFix2.xml"),
+        patternsXMLFiles = cms.vstring(path+"Patterns_ipt6_18.xml",path+"Patterns_ipt19_31.xml"),
+
         )
                                       )
 

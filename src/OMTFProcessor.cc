@@ -12,6 +12,10 @@
 #include "UserCode/OMTFSimulation/interface/OMTFinput.h"
 #include "UserCode/OMTFSimulation/interface/OMTFResult.h"
 
+#include "L1Trigger/RPCTrigger/interface/RPCConst.h"
+
+#include "SimDataFormats/Track/interface/SimTrack.h"
+
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
 OMTFProcessor::OMTFProcessor(const edm::ParameterSet & theConfig){
@@ -49,11 +53,6 @@ bool OMTFProcessor::configure(XMLConfigReader *aReader){
 ///////////////////////////////////////////////
 bool OMTFProcessor::addGP(GoldenPattern *aGP){
 
-  ///For making small patterns file for compilation
-  //if(aGP->key().thePtCode>20 ||
-  //   aGP->key().thePtCode<16) return true;
-  ///////
-
   if(theGPs.find(aGP->key())!=theGPs.end()) return false;
   else theGPs[aGP->key()] = new GoldenPattern(*aGP);
 
@@ -63,21 +62,17 @@ bool OMTFProcessor::addGP(GoldenPattern *aGP){
 }
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
-const std::map<Key,GoldenPattern*> & OMTFProcessor::getPatterns() const{
-
-  return theGPs;
-
-}
+const std::map<Key,GoldenPattern*> & OMTFProcessor::getPatterns() const{ return theGPs; }
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
 const std::vector<OMTFProcessor::resultsMap> & OMTFProcessor::processInput(unsigned int iProcessor,
-									     const OMTFinput & aInput){
+									   const OMTFinput & aInput){
 
   for(auto & itRegion: myResults) for(auto & itKey: itRegion) itKey.second.clear();
 
   //////////////////////////////////////
   //////////////////////////////////////  
-  std::bitset<80> refHitsBits = aInput.getRefHits(iProcessor);
+  std::bitset<100> refHitsBits = aInput.getRefHits(iProcessor);
   if(refHitsBits.none()) return myResults;
    
   for(unsigned int iLayer=0;iLayer<OMTFConfiguration::nLayers;++iLayer){
@@ -86,7 +81,7 @@ const std::vector<OMTFProcessor::resultsMap> & OMTFProcessor::processInput(unsig
     ///Number of reference hits to be checked. 
     ///Value read from XML configuration
     unsigned int nTestedRefHits = OMTFConfiguration::nTestRefHits;
-    for(unsigned int iRefHit=0;iRefHit<80;++iRefHit){
+    for(unsigned int iRefHit=0;iRefHit<OMTFConfiguration::nRefHits;++iRefHit){
       if(!refHitsBits[iRefHit]) continue;
       if(nTestedRefHits--==0) break;
       const RefHitDef & aRefHitDef = OMTFConfiguration::refHitsDefs[iProcessor][iRefHit];
@@ -105,7 +100,6 @@ const std::vector<OMTFProcessor::resultsMap> & OMTFProcessor::processInput(unsig
   //////////////////////////////////////
   ////////////////////////////////////// 
   for(auto & itRegion: myResults) for(auto & itKey: itRegion) itKey.second.finalise();
-
 
   //#ifndef NDEBUG
   std::ostringstream myStr;
@@ -155,6 +149,45 @@ OMTFinput::vector1D OMTFProcessor::restrictInput(unsigned int iProcessor,
     if(iHit<iStart || iHit>iEnd) myHits[iHit] = OMTFConfiguration::nPhiBins;    
   }
   return myHits;
+}
+////////////////////////////////////////////
+////////////////////////////////////////////
+void OMTFProcessor::fillCounts(unsigned int iProcessor,
+			       const OMTFinput & aInput,
+			       const SimTrack* aSimMuon){
+
+  int theCharge = (abs(aSimMuon->type()) == 13) ? aSimMuon->type()/-13 : 0;
+  unsigned int  iPt =  RPCConst::iptFromPt(aSimMuon->momentum().pt());
+
+std::cout<<"Here0"<<std::endl;  
+  //////////////////////////////////////  
+  std::bitset<100> refHitsBits = aInput.getRefHits(iProcessor);
+  if(refHitsBits.none()) return;
+
+std::cout<<"Here1"<<std::endl;  
+
+   
+  for(unsigned int iLayer=0;iLayer<OMTFConfiguration::nLayers;++iLayer){
+    const OMTFinput::vector1D & layerHits = aInput.getLayerData(iLayer);
+    if(!layerHits.size()) continue;
+    ///Number of reference hits to be checked. 
+    ///Value read from XML configuration
+    unsigned int nTestedRefHits = OMTFConfiguration::nTestRefHits;
+    for(unsigned int iRefHit=0;iRefHit<OMTFConfiguration::nRefHits;++iRefHit){
+      if(!refHitsBits[iRefHit]) continue;
+      if(nTestedRefHits--==0) break;
+      const RefHitDef & aRefHitDef = OMTFConfiguration::refHitsDefs[iProcessor][iRefHit];
+      int phiRef = aInput.getLayerData(OMTFConfiguration::refToLogicNumber[aRefHitDef.iRefLayer])[aRefHitDef.iInput]; 
+      unsigned int iRegion = aRefHitDef.iRegion;
+      if(OMTFConfiguration::bendingLayers.count(iLayer)) phiRef = 0;
+      const OMTFinput::vector1D restrictedLayerHits = restrictInput(iProcessor, iRegion, iLayer,layerHits);
+      for(auto itGP: theGPs){	
+	if(itGP.first.theCharge!=theCharge) continue;
+	if(itGP.first.thePtCode!=iPt) continue;
+        itGP.second->addCount(aRefHitDef.iRefLayer,iLayer,phiRef,restrictedLayerHits);
+      }
+    }
+  }
 }
 ////////////////////////////////////////////
 ////////////////////////////////////////////

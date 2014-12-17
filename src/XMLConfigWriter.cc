@@ -364,7 +364,6 @@ void  XMLConfigWriter::writeConnectionsData(const std::vector<std::vector <OMTFC
 	  iPhiMin+=iRegion*logicRegionSize;
 	  iPhiMax+=iRegion*logicRegionSize;
 
-
 	  stringStr.str("");
 	  stringStr<<iPhiMin;
 	  aRefHitElement->setAttribute(_toDOMS("iPhiMin"), _toDOMS(stringStr.str()));
@@ -372,12 +371,13 @@ void  XMLConfigWriter::writeConnectionsData(const std::vector<std::vector <OMTFC
 	  stringStr.str("");
 	  stringStr<<iPhiMax;
 	  aRefHitElement->setAttribute(_toDOMS("iPhiMax"), _toDOMS(stringStr.str()));
-
-	  if(iRefHit<81) aProcessorElement->appendChild(aRefHitElement);
+	  //if(iRefHit<OMTFConfiguration::nRefHits) aProcessorElement->appendChild(aRefHitElement);
+	  if(iRefHit<94) aProcessorElement->appendChild(aRefHitElement);
 	  ++iRefHit;
 	}
       }
-      for(;iRegion==5 && iRefHit<80;++iRefHit){
+      //for(;iRegion==5 && iRefHit<OMTFConfiguration::nRefHits;++iRefHit){
+      for(;iRegion==5 && iRefHit<94;++iRefHit){
 
 	xercesc::DOMElement* aRefHitElement = theDoc->createElement(_toDOMS("RefHit"));
 	stringStr.str("");

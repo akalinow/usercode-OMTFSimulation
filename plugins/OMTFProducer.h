@@ -45,6 +45,8 @@ class OMTFProducer : public edm::EDProducer {
   edm::InputTag trigPrimSrc;
   edm::EDGetTokenT<L1TMuon::TriggerPrimitiveCollection> inputToken;
 
+  const L1TMuon::TriggerPrimitiveCollection filterDigis(const L1TMuon::TriggerPrimitiveCollection & vDigi);
+
   bool dumpResultToXML, dumpGPToXML;
   bool makeConnectionsMaps;
 

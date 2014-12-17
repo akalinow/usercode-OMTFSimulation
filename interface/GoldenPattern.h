@@ -6,6 +6,8 @@
 
 #include "UserCode/OMTFSimulation/interface/OMTFinput.h"
 
+class OMTFConfigMaker;
+class OMTFProcessor;
 //////////////////////////////////
 // Key
 //////////////////////////////////
@@ -73,6 +75,15 @@ class GoldenPattern {
 
   friend std::ostream & operator << (std::ostream &out, const GoldenPattern & aPattern);
     
+  ///Add a single count to the relevant pdf bin in three dimensions
+  void addCount(unsigned int iRefLayer,
+		unsigned int iLayer,
+		const int refPhi,
+		const OMTFinput::vector1D & layerHits);
+
+  ///Reset contents of all data vectors, keeping the vectors size
+  void reset();
+
  private:
 
   ///Pattern kinematical identification (iEta,iPt,iCharge)
@@ -88,6 +99,10 @@ class GoldenPattern {
   ///First index: measurement layer number 
   ///Second index: refLayer number
   vector2D meanDistPhi;
+
+  ///Vector holding number of counts.
+  ///Used for making the patterns
+  vector2D meanDistPhiCounts;
 
 };
 //////////////////////////////////

@@ -1,3 +1,5 @@
+<use   name="L1Trigger/RPCTrigger"/>
+
 <use   name="DataFormats/L1TMuon"/>
 <use   name="DataFormats/RPCDigi"/>
 <use   name="DataFormats/CSCDigi"/>

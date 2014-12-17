@@ -85,7 +85,7 @@ class OMTFConfiguration{
   static std::vector<std::vector<std::vector<std::pair<int,int> > > >regionPhisVsRefLayerVsProcessor;
 
   ///Vector with definitions of reference hits
-  ///Vector has fixed size of 80
+  ///Vector has fixed size of nRefHits
   ///Order of elements defines priority order
   ///First index: processor number (0-5)
   ///Second index: ref hit number (0-79)

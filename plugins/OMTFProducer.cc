@@ -97,6 +97,9 @@ void OMTFProducer::produce(edm::Event& iEvent, const edm::EventSetup& evSetup){
   edm::Handle<TriggerPrimitiveCollection> trigPrimitives;
   iEvent.getByToken(inputToken, trigPrimitives);
 
+  ///Filter digis by dropping digis from selected (by cfg.py) subsystems
+  const L1TMuon::TriggerPrimitiveCollection filteredDigis = filterDigis(*trigPrimitives);
+
   std::auto_ptr<std::vector<L1MuRegionalCand> > myCands(new std::vector<L1MuRegionalCand>);
 
   if(dumpResultToXML) aTopElement = myWriter->writeEventHeader(iEvent.id().event());
@@ -106,7 +109,7 @@ void OMTFProducer::produce(edm::Event& iEvent, const edm::EventSetup& evSetup){
     
     edm::LogInfo("OMTF ROOTReader")<<"iProcessor: "<<iProcessor;
     
-    const OMTFinput *myInput = myInputMaker->buildInputForProcessor(*trigPrimitives,iProcessor);
+    const OMTFinput *myInput = myInputMaker->buildInputForProcessor(filteredDigis,iProcessor);
        
     ///Input data with phi ranges shifted for each processor, so it fits 10 bits range
     const OMTFinput myShiftedInput =  myOMTF->shiftInput(iProcessor,*myInput);	
@@ -118,6 +121,12 @@ void OMTFProducer::produce(edm::Event& iEvent, const edm::EventSetup& evSetup){
       myOMTFConfigMaker->makeConnetionsMap(iProcessor,*myInput);
       continue;
     }
+    /*
+    if(makeGoldenPatterns) {
+      myOMTFConfigMaker->fillCounts(iProcessor,*myInput);
+      continue;
+    }
+    */
     /////////////////////////
     
     ///Results for each GP in each logic region of given processor
@@ -132,15 +141,15 @@ void OMTFProducer::produce(edm::Event& iEvent, const edm::EventSetup& evSetup){
     if(procOffset<0) procOffset+=OMTFConfiguration::nPhiBins;
 
     float phiValue = (myOTFCandidatePlus.phiValue()+OMTFConfiguration::globalPhiStart(iProcessor)+511)/OMTFConfiguration::nPhiBins*2*M_PI;
-    if(phiValue>2*M_PI) phiValue-=2*M_PI;
+    if(phiValue>M_PI) phiValue-=2*M_PI;
     myOTFCandidatePlus.setPhiValue(phiValue);
 
     phiValue = (myOTFCandidateMinus.phiValue()+OMTFConfiguration::globalPhiStart(iProcessor)+511)/OMTFConfiguration::nPhiBins*2*M_PI;
-    if(phiValue>2*M_PI) phiValue-=2*M_PI;
+    if(phiValue>M_PI) phiValue-=2*M_PI;
     myOTFCandidateMinus.setPhiValue(phiValue);
     //////////////////
     if(myOTFCandidatePlus.pt_packed()) myCands->push_back(myOTFCandidatePlus); 
-    if(myOTFCandidateMinus.pt_packed()) myCands->push_back(myOTFCandidateMinus); 
+    //if(myOTFCandidateMinus.pt_packed()) myCands->push_back(myOTFCandidateMinus); 
    
     ///Write to XML
     if(dumpResultToXML){
@@ -158,6 +167,34 @@ void OMTFProducer::produce(edm::Event& iEvent, const edm::EventSetup& evSetup){
     }
   }
   iEvent.put(myCands, "OMTF");
+}
+/////////////////////////////////////////////////////
+/////////////////////////////////////////////////////  
+const L1TMuon::TriggerPrimitiveCollection OMTFProducer::filterDigis(const L1TMuon::TriggerPrimitiveCollection & vDigi){
+
+  if(!theConfig.getParameter<bool>("dropRPCPrimitives") &&
+     !theConfig.getParameter<bool>("dropDTPrimitives") &&
+     !theConfig.getParameter<bool>("dropCSCPrimitives")) return vDigi;
+  
+  L1TMuon::TriggerPrimitiveCollection filteredDigis;
+  for(auto it:vDigi){
+    switch (it.subsystem()) {
+    case L1TMuon::TriggerPrimitive::kRPC: {
+      if(!theConfig.getParameter<bool>("dropRPCPrimitives")) filteredDigis.push_back(it);
+      break;
+    }
+    case L1TMuon::TriggerPrimitive::kDT: {
+      if(!theConfig.getParameter<bool>("dropDTPrimitives")) filteredDigis.push_back(it);
+      break;
+    }
+    case L1TMuon::TriggerPrimitive::kCSC: {
+      if(!theConfig.getParameter<bool>("dropCSCPrimitives")) filteredDigis.push_back(it);
+      break;
+    }
+    case L1TMuon::TriggerPrimitive::kNSubsystems: {break;} 
+    }
+  }
+  return filteredDigis;
 }
 /////////////////////////////////////////////////////
 /////////////////////////////////////////////////////  

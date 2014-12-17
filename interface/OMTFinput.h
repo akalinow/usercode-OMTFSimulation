@@ -34,7 +34,7 @@ class OMTFinput{
 
   const OMTFinput::vector1D & getLayerData(unsigned int iLayer) const;
 
-  std::bitset<80> getRefHits(unsigned int iProcessor) const;
+  std::bitset<100> getRefHits(unsigned int iProcessor) const;
 
   friend std::ostream & operator << (std::ostream &out, const OMTFinput & aInput);
 
@@ -45,10 +45,6 @@ class OMTFinput{
   ///Second index: measurement number within layer
   vector2D measurements; 
 
-  ///Bitset of reference hit flags
-  ///If there is a reference hit matching definition for
-  ///i-th ref hit index==i is set to true
-  //std::bitset<80> refHits;
 
 };
 

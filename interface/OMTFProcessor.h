@@ -10,6 +10,8 @@ class OMTFConfiguration;
 class XMLConfigReader;
 class OMTFinput;
 
+class SimTrack;
+
 namespace edm{
 class ParameterSet;
 }
@@ -43,6 +45,13 @@ class OMTFProcessor{
   OMTFinput shiftInput(unsigned int iProcessor,
 		       const OMTFinput & aInput);
 
+  ///Fill counts for a GoldenPattern of this
+  ///processor unit. Pattern key is selcted according 
+  ///to the SimTrack parameters.
+  void fillCounts(unsigned int iProcessor,
+		  const OMTFinput & aInput,
+		  const SimTrack* aSimMuon);
+  
  private:
 
   ///Add GoldenPattern to pattern map.

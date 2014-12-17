@@ -20,16 +20,22 @@ const OMTFinput::vector1D & OMTFinput::getLayerData(unsigned int iLayer) const{
 }
 ///////////////////////////////////////////////////
 ///////////////////////////////////////////////////
-std::bitset<80> OMTFinput::getRefHits(unsigned int iProcessor) const{
+std::bitset<100> OMTFinput::getRefHits(unsigned int iProcessor) const{
  
-  std::bitset<80> refHits;
+  std::bitset<100> refHits;
+
+  std::cout<<"Here1"<<std::endl;
 
   unsigned int iRefHit = 0;
   for(auto iRefHitDef:OMTFConfiguration::refHitsDefs[iProcessor]){  
     int iPhi = getLayerData(OMTFConfiguration::refToLogicNumber[iRefHitDef.iRefLayer])[iRefHitDef.iInput];    
+    if(iPhi<(int)OMTFConfiguration::nPhiBins && iRefHitDef.fitsRange(iPhi)) std::cout<<"Here2"<<std::endl;
     if(iPhi<(int)OMTFConfiguration::nPhiBins) refHits.set(iRefHit, iRefHitDef.fitsRange(iPhi));
     iRefHit++;
   }
+
+  if(!refHits.none()) std::cout<<"Here3"<<std::endl;
+
   return refHits;
 }
 ///////////////////////////////////////////////////

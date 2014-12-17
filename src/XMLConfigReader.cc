@@ -281,8 +281,8 @@ void XMLConfigReader::readConfig(OMTFConfiguration *aConfig){
   ///Vector of all processors
   OMTFConfiguration::regionPhisVsRefLayerVsProcessor.assign(6,aRefHit2D);
 
-  //Vector of 80 ref hit definitions
-  std::vector<RefHitDef> aRefHitsDefs(80);
+  //Vector of ref hit definitions
+  std::vector<RefHitDef> aRefHitsDefs(OMTFConfiguration::nRefHits);
   ///Vector of all processros
   OMTFConfiguration::refHitsDefs.assign(6,aRefHitsDefs);
 
@@ -305,7 +305,7 @@ void XMLConfigReader::readConfig(OMTFConfiguration *aConfig){
     }
     ///////////
     nElem1 = aProcessorElement->getElementsByTagName(_toDOMS("RefHit"))->getLength();
-    assert(nElem1==80);
+    assert(nElem1==OMTFConfiguration::nRefHits);
     DOMElement* aRefHitElement = 0;
     for(uint ii=0;ii<nElem1;++ii){
       aNode = aProcessorElement->getElementsByTagName(_toDOMS("RefHit"))->item(ii);

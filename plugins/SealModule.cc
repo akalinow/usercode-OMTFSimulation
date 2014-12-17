@@ -4,3 +4,6 @@
 #include "OMTFProducer.h"
 DEFINE_FWK_MODULE(OMTFProducer);
 
+#include "OMTFPatternMaker.h"
+DEFINE_FWK_MODULE(OMTFPatternMaker);
+

@@ -53,7 +53,6 @@ process.MessageLogger = cms.Service("MessageLogger",
        ),
 )
 '''
-
 process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32(10000)
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 
@@ -74,8 +73,7 @@ process.source.fileNames =  cms.untracked.vstring()
 for aFile in fileList:
     process.source.fileNames.append('file:'+aFile)
 '''
-
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(100000))
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1))
 
 
 ###PostLS1 geometry used

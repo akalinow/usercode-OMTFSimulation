@@ -1,6 +1,8 @@
 #include <iostream>
 #include <cmath>
 
+#include "FWCore/MessageLogger/interface/MessageLogger.h"
+
 #include "UserCode/OMTFSimulation/interface/GoldenPattern.h"
 #include "UserCode/OMTFSimulation/interface/OMTFConfiguration.h"
 #include "UserCode/OMTFSimulation/interface/OMTFinput.h"
@@ -50,11 +52,13 @@ void GoldenPattern::addCount(unsigned int iRefLayer,
     ++nHitsInLayer;
   }
   ///For making the Patterns take events with a single hit in each layer
-  if(nHitsInLayer>1) return;
+  if(nHitsInLayer>1 || nHitsInLayer==0) return;
   
   int phiDist = exp2(OMTFConfiguration::nPdfAddrBits);
   for(auto itHit: layerHits){    
+
     if(itHit>=(int)OMTFConfiguration::nPhiBins) continue;
+
     if(abs(itHit-phiRefHit)<phiDist) phiDist = itHit-phiRefHit;
 
     if(phiDist>=(int)OMTFConfiguration::nPhiBins/2) phiDist-=(int)OMTFConfiguration::nPhiBins;
@@ -62,9 +66,6 @@ void GoldenPattern::addCount(unsigned int iRefLayer,
 
     meanDistPhi[iLayer][iRefLayer]+=phiDist;
     ++meanDistPhiCounts[iLayer][iRefLayer];
-    if(OMTFConfiguration::refToLogicNumber[iRefLayer]==(int)iLayer && iLayer==0)
-      std::cout<<"iLayer: "<<iLayer
-	       <<" phiDist: "<<phiDist<<std::endl;
   }
 
   ///Shift phidist, so 0 is at the middle of the range
@@ -96,25 +97,23 @@ std::ostream & operator << (std::ostream &out, const GoldenPattern & aPattern){
   for (unsigned int iRefLayer=0;iRefLayer<aPattern.meanDistPhi[0].size();++iRefLayer){
     out<<"Ref layer: "<<iRefLayer<<" (";
     for (unsigned int iLayer=0;iLayer<aPattern.meanDistPhi.size();++iLayer){   
-      if(aPattern.meanDistPhiCounts[iLayer][iRefLayer]) out<<(float)aPattern.meanDistPhi[iLayer][iRefLayer]/aPattern.meanDistPhiCounts[iLayer][iRefLayer]<<"\t";
+      if(aPattern.meanDistPhiCounts.size() && aPattern.meanDistPhiCounts[iLayer][iRefLayer]) 
+	out<<(int)aPattern.meanDistPhi[iLayer][iRefLayer]/aPattern.meanDistPhiCounts[iLayer][iRefLayer]<<"\t";
       else out<<aPattern.meanDistPhi[iLayer][iRefLayer]<<"\t";
     }
     out<<")"<<std::endl;
   }
 
-
-  out<<"Counts number per layer:"<<std::endl;
-  for (unsigned int iRefLayer=0;iRefLayer<aPattern.meanDistPhi[0].size();++iRefLayer){
-    out<<"Ref layer: "<<iRefLayer<<" (";
-    for (unsigned int iLayer=0;iLayer<aPattern.meanDistPhi.size();++iLayer){   
-      out<<aPattern.meanDistPhiCounts[iLayer][iRefLayer]<<"\t";
+  if(aPattern.meanDistPhiCounts.size()){
+    out<<"Counts number per layer:"<<std::endl;
+    for (unsigned int iRefLayer=0;iRefLayer<aPattern.meanDistPhi[0].size();++iRefLayer){
+      out<<"Ref layer: "<<iRefLayer<<" (";
+      for (unsigned int iLayer=0;iLayer<aPattern.meanDistPhi.size();++iLayer){   
+	out<<aPattern.meanDistPhiCounts[iLayer][iRefLayer]<<"\t";
+      }
+      out<<")"<<std::endl;
     }
-    out<<")"<<std::endl;
   }
-
-  ////////////
-  return out;
-  ////////////
 
   out<<"PDF per layer:"<<std::endl;
   for (unsigned int iRefLayer=0;iRefLayer<aPattern.pdfAllRef[0].size();++iRefLayer){
@@ -141,7 +140,7 @@ void GoldenPattern::reset(){
   meanDistPhiCounts = meanDistPhi2D;
 
   ///For making the patterns use extended pdf width in phi
-  OMTFConfiguration::nPdfAddrBits = 12;
+  //OMTFConfiguration::nPdfAddrBits = 12;
 
   GoldenPattern::vector1D pdf1D(exp2(OMTFConfiguration::nPdfAddrBits));
   GoldenPattern::vector2D pdf2D(OMTFConfiguration::nRefLayers);

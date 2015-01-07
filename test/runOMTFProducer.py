@@ -5,7 +5,7 @@ import sys
 import commands
 
 process.load("FWCore.MessageLogger.MessageLogger_cfi")
-
+'''
 process.MessageLogger = cms.Service("MessageLogger",
        suppressInfo       = cms.untracked.vstring('AfterSource', 'PostModule'),
        destinations   = cms.untracked.vstring(
@@ -52,9 +52,9 @@ process.MessageLogger = cms.Service("MessageLogger",
                 GetByLabelWithoutRegistration  = cms.untracked.PSet (limit = cms.untracked.int32(0) ) 
        ),
 )
+'''
 
-
-#process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32(10000)
+process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32(10000)
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 
 process.source = cms.Source(
@@ -74,7 +74,7 @@ for aFile in fileList:
     process.source.fileNames.append('file:'+aFile)
 '''
 
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(100))
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1))
 
 
 ###PostLS1 geometry used
@@ -94,7 +94,7 @@ process.load('L1Trigger.L1TMuon.L1TMuonTriggerPrimitiveProducer_cfi')
 process.omtfEmulator = cms.EDProducer("OMTFProducer",
                                       TriggerPrimitiveSrc = cms.InputTag('L1TMuonTriggerPrimitives'),
                                       dumpResultToXML = cms.bool(False),                                     
-                                      dumpGPToXML = cms.bool(True),                                     
+                                      dumpGPToXML = cms.bool(False),                                     
                                       makeConnectionsMaps = cms.bool(False),                                      
                                       dropRPCPrimitives = cms.bool(False),                                    
                                       dropDTPrimitives = cms.bool(False),                                    
@@ -113,7 +113,7 @@ process.omtfEmulator = cms.EDProducer("OMTFProducer",
 process.MuonEtaFilter = cms.EDFilter("SimTrackEtaFilter",
                                 minNumber = cms.uint32(1),
                                 src = cms.InputTag("g4SimHits"),
-                                cut = cms.string("momentum.eta<1.24 && momentum.eta>0.83 &&  momentum.pt>1")
+                                cut = cms.string("momentum.eta<0.9 && momentum.eta>0.83 &&  momentum.pt>1")
                                 )
 process.GenMuPath = cms.Path(process.MuonEtaFilter)
 ##########################################

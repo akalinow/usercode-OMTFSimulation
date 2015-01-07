@@ -127,7 +127,7 @@ void OMTFPatternMaker::analyze(const edm::Event& iEvent, const edm::EventSetup& 
     if(makeConnectionsMaps) myOMTFConfigMaker->makeConnetionsMap(iProcessor,*myInput);
   
     if(makeGoldenPatterns){
-	myOMTF->fillCounts(iProcessor,*myInput, aSimMuon);
+	myOMTF->fillCounts(iProcessor,myShiftedInput, aSimMuon);
     }
   }
 }

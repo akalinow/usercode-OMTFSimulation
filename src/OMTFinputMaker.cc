@@ -161,19 +161,20 @@ const OMTFinput * OMTFinputMaker::buildInputForProcessor(const L1TMuon::TriggerP
     if(!filterDigiQuality(digiIt)) continue;
 
     unsigned int hwNumber = OMTFConfiguration::getLayerNumber(digiIt.rawId());
-    unsigned int iLayer = OMTFConfiguration::hwToLogicLayer[hwNumber];
+
+    if(OMTFConfiguration::hwToLogicLayer.find(hwNumber)==OMTFConfiguration::hwToLogicLayer.end()) continue;
+    unsigned int iLayer = OMTFConfiguration::hwToLogicLayer[hwNumber];   
     int iPhi =  digiIt.getCMSGlobalPhi()/(2.0*M_PI)*nGlobalPhi;
     unsigned int iInput= getInputNumber(digiIt.rawId(), iProcessor);
     if(digiIt.subsystem()!=L1TMuon::TriggerPrimitive::kRPC) myInput->addLayerHit(iLayer,iInput,iPhi);
-    
     switch (digiIt.subsystem()) {
     case L1TMuon::TriggerPrimitive::kDT: {
       myInput->addLayerHit(iLayer+1,iInput,digiIt.getDTData().bendingAngle);
       break;
     }
     case L1TMuon::TriggerPrimitive::kCSC: {
-      myInput->addLayerHit(iLayer+1,iInput,digiIt.getCSCData().pattern);
-        break;
+      //myInput->addLayerHit(iLayer+1,iInput,digiIt.getCSCData().pattern);
+      break;
     }
     case L1TMuon::TriggerPrimitive::kRPC: {
       if(detMap.find(digiIt.rawId())==detMap.end()) detMap[digiIt.rawId()] = std::vector<const L1TMuon::TriggerPrimitive *>(0);

@@ -159,13 +159,15 @@ void OMTFProcessor::fillCounts(unsigned int iProcessor,
   int theCharge = (abs(aSimMuon->type()) == 13) ? aSimMuon->type()/-13 : 0;
   unsigned int  iPt =  RPCConst::iptFromPt(aSimMuon->momentum().pt());
 
-std::cout<<"Here0"<<std::endl;  
   //////////////////////////////////////  
   std::bitset<100> refHitsBits = aInput.getRefHits(iProcessor);
   if(refHitsBits.none()) return;
 
-std::cout<<"Here1"<<std::endl;  
-
+  std::ostringstream myStr;
+  myStr<<"iProcessor: "<<iProcessor<<std::endl;
+  myStr<<"Input: ------------"<<std::endl;
+  myStr<<aInput<<std::endl;
+  edm::LogInfo("OMTF processor")<<myStr.str();
    
   for(unsigned int iLayer=0;iLayer<OMTFConfiguration::nLayers;++iLayer){
     const OMTFinput::vector1D & layerHits = aInput.getLayerData(iLayer);

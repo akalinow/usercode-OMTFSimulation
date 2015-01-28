@@ -336,7 +336,6 @@ void  XMLConfigWriter::writeConnectionsData(const std::vector<std::vector <OMTFC
       aRegionElement->setAttribute(_toDOMS("iRegion"), _toDOMS(stringStr.str()));   
       ////
       for(unsigned int iRefLayer=0;iRefLayer<OMTFConfiguration::nRefLayers;++iRefLayer){
-	//if(iRefLayer>5) continue;
 	for(unsigned int iInput=0;iInput<14;++iInput){
 	  unsigned int hitCount =  OMTFConfiguration::measurements4Dref[iProcessor][iRegion][iRefLayer][iInput];
 	  if(!hitCount) continue;
@@ -372,12 +371,12 @@ void  XMLConfigWriter::writeConnectionsData(const std::vector<std::vector <OMTFC
 	  stringStr<<iPhiMax;
 	  aRefHitElement->setAttribute(_toDOMS("iPhiMax"), _toDOMS(stringStr.str()));
 	  //if(iRefHit<OMTFConfiguration::nRefHits) aProcessorElement->appendChild(aRefHitElement);
-	  if(iRefHit<94) aProcessorElement->appendChild(aRefHitElement);
+	  if(iRefHit<128) aProcessorElement->appendChild(aRefHitElement);
 	  ++iRefHit;
 	}
       }
       //for(;iRegion==5 && iRefHit<OMTFConfiguration::nRefHits;++iRefHit){
-      for(;iRegion==5 && iRefHit<94;++iRefHit){
+      for(;iRegion==5 && iRefHit<128;++iRefHit){
 
 	xercesc::DOMElement* aRefHitElement = theDoc->createElement(_toDOMS("RefHit"));
 	stringStr.str("");

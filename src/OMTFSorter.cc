@@ -87,7 +87,7 @@ InternalObj OMTFSorter::sortRegionResults(const OMTFProcessor::resultsMap & aRes
     }
   }  
 
-  InternalObj candidate;
+ InternalObj candidate;
   candidate.pt =  bestKey.thePtCode;
   candidate.eta = bestKey.theEtaCode; 
   candidate.phi = refPhi;
@@ -95,6 +95,58 @@ InternalObj OMTFSorter::sortRegionResults(const OMTFProcessor::resultsMap & aRes
   candidate.q   = nHitsMax;
   candidate.disc = pdfValMax;
   candidate.refLayer = refLayer;
+
+  /////TEST AVERAGE PT///////
+  pdfValMax = 0;
+  for(auto itKey: aResultsMap){
+    if(itKey.first.thePtCode>candidate.pt) continue;
+    std::tuple<unsigned int,unsigned int, int, int > val = sortSingleResult(itKey.second);
+    if(std::get<0>(val)==nHitsMax && std::get<1>(val)!=candidate.disc &&  std::get<1>(val)>pdfValMax){
+      pdfValMax = std::get<1>(val);
+      refPhi = std::get<2>(val);
+      refLayer = std::get<3>(val);
+      bestKey = itKey.first;
+    }
+  }
+  InternalObj candidatePrevious;
+  candidatePrevious.pt =  bestKey.thePtCode;
+  candidatePrevious.eta = bestKey.theEtaCode; 
+  candidatePrevious.phi = refPhi;
+  candidatePrevious.charge = bestKey.theCharge;
+  candidatePrevious.q   = nHitsMax;
+  candidatePrevious.disc = pdfValMax;
+  candidatePrevious.refLayer = refLayer;
+
+  pdfValMax = 0;
+  for(auto itKey: aResultsMap){   
+    if(itKey.first.thePtCode<candidate.pt) continue;
+    std::tuple<unsigned int,unsigned int, int, int > val = sortSingleResult(itKey.second);
+    if(std::get<0>(val)==nHitsMax && std::get<1>(val)!=candidate.disc && std::get<1>(val)>pdfValMax){
+      pdfValMax = std::get<1>(val);
+      refPhi = std::get<2>(val);
+      refLayer = std::get<3>(val);
+      bestKey = itKey.first;
+    }
+  }
+  InternalObj candidateNext;
+  candidateNext.pt =  bestKey.thePtCode;
+  candidateNext.eta = bestKey.theEtaCode; 
+  candidateNext.phi = refPhi;
+  candidateNext.charge = bestKey.theCharge;
+  candidateNext.q   = nHitsMax;
+  candidateNext.disc = pdfValMax;
+  candidateNext.refLayer = refLayer;
+
+
+
+  if(candidate.pt){
+    float weightedPtCode = candidatePrevious.pt*candidatePrevious.disc + 
+                           candidate.pt*candidate.disc + 
+                           candidateNext.pt*candidateNext.disc;
+    weightedPtCode/= candidatePrevious.disc + candidate.disc + candidateNext.disc;
+    candidate.pt = (int)weightedPtCode;
+  } 
+  ////////////////////////////// 
 
   return candidate;
 

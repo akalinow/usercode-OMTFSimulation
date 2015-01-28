@@ -208,6 +208,8 @@ void XMLConfigReader::readConfig(OMTFConfiguration *aConfig){
   assert(nElem==1);
   aNode = aOMTFElement->getElementsByTagName(_toDOMS("GlobalData"))->item(0);
   DOMElement* aElement = static_cast<DOMElement *>(aNode); 
+
+  float minPdfVal = std::atof(_toString(aElement->getAttribute(_toDOMS("minPdfVal"))).c_str()); 
   unsigned int nPdfAddrBits = std::atoi(_toString(aElement->getAttribute(_toDOMS("nPdfAddrBits"))).c_str()); 
   unsigned int nPdfValBits =  std::atoi(_toString(aElement->getAttribute(_toDOMS("nPdfValBits"))).c_str()); 
   unsigned int nHitsPerLayer =  std::atoi(_toString(aElement->getAttribute(_toDOMS("nHitsPerLayer"))).c_str()); 
@@ -215,6 +217,7 @@ void XMLConfigReader::readConfig(OMTFConfiguration *aConfig){
   unsigned int nPhiBins =  std::atoi(_toString(aElement->getAttribute(_toDOMS("nPhiBins"))).c_str()); 
   unsigned int nRefHits =  std::atoi(_toString(aElement->getAttribute(_toDOMS("nRefHits"))).c_str()); 
   unsigned int nTestRefHits =  std::atoi(_toString(aElement->getAttribute(_toDOMS("nTestRefHits"))).c_str()); 
+  OMTFConfiguration::minPdfVal = minPdfVal;
   OMTFConfiguration::nPdfAddrBits = nPdfAddrBits;
   OMTFConfiguration::nPdfValBits = nPdfValBits;
   OMTFConfiguration::nHitsPerLayer = nHitsPerLayer;

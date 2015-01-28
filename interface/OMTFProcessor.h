@@ -58,6 +58,10 @@ class OMTFProcessor{
   ///If GP key already exists in map, a new entry is ignored
   bool addGP(GoldenPattern *aGP);
 
+  ///Average patterns. Use same meanDistPhi for two
+  ///patterns neighboring in pt code
+  void averagePatterns();
+
   ///Fill map of used inputs.
   ///FIXME: using hack from OMTFConfiguration
   void fillInputRange(unsigned int iProcessor,

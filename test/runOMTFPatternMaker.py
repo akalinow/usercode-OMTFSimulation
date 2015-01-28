@@ -53,28 +53,27 @@ process.MessageLogger = cms.Service("MessageLogger",
        ),
 )
 '''
-process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32(10000)
+process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32(50000)
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 
 process.source = cms.Source(
     'PoolSource',
-    fileNames = cms.untracked.vstring('file:/home/akalinow/scratch/CMS/OverlapTrackFinder/Crab/SingleMuFullEtaTestSample/720_FullEta_v1/data/SingleMu_16_p_1_2_TWz.root',
-                                      'file:/home/akalinow/scratch/CMS/OverlapTrackFinder/Crab/SingleMuFullEtaTestSample/720_FullEta_v1/data/SingleMu_16_p_2_2_4vE.root')
+    fileNames = cms.untracked.vstring('file:/home/akalinow/scratch/CMS/OverlapTrackFinder/Crab/SingleMuFullEta/721_FullEta_v3/data/SingleMu_16_p_100_3_bhF.root',
+                                      'file:/home/akalinow/scratch/CMS/OverlapTrackFinder/Crab/SingleMuFullEta/721_FullEta_v3/data/SingleMu_16_p_10_1_wJX.root')
     )
 
-'''
+
 ##Use all available events in a single job.
 ##Only for making the connections maps.
 process.source.fileNames =  cms.untracked.vstring()
-path = "/home/akalinow/scratch/CMS/OverlapTrackFinder/Crab/SingleMuFullEtaTestSample/720_FullEta_v1/data/"
-command = "ls "+path+"/SingleMu_{10,11,16}*"
+path = "/home/akalinow/scratch/CMS/OverlapTrackFinder/Crab/SingleMuFullEta/721_FullEta_v3/data/"
+command = "ls "+path+"/SingleMu_16_p_1*"
 fileList = commands.getoutput(command).split("\n")
 process.source.fileNames =  cms.untracked.vstring()
 for aFile in fileList:
     process.source.fileNames.append('file:'+aFile)
-'''
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1))
 
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(100000))
 
 ###PostLS1 geometry used
 process.load('Configuration.Geometry.GeometryExtendedPostLS1Reco_cff')
@@ -99,7 +98,8 @@ process.omtfPatternMaker = cms.EDAnalyzer("OMTFPatternMaker",
                                       dropDTPrimitives = cms.bool(False),                                    
                                       dropCSCPrimitives = cms.bool(False),   
                                       omtf = cms.PSet(
-        configXMLFile = cms.string(path+"hwToLogicLayer_18layersFix2.xml"),
+        #configXMLFile = cms.string(path+"hwToLogicLayer_18layersFix2.xml"),
+        configXMLFile = cms.string(path+"hwToLogicLayer_721.xml"),
         patternsXMLFiles = cms.vstring(path+"Patterns_ipt6_18.xml",path+"Patterns_ipt19_31.xml"),
 
         )
@@ -109,7 +109,7 @@ process.omtfPatternMaker = cms.EDAnalyzer("OMTFPatternMaker",
 process.MuonEtaFilter = cms.EDFilter("SimTrackEtaFilter",
                                 minNumber = cms.uint32(1),
                                 src = cms.InputTag("g4SimHits"),
-                                cut = cms.string("momentum.eta<0.9 && momentum.eta>0.83 &&  momentum.pt>1")
+                                cut = cms.string("momentum.eta<1.24 && momentum.eta>0.83 &&  momentum.pt>1")
                                 )
 process.GenMuPath = cms.Path(process.MuonEtaFilter)
 ##########################################

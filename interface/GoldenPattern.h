@@ -60,6 +60,8 @@ class GoldenPattern {
 
   void setMeanDistPhi(const vector2D & aMeanDistPhi){ meanDistPhi = aMeanDistPhi; }
 
+  const vector2D & getMeanDistPhi() const {return meanDistPhi;}
+
   void setPdf(const vector3D & aPdf){  pdfAllRef = aPdf; }
 
   int meanDistPhiValue(unsigned int iLayer, unsigned int iRefLayer) const { return meanDistPhi[iLayer][iRefLayer];}
@@ -83,6 +85,13 @@ class GoldenPattern {
 
   ///Reset contents of all data vectors, keeping the vectors size
   void reset();
+
+  ///Normalise event counts in mean dist phi, and pdf vectors to get
+  ///the real values of meand dist phi and probability
+  void normalise();
+
+  ///Check if the GP has any counts in any of referecne layers;
+  bool hasCounts();
 
  private:
 

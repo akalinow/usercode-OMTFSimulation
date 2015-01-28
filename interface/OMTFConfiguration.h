@@ -54,6 +54,7 @@ class OMTFConfiguration{
 
   friend std::ostream & operator << (std::ostream &out, const OMTFConfiguration & aConfig);
 
+  static float minPdfVal;
   static unsigned int nLayers;
   static unsigned int nHitsPerLayer;
   static unsigned int nRefLayers;

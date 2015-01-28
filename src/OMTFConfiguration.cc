@@ -10,6 +10,7 @@
 
 #include "FWCore/ParameterSet/interface/ParameterSet.h"
 
+float OMTFConfiguration::minPdfVal;
 unsigned int OMTFConfiguration::nLayers;
 unsigned int OMTFConfiguration::nHitsPerLayer;
 unsigned int OMTFConfiguration::nRefLayers;

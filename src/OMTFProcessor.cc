@@ -47,6 +47,8 @@ bool OMTFProcessor::configure(XMLConfigReader *aReader){
     if(!addGP(it)) return false;
   }
 
+  averagePatterns();
+
   return true;
 }
 ///////////////////////////////////////////////
@@ -62,6 +64,30 @@ bool OMTFProcessor::addGP(GoldenPattern *aGP){
 }
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
+void  OMTFProcessor::averagePatterns(){
+
+  for(auto it: theGPs){    
+    GoldenPattern *aGP1 = it.second;
+    GoldenPattern *aGP2 = it.second;
+    Key aNextKey = it.first;
+    ++aNextKey.thePtCode;
+    if(aNextKey.thePtCode<=31 && theGPs.find(aNextKey)!=theGPs.end()) aGP2 =  theGPs.find(aNextKey)->second;
+    
+    GoldenPattern::vector2D meanDistPhi1  = aGP1->getMeanDistPhi();
+    GoldenPattern::vector2D meanDistPhi2  = aGP2->getMeanDistPhi();
+    
+    for(unsigned int iLayer=0;OMTFConfiguration::nLayers;++iLayer){
+      for(unsigned int iRefLayer=0;OMTFConfiguration::nRefLayers;++iRefLayer){
+	meanDistPhi1[iLayer][iRefLayer]+=meanDistPhi2[iLayer][iRefLayer];
+	meanDistPhi1[iLayer][iRefLayer]/=2;
+      }
+    }
+    aGP1->setMeanDistPhi(meanDistPhi1);
+    aGP2->setMeanDistPhi(meanDistPhi1);
+  }
+}
+///////////////////////////////////////////////
+///////////////////////////////////////////////
 const std::map<Key,GoldenPattern*> & OMTFProcessor::getPatterns() const{ return theGPs; }
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
@@ -72,7 +98,7 @@ const std::vector<OMTFProcessor::resultsMap> & OMTFProcessor::processInput(unsig
 
   //////////////////////////////////////
   //////////////////////////////////////  
-  std::bitset<100> refHitsBits = aInput.getRefHits(iProcessor);
+  std::bitset<128> refHitsBits = aInput.getRefHits(iProcessor);
   if(refHitsBits.none()) return myResults;
    
   for(unsigned int iLayer=0;iLayer<OMTFConfiguration::nLayers;++iLayer){
@@ -160,7 +186,7 @@ void OMTFProcessor::fillCounts(unsigned int iProcessor,
   unsigned int  iPt =  RPCConst::iptFromPt(aSimMuon->momentum().pt());
 
   //////////////////////////////////////  
-  std::bitset<100> refHitsBits = aInput.getRefHits(iProcessor);
+  std::bitset<128> refHitsBits = aInput.getRefHits(iProcessor);
   if(refHitsBits.none()) return;
 
   std::ostringstream myStr;

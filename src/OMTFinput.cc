@@ -20,9 +20,9 @@ const OMTFinput::vector1D & OMTFinput::getLayerData(unsigned int iLayer) const{
 }
 ///////////////////////////////////////////////////
 ///////////////////////////////////////////////////
-std::bitset<100> OMTFinput::getRefHits(unsigned int iProcessor) const{
+std::bitset<128> OMTFinput::getRefHits(unsigned int iProcessor) const{
  
-  std::bitset<100> refHits;
+  std::bitset<128> refHits;
 
   unsigned int iRefHit = 0;
   for(auto iRefHitDef:OMTFConfiguration::refHitsDefs[iProcessor]){  

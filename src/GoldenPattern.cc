@@ -47,39 +47,34 @@ void GoldenPattern::addCount(unsigned int iRefLayer,
 			     const OMTFinput::vector1D & layerHits){
 
   int nHitsInLayer = 0;
+  int phiDist = exp2(OMTFConfiguration::nPdfAddrBits);
+
   for(auto itHit: layerHits){
     if(itHit>=(int)OMTFConfiguration::nPhiBins) continue;
+    if(abs(itHit-phiRefHit)<phiDist) phiDist = itHit-phiRefHit;
     ++nHitsInLayer;
   }
-  ///For making the Patterns take events with a single hit in each layer
+  ///For making the patterns take events with a single hit in each layer
   if(nHitsInLayer>1 || nHitsInLayer==0) return;
   
-  int phiDist = exp2(OMTFConfiguration::nPdfAddrBits);
-  for(auto itHit: layerHits){    
-
-    if(itHit>=(int)OMTFConfiguration::nPhiBins) continue;
-
-    if(abs(itHit-phiRefHit)<phiDist) phiDist = itHit-phiRefHit;
-
-    if(phiDist>=(int)OMTFConfiguration::nPhiBins/2) phiDist-=(int)OMTFConfiguration::nPhiBins;
-    if(phiDist<=-(int)OMTFConfiguration::nPhiBins/2) phiDist+=(int)OMTFConfiguration::nPhiBins;
-
-    meanDistPhi[iLayer][iRefLayer]+=phiDist;
-    ++meanDistPhiCounts[iLayer][iRefLayer];
-  }
-
   ///Shift phidist, so 0 is at the middle of the range
-  phiDist+=exp2(OMTFConfiguration::nPdfAddrBits-1);
-
+  int phiDistShift=phiDist+exp2(OMTFConfiguration::nPdfAddrBits-1);
+  
   ///Check if phiDist is within pdf range
   ///in -64 +63 U2 code
   ///Find more elegant way to check this.
-  if(phiDist<0 ||
-     phiDist>exp2(OMTFConfiguration::nPdfAddrBits)-1){
+  if(phiDistShift<0 ||
+     phiDistShift>exp2(OMTFConfiguration::nPdfAddrBits)-1){
     return;
   }
 
-  ++pdfAllRef[iLayer][iRefLayer][phiDist];
+  ///Shift phiDist so it is in +-Pi range
+  if(phiDist>=(int)OMTFConfiguration::nPhiBins/2) phiDist-=(int)OMTFConfiguration::nPhiBins;
+  if(phiDist<=-(int)OMTFConfiguration::nPhiBins/2) phiDist+=(int)OMTFConfiguration::nPhiBins;
+
+  meanDistPhi[iLayer][iRefLayer]+=phiDist;
+  ++meanDistPhiCounts[iLayer][iRefLayer];
+  ++pdfAllRef[iLayer][iRefLayer][phiDistShift];
 }
 ////////////////////////////////////////////////////
 ////////////////////////////////////////////////////
@@ -97,9 +92,7 @@ std::ostream & operator << (std::ostream &out, const GoldenPattern & aPattern){
   for (unsigned int iRefLayer=0;iRefLayer<aPattern.meanDistPhi[0].size();++iRefLayer){
     out<<"Ref layer: "<<iRefLayer<<" (";
     for (unsigned int iLayer=0;iLayer<aPattern.meanDistPhi.size();++iLayer){   
-      if(aPattern.meanDistPhiCounts.size() && aPattern.meanDistPhiCounts[iLayer][iRefLayer]) 
-	out<<(int)aPattern.meanDistPhi[iLayer][iRefLayer]/aPattern.meanDistPhiCounts[iLayer][iRefLayer]<<"\t";
-      else out<<aPattern.meanDistPhi[iLayer][iRefLayer]<<"\t";
+      out<<aPattern.meanDistPhi[iLayer][iRefLayer]<<"\t";
     }
     out<<")"<<std::endl;
   }
@@ -149,6 +142,56 @@ void GoldenPattern::reset(){
   pdf2D.assign(OMTFConfiguration::nRefLayers,pdf1D);
   pdfAllRef.assign(OMTFConfiguration::nLayers,pdf2D);
 
+}
+////////////////////////////////////////////////////
+////////////////////////////////////////////////////
+void GoldenPattern::normalise(){
+
+  ///Mean dist phi
+  for (unsigned int iRefLayer=0;iRefLayer<meanDistPhi[0].size();++iRefLayer){
+    for (unsigned int iLayer=0;iLayer<meanDistPhi.size();++iLayer){   
+      if(meanDistPhiCounts.size() && meanDistPhiCounts[iLayer][iRefLayer]) 
+	meanDistPhi[iLayer][iRefLayer]/=meanDistPhiCounts[iLayer][iRefLayer];
+    }
+  }
+  
+  const float minPlog =  log(OMTFConfiguration::minPdfVal);
+  const float nBitsVal = OMTFConfiguration::nPdfValBits;
+  
+  ///Probabilities. Normalise and change from float to integer values
+  float pVal;
+  int digitisedVal, truncatedValue;
+  for (unsigned int iRefLayer=0;iRefLayer<pdfAllRef[0].size();++iRefLayer){
+    for (unsigned int iLayer=0;iLayer<pdfAllRef.size();++iLayer){   
+      for (unsigned int iPdf=0;iPdf<pdfAllRef[iLayer][iRefLayer].size();++iPdf){   
+	if(!meanDistPhiCounts[OMTFConfiguration::refToLogicNumber[iRefLayer]][iRefLayer] ||
+	   !pdfAllRef[iLayer][iRefLayer][iPdf]){
+	  continue;
+	}
+	pVal = log((float)pdfAllRef[iLayer][iRefLayer][iPdf]/meanDistPhiCounts[OMTFConfiguration::refToLogicNumber[iRefLayer]][iRefLayer]);
+	if(pVal<minPlog) continue;
+	///Digitisation
+	///Values remapped 0->std::pow(2,nBitsVal)
+	///          minPlog->0 
+	digitisedVal = (std::pow(2,nBitsVal)-1) - (pVal/minPlog)*(std::pow(2,nBitsVal)-1);
+	///Make sure digitised value is saved using nBitsVal bits
+	truncatedValue  = 0 | (digitisedVal  & ((int)pow(2,nBitsVal)-1));
+	pdfAllRef[iLayer][iRefLayer][iPdf] = truncatedValue;
+      }
+    }
+  } 
+     
+}
+////////////////////////////////////////////////////
+////////////////////////////////////////////////////
+bool GoldenPattern::hasCounts(){
+
+ for (unsigned int iRefLayer=0;iRefLayer<meanDistPhi[0].size();++iRefLayer){
+    for (unsigned int iLayer=0;iLayer<meanDistPhi.size();++iLayer){   
+      if(meanDistPhiCounts.size() && meanDistPhiCounts[iLayer][iRefLayer]) return true;
+  }
+ }
+ return false;
 }
 ////////////////////////////////////////////////////
 ////////////////////////////////////////////////////

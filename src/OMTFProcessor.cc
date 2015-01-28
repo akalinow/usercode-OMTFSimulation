@@ -55,6 +55,10 @@ bool OMTFProcessor::configure(XMLConfigReader *aReader){
 ///////////////////////////////////////////////
 bool OMTFProcessor::addGP(GoldenPattern *aGP){
 
+  //if(aGP->key().thePtCode<14 && aGP->key().thePtCode%2==1) return true;
+  //if(aGP->key().thePtCode>18 && aGP->key().thePtCode%2==1) return true;
+  //if(aGP->key().thePtCode%2==1) return true;
+
   if(theGPs.find(aGP->key())!=theGPs.end()) return false;
   else theGPs[aGP->key()] = new GoldenPattern(*aGP);
 

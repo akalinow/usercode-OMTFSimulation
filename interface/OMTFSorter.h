@@ -27,11 +27,11 @@ class OMTFSorter{
   L1MuRegionalCand sortProcessor(const std::vector<OMTFProcessor::resultsMap> & procResults,
 				 int charge);
 
-  ///Sort results for signle logic region.
-  ///Select candidate with highed number of hit layers
+  ///Sort results from a single reference hit.
+  ///Select candidate with highest number of hit layers
   ///Then select a candidate with largest likelihood value and given charge
   ///as we allow two candidates with opposite charge from single 10deg region
-  InternalObj sortRegionResults(const OMTFProcessor::resultsMap & aResultsMap, 
+  InternalObj sortRefHitResults(const OMTFProcessor::resultsMap & aResultsMap, 
 				int charge);
 
  private:

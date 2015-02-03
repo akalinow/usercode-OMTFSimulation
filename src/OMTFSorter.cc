@@ -55,7 +55,7 @@ std::tuple<unsigned int,unsigned int, int, int> OMTFSorter::sortSingleResult(con
 }
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
-InternalObj OMTFSorter::sortRegionResults(const OMTFProcessor::resultsMap & aResultsMap,
+InternalObj OMTFSorter::sortRefHitResults(const OMTFProcessor::resultsMap & aResultsMap,
 					  int charge){
 
   unsigned int pdfValMax = 0;
@@ -97,6 +97,7 @@ InternalObj OMTFSorter::sortRegionResults(const OMTFProcessor::resultsMap & aRes
   candidate.refLayer = refLayer;
 
   /////TEST AVERAGE PT///////
+  /*
   pdfValMax = 0;
   for(auto itKey: aResultsMap){
     if(itKey.first.thePtCode>candidate.pt) continue;
@@ -137,8 +138,6 @@ InternalObj OMTFSorter::sortRegionResults(const OMTFProcessor::resultsMap & aRes
   candidateNext.disc = pdfValMax;
   candidateNext.refLayer = refLayer;
 
-
-
   if(candidate.pt){
     float weightedPtCode = candidatePrevious.pt*candidatePrevious.disc + 
                            candidate.pt*candidate.disc + 
@@ -146,6 +145,7 @@ InternalObj OMTFSorter::sortRegionResults(const OMTFProcessor::resultsMap & aRes
     weightedPtCode/= candidatePrevious.disc + candidate.disc + candidateNext.disc;
     candidate.pt = (int)weightedPtCode;
   } 
+*/
   ////////////////////////////// 
 
   return candidate;
@@ -157,17 +157,19 @@ InternalObj OMTFSorter::sortProcessorResults(const std::vector<OMTFProcessor::re
 					     int charge){
 
   InternalObj candidate;
-  std::vector<InternalObj> regionCands;
+  std::vector<InternalObj> refHitCands;
 
-  for(auto itRegion: procResults) regionCands.push_back(sortRegionResults(itRegion,charge));
+  for(auto itRefHit: procResults) refHitCands.push_back(sortRefHitResults(itRefHit,charge));
 
-  for(auto itCand: regionCands){
+  for(auto itCand: refHitCands){
     if(itCand.q>candidate.q) candidate = itCand;
     else if(itCand.q==candidate.q && itCand.disc>candidate.disc) candidate = itCand;
   }
 
   std::ostringstream myStr;
-  for(unsigned int iRegion=0;iRegion<regionCands.size();++iRegion) myStr<<"Logic Region: "<<iRegion<<" "<<regionCands[iRegion]<<std::endl;
+  for(unsigned int iRefHit=0;iRefHit<refHitCands.size();++iRefHit){
+    if(refHitCands[iRefHit].q) myStr<<"Ref hit: "<<iRefHit<<" "<<refHitCands[iRefHit]<<std::endl;
+  }
   myStr<<"Selected Candidate with charge: "<<charge<<" "<<candidate<<std::endl;
   edm::LogInfo("OMTF Sorter")<<myStr.str();
 

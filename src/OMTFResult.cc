@@ -50,6 +50,17 @@ void OMTFResult::finalise(){
 }
 ////////////////////////////////////////////
 ////////////////////////////////////////////
+bool OMTFResult::empty() const{
+
+  unsigned int nHits = 0;
+
+  for(unsigned int iRefLayer=0;iRefLayer<OMTFConfiguration::nRefLayers;++iRefLayer){
+    nHits+=hits1D[iRefLayer];
+  }      
+  return (nHits==0);
+}
+////////////////////////////////////////////
+////////////////////////////////////////////
 std::ostream & operator << (std::ostream &out, const OMTFResult & aResult){
 
  for(unsigned int iLogicLayer=0;iLogicLayer<aResult.results.size();++iLogicLayer){

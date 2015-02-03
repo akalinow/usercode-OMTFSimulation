@@ -134,7 +134,7 @@ void OMTFProducer::produce(edm::Event& iEvent, const edm::EventSetup& evSetup){
 
     ///At the moment allow up to two, opposite charge, candidates per processor.    
     L1MuRegionalCand myOTFCandidatePlus = mySorter->sortProcessor(myResults,1);
-    L1MuRegionalCand myOTFCandidateMinus = mySorter->sortProcessor(myResults,-1);
+    //L1MuRegionalCand myOTFCandidateMinus = mySorter->sortProcessor(myResults,-1);
 
     ////Switch from internal processor 10bit scale to global one
     int procOffset = OMTFConfiguration::globalPhiStart(iProcessor);
@@ -144,9 +144,9 @@ void OMTFProducer::produce(edm::Event& iEvent, const edm::EventSetup& evSetup){
     if(phiValue>M_PI) phiValue-=2*M_PI;
     myOTFCandidatePlus.setPhiValue(phiValue);
 
-    phiValue = (myOTFCandidateMinus.phiValue()+OMTFConfiguration::globalPhiStart(iProcessor)+511)/OMTFConfiguration::nPhiBins*2*M_PI;
-    if(phiValue>M_PI) phiValue-=2*M_PI;
-    myOTFCandidateMinus.setPhiValue(phiValue);
+    //phiValue = (myOTFCandidateMinus.phiValue()+OMTFConfiguration::globalPhiStart(iProcessor)+511)/OMTFConfiguration::nPhiBins*2*M_PI;
+    //if(phiValue>M_PI) phiValue-=2*M_PI;
+    //myOTFCandidateMinus.setPhiValue(phiValue);
     //////////////////
     if(myOTFCandidatePlus.pt_packed()) myCands->push_back(myOTFCandidatePlus); 
     //if(myOTFCandidateMinus.pt_packed()) myCands->push_back(myOTFCandidateMinus); 
@@ -154,13 +154,13 @@ void OMTFProducer::produce(edm::Event& iEvent, const edm::EventSetup& evSetup){
     ///Write to XML
     if(dumpResultToXML){
       xercesc::DOMElement * aProcElement = myWriter->writeEventData(aTopElement,iProcessor,myShiftedInput);
-      for(unsigned int iRegion=0;iRegion<6;++iRegion){
+      for(unsigned int iRefHit=0;iRefHit<OMTFConfiguration::nTestRefHits;++iRefHit){
 	///Dump only regions, where a candidate was found
-	InternalObj myCand = mySorter->sortRegionResults(myResults[iRegion],1);
+	InternalObj myCand = mySorter->sortRefHitResults(myResults[iRefHit],1);
 	if(myCand.pt){
-	  myWriter->writeCandidateData(aProcElement,iRegion,myCand);
-	  for(auto & itKey: myResults[iRegion]) myWriter->writeResultsData(aProcElement, 
-									   iRegion,
+	  myWriter->writeCandidateData(aProcElement,iRefHit,myCand);
+	  for(auto & itKey: myResults[iRefHit]) myWriter->writeResultsData(aProcElement, 
+									   iRefHit,
 									   itKey.first,itKey.second);    
 	}
       }

@@ -20,7 +20,8 @@
 ///////////////////////////////////////////////
 OMTFProcessor::OMTFProcessor(const edm::ParameterSet & theConfig){
 
-myResults.assign(6,OMTFProcessor::resultsMap());
+
+  myResults.assign(OMTFConfiguration::nTestRefHits,OMTFProcessor::resultsMap());
 
   if ( !theConfig.exists("patternsXMLFiles") ) return;
   std::vector<std::string> fileNames = theConfig.getParameter<std::vector<std::string> >("patternsXMLFiles");
@@ -47,7 +48,7 @@ bool OMTFProcessor::configure(XMLConfigReader *aReader){
     if(!addGP(it)) return false;
   }
 
-  averagePatterns();
+  //averagePatterns();
 
   return true;
 }
@@ -124,26 +125,29 @@ const std::vector<OMTFProcessor::resultsMap> & OMTFProcessor::processInput(unsig
 	GoldenPattern::layerResult aLayerResult = itGP.second->process1Layer1RefLayer(aRefHitDef.iRefLayer,iLayer,
 										      phiRef,
 										      restrictedLayerHits);
-	myResults[iRegion][itGP.second->key()].addResult(aRefHitDef.iRefLayer,iLayer,aLayerResult.first,phiRef);	 
+	myResults[OMTFConfiguration::nTestRefHits-nTestedRefHits-1][itGP.second->key()].addResult(aRefHitDef.iRefLayer,iLayer,aLayerResult.first,phiRef);	 
       }
     }
   }  
   //////////////////////////////////////
   ////////////////////////////////////// 
-  for(auto & itRegion: myResults) for(auto & itKey: itRegion) itKey.second.finalise();
+  for(auto & itRefHit: myResults) for(auto & itKey: itRefHit) itKey.second.finalise();
 
   //#ifndef NDEBUG
   std::ostringstream myStr;
   myStr<<"iProcessor: "<<iProcessor<<std::endl;
   myStr<<"Input: ------------"<<std::endl;
   myStr<<aInput<<std::endl;
-  /*
-  for(auto itRegion: myResults){ 
-    for(auto itKey: itRegion){      
+  
+  for(auto itRefHit: myResults){
+    myStr<<"--- Reference hit ---"<<std::endl;
+    for(auto itKey: itRefHit){      
+      if(itKey.second.empty()) continue;
       myStr<<itKey.first<<std::endl;
       myStr<<itKey.second<<std::endl;
     }
-  }*/
+    myStr<<"--------------------"<<std::endl;
+  }
   //LogDebug("OMTF processor")<<myStr.str();
   edm::LogInfo("OMTF processor")<<myStr.str();
   //#endif

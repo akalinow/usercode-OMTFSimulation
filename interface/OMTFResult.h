@@ -31,6 +31,8 @@ class OMTFResult{
 
   void clear();
 
+  bool empty() const;
+
   friend std::ostream & operator << (std::ostream &out, const OMTFResult & aResult);
 
  private:

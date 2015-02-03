@@ -92,6 +92,10 @@ void OMTFConfigMaker::makeConnetionsMap(unsigned int iProcessor,
 	  if(iRegion>5) continue;
 	  fillInputRange(iProcessor,iRegion,aInput);
 	  fillInputRange(iProcessor,iRegion,iRefLayer,iInput);
+	  ///Always use two hits from a single chamber. 
+	  ///As we use single muons, the second hit has
+	  ///to be added by hand.
+	  if(iInput%2==0) fillInputRange(iProcessor,iRegion,iRefLayer,iInput+1);
       }
     }      
   }

@@ -42,6 +42,8 @@ class RefHitDef{
   ///Hit has to fit into this range to be assigned to this iRegion;
   std::pair<int, int> range;
 
+  friend std::ostream & operator << (std::ostream &out, const RefHitDef & aRefHitDef);
+
 };
 
 class OMTFConfiguration{

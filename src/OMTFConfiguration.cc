@@ -55,6 +55,19 @@ bool RefHitDef::fitsRange(int iPhi) const{
 }
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
+std::ostream & operator << (std::ostream &out, const  RefHitDef & aRefHitDef){
+
+
+  out<<"iRefLayer: "<<aRefHitDef.iRefLayer
+     <<" iInput: "<<aRefHitDef.iInput
+     <<" iRegion: "<<aRefHitDef.iRegion
+     <<" range: ("<<aRefHitDef.range.first
+     <<", "<<aRefHitDef.range.second<<std::endl;
+
+  return out;
+}
+///////////////////////////////////////////////
+///////////////////////////////////////////////
 OMTFConfiguration::OMTFConfiguration(const edm::ParameterSet & theConfig){
 
   if (!theConfig.exists("configXMLFile") ) return;

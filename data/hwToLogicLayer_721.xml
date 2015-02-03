@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OMTF xmlns:xi="http://www.w3.org/2001/XInclude">
 
-<GlobalData minPdfVal="0.001" nPdfAddrBits="7" nPdfValBits="6" nHitsPerLayer="6" nPhiBits="10" nPhiBins="4096" nRefHits="128" nTestRefHits="4"/>
+<GlobalData minPdfVal="0.001" nPdfAddrBits="7" nPdfValBits="6" nHitsPerLayer="6" nPhiBits="10" nPhiBins="4096" nRefHits="128" nTestRefHits="5"/>
 
 <LayerMap hwNumber = "101" logicNumber = "0"  bendingLayer = "0" connectedToLayer="1"/>
 <LayerMap hwNumber = "1101" logicNumber = "1" bendingLayer = "1" connectedToLayer="0"/>

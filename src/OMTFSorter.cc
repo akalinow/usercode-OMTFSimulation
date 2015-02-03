@@ -163,7 +163,7 @@ InternalObj OMTFSorter::sortProcessorResults(const std::vector<OMTFProcessor::re
 
   for(auto itCand: regionCands){
     if(itCand.q>candidate.q) candidate = itCand;
-    if(itCand.q==candidate.q && itCand.disc>candidate.disc) candidate = itCand;
+    else if(itCand.q==candidate.q && itCand.disc>candidate.disc) candidate = itCand;
   }
 
   std::ostringstream myStr;

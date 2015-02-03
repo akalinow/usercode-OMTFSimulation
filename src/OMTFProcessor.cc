@@ -79,13 +79,14 @@ void  OMTFProcessor::averagePatterns(){
     
     GoldenPattern::vector2D meanDistPhi1  = aGP1->getMeanDistPhi();
     GoldenPattern::vector2D meanDistPhi2  = aGP2->getMeanDistPhi();
-    
-    for(unsigned int iLayer=0;OMTFConfiguration::nLayers;++iLayer){
-      for(unsigned int iRefLayer=0;OMTFConfiguration::nRefLayers;++iRefLayer){
+
+    for(unsigned int iLayer=0;iLayer<OMTFConfiguration::nLayers;++iLayer){
+      for(unsigned int iRefLayer=0;iRefLayer<OMTFConfiguration::nRefLayers;++iRefLayer){
 	meanDistPhi1[iLayer][iRefLayer]+=meanDistPhi2[iLayer][iRefLayer];
 	meanDistPhi1[iLayer][iRefLayer]/=2;
       }
     }
+
     aGP1->setMeanDistPhi(meanDistPhi1);
     aGP2->setMeanDistPhi(meanDistPhi1);
   }

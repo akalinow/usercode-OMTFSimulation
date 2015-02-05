@@ -79,37 +79,54 @@ void  OMTFProcessor::averagePatterns(int charge){
 
     GoldenPattern *aGP1 = theGPs.find(aKey)->second;
     GoldenPattern *aGP2 = aGP1;
+    GoldenPattern *aGP3 = aGP1;
+    GoldenPattern *aGP4 = aGP1;
+
     ++aKey.thePtCode;
     if(aKey.thePtCode<=31 && theGPs.find(aKey)!=theGPs.end()) aGP2 =  theGPs.find(aKey)->second;
+
     ++aKey.thePtCode;
-      //GoldenPattern *aGP3 = it.second;
-    //GoldenPattern *aGP4 = it.second;
+    if(aKey.thePtCode<=31 && theGPs.find(aKey)!=theGPs.end()) aGP3 =  theGPs.find(aKey)->second;
 
-    std::cout<<"Klucz: "<<aGP1->key()<<" "<<aGP2->key()<<std::endl;
+    ++aKey.thePtCode;
+    if(aKey.thePtCode<=31 && theGPs.find(aKey)!=theGPs.end()) aGP4 =  theGPs.find(aKey)->second;
 
-    /*
-    ++aNextKey.thePtCode;
-    if(aNextKey.thePtCode<=31 && theGPs.find(aNextKey)!=theGPs.end()) aGP3 =  theGPs.find(aNextKey)->second;
+    ++aKey.thePtCode;
 
-    ++aNextKey.thePtCode;
-    if(aNextKey.thePtCode<=31 && theGPs.find(aNextKey)!=theGPs.end()) aGP4 =  theGPs.find(aNextKey)->second;
-    */
+
+
+    std::cout<<"Klucz: "
+	     <<aGP1->key()
+	     <<" "<<aGP2->key()
+	     <<" "<<aGP3->key()
+	     <<" "<<aGP4->key()<<std::endl;
+
+
     GoldenPattern::vector2D meanDistPhi  = aGP1->getMeanDistPhi();
     GoldenPattern::vector2D meanDistPhi1  = aGP1->getMeanDistPhi();
     GoldenPattern::vector2D meanDistPhi2  = aGP2->getMeanDistPhi();
+    GoldenPattern::vector2D meanDistPhi3  = aGP3->getMeanDistPhi();
+    GoldenPattern::vector2D meanDistPhi4  = aGP4->getMeanDistPhi();
     
     for(unsigned int iLayer=0;iLayer<OMTFConfiguration::nLayers;++iLayer){
       for(unsigned int iRefLayer=0;iRefLayer<OMTFConfiguration::nRefLayers;++iRefLayer){
 	meanDistPhi[iLayer][iRefLayer]+=meanDistPhi2[iLayer][iRefLayer];
-	meanDistPhi[iLayer][iRefLayer]/=2;
+	meanDistPhi[iLayer][iRefLayer]+=meanDistPhi3[iLayer][iRefLayer];
+	meanDistPhi[iLayer][iRefLayer]+=meanDistPhi4[iLayer][iRefLayer];
+
+	meanDistPhi[iLayer][iRefLayer]/=4;
       }
     }
     
     aGP1->setMeanDistPhi(meanDistPhi);
     aGP2->setMeanDistPhi(meanDistPhi);
+    aGP3->setMeanDistPhi(meanDistPhi);
+    aGP4->setMeanDistPhi(meanDistPhi);
 
     shiftGP(aGP1,meanDistPhi, meanDistPhi1);
     shiftGP(aGP2,meanDistPhi, meanDistPhi2);   
+    shiftGP(aGP3,meanDistPhi, meanDistPhi3);   
+    shiftGP(aGP4,meanDistPhi, meanDistPhi4);   
   }  
 }
 ///////////////////////////////////////////////

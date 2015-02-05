@@ -62,6 +62,8 @@ class GoldenPattern {
 
   const vector2D & getMeanDistPhi() const {return meanDistPhi;}
 
+  const vector3D & getPdf() const {return pdfAllRef;}
+
   void setPdf(const vector3D & aPdf){  pdfAllRef = aPdf; }
 
   int meanDistPhiValue(unsigned int iLayer, unsigned int iRefLayer) const { return meanDistPhi[iLayer][iRefLayer];}

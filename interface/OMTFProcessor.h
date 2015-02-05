@@ -59,8 +59,15 @@ class OMTFProcessor{
   bool addGP(GoldenPattern *aGP);
 
   ///Average patterns. Use same meanDistPhi for two
-  ///patterns neighboring in pt code
-  void averagePatterns();
+  ///patterns neighboring in pt code.
+  ///Averaging is made saparately fo each charge
+  void averagePatterns(int charge);
+
+  ///Shift pdf indexes by differecne between averaged and
+  ///original meanDistPhi
+  void shiftGP(GoldenPattern *aGP,
+	       const GoldenPattern::vector2D & meanDistPhiNew,
+	       const GoldenPattern::vector2D & meanDistPhiOld);
 
   ///Fill map of used inputs.
   ///FIXME: using hack from OMTFConfiguration

@@ -31,6 +31,10 @@ OMTFProcessor::OMTFProcessor(const edm::ParameterSet & theConfig){
    myReader.setPatternsFile(it);
    configure(&myReader);
   }
+
+  averagePatterns(1);
+  averagePatterns(-1);
+
 }
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
@@ -47,8 +51,6 @@ bool OMTFProcessor::configure(XMLConfigReader *aReader){
   for(auto it: aGPs){    
     if(!addGP(it)) return false;
   }
-
-  //averagePatterns();
 
   return true;
 }
@@ -69,28 +71,71 @@ bool OMTFProcessor::addGP(GoldenPattern *aGP){
 }
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
-void  OMTFProcessor::averagePatterns(){
+void  OMTFProcessor::averagePatterns(int charge){
 
-  for(auto it: theGPs){    
-    GoldenPattern *aGP1 = it.second;
-    GoldenPattern *aGP2 = it.second;
-    Key aNextKey = it.first;
+  Key aKey(1, 6, charge);
+
+  while(theGPs.find(aKey)!=theGPs.end()){
+
+    GoldenPattern *aGP1 = theGPs.find(aKey)->second;
+    GoldenPattern *aGP2 = aGP1;
+    ++aKey.thePtCode;
+    if(aKey.thePtCode<=31 && theGPs.find(aKey)!=theGPs.end()) aGP2 =  theGPs.find(aKey)->second;
+    ++aKey.thePtCode;
+      //GoldenPattern *aGP3 = it.second;
+    //GoldenPattern *aGP4 = it.second;
+
+    std::cout<<"Klucz: "<<aGP1->key()<<" "<<aGP2->key()<<std::endl;
+
+    /*
     ++aNextKey.thePtCode;
-    if(aNextKey.thePtCode<=31 && theGPs.find(aNextKey)!=theGPs.end()) aGP2 =  theGPs.find(aNextKey)->second;
-    
+    if(aNextKey.thePtCode<=31 && theGPs.find(aNextKey)!=theGPs.end()) aGP3 =  theGPs.find(aNextKey)->second;
+
+    ++aNextKey.thePtCode;
+    if(aNextKey.thePtCode<=31 && theGPs.find(aNextKey)!=theGPs.end()) aGP4 =  theGPs.find(aNextKey)->second;
+    */
+    GoldenPattern::vector2D meanDistPhi  = aGP1->getMeanDistPhi();
     GoldenPattern::vector2D meanDistPhi1  = aGP1->getMeanDistPhi();
     GoldenPattern::vector2D meanDistPhi2  = aGP2->getMeanDistPhi();
-
+    
     for(unsigned int iLayer=0;iLayer<OMTFConfiguration::nLayers;++iLayer){
       for(unsigned int iRefLayer=0;iRefLayer<OMTFConfiguration::nRefLayers;++iRefLayer){
-	meanDistPhi1[iLayer][iRefLayer]+=meanDistPhi2[iLayer][iRefLayer];
-	meanDistPhi1[iLayer][iRefLayer]/=2;
+	meanDistPhi[iLayer][iRefLayer]+=meanDistPhi2[iLayer][iRefLayer];
+	meanDistPhi[iLayer][iRefLayer]/=2;
       }
     }
+    
+    aGP1->setMeanDistPhi(meanDistPhi);
+    aGP2->setMeanDistPhi(meanDistPhi);
 
-    aGP1->setMeanDistPhi(meanDistPhi1);
-    aGP2->setMeanDistPhi(meanDistPhi1);
-  }
+    shiftGP(aGP1,meanDistPhi, meanDistPhi1);
+    shiftGP(aGP2,meanDistPhi, meanDistPhi2);   
+  }  
+}
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+void OMTFProcessor::shiftGP(GoldenPattern *aGP,
+			    const GoldenPattern::vector2D & meanDistPhiNew,
+			    const GoldenPattern::vector2D & meanDistPhiOld){
+
+  ///Shift pdfs by differecne between original menaDistPhi, and
+  ///the averaged value
+  unsigned int nPdfBins =  exp2(OMTFConfiguration::nPdfAddrBits);
+
+  GoldenPattern::vector3D pdfAllRef = aGP->getPdf();
+
+  int indexShift = 0;
+  for(unsigned int iLayer=0;iLayer<OMTFConfiguration::nLayers;++iLayer){
+    for(unsigned int iRefLayer=0;iRefLayer<OMTFConfiguration::nRefLayers;++iRefLayer){
+      indexShift = meanDistPhiOld[iLayer][iRefLayer] - meanDistPhiNew[iLayer][iRefLayer];
+      for(unsigned int iPdfBin=0;iPdfBin<nPdfBins;++iPdfBin) pdfAllRef[iLayer][iRefLayer][iPdfBin] = 0;
+	for(unsigned int iPdfBin=0;iPdfBin<nPdfBins;++iPdfBin){
+	  if((int)(iPdfBin)+indexShift>=0 && iPdfBin+indexShift<nPdfBins)
+	    pdfAllRef[iLayer][iRefLayer][iPdfBin+indexShift] = aGP->pdfValue(iLayer, iRefLayer, iPdfBin);
+	}
+      }
+    }
+    aGP->setPdf(pdfAllRef);
 }
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////

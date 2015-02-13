@@ -59,6 +59,11 @@ void OMTFPatternMaker::beginJob(){
     myOMTF = new OMTFProcessor(theConfig.getParameter<edm::ParameterSet>("omtf"));
   }
 
+
+  ///For making the patterns use extended pdf width in phi
+  ////Ugly hack to modify confoguration parameters at runtime.
+  OMTFConfiguration::nPdfAddrBits = 12;
+
   ///Clear existing GoldenPatterns
   const std::map<Key,GoldenPattern*> & theGPs = myOMTF->getPatterns();
   for(auto itGP: theGPs) itGP.second->reset();
@@ -75,13 +80,19 @@ void OMTFPatternMaker::endJob(){
     for(auto itGP: myGPmap){
       if(!itGP.second->hasCounts()) continue;
       itGP.second->normalise();
-      if(itGP.first.thePtCode==16 && itGP.first.theCharge==1){
-      std::cout<<*itGP.second<<std::endl;
+    }
+
+    ////Ugly hack to modify configuration parameters at runtime.
+    OMTFConfiguration::nPdfAddrBits = 7;
+    for(auto itGP: myGPmap){
+      if((int)itGP.first.thePtCode==theConfig.getParameter<int>("ptCode") && 
+	 itGP.first.theCharge==theConfig.getParameter<int>("charge")){ 
+	std::cout<<*itGP.second<<std::endl;      
+	myWriter->writeGPData(*itGP.second);
       }
-      myWriter->writeGPData(*itGP.second);
     }
     fName = "GPs.xml";
-    myWriter->finaliseXMLDocument(fName);
+    myWriter->finaliseXMLDocument(fName);        
   }
 
   if(makeConnectionsMaps && !makeGoldenPatterns){

@@ -8,7 +8,7 @@ process.load("FWCore.MessageLogger.MessageLogger_cfi")
 
 verbose = False
 
-if verobse:
+if verbose:
     process.MessageLogger = cms.Service("MessageLogger",
        suppressInfo       = cms.untracked.vstring('AfterSource', 'PostModule'),
        destinations   = cms.untracked.vstring(
@@ -76,7 +76,7 @@ process.source.fileNames =  cms.untracked.vstring()
 for aFile in fileList:
     process.source.fileNames.append('file:'+aFile)
 '''
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1))
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(1000))
 
 ###PostLS1 geometry used
 process.load('Configuration.Geometry.GeometryExtendedPostLS1Reco_cff')
@@ -87,7 +87,17 @@ from Configuration.AlCa.GlobalTag import GlobalTag
 process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:run2_mc', '')
 
 path = os.environ['CMSSW_BASE']+"/src/UserCode/OMTFSimulation/data/"
+path1 = "/home/akalinow/scratch/CMS/OverlapTrackFinder/Emulator/job_3_pat/"
 
+patternsXMLFiles = cms.vstring()
+
+for ipt in xrange(6,32):
+    
+    if ipt!=16 and ipt!=6:
+        continue
+        
+    patternsXMLFiles.append(path1+"SingleMu_"+str(ipt)+"_p/GPs.xml")
+    patternsXMLFiles.append(path1+"SingleMu_"+str(ipt)+"_m/GPs.xml")
 
 process.load('L1Trigger.L1TMuon.L1TMuonTriggerPrimitiveProducer_cfi')
 
@@ -95,15 +105,15 @@ process.load('L1Trigger.L1TMuon.L1TMuonTriggerPrimitiveProducer_cfi')
 process.omtfEmulator = cms.EDProducer("OMTFProducer",
                                       TriggerPrimitiveSrc = cms.InputTag('L1TMuonTriggerPrimitives'),
                                       dumpResultToXML = cms.bool(False),                                     
-                                      dumpGPToXML = cms.bool(False),                                     
+                                      dumpGPToXML = cms.bool(True),                                     
                                       makeConnectionsMaps = cms.bool(False),                                      
                                       dropRPCPrimitives = cms.bool(False),                                    
                                       dropDTPrimitives = cms.bool(False),                                    
                                       dropCSCPrimitives = cms.bool(False),   
                                       omtf = cms.PSet(
-        configXMLFile = cms.string(path+"hwToLogicLayer_721_03_02_2015.xml"),
-        patternsXMLFiles = cms.vstring(path+"Patterns_ipt6_18.xml",path+"Patterns_ipt19_31.xml"),
-
+        configXMLFile = cms.string(path+"hwToLogicLayer_721.xml"),
+        #patternsXMLFiles = cms.vstring(path+"Patterns_ipt6_18.xml",path+"Patterns_ipt19_31.xml"),
+        patternsXMLFiles = patternsXMLFiles        
         )
                                       )
 

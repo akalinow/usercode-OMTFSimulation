@@ -48,6 +48,9 @@ class XMLConfigWriter{
 
   void writeGPData(const GoldenPattern & aGP);
 
+  void writeGPData(const GoldenPattern & aGP1,
+		   const GoldenPattern & aGP2);
+		   
   void writeConnectionsData(const std::vector<std::vector <OMTFConfiguration::vector2D> > & measurements4D);
 
   unsigned int findMaxInput(const OMTFConfiguration::vector1D & myCounts);

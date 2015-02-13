@@ -73,11 +73,45 @@ void OMTFProducer::endJob(){
     myWriter->initialiseXMLDocument(fName);
     const std::map<Key,GoldenPattern*> & myGPmap = myOMTF->getPatterns();
     for(auto itGP: myGPmap){
-      std::cout<<*itGP.second<<std::endl;
+      if(itGP.first.thePtCode==9 && itGP.first.theCharge==1) std::cout<<*itGP.second<<std::endl;     
       myWriter->writeGPData(*itGP.second);
     }
     fName = "GPs.xml";
     myWriter->finaliseXMLDocument(fName);
+    ///Write merged GPs.//////////////////////////////////
+    fName = "OMTF";
+    myWriter->initialiseXMLDocument(fName);
+
+    int charge = -1;
+    int iPtMin = 6;
+    Key aKey(1, iPtMin, charge);    
+    while(myGPmap.find(aKey)!=myGPmap.end()){
+      
+      GoldenPattern *aGP1 = myGPmap.find(aKey)->second;
+      GoldenPattern *aGP2 = aGP1;
+
+      ++aKey.thePtCode;
+      if(aKey.thePtCode<=31 && myGPmap.find(aKey)!=myGPmap.end()) aGP2 =  myGPmap.find(aKey)->second;      
+      ++aKey.thePtCode;
+      myWriter->writeGPData(*aGP1,*aGP2);
+
+    }
+
+    charge = 1;
+    aKey = Key(1, iPtMin, charge);    
+    while(myGPmap.find(aKey)!=myGPmap.end()){
+      
+      GoldenPattern *aGP1 = myGPmap.find(aKey)->second;
+      GoldenPattern *aGP2 = aGP1;
+      
+      ++aKey.thePtCode;
+      if(aKey.thePtCode<=31 && myGPmap.find(aKey)!=myGPmap.end()) aGP2 =  myGPmap.find(aKey)->second;
+      ++aKey.thePtCode;
+      myWriter->writeGPData(*aGP1,*aGP2);
+    }  
+    fName = "GPs_2x.xml";
+    myWriter->finaliseXMLDocument(fName);  
+    //////////////////////////////////////////////
   }
 
   if(makeConnectionsMaps && !dumpGPToXML && !dumpResultToXML){

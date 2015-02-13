@@ -77,6 +77,9 @@ process.source.fileNames =  cms.untracked.vstring()
 for aFile in fileList:
     process.source.fileNames.append('file:'+aFile)
 
+
+print process.source.fileNames
+
 process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1))
 
 ###PostLS1 geometry used
@@ -96,11 +99,13 @@ process.load('L1Trigger.L1TMuon.L1TMuonTriggerPrimitiveProducer_cfi')
 process.omtfPatternMaker = cms.EDAnalyzer("OMTFPatternMaker",
                                       TriggerPrimitiveSrc = cms.InputTag('L1TMuonTriggerPrimitives'),
                                       g4SimTrackSrc = cms.InputTag('g4SimHits'),
-                                      makeGoldenPatterns = cms.bool(False),                                     
-                                      makeConnectionsMaps = cms.bool(True),                                      
+                                      makeGoldenPatterns = cms.bool(True),                                     
+                                      makeConnectionsMaps = cms.bool(False),                                      
                                       dropRPCPrimitives = cms.bool(False),                                    
                                       dropDTPrimitives = cms.bool(False),                                    
                                       dropCSCPrimitives = cms.bool(False),   
+                                      ptCode = cms.int32(16),
+                                      charge = cms.int32(1),
                                       omtf = cms.PSet(
         #configXMLFile = cms.string(path+"hwToLogicLayer_18layersFix2.xml"),
         configXMLFile = cms.string(path+"hwToLogicLayer_721.xml"),
@@ -113,7 +118,7 @@ process.omtfPatternMaker = cms.EDAnalyzer("OMTFPatternMaker",
 process.MuonEtaFilter = cms.EDFilter("SimTrackEtaFilter",
                                 minNumber = cms.uint32(1),
                                 src = cms.InputTag("g4SimHits"),
-                                cut = cms.string("momentum.eta<1.24 && momentum.eta>0.83 &&  momentum.pt>1")
+                                cut = cms.string("momentum.eta<1.15 && momentum.eta>0.83 &&  momentum.pt>1")
                                 )
 process.GenMuPath = cms.Path(process.MuonEtaFilter)
 ##########################################

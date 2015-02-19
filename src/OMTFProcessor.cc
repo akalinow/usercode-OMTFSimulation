@@ -32,8 +32,8 @@ OMTFProcessor::OMTFProcessor(const edm::ParameterSet & theConfig){
    configure(&myReader);
   }
 
-  averagePatterns(1);
-  averagePatterns(-1);
+  //averagePatterns(1);
+  //averagePatterns(-1);
 
 }
 ///////////////////////////////////////////////
@@ -57,12 +57,6 @@ bool OMTFProcessor::configure(XMLConfigReader *aReader){
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
 bool OMTFProcessor::addGP(GoldenPattern *aGP){
-
-  //if(aGP->key().thePtCode<14 && aGP->key().thePtCode%2==1) return true;
-  //if(aGP->key().thePtCode>18 && aGP->key().thePtCode%2==1) return true;
-  //if(aGP->key().thePtCode%2==1) return true;
-
-  //if(aGP->key().thePtCode>28) return true;
 
   if(theGPs.find(aGP->key())!=theGPs.end()) return false;
   else theGPs[aGP->key()] = new GoldenPattern(*aGP);

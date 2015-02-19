@@ -36,13 +36,9 @@ GoldenPattern::layerResult GoldenPattern::process1Layer1RefLayer(unsigned int iR
      phiDist>exp2(OMTFConfiguration::nPdfAddrBits)-1){
     return aResult;
   }
+
   
   int pdfVal = pdfAllRef[iLayer][iRefLayer][phiDist];
-  /*
-  if((iLayer==2 || iLayer==4 || 
-      iLayer==7 || iLayer==8)
-     && pdfVal==0) pdfVal = -200;
-  */
   return GoldenPattern::layerResult(pdfVal,pdfVal>0);
 }
 ////////////////////////////////////////////////////

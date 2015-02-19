@@ -50,6 +50,11 @@ class XMLConfigWriter{
 
   void writeGPData(const GoldenPattern & aGP1,
 		   const GoldenPattern & aGP2);
+
+  void writeGPData(const GoldenPattern & aGP1,
+		   const GoldenPattern & aGP2,
+		   const GoldenPattern & aGP3,
+		   const GoldenPattern & aGP4);
 		   
   void writeConnectionsData(const std::vector<std::vector <OMTFConfiguration::vector2D> > & measurements4D);
 

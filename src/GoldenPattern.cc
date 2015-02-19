@@ -113,7 +113,7 @@ std::ostream & operator << (std::ostream &out, const GoldenPattern & aPattern){
       out<<")"<<std::endl;
     }
   }
-
+/*
   out<<"PDF per layer:"<<std::endl;
   for (unsigned int iRefLayer=0;iRefLayer<aPattern.pdfAllRef[0].size();++iRefLayer){
     out<<"Ref layer: "<<iRefLayer;
@@ -125,7 +125,7 @@ std::ostream & operator << (std::ostream &out, const GoldenPattern & aPattern){
       out<<std::endl;
     }
   }
-  
+*/
   return out;
 }
 ////////////////////////////////////////////////////

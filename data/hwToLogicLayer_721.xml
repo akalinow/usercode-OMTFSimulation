@@ -29,7 +29,7 @@
 <RefLayerMap refLayer="4" logicNumber ="7"/>
 <RefLayerMap refLayer="5" logicNumber ="10"/>
 <RefLayerMap refLayer="6" logicNumber ="11"/>
-<RefLayerMap refLayer="7" logicNumber ="9"/>
+<RefLayerMap refLayer="7" logicNumber ="14"/>
 
      <Processor iProcessor="0">
     <RefLayer iGlobalPhiStart="-90" iRefLayer="0"/>

@@ -354,14 +354,15 @@ void XMLConfigWriter::writeGPData(const GoldenPattern & aGP1,
     for(unsigned int iRefLayer=0;iRefLayer<OMTFConfiguration::nRefLayers;++iRefLayer){
       aRefLayer = theDoc->createElement(_toDOMS("RefLayer"));
       int meanDistPhi = aGP1.meanDistPhiValue(iLayer,iRefLayer);	       
-      int meanDistPhi2 = aGP2.meanDistPhiValue(iLayer,iRefLayer);	       
+
       stringStr.str("");
       stringStr<<meanDistPhi;
       aRefLayer->setAttribute(_toDOMS("meanDistPhi"), _toDOMS(stringStr.str()));
 
-      stringStr.str("");
-      stringStr<<meanDistPhi2;
-      aRefLayer->setAttribute(_toDOMS("meanDistPhi2"), _toDOMS(stringStr.str()));
+      //int meanDistPhi2 = aGP2.meanDistPhiValue(iLayer,iRefLayer);	       
+      //stringStr.str("");
+      //stringStr<<meanDistPhi2;
+      //aRefLayer->setAttribute(_toDOMS("meanDistPhi2"), _toDOMS(stringStr.str()));
 
       int selDistPhi = 0;
       stringStr.str("");
@@ -386,6 +387,107 @@ void XMLConfigWriter::writeGPData(const GoldenPattern & aGP1,
 	stringStr.str("");
 	stringStr<<aGP2.pdfValue(iLayer,iRefLayer,iPdf);
 	aPdf->setAttribute(_toDOMS("value2"), _toDOMS(stringStr.str()));
+	aLayer->appendChild(aPdf);
+      }
+    }
+    aGPElement->appendChild(aLayer);
+  }
+  theTopElement->appendChild(aGPElement);
+}
+//////////////////////////////////////////////////
+//////////////////////////////////////////////////
+void XMLConfigWriter::writeGPData(const GoldenPattern & aGP1,
+				  const GoldenPattern & aGP2,
+				  const GoldenPattern & aGP3,
+				  const GoldenPattern & aGP4){
+
+  std::ostringstream stringStr;
+  xercesc::DOMElement *aLayer=0, *aRefLayer=0, *aPdf=0;
+
+  xercesc::DOMElement* aGPElement = theDoc->createElement(_toDOMS("GP"));
+  stringStr.str("");
+  stringStr<<aGP1.key().thePtCode;
+  aGPElement->setAttribute(_toDOMS("iPt1"), _toDOMS(stringStr.str()));
+  stringStr.str("");
+  stringStr<<aGP2.key().thePtCode;
+  aGPElement->setAttribute(_toDOMS("iPt2"), _toDOMS(stringStr.str()));
+  stringStr.str("");
+  stringStr<<aGP3.key().thePtCode;
+  aGPElement->setAttribute(_toDOMS("iPt3"), _toDOMS(stringStr.str()));
+  stringStr.str("");
+  stringStr<<aGP4.key().thePtCode;
+  aGPElement->setAttribute(_toDOMS("iPt4"), _toDOMS(stringStr.str()));
+
+  stringStr.str("");
+  stringStr<<aGP1.key().theEtaCode;
+  aGPElement->setAttribute(_toDOMS("iEta"), _toDOMS(stringStr.str()));
+  stringStr.str("");
+  //stringStr<<aGP.key().thePhiCode;
+  stringStr<<"0";
+  aGPElement->setAttribute(_toDOMS("iPhi"), _toDOMS(stringStr.str()));
+  stringStr.str("");
+  stringStr<<aGP1.key().theCharge;
+  aGPElement->setAttribute(_toDOMS("iCharge"), _toDOMS(stringStr.str()));
+
+  unsigned int iLayerNew=0;
+  for(unsigned int iLayer = 0;iLayer<OMTFConfiguration::nLayers;++iLayer){
+    int nOfPhis = 0;
+    ///Remove some layers.
+    if(removeLayers(iLayer)) continue;
+    /////////////////////////////////////
+    aLayer = theDoc->createElement(_toDOMS("Layer"));
+    stringStr.str("");
+    //stringStr<<iLayer;
+    //After layer removal inxed has to be realigned
+    stringStr<<iLayerNew;
+    ++iLayerNew;
+    //////////////////////////////////
+    aLayer->setAttribute(_toDOMS("iLayer"), _toDOMS(stringStr.str()));
+    stringStr.str("");
+    stringStr<<nOfPhis;
+    aLayer->setAttribute(_toDOMS("nOfPhis"), _toDOMS(stringStr.str()));
+    for(unsigned int iRefLayer=0;iRefLayer<OMTFConfiguration::nRefLayers;++iRefLayer){
+      aRefLayer = theDoc->createElement(_toDOMS("RefLayer"));
+      int meanDistPhi = aGP1.meanDistPhiValue(iLayer,iRefLayer);	       
+
+      stringStr.str("");
+      stringStr<<meanDistPhi;
+      aRefLayer->setAttribute(_toDOMS("meanDistPhi"), _toDOMS(stringStr.str()));
+
+      //int meanDistPhi2 = aGP2.meanDistPhiValue(iLayer,iRefLayer);	       
+      //stringStr.str("");
+      //stringStr<<meanDistPhi2;
+      //aRefLayer->setAttribute(_toDOMS("meanDistPhi2"), _toDOMS(stringStr.str()));
+
+      int selDistPhi = 0;
+      stringStr.str("");
+      stringStr<<selDistPhi;
+      aRefLayer->setAttribute(_toDOMS("selDistPhi"), _toDOMS(stringStr.str()));
+      int selDistPhiShift = 0;
+      stringStr.str("");
+      stringStr<<selDistPhiShift;
+      aRefLayer->setAttribute(_toDOMS("selDistPhiShift"), _toDOMS(stringStr.str()));
+      int distMsbPhiShift = 0;
+      stringStr.str("");
+      stringStr<<distMsbPhiShift;
+      aRefLayer->setAttribute(_toDOMS("distMsbPhiShift"), _toDOMS(stringStr.str()));
+      aLayer->appendChild(aRefLayer);
+    }
+    for(unsigned int iRefLayer=0;iRefLayer<OMTFConfiguration::nRefLayers;++iRefLayer){
+      for(unsigned int iPdf=0;iPdf<exp2(OMTFConfiguration::nPdfAddrBits);++iPdf){
+	aPdf = theDoc->createElement(_toDOMS("PDF"));
+	stringStr.str("");
+	stringStr<<aGP1.pdfValue(iLayer,iRefLayer,iPdf);
+	aPdf->setAttribute(_toDOMS("value1"), _toDOMS(stringStr.str()));
+	stringStr.str("");
+	stringStr<<aGP2.pdfValue(iLayer,iRefLayer,iPdf);
+	aPdf->setAttribute(_toDOMS("value2"), _toDOMS(stringStr.str()));
+	stringStr.str("");
+	stringStr<<aGP3.pdfValue(iLayer,iRefLayer,iPdf);
+	aPdf->setAttribute(_toDOMS("value3"), _toDOMS(stringStr.str()));
+	stringStr.str("");
+	stringStr<<aGP4.pdfValue(iLayer,iRefLayer,iPdf);
+	aPdf->setAttribute(_toDOMS("value4"), _toDOMS(stringStr.str()));
 	aLayer->appendChild(aPdf);
       }
     }

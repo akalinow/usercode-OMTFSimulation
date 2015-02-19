@@ -89,12 +89,14 @@ process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:run2_mc', '')
 path = os.environ['CMSSW_BASE']+"/src/UserCode/OMTFSimulation/data/"
 path1 = "/home/akalinow/scratch/CMS/OverlapTrackFinder/Emulator/job_3_pat/"
 
+path = "/home/akalinow/OMTF/"
+
 patternsXMLFiles = cms.vstring()
 
 for ipt in xrange(6,32):
     
-    if ipt!=16 and ipt!=6:
-        continue
+    #if ipt>11:
+    #    continue
         
     patternsXMLFiles.append(path1+"SingleMu_"+str(ipt)+"_p/GPs.xml")
     patternsXMLFiles.append(path1+"SingleMu_"+str(ipt)+"_m/GPs.xml")
@@ -112,8 +114,8 @@ process.omtfEmulator = cms.EDProducer("OMTFProducer",
                                       dropCSCPrimitives = cms.bool(False),   
                                       omtf = cms.PSet(
         configXMLFile = cms.string(path+"hwToLogicLayer_721.xml"),
-        #patternsXMLFiles = cms.vstring(path+"Patterns_ipt6_18.xml",path+"Patterns_ipt19_31.xml"),
-        patternsXMLFiles = patternsXMLFiles        
+        patternsXMLFiles = cms.vstring(path+"Patterns_ipt6_18.xml",path+"Patterns_ipt19_31.xml"),
+        #patternsXMLFiles = patternsXMLFiles        
         )
                                       )
 

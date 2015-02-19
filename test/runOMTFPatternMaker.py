@@ -66,7 +66,7 @@ process.source = cms.Source(
                                       'file:/home/akalinow/scratch/CMS/OverlapTrackFinder/Crab/SingleMuFullEta/721_FullEta_v3/data/SingleMu_16_p_10_1_wJX.root')
     )
 
-
+'''
 ##Use all available events in a single job.
 ##Only for making the connections maps.
 process.source.fileNames =  cms.untracked.vstring()
@@ -76,7 +76,9 @@ fileList = commands.getoutput(command).split("\n")
 process.source.fileNames =  cms.untracked.vstring()
 for aFile in fileList:
     process.source.fileNames.append('file:'+aFile)
+'''
 
+process.source.fileNames =  cms.untracked.vstring('file:/home/akalinow/scratch/CMS/OverlapTrackFinder/Prod/test/pt_100_1000.root')
 
 print process.source.fileNames
 
@@ -104,8 +106,8 @@ process.omtfPatternMaker = cms.EDAnalyzer("OMTFPatternMaker",
                                       dropRPCPrimitives = cms.bool(False),                                    
                                       dropDTPrimitives = cms.bool(False),                                    
                                       dropCSCPrimitives = cms.bool(False),   
-                                      ptCode = cms.int32(16),
-                                      charge = cms.int32(1),
+                                      ptCode = cms.int32(31),
+                                      charge = cms.int32(-1),
                                       omtf = cms.PSet(
         #configXMLFile = cms.string(path+"hwToLogicLayer_18layersFix2.xml"),
         configXMLFile = cms.string(path+"hwToLogicLayer_721.xml"),

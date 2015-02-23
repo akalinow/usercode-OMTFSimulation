@@ -143,8 +143,35 @@ void OMTFProducer::endJob(){
     ++aKey.thePtCode;
 
     myWriter->writeGPData(*aGP1,*aGP2, *aGP3, *aGP4);
-
     }   
+    ///
+    aKey = Key(1, iPtMin,1);    
+    while(myGPmap.find(aKey)!=myGPmap.end()){
+
+    GoldenPattern *aGP1 = myGPmap.find(aKey)->second;
+    GoldenPattern *aGP2 = aGP1;
+    GoldenPattern *aGP3 = aGP1;
+    GoldenPattern *aGP4 = aGP1;
+
+    ++aKey.thePtCode;
+    if(aKey.thePtCode<=31 && myGPmap.find(aKey)!=myGPmap.end()) aGP2 =  myGPmap.find(aKey)->second;
+    
+    if(aKey.thePtCode>19){
+      ++aKey.thePtCode;
+      if(aKey.thePtCode<=31 && myGPmap.find(aKey)!=myGPmap.end()) aGP3 =  myGPmap.find(aKey)->second;
+      
+      ++aKey.thePtCode;
+      if(aKey.thePtCode<=31 && myGPmap.find(aKey)!=myGPmap.end()) aGP4 =  myGPmap.find(aKey)->second;
+    }
+    else{
+      aGP3 = dummy;
+      aGP4 = dummy;
+    }
+    ++aKey.thePtCode;
+
+    myWriter->writeGPData(*aGP1,*aGP2, *aGP3, *aGP4);
+    }   
+
     fName = "GPs_4x.xml";
     myWriter->finaliseXMLDocument(fName); 
   }

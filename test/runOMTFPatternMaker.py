@@ -66,19 +66,18 @@ process.source = cms.Source(
                                       'file:/home/akalinow/scratch/CMS/OverlapTrackFinder/Crab/SingleMuFullEta/721_FullEta_v3/data/SingleMu_16_p_10_1_wJX.root')
     )
 
-'''
 ##Use all available events in a single job.
 ##Only for making the connections maps.
 process.source.fileNames =  cms.untracked.vstring()
 path = "/home/akalinow/scratch/CMS/OverlapTrackFinder/Crab/SingleMuFullEta/721_FullEta_v3/data/"
-command = "ls "+path+"/SingleMu_16_*_100_*"
+command = "ls "+path+"/SingleMu_{10,14,16}_*_1??_*"
 fileList = commands.getoutput(command).split("\n")
 process.source.fileNames =  cms.untracked.vstring()
 for aFile in fileList:
     process.source.fileNames.append('file:'+aFile)
-'''
 
-process.source.fileNames =  cms.untracked.vstring('file:/home/akalinow/scratch/CMS/OverlapTrackFinder/Prod/test/pt_100_1000.root')
+
+#process.source.fileNames =  cms.untracked.vstring('file:/home/akalinow/scratch/CMS/OverlapTrackFinder/Prod/test/pt_100_1000.root')
 
 print process.source.fileNames
 
@@ -101,8 +100,8 @@ process.load('L1Trigger.L1TMuon.L1TMuonTriggerPrimitiveProducer_cfi')
 process.omtfPatternMaker = cms.EDAnalyzer("OMTFPatternMaker",
                                       TriggerPrimitiveSrc = cms.InputTag('L1TMuonTriggerPrimitives'),
                                       g4SimTrackSrc = cms.InputTag('g4SimHits'),
-                                      makeGoldenPatterns = cms.bool(True),                                     
-                                      makeConnectionsMaps = cms.bool(False),                                      
+                                      makeGoldenPatterns = cms.bool(False),                                     
+                                      makeConnectionsMaps = cms.bool(True),                                      
                                       dropRPCPrimitives = cms.bool(False),                                    
                                       dropDTPrimitives = cms.bool(False),                                    
                                       dropCSCPrimitives = cms.bool(False),   
@@ -120,7 +119,7 @@ process.omtfPatternMaker = cms.EDAnalyzer("OMTFPatternMaker",
 process.MuonEtaFilter = cms.EDFilter("SimTrackEtaFilter",
                                 minNumber = cms.uint32(1),
                                 src = cms.InputTag("g4SimHits"),
-                                cut = cms.string("momentum.eta<1.15 && momentum.eta>0.83 &&  momentum.pt>1")
+                                cut = cms.string("momentum.eta<1.24 && momentum.eta>0.83 &&  momentum.pt>1")
                                 )
 process.GenMuPath = cms.Path(process.MuonEtaFilter)
 ##########################################

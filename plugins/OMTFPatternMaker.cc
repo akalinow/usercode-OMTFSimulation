@@ -62,7 +62,7 @@ void OMTFPatternMaker::beginJob(){
 
   ///For making the patterns use extended pdf width in phi
   ////Ugly hack to modify confoguration parameters at runtime.
-  OMTFConfiguration::nPdfAddrBits = 12;
+  OMTFConfiguration::nPdfAddrBits = 14;
 
   ///Clear existing GoldenPatterns
   const std::map<Key,GoldenPattern*> & theGPs = myOMTF->getPatterns();
@@ -97,10 +97,11 @@ void OMTFPatternMaker::endJob(){
 
   if(makeConnectionsMaps && !makeGoldenPatterns){
     std::string fName = "Connections.xml";  
-    myWriter->writeConnectionsData(OMTFConfiguration::measurements4D);
-    myWriter->finaliseXMLDocument(fName);
+    ///Order important: printPhiMap updates global vector in OMTFConfiguration
     myOMTFConfigMaker->printPhiMap(std::cout);
     myOMTFConfigMaker->printConnections(std::cout,0,0);
+    myWriter->writeConnectionsData(OMTFConfiguration::measurements4D);
+    myWriter->finaliseXMLDocument(fName);
   }
 }
 /////////////////////////////////////////////////////

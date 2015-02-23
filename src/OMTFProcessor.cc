@@ -51,6 +51,31 @@ bool OMTFProcessor::configure(XMLConfigReader *aReader){
   for(auto it: aGPs){    
     if(!addGP(it)) return false;
   }
+  /*
+  GoldenPattern *aGP = new GoldenPattern(Key(0,5,-1));
+  GoldenPattern::vector2D meanDistPhi2D(OMTFConfiguration::nLayers);
+  GoldenPattern::vector1D pdf1D(exp2(OMTFConfiguration::nPdfAddrBits));
+  GoldenPattern::vector3D pdf3D(OMTFConfiguration::nLayers);
+  GoldenPattern::vector2D pdf2D(OMTFConfiguration::nRefLayers);
+  aGP->setMeanDistPhi(meanDistPhi2D);
+  aGP->setPdf(pdf3D);
+  addGP(aGP);
+
+  aGP = new GoldenPattern(Key(0,5,1));
+  aGP->setMeanDistPhi(meanDistPhi2D);
+  aGP->setPdf(pdf3D);
+  addGP(aGP);
+
+  aGP = new GoldenPattern(Key(0,4,1));
+  aGP->setMeanDistPhi(meanDistPhi2D);
+  aGP->setPdf(pdf3D);
+  addGP(aGP);
+
+  aGP = new GoldenPattern(Key(0,4,-1));
+  aGP->setMeanDistPhi(meanDistPhi2D);
+  aGP->setPdf(pdf3D);
+  addGP(aGP);
+  */
 
   return true;
 }
@@ -94,13 +119,13 @@ void  OMTFProcessor::averagePatterns(int charge){
     }
     ++aKey.thePtCode;
     
-    
+    /*
     std::cout<<"Klucz: "
 	     <<aGP1->key()
 	     <<" "<<aGP2->key()
 	     <<" "<<aGP3->key()
 	     <<" "<<aGP4->key()<<std::endl;
-    
+    */
 
     GoldenPattern::vector2D meanDistPhi  = aGP1->getMeanDistPhi();
 
@@ -124,7 +149,7 @@ void  OMTFProcessor::averagePatterns(int charge){
 
     shiftGP(aGP1,meanDistPhi, meanDistPhi1);
     shiftGP(aGP2,meanDistPhi, meanDistPhi2);   
-    if(aKey.thePtCode>19){
+    if(aGP3!=aGP1 && aGP4!=aGP2){
       aGP3->setMeanDistPhi(meanDistPhi);
       aGP4->setMeanDistPhi(meanDistPhi);
       shiftGP(aGP3,meanDistPhi, meanDistPhi3);   

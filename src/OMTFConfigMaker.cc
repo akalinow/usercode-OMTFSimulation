@@ -67,6 +67,9 @@ void OMTFConfigMaker::printPhiMap(std::ostream & out){
   for(unsigned int iRefLayer=0;iRefLayer<OMTFConfiguration::nRefLayers;++iRefLayer){
     for(unsigned int iProcessor=0;iProcessor<6;++iProcessor){
       out<<"          "<<minRefPhi2D[iRefLayer][iProcessor]<<"\t";
+
+      OMTFConfiguration::processorPhiVsRefLayer[iProcessor][iRefLayer] = minRefPhi2D[iRefLayer][iProcessor];
+
     }
     out<<std::endl;
   }

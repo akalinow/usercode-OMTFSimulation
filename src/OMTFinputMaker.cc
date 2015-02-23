@@ -80,7 +80,7 @@ bool  OMTFinputMaker::acceptDigi(uint32_t rawId,
   }
   case MuonSubdetId::CSC: {
     CSCDetId csc(rawId);    
-    //if(csc.station()==4) return false; /////AK TEST
+    if(csc.station()==4) return false; /////AK TEST
     if(endcapChamberMax==37 && csc.chamber()==1) return true;
     if(csc.chamber()<endcapChamberMin || csc.chamber()>endcapChamberMax) return false;
     ///////////////////

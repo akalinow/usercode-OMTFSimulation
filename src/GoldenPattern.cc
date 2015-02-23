@@ -39,6 +39,7 @@ GoldenPattern::layerResult GoldenPattern::process1Layer1RefLayer(unsigned int iR
 
   
   int pdfVal = pdfAllRef[iLayer][iRefLayer][phiDist];
+
   return GoldenPattern::layerResult(pdfVal,pdfVal>0);
 }
 ////////////////////////////////////////////////////
@@ -160,9 +161,10 @@ void GoldenPattern::normalise(){
   ///Mean dist phi  
   for (unsigned int iRefLayer=0;iRefLayer<meanDistPhi[0].size();++iRefLayer){
     for (unsigned int iLayer=0;iLayer<meanDistPhi.size();++iLayer){   
-      if(meanDistPhiCounts.size() && meanDistPhiCounts[iLayer][iRefLayer])
+      if(meanDistPhiCounts.size() && meanDistPhiCounts[iLayer][iRefLayer]){
 	if (meanDistPhiCounts[iLayer][iRefLayer]<1000) 	meanDistPhi[iLayer][iRefLayer] = 0;
 	else meanDistPhi[iLayer][iRefLayer] = rint((float)meanDistPhi[iLayer][iRefLayer]/meanDistPhiCounts[iLayer][iRefLayer]);      
+      }
     }
   }
   

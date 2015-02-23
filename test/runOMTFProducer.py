@@ -93,7 +93,7 @@ path = "/home/akalinow/OMTF/"
 
 patternsXMLFiles = cms.vstring()
 
-for ipt in xrange(6,32):
+for ipt in xrange(4,32):
     
     #if ipt>11:
     #    continue
@@ -114,8 +114,8 @@ process.omtfEmulator = cms.EDProducer("OMTFProducer",
                                       dropCSCPrimitives = cms.bool(False),   
                                       omtf = cms.PSet(
         configXMLFile = cms.string(path+"hwToLogicLayer_721.xml"),
-        patternsXMLFiles = cms.vstring(path+"Patterns_ipt6_18.xml",path+"Patterns_ipt19_31.xml"),
-        #patternsXMLFiles = patternsXMLFiles        
+        #patternsXMLFiles = cms.vstring(path+"Patterns_ipt6_18.xml",path+"Patterns_ipt19_31.xml"),
+        patternsXMLFiles = patternsXMLFiles        
         )
                                       )
 

@@ -28,6 +28,10 @@ std::bitset<128> OMTFinput::getRefHits(unsigned int iProcessor) const{
   for(auto iRefHitDef:OMTFConfiguration::refHitsDefs[iProcessor]){
     int iPhi = getLayerData(OMTFConfiguration::refToLogicNumber[iRefHitDef.iRefLayer])[iRefHitDef.iInput];    
     if(iPhi<(int)OMTFConfiguration::nPhiBins) refHits.set(iRefHit, iRefHitDef.fitsRange(iPhi));
+
+    if(iRefHitDef.iRefLayer==3) refHits.set(iRefHit,false);
+
+
     iRefHit++;
   }
 

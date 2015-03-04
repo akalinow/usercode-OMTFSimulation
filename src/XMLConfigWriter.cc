@@ -542,8 +542,10 @@ void  XMLConfigWriter::writeConnectionsData(const std::vector<std::vector <OMTFC
 	  aRefHitElement->setAttribute(_toDOMS("iInput"), _toDOMS(stringStr.str()));
 
 	  unsigned int logicRegionSize = 10/360.0*OMTFConfiguration::nPhiBins;
-	  ///iPhiMin and iPhiMax are expressed in 10 bit scale +-511 used in each processor
-	  int iPhiMin = OMTFConfiguration::processorPhiVsRefLayer[iProcessor][iRefLayer]-OMTFConfiguration::globalPhiStart(iProcessor)-511;
+	  int lowScaleEnd = pow(2,OMTFConfiguration::nPhiBits-1);
+	  int highScaleEnd = lowScaleEnd-1
+	  ///iPhiMin and iPhiMax are expressed in n bit scale -2**n, +2**2-1 used in each processor
+	  int iPhiMin = OMTFConfiguration::processorPhiVsRefLayer[iProcessor][iRefLayer]-OMTFConfiguration::globalPhiStart(iProcessor)-lowScaleEnd;
 	  int iPhiMax = iPhiMin+logicRegionSize-1;
 
 	  iPhiMin+=iRegion*logicRegionSize;

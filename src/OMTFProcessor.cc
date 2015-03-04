@@ -75,7 +75,7 @@ bool OMTFProcessor::configure(XMLConfigReader *aReader){
   aGP->setMeanDistPhi(meanDistPhi2D);
   aGP->setPdf(pdf3D);
   addGP(aGP);
-  */
+*/
 
   return true;
 }

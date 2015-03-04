@@ -69,17 +69,12 @@ process.source = cms.Source(
 ##Use all available events in a single job.
 ##Only for making the connections maps.
 process.source.fileNames =  cms.untracked.vstring()
-path = "/home/akalinow/scratch/CMS/OverlapTrackFinder/Crab/SingleMuFullEta/721_FullEta_v3/data/"
+path = "/home/akalinow/scratch/CMS/OverlapTrackFinder/Crab/SingleMuFullEta/721_FullEta_v4/data/"
 command = "ls "+path+"/SingleMu_{10,14,16}_*_1??_*"
 fileList = commands.getoutput(command).split("\n")
 process.source.fileNames =  cms.untracked.vstring()
 for aFile in fileList:
     process.source.fileNames.append('file:'+aFile)
-
-
-#process.source.fileNames =  cms.untracked.vstring('file:/home/akalinow/scratch/CMS/OverlapTrackFinder/Prod/test/pt_100_1000.root')
-
-print process.source.fileNames
 
 process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1))
 

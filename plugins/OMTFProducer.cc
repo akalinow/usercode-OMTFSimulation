@@ -209,20 +209,7 @@ void OMTFProducer::produce(edm::Event& iEvent, const edm::EventSetup& evSetup){
        
     ///Input data with phi ranges shifted for each processor, so it fits 10 bits range
     const OMTFinput myShiftedInput =  myOMTF->shiftInput(iProcessor,*myInput);	
-    
-    ///Phi maps should be made with original, global phi values.
-    ///Connections maps are rtun on large samples, so the rest
-    ///of algoritm is not executed.
-    if(makeConnectionsMaps) {
-      myOMTFConfigMaker->makeConnetionsMap(iProcessor,*myInput);
-      continue;
-    }
-    /*
-    if(makeGoldenPatterns) {
-      myOMTFConfigMaker->fillCounts(iProcessor,*myInput);
-      continue;
-    }
-    */
+       
     /////////////////////////
     
     ///Results for each GP in each logic region of given processor
@@ -232,20 +219,30 @@ void OMTFProducer::produce(edm::Event& iEvent, const edm::EventSetup& evSetup){
     L1MuRegionalCand myOTFCandidatePlus = mySorter->sortProcessor(myResults,1);
     //L1MuRegionalCand myOTFCandidateMinus = mySorter->sortProcessor(myResults,-1);
 
-    ////Switch from internal processor 10bit scale to global one
+    ////Switch from internal processor n bit scale to global one
     int procOffset = OMTFConfiguration::globalPhiStart(iProcessor);
+    int lowScaleEnd = pow(2,OMTFConfiguration::nPhiBits-1);
+
     if(procOffset<0) procOffset+=OMTFConfiguration::nPhiBins;
 
-    float phiValue = (myOTFCandidatePlus.phiValue()+OMTFConfiguration::globalPhiStart(iProcessor)+511)/OMTFConfiguration::nPhiBins*2*M_PI;
+    float phiValue = (myOTFCandidatePlus.phiValue()+OMTFConfiguration::globalPhiStart(iProcessor)+lowScaleEnd)/OMTFConfiguration::nPhiBins*2*M_PI;
     if(phiValue>M_PI) phiValue-=2*M_PI;
     myOTFCandidatePlus.setPhiValue(phiValue);
 
-    //phiValue = (myOTFCandidateMinus.phiValue()+OMTFConfiguration::globalPhiStart(iProcessor)+511)/OMTFConfiguration::nPhiBins*2*M_PI;
+    //phiValue = (myOTFCandidateMinus.phiValue()+OMTFConfiguration::globalPhiStart(iProcessor)+lowScaleEnd)/OMTFConfiguration::nPhiBins*2*M_PI;
     //if(phiValue>M_PI) phiValue-=2*M_PI;
     //myOTFCandidateMinus.setPhiValue(phiValue);
     //////////////////
     if(myOTFCandidatePlus.pt_packed()) myCands->push_back(myOTFCandidatePlus); 
     //if(myOTFCandidateMinus.pt_packed()) myCands->push_back(myOTFCandidateMinus); 
+
+    ///////////////DEBUG
+    if(myOTFCandidatePlus.pt_packed()>20 && myOTFCandidatePlus.bx()%100>3){
+      std::cout<<"pt OMTF: "<<myOTFCandidatePlus.pt_packed()<<std::endl;
+      std::cout<<"ref layer OMTF: "<<myOTFCandidatePlus.bx()%1000<<std::endl;
+      std::cout<<myShiftedInput<<std::endl;
+    }
+    ////////////////////
    
     ///Write to XML
     if(dumpResultToXML){

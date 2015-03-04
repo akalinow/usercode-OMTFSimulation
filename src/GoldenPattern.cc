@@ -39,7 +39,6 @@ GoldenPattern::layerResult GoldenPattern::process1Layer1RefLayer(unsigned int iR
 
   
   int pdfVal = pdfAllRef[iLayer][iRefLayer][phiDist];
-
   return GoldenPattern::layerResult(pdfVal,pdfVal>0);
 }
 ////////////////////////////////////////////////////

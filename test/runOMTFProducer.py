@@ -76,7 +76,7 @@ process.source.fileNames =  cms.untracked.vstring()
 for aFile in fileList:
     process.source.fileNames.append('file:'+aFile)
 '''
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(1000))
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(1))
 
 ###PostLS1 geometry used
 process.load('Configuration.Geometry.GeometryExtendedPostLS1Reco_cff')
@@ -94,12 +94,11 @@ path = "/home/akalinow/OMTF/"
 patternsXMLFiles = cms.vstring()
 
 for ipt in xrange(4,32):
-    
-    #if ipt>11:
-    #    continue
-        
+            
     patternsXMLFiles.append(path1+"SingleMu_"+str(ipt)+"_p/GPs.xml")
     patternsXMLFiles.append(path1+"SingleMu_"+str(ipt)+"_m/GPs.xml")
+
+print patternsXMLFiles
 
 process.load('L1Trigger.L1TMuon.L1TMuonTriggerPrimitiveProducer_cfi')
 

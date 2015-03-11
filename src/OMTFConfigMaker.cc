@@ -86,20 +86,21 @@ void OMTFConfigMaker::makeConnetionsMap(unsigned int iProcessor,
     const OMTFinput::vector1D & refLayerHits = aInput.getLayerData(OMTFConfiguration::refToLogicNumber[iRefLayer]);	
     if(!refLayerHits.size()) continue;
     //////////////////////
-    for(unsigned int iLayer=0;iLayer<OMTFConfiguration::nLayers;++iLayer){
-      const OMTFinput::vector1D & layerHits = aInput.getLayerData(iLayer);
-      if(!layerHits.size()) continue;
-      for(unsigned int iInput=0;iInput<refLayerHits.size();++iInput){	
-	  int phiRef = refLayerHits[iInput];
-	  unsigned int iRegion = OMTFConfiguration::getRegionNumber(iProcessor,iRefLayer,phiRef);
-	  if(iRegion>5) continue;
-	  fillInputRange(iProcessor,iRegion,aInput);
-	  fillInputRange(iProcessor,iRegion,iRefLayer,iInput);
-	  ///Always use two hits from a single chamber. 
-	  ///As we use single muons, the second hit has
-	  ///to be added by hand.
-	  if(iInput%2==0) fillInputRange(iProcessor,iRegion,iRefLayer,iInput+1);
+    for(unsigned int iInput=0;iInput<refLayerHits.size();++iInput){	
+      int phiRef = refLayerHits[iInput];
+      unsigned int iRegion = OMTFConfiguration::getRegionNumber(iProcessor,iRefLayer,phiRef);
+      /*    
+      if(iRegion==2 && iProcessor==0 && iInput==2 && iRefLayer==0){
+	std::cout<<"input phi: "<<phiRef<<std::endl;
       }
+      */
+      if(iRegion>5) continue;
+      fillInputRange(iProcessor,iRegion,aInput);
+      fillInputRange(iProcessor,iRegion,iRefLayer,iInput);
+      ///Always use two hits from a single chamber. 
+      ///As we use single muons, the second hit has
+      ///to be added by hand.
+      if(iInput%2==0) fillInputRange(iProcessor,iRegion,iRefLayer,iInput+1);
     }      
   }
 } 

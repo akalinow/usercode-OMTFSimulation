@@ -220,7 +220,7 @@ const OMTFinput * OMTFinputMaker::buildInputForProcessor(const L1TMuon::TriggerP
     myStr<<detid
 	 <<"halfDigi: "<<std::get<1>(halfDigiIt)->getStrip()<<" "
 	 <<std::get<2>(halfDigiIt)->getStrip()
-         <<" phi: "<<floor(phi * 4096/(2*M_PI))
+         <<" phi: "<<floor(phi * OMTFConfiguration::nPhiBins/(2*M_PI))
 	 <<" hwNumber: "<<hwNumber
 	 <<" iInput: "<<iInput
 	 <<" iLayer: "<<iLayer

@@ -112,9 +112,9 @@ process.omtfEmulator = cms.EDProducer("OMTFProducer",
                                       dropDTPrimitives = cms.bool(False),                                    
                                       dropCSCPrimitives = cms.bool(False),   
                                       omtf = cms.PSet(
-        configXMLFile = cms.string(path+"hwToLogicLayer_721.xml"),
-        #patternsXMLFiles = cms.vstring(path+"Patterns_ipt6_18.xml",path+"Patterns_ipt19_31.xml"),
-        patternsXMLFiles = patternsXMLFiles        
+        configXMLFile = cms.string("hwToLogicLayer_721.xml"),
+        patternsXMLFiles = cms.vstring(path+"Patterns_ipt6_18.xml",path+"Patterns_ipt19_31.xml"),
+        #patternsXMLFiles = patternsXMLFiles        
         )
                                       )
 

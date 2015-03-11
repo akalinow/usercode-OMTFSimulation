@@ -57,20 +57,22 @@ if verbose:
                                         )
 
 if not verbose:
-    process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32(50000)
+    process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32(100000)
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 
 process.source = cms.Source(
     'PoolSource',
     fileNames = cms.untracked.vstring('file:/home/akalinow/scratch/CMS/OverlapTrackFinder/Crab/SingleMuFullEta/721_FullEta_v3/data/SingleMu_16_p_100_3_bhF.root',
-                                      'file:/home/akalinow/scratch/CMS/OverlapTrackFinder/Crab/SingleMuFullEta/721_FullEta_v3/data/SingleMu_16_p_10_1_wJX.root')
+                                      'file:/home/akalinow/scratch/CMS/OverlapTrackFinder/Crab/SingleMuFullEta/721_FullEta_v3/data/SingleMu_16_p_10_1_wJX.root'),
+    #skipEvents=cms.untracked.uint32(150000+1880)
     )
 
 ##Use all available events in a single job.
 ##Only for making the connections maps.
 process.source.fileNames =  cms.untracked.vstring()
 path = "/home/akalinow/scratch/CMS/OverlapTrackFinder/Crab/SingleMuFullEta/721_FullEta_v4/data/"
-command = "ls "+path+"/SingleMu_{10,14,16}_*_1??_*"
+command = "ls "+path+"/SingleMu_{10,14,16,18}_*_1??_*"
+#command = "ls "+path+"/SingleMu_16_*_1??_*"
 fileList = commands.getoutput(command).split("\n")
 process.source.fileNames =  cms.untracked.vstring()
 for aFile in fileList:
@@ -103,8 +105,7 @@ process.omtfPatternMaker = cms.EDAnalyzer("OMTFPatternMaker",
                                       ptCode = cms.int32(31),
                                       charge = cms.int32(-1),
                                       omtf = cms.PSet(
-        #configXMLFile = cms.string(path+"hwToLogicLayer_18layersFix2.xml"),
-        configXMLFile = cms.string(path+"hwToLogicLayer_721.xml"),
+        configXMLFile = cms.string("hwToLogicLayer_721.xml"),
         patternsXMLFiles = cms.vstring(path+"Patterns_ipt6_18.xml",path+"Patterns_ipt19_31.xml"),
 
         )

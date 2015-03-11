@@ -100,6 +100,11 @@ void OMTFPatternMaker::endJob(){
     ///Order important: printPhiMap updates global vector in OMTFConfiguration
     myOMTFConfigMaker->printPhiMap(std::cout);
     myOMTFConfigMaker->printConnections(std::cout,0,0);
+    myOMTFConfigMaker->printConnections(std::cout,0,1);
+    myOMTFConfigMaker->printConnections(std::cout,0,2);
+    myOMTFConfigMaker->printConnections(std::cout,0,3);
+    myOMTFConfigMaker->printConnections(std::cout,0,4);
+    myOMTFConfigMaker->printConnections(std::cout,0,5);
     myWriter->writeConnectionsData(OMTFConfiguration::measurements4D);
     myWriter->finaliseXMLDocument(fName);
   }
@@ -134,7 +139,7 @@ void OMTFPatternMaker::analyze(const edm::Event& iEvent, const edm::EventSetup& 
     const OMTFinput myShiftedInput =  myOMTF->shiftInput(iProcessor,*myInput);	
     
     ///Phi maps should be made with original, global phi values.
-    ///Connections maps are rtun on large samples, so the rest
+    ///Connections maps are run on large samples, so the rest
     ///of algoritm is not executed.
     if(makeConnectionsMaps) myOMTFConfigMaker->makeConnetionsMap(iProcessor,*myInput);
   

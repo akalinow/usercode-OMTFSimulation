@@ -522,9 +522,14 @@ void  XMLConfigWriter::writeConnectionsData(const std::vector<std::vector <OMTFC
     ///////
       for(unsigned int iRefLayer=0;iRefLayer<OMTFConfiguration::nRefLayers;++iRefLayer){
 	for(unsigned int iRegion=0;iRegion<6;++iRegion){
+	  unsigned int maxHitCount =  0;
+	  for(unsigned int iInput=0;iInput<14;++iInput) {
+	    if((int)maxHitCount<OMTFConfiguration::measurements4Dref[iProcessor][iRegion][iRefLayer][iInput])
+	      maxHitCount = OMTFConfiguration::measurements4Dref[iProcessor][iRegion][iRefLayer][iInput];
+	  }
 	for(unsigned int iInput=0;iInput<14;++iInput){
 	  unsigned int hitCount =  OMTFConfiguration::measurements4Dref[iProcessor][iRegion][iRefLayer][iInput];
-	  if(!hitCount) continue;
+	  if(hitCount<maxHitCount*1E-2) continue;
 	  xercesc::DOMElement* aRefHitElement = theDoc->createElement(_toDOMS("RefHit"));
 	  stringStr.str("");
 	  stringStr<<iRefHit;
@@ -542,8 +547,7 @@ void  XMLConfigWriter::writeConnectionsData(const std::vector<std::vector <OMTFC
 	  aRefHitElement->setAttribute(_toDOMS("iInput"), _toDOMS(stringStr.str()));
 
 	  unsigned int logicRegionSize = 10/360.0*OMTFConfiguration::nPhiBins;
-	  int lowScaleEnd = pow(2,OMTFConfiguration::nPhiBits-1);
-	  int highScaleEnd = lowScaleEnd-1
+	  int lowScaleEnd = std::pow(2,OMTFConfiguration::nPhiBits-1);
 	  ///iPhiMin and iPhiMax are expressed in n bit scale -2**n, +2**2-1 used in each processor
 	  int iPhiMin = OMTFConfiguration::processorPhiVsRefLayer[iProcessor][iRefLayer]-OMTFConfiguration::globalPhiStart(iProcessor)-lowScaleEnd;
 	  int iPhiMax = iPhiMin+logicRegionSize-1;

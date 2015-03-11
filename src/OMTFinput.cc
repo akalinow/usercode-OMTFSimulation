@@ -1,5 +1,6 @@
 #include <cassert>
 #include <iostream>
+#include <cmath>
 
 #include "UserCode/OMTFSimulation/interface/OMTFinput.h"
 #include "UserCode/OMTFSimulation/interface/OMTFConfiguration.h"
@@ -27,8 +28,7 @@ std::bitset<128> OMTFinput::getRefHits(unsigned int iProcessor) const{
   unsigned int iRefHit = 0;
   for(auto iRefHitDef:OMTFConfiguration::refHitsDefs[iProcessor]){
     int iPhi = getLayerData(OMTFConfiguration::refToLogicNumber[iRefHitDef.iRefLayer])[iRefHitDef.iInput];    
-    if(iPhi<(int)OMTFConfiguration::nPhiBins) refHits.set(iRefHit, iRefHitDef.fitsRange(iPhi));
-    
+    if(iPhi<(int)OMTFConfiguration::nPhiBins) refHits.set(iRefHit, iRefHitDef.fitsRange(iPhi));    
     iRefHit++;
   }
 
@@ -70,8 +70,8 @@ void OMTFinput::clear(){
 void  OMTFinput::shiftMyPhi(int phiShift){
 
 
-  int lowScaleEnd = pow(2,OMTFConfiguration::nPhiBits-1);
-  int highScaleEnd = lowScaleEnd-1
+  int lowScaleEnd = std::pow(2,OMTFConfiguration::nPhiBits-1);
+  int highScaleEnd = lowScaleEnd-1;
 
 for(unsigned int iLogicLayer=0;iLogicLayer<measurements.size();++iLogicLayer){
     for(unsigned int iHit=0;iHit<measurements[iLogicLayer].size();++iHit){

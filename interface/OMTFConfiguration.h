@@ -19,8 +19,8 @@ class RefHitDef{
 
   //FIXME: default values should be sonnected to configuration values
   RefHitDef(unsigned int aInput=15, 
-	    int aPhiMin=4096, 
-	    int aPhiMax=4096,
+	    int aPhiMin=5760, 
+	    int aPhiMax=5760,
 	    unsigned int aRegion=99,
 	    unsigned int aRefLayer=99);
 

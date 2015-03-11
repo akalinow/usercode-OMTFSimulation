@@ -32,8 +32,8 @@ OMTFProcessor::OMTFProcessor(const edm::ParameterSet & theConfig){
    configure(&myReader);
   }
 
-  //averagePatterns(1);
-  //averagePatterns(-1);
+  averagePatterns(1);
+  averagePatterns(-1);
 
 }
 ///////////////////////////////////////////////

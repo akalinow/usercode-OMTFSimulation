@@ -1,6 +1,7 @@
 #include <cassert>
 #include <iostream>
 #include <strstream>
+#include <algorithm>
 
 #include "FWCore/MessageLogger/interface/MessageLogger.h"
 
@@ -87,14 +88,10 @@ InternalObj OMTFSorter::sortRefHitResults(const OMTFProcessor::resultsMap & aRes
     }
   }  
 
- InternalObj candidate;
-  candidate.pt =  bestKey.thePtCode;
-  candidate.eta = bestKey.theEtaCode; 
-  candidate.phi = refPhi;
-  candidate.charge = bestKey.theCharge;
-  candidate.q   = nHitsMax;
-  candidate.disc = pdfValMax;
-  candidate.refLayer = refLayer;
+  InternalObj candidate(bestKey.thePtCode, bestKey.theEtaCode, refPhi,
+			pdfValMax, 0, nHitsMax,
+			bestKey.theCharge, refLayer);
+
 
   /////TEST AVERAGE PT///////
   /*
@@ -161,9 +158,46 @@ InternalObj OMTFSorter::sortProcessorResults(const std::vector<OMTFProcessor::re
 
   for(auto itRefHit: procResults) refHitCands.push_back(sortRefHitResults(itRefHit,charge));
 
-  for(auto itCand: refHitCands){
-    if(itCand.q>candidate.q) candidate = itCand;
-    else if(itCand.q==candidate.q && itCand.disc>candidate.disc) candidate = itCand;
+  // Sort candidates with decreased goodness...
+  /*
+  std::sort( refHitCands.begin(), refHitCands.end(), 
+	     [](const InternalObj &o1, const InternalObj &o2){
+	       if(o1.q > o2.q) return true;
+	       else if(o1.q==o2.q && o1.disc > o2.disc) return true;
+	       else return false;
+	     } );
+  */
+  //where goodness definied in < operator of InternalObj
+  std::sort( refHitCands.begin(), refHitCands.end() );
+  // and then take the best one
+  if(!refHitCands.empty()) candidate = refHitCands[0];
+
+  //Clean candidate list by removing dupicates bazing on Phi distance 
+  //Assumed that list is ordered
+  std::vector<InternalObj> refHitCleanCands;
+  for(std::vector<InternalObj>::iterator it1 = refHitCands.begin();
+      it1 != refHitCands.end(); ++it1){
+    bool isGhost=false;
+    for(std::vector<InternalObj>::iterator it2 = refHitCleanCands.begin();
+	it2 != refHitCleanCands.end(); ++it2){
+      if(std::abs(it1->phi - it2->phi)<10/360.0*OMTFConfiguration::nPhiBins){//consider shrink veto window 10->5 deg
+	isGhost=true;
+	break;
+      }
+    }
+    if(!isGhost) refHitCleanCands.push_back(*it1);
+  }
+  refHitCleanCands.resize( refHitCands.size() );//preserve number of candidates adding empty ones
+
+  //if(candidate.q>0){
+  if(true){
+    std::cout<<"before cleaning\n";
+    for(unsigned int ii=0; ii<refHitCands.size(); ++ii)
+      std::cout<<"\t"<<ii<<". "<<refHitCands[ii]<<"\n";   
+    std::cout<<"after cleaning\n";
+    for(unsigned int ii=0; ii<refHitCleanCands.size(); ++ii)
+      std::cout<<"\t"<<ii<<". "<<refHitCleanCands[ii]<<"\n";
+    std::cout<<std::endl;
   }
 
   std::ostringstream myStr;
@@ -172,6 +206,7 @@ InternalObj OMTFSorter::sortProcessorResults(const std::vector<OMTFProcessor::re
   }
   myStr<<"Selected Candidate with charge: "<<charge<<" "<<candidate<<std::endl;
   edm::LogInfo("OMTF Sorter")<<myStr.str();
+
 
   return candidate;
 }

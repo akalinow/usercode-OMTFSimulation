@@ -17,15 +17,23 @@ class OMTFSorter{
   ///Sort all processor results. 
   ///First for each region cone find a best candidate using sortRegionResults() 
   ///Then select best candidate amongs found for each logic region.
-  ///The sorthing is made for candidates with a given charge
+  ///The sorting is made for candidates with a given charge
   InternalObj sortProcessorResults(const std::vector<OMTFProcessor::resultsMap> & procResults,
 				   int charge);
+  //
+  void sortProcessorResults(const std::vector<OMTFProcessor::resultsMap> & procResults,
+			    std::vector<InternalObj> & refHitCleanCands,
+			    int charge);
 
   ///Sort all processor results. 
   ///First for each region cone find a best candidate using sortRegionResults() 
   ///Then select best candidate amongs found for each logic region
   L1MuRegionalCand sortProcessor(const std::vector<OMTFProcessor::resultsMap> & procResults,
 				 int charge);
+  //
+  void sortProcessor(const std::vector<OMTFProcessor::resultsMap> & procResults,
+		     std::vector<L1MuRegionalCand> & sortedCands,
+		     int charge);
 
   ///Sort results from a single reference hit.
   ///Select candidate with highest number of hit layers

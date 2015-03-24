@@ -133,30 +133,40 @@ void OMTFProducer::produce(edm::Event& iEvent, const edm::EventSetup& evSetup){
     const std::vector<OMTFProcessor::resultsMap> & myResults = myOMTF->processInput(iProcessor,myShiftedInput);
 
     ///At the moment allow up to two, opposite charge, candidates per processor.    
-    L1MuRegionalCand myOTFCandidatePlus = mySorter->sortProcessor(myResults,1);
+    //L1MuRegionalCand myOTFCandidatePlus = mySorter->sortProcessor(myResults,1);
     //L1MuRegionalCand myOTFCandidateMinus = mySorter->sortProcessor(myResults,-1);
+    //At the moment allow one candidate pre processor ignoring its charge
+    L1MuRegionalCand myOTFCandidate = mySorter->sortProcessor(myResults,0);
 
     ////Switch from internal processor 10bit scale to global one
     int procOffset = OMTFConfiguration::globalPhiStart(iProcessor);
     if(procOffset<0) procOffset+=OMTFConfiguration::nPhiBins;
 
-    float phiValue = (myOTFCandidatePlus.phiValue()+OMTFConfiguration::globalPhiStart(iProcessor)+511)/OMTFConfiguration::nPhiBins*2*M_PI;
-    if(phiValue>M_PI) phiValue-=2*M_PI;
-    myOTFCandidatePlus.setPhiValue(phiValue);
+    float phiValue; 
+    //phiValue = (myOTFCandidatePlus.phiValue()+OMTFConfiguration::globalPhiStart(iProcessor)+511)/OMTFConfiguration::nPhiBins*2*M_PI;
+    //if(phiValue>M_PI) phiValue-=2*M_PI;
+    //myOTFCandidatePlus.setPhiValue(phiValue);
 
     //phiValue = (myOTFCandidateMinus.phiValue()+OMTFConfiguration::globalPhiStart(iProcessor)+511)/OMTFConfiguration::nPhiBins*2*M_PI;
     //if(phiValue>M_PI) phiValue-=2*M_PI;
     //myOTFCandidateMinus.setPhiValue(phiValue);
+
+    phiValue = (myOTFCandidate.phiValue()+OMTFConfiguration::globalPhiStart(iProcessor)+511)/OMTFConfiguration::nPhiBins*2*M_PI;
+    if(phiValue>M_PI) phiValue-=2*M_PI;
+    myOTFCandidate.setPhiValue(phiValue);
+
     //////////////////
-    if(myOTFCandidatePlus.pt_packed()) myCands->push_back(myOTFCandidatePlus); 
+    //if(myOTFCandidatePlus.pt_packed()) myCands->push_back(myOTFCandidatePlus); 
     //if(myOTFCandidateMinus.pt_packed()) myCands->push_back(myOTFCandidateMinus); 
-   
+    if(myOTFCandidate.pt_packed()) myCands->push_back(myOTFCandidate); 
+
     ///Write to XML
     if(dumpResultToXML){
       xercesc::DOMElement * aProcElement = myWriter->writeEventData(aTopElement,iProcessor,myShiftedInput);
       for(unsigned int iRefHit=0;iRefHit<OMTFConfiguration::nTestRefHits;++iRefHit){
 	///Dump only regions, where a candidate was found
-	InternalObj myCand = mySorter->sortRefHitResults(myResults[iRefHit],1);
+	//InternalObj myCand = mySorter->sortRefHitResults(myResults[iRefHit],1);
+	InternalObj myCand = mySorter->sortRefHitResults(myResults[iRefHit],0);//charge=0 means ignore charge
 	if(myCand.pt){
 	  myWriter->writeCandidateData(aProcElement,iRefHit,myCand);
 	  for(auto & itKey: myResults[iRefHit]) myWriter->writeResultsData(aProcElement, 

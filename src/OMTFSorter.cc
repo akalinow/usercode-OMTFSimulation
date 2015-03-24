@@ -65,7 +65,7 @@ InternalObj OMTFSorter::sortRefHitResults(const OMTFProcessor::resultsMap & aRes
   int refLayer = -1;
   Key bestKey;
   for(auto itKey: aResultsMap){   
-    //if(itKey.first.theCharge!=charge) continue;
+    if(charge!=0 && itKey.first.theCharge!=charge) continue; //charge==0 means ignore charge
     std::tuple<unsigned int,unsigned int, int, int > val = sortSingleResult(itKey.second);
     ///Accept only candidates with >2 hits
     if(std::get<0>(val)<3) continue;
@@ -156,7 +156,8 @@ InternalObj OMTFSorter::sortProcessorResults(const std::vector<OMTFProcessor::re
   std::vector<InternalObj> sortedCandidates;
   sortProcessorResults(procResults, sortedCandidates, charge);
 
-  InternalObj candidate = sortedCandidates.size()>0 ? sortedCandidates[0] : InternalObj() ; 
+  InternalObj candidate = sortedCandidates.size()>0 ? sortedCandidates[0] : InternalObj(0,99,9999,0,0,0,0,-1);
+
   std::ostringstream myStr;
   myStr<<"Selected Candidate with charge: "<<charge<<" "<<candidate<<std::endl;
   edm::LogInfo("OMTF Sorter")<<myStr.str();
@@ -186,25 +187,17 @@ void OMTFSorter::sortProcessorResults(const std::vector<OMTFProcessor::resultsMa
     bool isGhost=false;
     for(std::vector<InternalObj>::iterator it2 = refHitCleanCands.begin();
 	it2 != refHitCleanCands.end(); ++it2){
-      if(std::abs(it1->phi - it2->phi)<10/360.0*OMTFConfiguration::nPhiBins){//consider shrink veto window 10->5 deg
+      //do not accept candidates with similar phi and same charge 
+      if(std::abs(it1->phi - it2->phi)<5/360.0*OMTFConfiguration::nPhiBins //veto window 5deg(=half of logic cone)=5/360*4096=57"logic strips"
+	 && it1->charge==it2->charge){
 	isGhost=true;
 	break;
       }
     }
     if(it1->q>0 && !isGhost) refHitCleanCands.push_back(*it1);
   }
-  refHitCleanCands.resize( refHitCands.size() );//preserve original number of candidates adding empty ones
-
-  //if(refHitCands.size()>0 && refHitCands[0].q>0){
-  if(true){
-    std::cout<<"before cleaning\n";
-    for(unsigned int ii=0; ii<refHitCands.size(); ++ii)
-      std::cout<<"\t"<<ii<<". "<<refHitCands[ii]<<"\n";   
-    std::cout<<"after cleaning\n";
-    for(unsigned int ii=0; ii<refHitCleanCands.size(); ++ii)
-      std::cout<<"\t"<<ii<<". "<<refHitCleanCands[ii]<<"\n";
-    std::cout<<std::endl;
-  }
+  //return 3 candidates (adding empty ones if needed)
+  refHitCleanCands.resize( 3, InternalObj(0,99,9999,0,0,0,0,-1) );
 
   std::ostringstream myStr;
   for(unsigned int iRefHit=0;iRefHit<refHitCands.size();++iRefHit){

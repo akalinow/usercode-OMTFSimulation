@@ -19,28 +19,28 @@ class OMTFSorter{
   ///Then select best candidate amongs found for each logic region.
   ///The sorting is made for candidates with a given charge
   InternalObj sortProcessorResults(const std::vector<OMTFProcessor::resultsMap> & procResults,
-				   int charge);
+				   int charge=0);
   //
   void sortProcessorResults(const std::vector<OMTFProcessor::resultsMap> & procResults,
 			    std::vector<InternalObj> & refHitCleanCands,
-			    int charge);
+			    int charge=0);
 
   ///Sort all processor results. 
   ///First for each region cone find a best candidate using sortRegionResults() 
   ///Then select best candidate amongs found for each logic region
   L1MuRegionalCand sortProcessor(const std::vector<OMTFProcessor::resultsMap> & procResults,
-				 int charge);
+				 int charge=0);
   //
   void sortProcessor(const std::vector<OMTFProcessor::resultsMap> & procResults,
 		     std::vector<L1MuRegionalCand> & sortedCands,
-		     int charge);
+		     int charge=0);
 
   ///Sort results from a single reference hit.
   ///Select candidate with highest number of hit layers
   ///Then select a candidate with largest likelihood value and given charge
   ///as we allow two candidates with opposite charge from single 10deg region
   InternalObj sortRefHitResults(const OMTFProcessor::resultsMap & aResultsMap, 
-				int charge);
+				int charge=0);
 
  private:
 

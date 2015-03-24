@@ -84,7 +84,8 @@ class OMTFProcessor{
   std::map<Key,GoldenPattern*> theGPs;
 
   ///Map holding results on current event data
-  ///for each GP
+  ///for each GP. 
+  ///Reference hit number is isued as a vector index.
   std::vector<OMTFProcessor::resultsMap> myResults;
 
 };

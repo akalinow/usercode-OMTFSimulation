@@ -329,13 +329,11 @@ void  XMLConfigWriter::writeConnectionsData(const std::vector<std::vector <OMTFC
 	aProcessorElement->appendChild(aRefLayerElement);
       }
     unsigned int iRefHit = 0;
-    for(unsigned int iRegion=0;iRegion<6;++iRegion){
-      xercesc::DOMElement* aRegionElement = theDoc->createElement(_toDOMS("LogicRegion"));
-      stringStr.str("");
-      stringStr<<iRegion;
-      aRegionElement->setAttribute(_toDOMS("iRegion"), _toDOMS(stringStr.str()));   
-      ////
+   
+    /////
+    ///////
       for(unsigned int iRefLayer=0;iRefLayer<OMTFConfiguration::nRefLayers;++iRefLayer){
+	for(unsigned int iRegion=0;iRegion<6;++iRegion){
 	for(unsigned int iInput=0;iInput<14;++iInput){
 	  unsigned int hitCount =  OMTFConfiguration::measurements4Dref[iProcessor][iRegion][iRefLayer][iInput];
 	  if(!hitCount) continue;
@@ -373,11 +371,8 @@ void  XMLConfigWriter::writeConnectionsData(const std::vector<std::vector <OMTFC
 	  //if(iRefHit<OMTFConfiguration::nRefHits) aProcessorElement->appendChild(aRefHitElement);
 	  if(iRefHit<128) aProcessorElement->appendChild(aRefHitElement);
 	  ++iRefHit;
-	}
-      }
-      //for(;iRegion==5 && iRefHit<OMTFConfiguration::nRefHits;++iRefHit){
-      for(;iRegion==5 && iRefHit<128;++iRefHit){
-
+	}	      
+      for(;iRegion==5 && iRefLayer==7 && iRefHit<OMTFConfiguration::nRefHits;++iRefHit){
 	xercesc::DOMElement* aRefHitElement = theDoc->createElement(_toDOMS("RefHit"));
 	stringStr.str("");
 	stringStr<<iRefHit;
@@ -407,8 +402,16 @@ void  XMLConfigWriter::writeConnectionsData(const std::vector<std::vector <OMTFC
 
 	aProcessorElement->appendChild(aRefHitElement);
       }
-    
+	}
+      }
+      
       ////
+      for(unsigned int iRegion=0;iRegion<6;++iRegion){
+	xercesc::DOMElement* aRegionElement = theDoc->createElement(_toDOMS("LogicRegion"));
+	stringStr.str("");
+	stringStr<<iRegion;
+	aRegionElement->setAttribute(_toDOMS("iRegion"), _toDOMS(stringStr.str()));   
+
       unsigned int iLayerNew = 0;
       for(unsigned int iLogicLayer=0;iLogicLayer<OMTFConfiguration::nLayers;++iLogicLayer){
 	if(removeLayers(iLogicLayer)) continue;

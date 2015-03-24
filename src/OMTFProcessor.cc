@@ -20,7 +20,8 @@
 ///////////////////////////////////////////////
 OMTFProcessor::OMTFProcessor(const edm::ParameterSet & theConfig){
 
-myResults.assign(6,OMTFProcessor::resultsMap());
+
+  myResults.assign(OMTFConfiguration::nTestRefHits,OMTFProcessor::resultsMap());
 
   if ( !theConfig.exists("patternsXMLFiles") ) return;
   std::vector<std::string> fileNames = theConfig.getParameter<std::vector<std::string> >("patternsXMLFiles");
@@ -47,13 +48,17 @@ bool OMTFProcessor::configure(XMLConfigReader *aReader){
     if(!addGP(it)) return false;
   }
 
-  averagePatterns();
+  //averagePatterns();
 
   return true;
 }
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
 bool OMTFProcessor::addGP(GoldenPattern *aGP){
+
+  //if(aGP->key().thePtCode<14 && aGP->key().thePtCode%2==1) return true;
+  //if(aGP->key().thePtCode>18 && aGP->key().thePtCode%2==1) return true;
+  //if(aGP->key().thePtCode%2==1) return true;
 
   if(theGPs.find(aGP->key())!=theGPs.end()) return false;
   else theGPs[aGP->key()] = new GoldenPattern(*aGP);
@@ -75,13 +80,14 @@ void  OMTFProcessor::averagePatterns(){
     
     GoldenPattern::vector2D meanDistPhi1  = aGP1->getMeanDistPhi();
     GoldenPattern::vector2D meanDistPhi2  = aGP2->getMeanDistPhi();
-    
-    for(unsigned int iLayer=0;OMTFConfiguration::nLayers;++iLayer){
-      for(unsigned int iRefLayer=0;OMTFConfiguration::nRefLayers;++iRefLayer){
+
+    for(unsigned int iLayer=0;iLayer<OMTFConfiguration::nLayers;++iLayer){
+      for(unsigned int iRefLayer=0;iRefLayer<OMTFConfiguration::nRefLayers;++iRefLayer){
 	meanDistPhi1[iLayer][iRefLayer]+=meanDistPhi2[iLayer][iRefLayer];
 	meanDistPhi1[iLayer][iRefLayer]/=2;
       }
     }
+
     aGP1->setMeanDistPhi(meanDistPhi1);
     aGP2->setMeanDistPhi(meanDistPhi1);
   }
@@ -119,26 +125,29 @@ const std::vector<OMTFProcessor::resultsMap> & OMTFProcessor::processInput(unsig
 	GoldenPattern::layerResult aLayerResult = itGP.second->process1Layer1RefLayer(aRefHitDef.iRefLayer,iLayer,
 										      phiRef,
 										      restrictedLayerHits);
-	myResults[iRegion][itGP.second->key()].addResult(aRefHitDef.iRefLayer,iLayer,aLayerResult.first,phiRef);	 
+	myResults[OMTFConfiguration::nTestRefHits-nTestedRefHits-1][itGP.second->key()].addResult(aRefHitDef.iRefLayer,iLayer,aLayerResult.first,phiRef);	 
       }
     }
   }  
   //////////////////////////////////////
   ////////////////////////////////////// 
-  for(auto & itRegion: myResults) for(auto & itKey: itRegion) itKey.second.finalise();
+  for(auto & itRefHit: myResults) for(auto & itKey: itRefHit) itKey.second.finalise();
 
   //#ifndef NDEBUG
   std::ostringstream myStr;
   myStr<<"iProcessor: "<<iProcessor<<std::endl;
   myStr<<"Input: ------------"<<std::endl;
   myStr<<aInput<<std::endl;
-  /*
-  for(auto itRegion: myResults){ 
-    for(auto itKey: itRegion){      
+  
+  for(auto itRefHit: myResults){
+    myStr<<"--- Reference hit ---"<<std::endl;
+    for(auto itKey: itRefHit){      
+      if(itKey.second.empty()) continue;
       myStr<<itKey.first<<std::endl;
       myStr<<itKey.second<<std::endl;
     }
-  }*/
+    myStr<<"--------------------"<<std::endl;
+  }
   //LogDebug("OMTF processor")<<myStr.str();
   edm::LogInfo("OMTF processor")<<myStr.str();
   //#endif

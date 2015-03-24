@@ -4,9 +4,12 @@ import os
 import sys
 import commands
 
+verbose = False
+
 process.load("FWCore.MessageLogger.MessageLogger_cfi")
-'''
-process.MessageLogger = cms.Service("MessageLogger",
+
+if verbose: 
+    process.MessageLogger = cms.Service("MessageLogger",
        suppressInfo       = cms.untracked.vstring('AfterSource', 'PostModule'),
        destinations   = cms.untracked.vstring(
                                              'detailedInfo'
@@ -50,10 +53,11 @@ process.MessageLogger = cms.Service("MessageLogger",
                 Alignment  = cms.untracked.PSet (limit = cms.untracked.int32(0) ), 
                 GetManyWithoutRegistration  = cms.untracked.PSet (limit = cms.untracked.int32(0) ), 
                 GetByLabelWithoutRegistration  = cms.untracked.PSet (limit = cms.untracked.int32(0) ) 
-       ),
-)
-'''
-process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32(50000)
+                ),
+                                        )
+
+if not verbose:
+    process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32(50000)
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
 
 process.source = cms.Source(
@@ -67,13 +71,13 @@ process.source = cms.Source(
 ##Only for making the connections maps.
 process.source.fileNames =  cms.untracked.vstring()
 path = "/home/akalinow/scratch/CMS/OverlapTrackFinder/Crab/SingleMuFullEta/721_FullEta_v3/data/"
-command = "ls "+path+"/SingleMu_16_p_1*"
+command = "ls "+path+"/SingleMu_16_*_100_*"
 fileList = commands.getoutput(command).split("\n")
 process.source.fileNames =  cms.untracked.vstring()
 for aFile in fileList:
     process.source.fileNames.append('file:'+aFile)
 
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(100000))
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1))
 
 ###PostLS1 geometry used
 process.load('Configuration.Geometry.GeometryExtendedPostLS1Reco_cff')
@@ -92,8 +96,8 @@ process.load('L1Trigger.L1TMuon.L1TMuonTriggerPrimitiveProducer_cfi')
 process.omtfPatternMaker = cms.EDAnalyzer("OMTFPatternMaker",
                                       TriggerPrimitiveSrc = cms.InputTag('L1TMuonTriggerPrimitives'),
                                       g4SimTrackSrc = cms.InputTag('g4SimHits'),
-                                      makeGoldenPatterns = cms.bool(True),                                     
-                                      makeConnectionsMaps = cms.bool(False),                                      
+                                      makeGoldenPatterns = cms.bool(False),                                     
+                                      makeConnectionsMaps = cms.bool(True),                                      
                                       dropRPCPrimitives = cms.bool(False),                                    
                                       dropDTPrimitives = cms.bool(False),                                    
                                       dropCSCPrimitives = cms.bool(False),   

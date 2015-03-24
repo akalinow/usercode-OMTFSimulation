@@ -96,6 +96,7 @@ bool OMTFinputMaker::filterDigiQuality(const L1TMuon::TriggerPrimitive & aDigi) 
   switch (aDigi.subsystem()) {
   case L1TMuon::TriggerPrimitive::kDT: {
     if (aDigi.getDTData().bx!= 0 || aDigi.getDTData().BxCntCode!= 0 || aDigi.getDTData().Ts2TagCode!= 0 || aDigi.getDTData().qualityCode<4) return false;  
+    //if (aDigi.getDTData().bx!= 0 || aDigi.getDTData().BxCntCode!= 0 || aDigi.getDTData().Ts2TagCode!= 0 || aDigi.getDTData().qualityCode<2) return false;  
     break;
   }
   case L1TMuon::TriggerPrimitive::kCSC: {}

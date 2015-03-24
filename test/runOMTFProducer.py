@@ -6,7 +6,7 @@ import commands
 
 process.load("FWCore.MessageLogger.MessageLogger_cfi")
 
-verbose = False
+verbose = True
 
 if verbose:
     process.MessageLogger = cms.Service("MessageLogger",
@@ -76,7 +76,7 @@ process.source.fileNames =  cms.untracked.vstring()
 for aFile in fileList:
     process.source.fileNames.append('file:'+aFile)
 '''
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(1))
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(100))
 
 ###PostLS1 geometry used
 process.load('Configuration.Geometry.GeometryExtendedPostLS1Reco_cff')
@@ -89,7 +89,7 @@ process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:run2_mc', '')
 path = os.environ['CMSSW_BASE']+"/src/UserCode/OMTFSimulation/data/"
 path1 = "/home/akalinow/scratch/CMS/OverlapTrackFinder/Emulator/job_3_pat/"
 
-path = "/home/akalinow/OMTF/"
+#path = "/home/akalinow/OMTF/"
 
 patternsXMLFiles = cms.vstring()
 
@@ -97,8 +97,6 @@ for ipt in xrange(4,32):
             
     patternsXMLFiles.append(path1+"SingleMu_"+str(ipt)+"_p/GPs.xml")
     patternsXMLFiles.append(path1+"SingleMu_"+str(ipt)+"_m/GPs.xml")
-
-print patternsXMLFiles
 
 process.load('L1Trigger.L1TMuon.L1TMuonTriggerPrimitiveProducer_cfi')
 
@@ -112,9 +110,9 @@ process.omtfEmulator = cms.EDProducer("OMTFProducer",
                                       dropDTPrimitives = cms.bool(False),                                    
                                       dropCSCPrimitives = cms.bool(False),   
                                       omtf = cms.PSet(
-        configXMLFile = cms.string("hwToLogicLayer_721.xml"),
-        patternsXMLFiles = cms.vstring(path+"Patterns_ipt6_18.xml",path+"Patterns_ipt19_31.xml"),
-        #patternsXMLFiles = patternsXMLFiles        
+        configXMLFile = cms.string(path+"hwToLogicLayer_721_5760.xml"),
+        #patternsXMLFiles = cms.vstring(path+"GPs.xml"),
+        patternsXMLFiles = patternsXMLFiles        
         )
                                       )
 

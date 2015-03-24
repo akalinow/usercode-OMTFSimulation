@@ -21,6 +21,8 @@ class OMTFResult{
 
   const OMTFResult::vector1D & getRefPhis() const {return refPhi1D;}
 
+  const OMTFResult::vector1D & getHitsWord() const { return hitsBits;}
+
 
   void addResult(unsigned int iRefLayer,
 		 unsigned int iLayer,
@@ -50,6 +52,9 @@ class OMTFResult{
 
   ///Number of hits for each reference layer
   vector1D hits1D; 
+
+  ///Words representing nimber of hit layers for each reference layer
+  vector1D hitsBits;
 
 };
 

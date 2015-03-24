@@ -236,14 +236,13 @@ void OMTFProducer::produce(edm::Event& iEvent, const edm::EventSetup& evSetup){
     if(myOTFCandidatePlus.pt_packed()) myCands->push_back(myOTFCandidatePlus); 
     //if(myOTFCandidateMinus.pt_packed()) myCands->push_back(myOTFCandidateMinus); 
 
-    ///////////////DEBUG
-    /*
-    if(myOTFCandidatePlus.pt_packed()>20 && myOTFCandidatePlus.bx()%100>3){
+    ///////////////DEBUG    
+    if(false && (myOTFCandidatePlus.pt_packed()>20 && myOTFCandidatePlus.bx()%100>3)){
+      myOTFCandidatePlus.print();
       std::cout<<"pt OMTF: "<<myOTFCandidatePlus.pt_packed()<<std::endl;
       std::cout<<"ref layer OMTF: "<<myOTFCandidatePlus.bx()%1000<<std::endl;
       std::cout<<myShiftedInput<<std::endl;
-    }
-    */
+    }    
     ////////////////////
    
     ///Write to XML

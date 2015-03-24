@@ -163,6 +163,9 @@ unsigned int OMTFConfiguration::getRegionNumber(unsigned int iProcessor,
   }
 
   if(iRegion>5) iRegion = 99;
+
+  if(iRegion>4 || iRegion==0) iRegion = 99;////TEST
+
   return iRegion;
 }
 ///////////////////////////////////////////////

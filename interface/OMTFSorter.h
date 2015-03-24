@@ -38,8 +38,10 @@ class OMTFSorter{
 
   ///Find a candidate with best parameters for given GoldenPattern
   ///Sorting is made amongs candidates with different reference layers
-  ///The output tuple contains (nHitsMax, pdfValMax, refPhi, refLayer) 
-  std::tuple<unsigned int,unsigned int, int, int> sortSingleResult(const OMTFResult & aResult);
+  ///The output tuple contains (nHitsMax, pdfValMax, refPhi, refLayer, hitsWord)
+  ///hitsWord codes number of layers hit: hitsWord= sum 2**iLogicLayer, 
+  ///where sum runs over layers which were hit  
+  std::tuple<unsigned int,unsigned int, int, int, unsigned int> sortSingleResult(const OMTFResult & aResult);
 
 };
 

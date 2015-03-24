@@ -11,24 +11,27 @@
 
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
-std::tuple<unsigned int,unsigned int, int, int> OMTFSorter::sortSingleResult(const OMTFResult & aResult){
+std::tuple<unsigned int,unsigned int, int, int, unsigned int> OMTFSorter::sortSingleResult(const OMTFResult & aResult){
 
   OMTFResult::vector1D pdfValsVec = aResult.getSummaryVals();
   OMTFResult::vector1D nHitsVec = aResult.getSummaryHits();
   OMTFResult::vector1D refPhiVec = aResult.getRefPhis();
+  OMTFResult::vector1D hitsVec = aResult.getHitsWord();
 
   assert(pdfValsVec.size()==nHitsVec.size());
 
   unsigned int nHitsMax = 0;
   unsigned int pdfValMax = 0;
+  unsigned int hitsWord = 0;
   int refPhi = 1024;
   int refLayer = -1;
 
-  std::tuple<unsigned int,unsigned int, int, int>  sortedResult;
+  std::tuple<unsigned int,unsigned int, int, int, unsigned int>  sortedResult;
   std::get<0>(sortedResult) = nHitsMax;
   std::get<1>(sortedResult) = pdfValMax;
   std::get<2>(sortedResult) = refPhi;
   std::get<3>(sortedResult) = refLayer;
+  std::get<4>(sortedResult) = hitsWord;
 
   ///Find a result with biggest number of hits
   for(auto itHits: nHitsVec){
@@ -43,6 +46,7 @@ std::tuple<unsigned int,unsigned int, int, int> OMTFSorter::sortSingleResult(con
 	pdfValMax = pdfValsVec[ipdfVal]; 
 	refPhi = refPhiVec[ipdfVal]; 
 	refLayer = ipdfVal;
+	hitsWord = hitsVec[ipdfVal]; 
       }
     }
   }
@@ -51,6 +55,7 @@ std::tuple<unsigned int,unsigned int, int, int> OMTFSorter::sortSingleResult(con
   std::get<1>(sortedResult) = pdfValMax;
   std::get<2>(sortedResult) = refPhi;
   std::get<3>(sortedResult) = refLayer;
+  std::get<4>(sortedResult) = hitsWord;
   return sortedResult;
 }
 ///////////////////////////////////////////////////////
@@ -60,12 +65,13 @@ InternalObj OMTFSorter::sortRefHitResults(const OMTFProcessor::resultsMap & aRes
 
   unsigned int pdfValMax = 0;
   unsigned int nHitsMax = 0;  
+  unsigned int hitsWord = 0;
   int refPhi = 9999;
   int refLayer = -1;
   Key bestKey;
   for(auto itKey: aResultsMap){   
     //if(itKey.first.theCharge!=charge) continue;
-    std::tuple<unsigned int,unsigned int, int, int > val = sortSingleResult(itKey.second);
+    std::tuple<unsigned int,unsigned int, int, int, unsigned int > val = sortSingleResult(itKey.second);
     ///Accept only candidates with >2 hits
     if(std::get<0>(val)<3) continue;
     ///Accept candidates with good likelihood value
@@ -77,12 +83,14 @@ InternalObj OMTFSorter::sortRefHitResults(const OMTFProcessor::resultsMap & aRes
       pdfValMax = std::get<1>(val);
       refPhi = std::get<2>(val);
       refLayer = std::get<3>(val);
+      hitsWord = std::get<4>(val);
       bestKey = itKey.first;
     }
     else if(std::get<0>(val)==nHitsMax &&  std::get<1>(val)>pdfValMax){
       pdfValMax = std::get<1>(val);
       refPhi = std::get<2>(val);
       refLayer = std::get<3>(val);
+      hitsWord = std::get<4>(val);
       bestKey = itKey.first;
     }
   }  
@@ -93,6 +101,7 @@ InternalObj OMTFSorter::sortRefHitResults(const OMTFProcessor::resultsMap & aRes
   candidate.phi = refPhi;
   candidate.charge = bestKey.theCharge;
   candidate.q   = nHitsMax;
+  candidate.hits   = hitsWord;
   candidate.disc = pdfValMax;
   candidate.refLayer = refLayer;
 
@@ -186,7 +195,12 @@ L1MuRegionalCand OMTFSorter::sortProcessor(const std::vector<OMTFProcessor::resu
   candidate.setPhiValue(myCand.phi);
   candidate.setPtPacked(myCand.pt);
   //candidate.setQualityPacked(3);//FIX ME
-  candidate.setBx(1000*myCand.disc+100*myCand.refLayer+myCand.q);//FIX ME
+  //candidate.setBx(1000*myCand.disc+100*myCand.refLayer+myCand.q);//FIX ME
+
+  candidate.setBx(1E6*myCand.disc + myCand.hits);//FIX ME
+  //candidate.setEtaPacked(10*myCand.refLayer+myCand.q);
+  candidate.setEtaPacked(myCand.q);
+
   candidate.setChargeValue(myCand.charge);
 
   return candidate;

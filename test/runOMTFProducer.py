@@ -111,8 +111,8 @@ process.omtfEmulator = cms.EDProducer("OMTFProducer",
                                       dropCSCPrimitives = cms.bool(False),   
                                       omtf = cms.PSet(
         configXMLFile = cms.string(path+"hwToLogicLayer_721_5760.xml"),
-        #patternsXMLFiles = cms.vstring(path+"GPs.xml"),
-        patternsXMLFiles = patternsXMLFiles        
+        patternsXMLFiles = cms.vstring(path+"Patterns_ipt4_31_5760.xml"),
+        #patternsXMLFiles = patternsXMLFiles        
         )
                                       )
 

@@ -132,33 +132,22 @@ void OMTFProducer::produce(edm::Event& iEvent, const edm::EventSetup& evSetup){
     ///Results for each GP in each logic region of given processor
     const std::vector<OMTFProcessor::resultsMap> & myResults = myOMTF->processInput(iProcessor,myShiftedInput);
 
-    ///At the moment allow up to two, opposite charge, candidates per processor.    
-    //L1MuRegionalCand myOTFCandidatePlus = mySorter->sortProcessor(myResults,1);
-    //L1MuRegionalCand myOTFCandidateMinus = mySorter->sortProcessor(myResults,-1);
-    //At the moment allow one candidate pre processor ignoring its charge
-    L1MuRegionalCand myOTFCandidate = mySorter->sortProcessor(myResults,0);
+    //Retreive all candidates returned by sorter: upto 3 non empty ones with different phi or charge
+    std::vector<L1MuRegionalCand> myOTFCandidates;
+    mySorter->sortProcessor(myResults,myOTFCandidates);
 
     ////Switch from internal processor 10bit scale to global one
     int procOffset = OMTFConfiguration::globalPhiStart(iProcessor);
     if(procOffset<0) procOffset+=OMTFConfiguration::nPhiBins;
 
-    float phiValue; 
-    //phiValue = (myOTFCandidatePlus.phiValue()+OMTFConfiguration::globalPhiStart(iProcessor)+511)/OMTFConfiguration::nPhiBins*2*M_PI;
-    //if(phiValue>M_PI) phiValue-=2*M_PI;
-    //myOTFCandidatePlus.setPhiValue(phiValue);
-
-    //phiValue = (myOTFCandidateMinus.phiValue()+OMTFConfiguration::globalPhiStart(iProcessor)+511)/OMTFConfiguration::nPhiBins*2*M_PI;
-    //if(phiValue>M_PI) phiValue-=2*M_PI;
-    //myOTFCandidateMinus.setPhiValue(phiValue);
-
-    phiValue = (myOTFCandidate.phiValue()+OMTFConfiguration::globalPhiStart(iProcessor)+511)/OMTFConfiguration::nPhiBins*2*M_PI;
-    if(phiValue>M_PI) phiValue-=2*M_PI;
-    myOTFCandidate.setPhiValue(phiValue);
-
-    //////////////////
-    //if(myOTFCandidatePlus.pt_packed()) myCands->push_back(myOTFCandidatePlus); 
-    //if(myOTFCandidateMinus.pt_packed()) myCands->push_back(myOTFCandidateMinus); 
-    if(myOTFCandidate.pt_packed()) myCands->push_back(myOTFCandidate); 
+    for(unsigned int iCand=0; iCand<myOTFCandidates.size(); ++iCand){
+      // shift phi from processor to global coordinates
+      float phiValue = (myOTFCandidates[iCand].phiValue()+OMTFConfiguration::globalPhiStart(iProcessor)+511)/OMTFConfiguration::nPhiBins*2*M_PI;
+      if(phiValue>M_PI) phiValue-=2*M_PI;
+      myOTFCandidates[iCand].setPhiValue(phiValue);
+      // store candidate 
+      if(myOTFCandidates[iCand].pt_packed()) myCands->push_back(myOTFCandidates[iCand]); 
+    }
 
     ///Write to XML
     if(dumpResultToXML){
